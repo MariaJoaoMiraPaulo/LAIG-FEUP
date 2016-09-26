@@ -27,7 +27,8 @@ MySceneGraph.prototype.onXMLReady=function()
 	var rootElement = this.reader.xmlDoc.documentElement;
 
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parseGlobalsExample(rootElement);
+	//var error = this.parseGlobalsExample(rootElement);
+	var error = this.parseTags(rootElement);
 
 	if (error != null) {
 		this.onXMLError(error);
@@ -93,3 +94,11 @@ MySceneGraph.prototype.onXMLError=function (message) {
 	console.error("XML Loading Error: "+message);
 	this.loadedOk=false;
 };
+
+MySceneGraph.prototype.parseTags(rootElement){
+	this.parsePrimitives(rootElement.getElementsByTagName("primitives"));
+}
+
+MySceneGraph.prototype.parsePrimitives(rootElement){
+
+}
