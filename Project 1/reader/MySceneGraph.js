@@ -100,11 +100,12 @@ MySceneGraph.prototype.parsePrimitives(rootElement) {
     if (elems == null) {
         return "primitives element is missing.";
     }
-
-    var elems = rootElement.getElementsByTagName('primitive');
-    if (elems == null) {
-        return "It must have at least one primitive's block";
-    }
+		else{
+			var elems = rootElement.getElementsByTagName('primitive');
+			if (elems == null) {
+					return "It must have at least one primitive's block";
+			}
+		}
 
     var i;
     for (i = 0; i < elems.length; i++) {
