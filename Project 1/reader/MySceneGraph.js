@@ -8,6 +8,8 @@ function MySceneGraph(filename, scene) {
     // File reading
     this.reader = new CGFXMLreader();
 
+
+
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
      * After the file is read, the reader calls onXMLReady on this object.
@@ -90,26 +92,38 @@ MySceneGraph.prototype.parseGlobalsExample = function(rootElement) {
 MySceneGraph.prototype.onXMLError = function(message) {
     console.error("XML Loading Error: " + message);
     this.loadedOk = false;
-};§
-MySceneGraph.prototype.parseTags(rootElement) {
-    this.parsePrimitives(rootElement.getElementsByTagName("primitives"));
-}
+};
 
-MySceneGraph.prototype.parsePrimitives(rootElement) {
-    var elems = rootElement.getElementsByTagName('primitives');
-    if (elems == null) {
-        return "primitives element is missing.";
+
+MySceneGraph.prototype.parseTags = function(rootPrimitives) {
+    this.parsePrimitives(rootPrimitives.getElementsByTagName('primitives'));
+};
+
+MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
+  console.log("Ola0");
+    if( primitivesElems == null){
+        console.log("primitives element is missing.");
+        return;
     }
-		else{
-			var elems = rootElement.getElementsByTagName('primitive');
+  console.log("Ola1");
+  //  var elems = primitivesElems[0].getElementsByTagName('primitive');
+    var elems = primitivesElems[0].getElementsByTagName('primitive');
+  console.log("Ola2");
 			if (elems == null) {
-					return "It must have at least one primitive's block";
+					console.log("It must have at least one primitive's block");
+          return;
 			}
-		}
-
+  console.log("Ola3");
+    console.log("tamanho : "+ elems.length);
     var i;
     for (i = 0; i < elems.length; i++) {
         //it must have only one type od primitive
-
+        console.log("tamanho : "+ elems[i].tagName + "   " + elems[i].id +
+      "   "+ elems[i].getElementsByTagName('*').length);
+        /*  if( elems[i].getChildNodes().length > 1){
+          console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
+          return;
+        }*/
     }
-}
+
+};
