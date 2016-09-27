@@ -120,10 +120,12 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         //it must have only one type od primitive
         console.log("tamanho : "+ elems[i].tagName + "   " + elems[i].id +
       "   "+ elems[i].getElementsByTagName('*').length);
-        /*  if( elems[i].getChildNodes().length > 1){
+
+          if( elems[i].getElementsByTagName('*').length > 1){
           console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
           return;
-        }*/
+        }
+
     }
 
 };
