@@ -100,31 +100,48 @@ MySceneGraph.prototype.parseTags = function(rootPrimitives) {
 };
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
-  console.log("Ola0");
-    if( primitivesElems == null){
+    if (primitivesElems == null) {
         console.log("primitives element is missing.");
         return;
     }
-  console.log("Ola1");
-  //  var elems = primitivesElems[0].getElementsByTagName('primitive');
+
+    //  var elems = primitivesElems[0].getElementsByTagName('primitive');
     var elems = primitivesElems[0].getElementsByTagName('primitive');
-  console.log("Ola2");
-			if (elems == null) {
-					console.log("It must have at least one primitive's block");
-          return;
-			}
-  console.log("Ola3");
-    console.log("tamanho : "+ elems.length);
+
+    if (elems == null) {
+        console.log("It must have at least one primitive's block");
+        return;
+    }
+
+    console.log("tamanho : " + elems.length);
+
     var i;
     for (i = 0; i < elems.length; i++) {
-        //it must have only one type od primitive
-        console.log("tamanho : "+ elems[i].tagName + "   " + elems[i].id +
-      "   "+ elems[i].getElementsByTagName('*').length);
+        //it must have only one type of primitive
+        console.log("tamanho : " + elems[i].tagName + "   " + elems[i].id +
+            "   " + elems[i].getElementsByTagName('*').length);
 
-          if( elems[i].getElementsByTagName('*').length > 1){
-          console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
-          return;
+        if (elems[i].getElementsByTagName('*').length != 1) {
+            console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
+            return;
         }
+
+        var newElement = elems[i].getElementsByTagName('*')[0];
+        console.log("tagname: " + newElement.tagName);
+        switch (newElement.tagName) {
+            case 'rectangle':
+            console.log("Entrei");
+                this.rectangle = new Rectangle(this.scene,
+                this.reader.getFloat(newElement, 'x1'),
+                this.reader.getFloat(newElement, 'y1'),
+                this.reader.getFloat(newElement, 'x2'),
+                this.reader.getFloat(newElement, 'y2')
+              );
+                break;
+        }
+        //  this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill", "line", "point"]);
+        /*    this.quad = new Rectangle(this.scene,
+                this.reader.getFloat());*/
 
     }
 

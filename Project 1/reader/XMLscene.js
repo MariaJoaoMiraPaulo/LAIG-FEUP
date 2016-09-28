@@ -21,6 +21,7 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
+
 };
 
 XMLscene.prototype.initLights = function () {
@@ -76,6 +77,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
+    this.graph.rectangle.display();
 		this.lights[0].update();
     //render graph
 	};
