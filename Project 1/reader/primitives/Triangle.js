@@ -69,6 +69,11 @@ function Triangle(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
     this.v2=[x2,y2,z2];
     this.v3=[x3,y3,z3];
 
+    /*
+    this.v1=vec3.createFrom(x1, y1, z1);
+    this.v2=vec3.createFrom(x2, y2, z2);
+    this.v3=vec3.createFrom(x3, y3, z3);
+*/
     this.initBuffers();
 };
 
@@ -84,13 +89,15 @@ Triangle.prototype.initBuffers = function() {
     ]
 
     this.indices = [
-        2, 1, 0,
+        2, 0, 1,
     ];
 
-  /*  this.normals = [
+
+    //TODO normals
+/*
+   this.normals = [
         0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
+        0, 0, 1
     ];
 
 

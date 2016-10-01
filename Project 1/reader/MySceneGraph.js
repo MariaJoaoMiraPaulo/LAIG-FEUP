@@ -151,7 +151,14 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
               this.reader.getFloat(newElement, 'z3')
             );
               break;
-
+              case 'cylinder':
+              this.cylinder = new Cylinder(this.scene,
+              this.reader.getFloat(newElement, 'base'),
+              this.reader.getFloat(newElement, 'top'),
+              this.reader.getFloat(newElement, 'height'),
+              this.reader.getFloat(newElement, 'slices'),
+              this.reader.getFloat(newElement, 'stacks')
+            );
         }
         //  this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill", "line", "point"]);
         /*    this.quad = new Rectangle(this.scene,
