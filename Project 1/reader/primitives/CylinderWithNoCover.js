@@ -1,4 +1,4 @@
-function CylinderWithNoTop(scene, slices, stacks) {
+function CylinderWithNoCover(scene, slices, stacks) {
  	CGFobject.call(this,scene);
 
 	this.slices = slices;
@@ -7,10 +7,10 @@ function CylinderWithNoTop(scene, slices, stacks) {
  	this.initBuffers();
  };
 
- CylinderWithNoTop.prototype = Object.create(CGFobject.prototype);
- CylinderWithNoTop.prototype.constructor = CylinderWithNoTop;
+ CylinderWithNoCover.prototype = Object.create(CGFobject.prototype);
+ CylinderWithNoCover.prototype.constructor = CylinderWithNoCover;
 
- CylinderWithNoTop.prototype.initBuffers = function() {
+ CylinderWithNoCover.prototype.initBuffers = function() {
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
@@ -21,16 +21,19 @@ function CylinderWithNoTop(scene, slices, stacks) {
  	var xCoord =0;
  	var yCoord =0;
 	var ang=(2*Math.PI)/this.slices;
+  var zCoord = 0;
+  var zLength = 1/this.stacks;
 
 	for(i = 0; i <= this.stacks; i++) {
 		for(j = 0; j < this.slices; j++) {
-			this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),i);
+			this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),zCoord);
 			this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
 			this.texCoords.push(xCoord, yCoord);
 			xCoord += patchLengthx;
 		}
 		xCoord =0;
 		yCoord += patchLengthy;
+    zCoord += zLength;
 	}
 
 	for(i = 0; i < this.stacks; i++) {

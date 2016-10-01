@@ -4,8 +4,8 @@ function Cylinder(scene,base, top, height, slices, stacks) {
 	this.slices = slices;
 	this.stacks = stacks;
 	this.height=height;
-
-	this.cylinder = new CylinderWithNoTop(scene, slices, stacks);
+	console.log("height:"+ this.height);
+	this.cylinder = new CylinderWithNoCover(scene, slices, stacks);
 	this.top = new Circle(scene, slices);
 	this.bottom = new Circle(scene, slices);
 };
@@ -15,10 +15,13 @@ Cylinder.prototype.constructor=Cylinder;
 
 Cylinder.prototype.display = function() {
 
+this.scene.pushMatrix();
+	this.scene.scale(1,1,this.height);
 	this.cylinder.display();
+this.scene.popMatrix();
 
 	this.scene.pushMatrix();
-		this.scene.translate(0, 0, 1);
+		this.scene.translate(0, 0, this.height);
 		this.top.display();
 	this.scene.popMatrix();
 
