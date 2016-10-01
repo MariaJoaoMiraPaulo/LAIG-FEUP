@@ -138,6 +138,20 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.reader.getFloat(newElement, 'y2')
               );
                 break;
+              case 'triangle':
+              this.triangle = new Triangle(this.scene,
+              this.reader.getFloat(newElement, 'x1'),
+              this.reader.getFloat(newElement, 'y1'),
+              this.reader.getFloat(newElement, 'z1'),
+              this.reader.getFloat(newElement, 'x2'),
+              this.reader.getFloat(newElement, 'y2'),
+              this.reader.getFloat(newElement, 'z2'),
+              this.reader.getFloat(newElement, 'x3'),
+              this.reader.getFloat(newElement, 'y3'),
+              this.reader.getFloat(newElement, 'z3')
+            );
+              break;
+
         }
         //  this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill", "line", "point"]);
         /*    this.quad = new Rectangle(this.scene,
