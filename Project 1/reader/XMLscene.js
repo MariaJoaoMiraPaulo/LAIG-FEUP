@@ -77,9 +77,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-    //TODO
-    //Caso nao haja rectangulos...
-//  this.graph.rectangle.display();
+  //this.graph.rectangle.display();
   //this.graph.triangle.display();
   this.graph.cylinder.display();
 		this.lights[0].update();

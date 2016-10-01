@@ -93,13 +93,13 @@ Triangle.prototype.initBuffers = function() {
     ];
 
 
-    //TODO normals
-/*
-   this.normals = [
+    this.normals = [
+        0, 0, 1,
+        0, 0, 1,
         0, 0, 1,
         0, 0, 1
-    ];
 
+    ];
 
     this.texCoords = [
         this.minS, this.maxT,
@@ -107,7 +107,7 @@ Triangle.prototype.initBuffers = function() {
         this.maxS, this.maxT,
         this.maxS, this.minT
     ];
-*/
+
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };

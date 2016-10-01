@@ -126,8 +126,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             return;
         }
 
-        var newElement = elems[i].getElementsByTagName('*')[0];
-        console.log("tagname: " + newElement.tagName);
+        var newElement = elems[i].children[0];
         switch (newElement.tagName) {
             case 'rectangle':
             console.log("Entrei");
