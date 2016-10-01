@@ -130,35 +130,35 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         var newElement = elems[i].children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-            console.log("Entrei");
+                console.log("Entrei");
                 this.rectangle = new Rectangle(this.scene,
-                this.reader.getFloat(newElement, 'x1'),
-                this.reader.getFloat(newElement, 'y1'),
-                this.reader.getFloat(newElement, 'x2'),
-                this.reader.getFloat(newElement, 'y2')
-              );
+                    this.reader.getFloat(newElement, 'x1'),
+                    this.reader.getFloat(newElement, 'y1'),
+                    this.reader.getFloat(newElement, 'x2'),
+                    this.reader.getFloat(newElement, 'y2')
+                );
                 break;
-              case 'triangle':
-              this.triangle = new Triangle(this.scene,
-              this.reader.getFloat(newElement, 'x1'),
-              this.reader.getFloat(newElement, 'y1'),
-              this.reader.getFloat(newElement, 'z1'),
-              this.reader.getFloat(newElement, 'x2'),
-              this.reader.getFloat(newElement, 'y2'),
-              this.reader.getFloat(newElement, 'z2'),
-              this.reader.getFloat(newElement, 'x3'),
-              this.reader.getFloat(newElement, 'y3'),
-              this.reader.getFloat(newElement, 'z3')
-            );
-              break;
-              case 'cylinder':
-              this.cylinder = new Cylinder(this.scene,
-              this.reader.getFloat(newElement, 'base'),
-              this.reader.getFloat(newElement, 'top'),
-              this.reader.getFloat(newElement, 'height'),
-              this.reader.getFloat(newElement, 'slices'),
-              this.reader.getFloat(newElement, 'stacks')
-            );
+            case 'triangle':
+                this.triangle = new Triangle(this.scene,
+                    this.reader.getFloat(newElement, 'x1'),
+                    this.reader.getFloat(newElement, 'y1'),
+                    this.reader.getFloat(newElement, 'z1'),
+                    this.reader.getFloat(newElement, 'x2'),
+                    this.reader.getFloat(newElement, 'y2'),
+                    this.reader.getFloat(newElement, 'z2'),
+                    this.reader.getFloat(newElement, 'x3'),
+                    this.reader.getFloat(newElement, 'y3'),
+                    this.reader.getFloat(newElement, 'z3')
+                );
+                break;
+            case 'cylinder':
+                this.cylinder = new Cylinder(this.scene,
+                    this.reader.getFloat(newElement, 'base'),
+                    this.reader.getFloat(newElement, 'top'),
+                    this.reader.getFloat(newElement, 'height'),
+                    this.reader.getFloat(newElement, 'slices'),
+                    this.reader.getFloat(newElement, 'stacks')
+                );
         }
         //  this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill", "line", "point"]);
         /*    this.quad = new Rectangle(this.scene,
@@ -169,5 +169,30 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
 };
 
 MySceneGraph.prototype.parseLights = function(primitivesElems) {
+    if (primitivesElems == null) {
+        console.log("lights element is missing.");
+        return;
+    }
 
+    var numberChildren = primitivesElems[0].children.length;
+    if (numberChildren == 0) {
+        console.log("it must exists at least one block omni ou spot on lights.");
+        return;
+    }
+
+    var i;
+    for (i = 0; i < numberChildren; i++) {
+        var typeLight = primitivesElems[0].children[i].tagName;
+        switch (typeLight) {
+            case 'omni':
+                console.log("OMNI");
+                break;
+            case 'spot':
+              console.log("SPOT");
+                break;
+
+            default:
+
+        }
+    }
 };
