@@ -97,6 +97,7 @@ MySceneGraph.prototype.onXMLError = function(message) {
 
 MySceneGraph.prototype.parseTags = function(rootPrimitives) {
     this.parsePrimitives(rootPrimitives.getElementsByTagName('primitives'));
+    this.parseLights(rootPrimitives.getElementsByTagName('lights'));
 };
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
@@ -164,5 +165,9 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.reader.getFloat());*/
 
     }
+
+};
+
+MySceneGraph.prototype.parseLights = function(primitivesElems) {
 
 };
