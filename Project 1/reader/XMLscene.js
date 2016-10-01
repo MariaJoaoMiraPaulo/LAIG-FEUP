@@ -75,12 +75,12 @@ XMLscene.prototype.display = function () {
 	// it is important that things depending on the proper loading of the graph
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
-	if (this.graph.loadedOk)
-	{
-  //this.graph.rectangle.display();
-  //this.graph.triangle.display();
-  this.graph.cylinder.display();
+	if (this.graph.loadedOk){
+
 		this.lights[0].update();
     //render graph
+    for(var i=0; i<this.graph.primitives.length;i++){
+      this.graph.primitives[i].display();
+    }
 	};
 };

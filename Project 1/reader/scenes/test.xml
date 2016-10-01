@@ -118,7 +118,7 @@
 
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <primitive id="ss">
+        <primitive id="0">
 
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!--     rectangle, triangle, cylinder, sphere, torus -->
@@ -130,6 +130,9 @@
           <!--     <sphere radius="ff" slices="ii" stacks="ii" />
             <torus inner="ff" outer="ff" slices="ii" loops="ii" />-->
 
+        </primitive>
+        <primitive id="1">
+           <rectangle x1="1" y1="6" x2="0" y2="0" />
         </primitive>
 
     </primitives>

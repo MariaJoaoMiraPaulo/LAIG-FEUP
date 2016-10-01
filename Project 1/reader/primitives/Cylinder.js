@@ -4,7 +4,6 @@ function Cylinder(scene,base, top, height, slices, stacks) {
 	this.slices = slices;
 	this.stacks = stacks;
 	this.height=height;
-	console.log("height:"+ this.height);
 	this.cylinder = new CylinderWithNoCover(scene, slices, stacks);
 	this.top = new Circle(scene, slices);
 	this.bottom = new Circle(scene, slices);

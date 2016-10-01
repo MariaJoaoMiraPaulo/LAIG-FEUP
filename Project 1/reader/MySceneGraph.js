@@ -8,7 +8,7 @@ function MySceneGraph(filename, scene) {
     // File reading
     this.reader = new CGFXMLreader();
 
-
+    this.primitives = [];
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -95,10 +95,16 @@ MySceneGraph.prototype.onXMLError = function(message) {
 };
 
 
-MySceneGraph.prototype.parseTags = function(rootPrimitives) {
-    this.parsePrimitives(rootPrimitives.getElementsByTagName('primitives'));
-    this.parseLights(rootPrimitives.getElementsByTagName('lights'));
+MySceneGraph.prototype.parseTags = function(rootElement) {
+    this.parseRoot(rootElement.getElementsByTagName('scene'));
+    this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
+    this.parseLights(rootElement.getElementsByTagName('lights'));
 };
+
+MySceneGraph.prototype.parseRoot = function(sceneElements) {
+    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
+    this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
+}
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
     if (primitivesElems == null) {
@@ -114,14 +120,9 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         return;
     }
 
-    console.log("tamanho : " + elems.length);
-
     var i;
     for (i = 0; i < elems.length; i++) {
         //it must have only one type of primitive
-        console.log("tamanho : " + elems[i].tagName + "   " + elems[i].id +
-            "   " + elems[i].getElementsByTagName('*').length);
-
         if (elems[i].getElementsByTagName('*').length != 1) {
             console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
             return;
@@ -130,16 +131,15 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         var newElement = elems[i].children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-                console.log("Entrei");
-                this.rectangle = new Rectangle(this.scene,
+                this.primitives.push(new Rectangle(this.scene,
                     this.reader.getFloat(newElement, 'x1'),
                     this.reader.getFloat(newElement, 'y1'),
                     this.reader.getFloat(newElement, 'x2'),
                     this.reader.getFloat(newElement, 'y2')
-                );
+                ));
                 break;
             case 'triangle':
-                this.triangle = new Triangle(this.scene,
+                this.primitives.push(new Triangle(this.scene,
                     this.reader.getFloat(newElement, 'x1'),
                     this.reader.getFloat(newElement, 'y1'),
                     this.reader.getFloat(newElement, 'z1'),
@@ -149,20 +149,17 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                     this.reader.getFloat(newElement, 'x3'),
                     this.reader.getFloat(newElement, 'y3'),
                     this.reader.getFloat(newElement, 'z3')
-                );
+                ));
                 break;
             case 'cylinder':
-                this.cylinder = new Cylinder(this.scene,
+                this.primitives.push(new Cylinder(this.scene,
                     this.reader.getFloat(newElement, 'base'),
                     this.reader.getFloat(newElement, 'top'),
                     this.reader.getFloat(newElement, 'height'),
                     this.reader.getFloat(newElement, 'slices'),
                     this.reader.getFloat(newElement, 'stacks')
-                );
+                ));
         }
-        //  this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill", "line", "point"]);
-        /*    this.quad = new Rectangle(this.scene,
-                this.reader.getFloat());*/
 
     }
 
@@ -185,10 +182,8 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
         var typeLight = primitivesElems[0].children[i].tagName;
         switch (typeLight) {
             case 'omni':
-                console.log("OMNI");
                 break;
             case 'spot':
-              console.log("SPOT");
                 break;
 
             default:
