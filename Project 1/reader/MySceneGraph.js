@@ -97,33 +97,77 @@ MySceneGraph.prototype.onXMLError = function(message) {
 
 MySceneGraph.prototype.parseTags = function(rootPrimitives) {
     this.parsePrimitives(rootPrimitives.getElementsByTagName('primitives'));
+    this.parseLights(rootPrimitives.getElementsByTagName('lights'));
 };
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
-  console.log("Ola0");
-    if( primitivesElems == null){
+    if (primitivesElems == null) {
         console.log("primitives element is missing.");
         return;
     }
-  console.log("Ola1");
-  //  var elems = primitivesElems[0].getElementsByTagName('primitive');
+
+    //  var elems = primitivesElems[0].getElementsByTagName('primitive');
     var elems = primitivesElems[0].getElementsByTagName('primitive');
-  console.log("Ola2");
-			if (elems == null) {
-					console.log("It must have at least one primitive's block");
-          return;
-			}
-  console.log("Ola3");
-    console.log("tamanho : "+ elems.length);
+
+    if (elems == null) {
+        console.log("It must have at least one primitive's block");
+        return;
+    }
+
+    console.log("tamanho : " + elems.length);
+
     var i;
     for (i = 0; i < elems.length; i++) {
-        //it must have only one type od primitive
-        console.log("tamanho : "+ elems[i].tagName + "   " + elems[i].id +
-      "   "+ elems[i].getElementsByTagName('*').length);
-        /*  if( elems[i].getChildNodes().length > 1){
-          console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
-          return;
-        }*/
+        //it must have only one type of primitive
+        console.log("tamanho : " + elems[i].tagName + "   " + elems[i].id +
+            "   " + elems[i].getElementsByTagName('*').length);
+
+        if (elems[i].getElementsByTagName('*').length != 1) {
+            console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
+            return;
+        }
+
+        var newElement = elems[i].children[0];
+        switch (newElement.tagName) {
+            case 'rectangle':
+            console.log("Entrei");
+                this.rectangle = new Rectangle(this.scene,
+                this.reader.getFloat(newElement, 'x1'),
+                this.reader.getFloat(newElement, 'y1'),
+                this.reader.getFloat(newElement, 'x2'),
+                this.reader.getFloat(newElement, 'y2')
+              );
+                break;
+              case 'triangle':
+              this.triangle = new Triangle(this.scene,
+              this.reader.getFloat(newElement, 'x1'),
+              this.reader.getFloat(newElement, 'y1'),
+              this.reader.getFloat(newElement, 'z1'),
+              this.reader.getFloat(newElement, 'x2'),
+              this.reader.getFloat(newElement, 'y2'),
+              this.reader.getFloat(newElement, 'z2'),
+              this.reader.getFloat(newElement, 'x3'),
+              this.reader.getFloat(newElement, 'y3'),
+              this.reader.getFloat(newElement, 'z3')
+            );
+              break;
+              case 'cylinder':
+              this.cylinder = new Cylinder(this.scene,
+              this.reader.getFloat(newElement, 'base'),
+              this.reader.getFloat(newElement, 'top'),
+              this.reader.getFloat(newElement, 'height'),
+              this.reader.getFloat(newElement, 'slices'),
+              this.reader.getFloat(newElement, 'stacks')
+            );
+        }
+        //  this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill", "line", "point"]);
+        /*    this.quad = new Rectangle(this.scene,
+                this.reader.getFloat());*/
+
     }
+
+};
+
+MySceneGraph.prototype.parseLights = function(primitivesElems) {
 
 };
