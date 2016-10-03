@@ -2,13 +2,13 @@ class Lights {
     constructor(reader, elem) {
         this.reader = reader;
         this.elem = elem;
-        this.ambientElems = [];
+        this.ambientElems = {};
     }
     fillValues() {
-        this.ambientElems[0] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'r');
-        this.ambientElems[1] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'g');
-        this.ambientElems[2] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'b');
-        this.ambientElems[3] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'a');
+        this.ambientElems['r'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'r');
+        this.ambientElems['g'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'g');
+        this.ambientElems['b'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'b');
+        this.ambientElems['a'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'a');
         console.log(this.ambientElems);
     }
 
