@@ -9,7 +9,8 @@ function MySceneGraph(filename, scene) {
     this.reader = new CGFXMLreader();
 
     this.primitives = {};   //creating the hash table for primitives
-    this.lights = {};
+    this.lights = {};       //creating the hash table for lights
+    this.materials = {};    //creating the hash table for materials
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -100,6 +101,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
     this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
     this.parseLights(rootElement.getElementsByTagName('lights'));
+    this.parseMaterials(rootElement.getElementsByTagName('materials'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
@@ -142,9 +144,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'cylinder':
                 this.primitives[idPrimitive] = new Cylinder(this.scene,this.reader,newElement);
         }
-
     }
-
 };
 
 MySceneGraph.prototype.parseLights = function(primitivesElems) {
@@ -175,4 +175,29 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
         default:
       }
     }
+};
+
+MySceneGraph.prototype.parseMaterials = function(materialsElems) {
+
+    if (materialsElems.length == 0) {
+        this.onXMLError("Materials:: materials element is missing.");
+    }
+
+    var rootMaterial = materialsElems[0].children;
+    var numberChildren = rootMaterial.length;
+    console.log("number: " + numberChildren);
+
+    var elems = materialsElems[0].getElementsByTagName('material').length;
+
+    if (elems == 0 ) {
+        this.onXMLError("Material:: It must have at least one material's block");
+    }
+
+    for(let elem of rootMaterial){
+      console.log(elem);
+      var idMaterial = this.reader.getString(elem, 'id');
+      this.materials[idMaterial] = new Material(this.scene,this.reader,elem);
+    }
+
+
 };

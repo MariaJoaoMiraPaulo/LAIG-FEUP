@@ -91,11 +91,11 @@
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <material id="ss" >
-            <emission r="ff" g="ff" b="ff" a="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
-            <shininess value="ff" />
+            <emission r="00" g="00" b="00" a="00" />
+            <ambient r="11" g="11" b="11" a="11" />
+            <diffuse r="22" g="22" b="22" a="22" />
+            <specular r="33" g="33" b="33" a="33" />
+            <shininess value="2" />
         </material>
 
     </materials>
