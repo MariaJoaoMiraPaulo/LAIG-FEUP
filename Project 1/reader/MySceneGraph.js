@@ -137,26 +137,10 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.primitives[idPrimitive]  = new Rectangle(this.scene,this.reader,newElement);
                 break;
             case 'triangle':
-                this.primitives[idPrimitive] = new Triangle(this.scene,
-                    this.reader.getFloat(newElement, 'x1'),
-                    this.reader.getFloat(newElement, 'y1'),
-                    this.reader.getFloat(newElement, 'z1'),
-                    this.reader.getFloat(newElement, 'x2'),
-                    this.reader.getFloat(newElement, 'y2'),
-                    this.reader.getFloat(newElement, 'z2'),
-                    this.reader.getFloat(newElement, 'x3'),
-                    this.reader.getFloat(newElement, 'y3'),
-                    this.reader.getFloat(newElement, 'z3')
-                );
+                this.primitives[idPrimitive] = new Triangle(this.scene,this.reader,newElement);
                 break;
             case 'cylinder':
-                this.primitives[idPrimitive] = new Cylinder(this.scene,
-                    this.reader.getFloat(newElement, 'base'),
-                    this.reader.getFloat(newElement, 'top'),
-                    this.reader.getFloat(newElement, 'height'),
-                    this.reader.getFloat(newElement, 'slices'),
-                    this.reader.getFloat(newElement, 'stacks')
-                );
+                this.primitives[idPrimitive] = new Cylinder(this.scene,this.reader,newElement);
         }
 
     }
