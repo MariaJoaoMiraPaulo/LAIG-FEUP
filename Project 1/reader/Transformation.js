@@ -1,6 +1,5 @@
 class Transformation {
     constructor(scene, reader, element) {
-        console.log(element.children.length);
         this.scene = scene;
         this.reader = reader;
         this.element = element;
@@ -21,11 +20,14 @@ class Transformation {
                 case 'rotate':
                     this.rotate(elem);
                     break;
+                case 'scale':
+                    this.scale(elem);
+                    break;
                 default:
 
             }
         }
-
+        this.matrix = this.scene.getMatrix();
         this.scene.popMatrix();
     }
 
@@ -40,7 +42,8 @@ class Transformation {
 
     rotate(elem) {
         var axis = this.reader.getString(elem, 'axis');
-        var angle = this.reader.getFloat(elem, 'angle');
+        var angle = this.reader.getFloat(elem, 'angle'); //receive the angle in degrees
+        angle = (angle * Math.PI) / 180; //passes the angle to radians
 
         if (axis == 'x')
             this.scene.rotate(angle, 1, 0, 0);
@@ -48,7 +51,15 @@ class Transformation {
             this.scene.rotate(angle, 0, 1, 0);
         else if (axis == 'z')
             this.scene.rotate(angle, 0, 0, 1);
-      else console.error("transformations::incorrect axis");
+        else console.error("transformations::incorrect axis");
+    }
+
+    scale(elem) {
+        var x = this.reader.getFloat(elem, 'x');
+        var y = this.reader.getFloat(elem, 'y');
+        var z = this.reader.getFloat(elem, 'z');
+
+        this.scene.scale(x, y, z);
     }
 
 }

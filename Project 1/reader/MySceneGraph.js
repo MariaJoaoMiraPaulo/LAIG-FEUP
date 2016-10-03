@@ -201,6 +201,7 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
         this.onXMLError("transformations::it must exists at least one block transfrmation.");
     }
 
+    //reading all transfrmation tags
     for (let elem of elems) {
         if (elem.children.length == 0) {
             this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
@@ -212,6 +213,7 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
         }
 
         let transformation = new Transformation(this.scene, this.reader, elem);
+        this.transformations[elemId] = transformation.matrix;
     }
 
 };

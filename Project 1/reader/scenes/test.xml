@@ -107,8 +107,14 @@
            <!-- instrucoes a usar sem limite nem ordem -->
            <!-- deve existir pelo menos uma transformacao -->
            <translate x="4" y="4" z="4" />
-           <rotate axis="cc" angle="ff" />
-           <scale x="ff" y="ff" z="ff" />
+           <rotate axis="x" angle="30" />
+           <scale x="1" y="1" z="1" />
+        </transformation>
+
+        <transformation id="2">
+           <translate x="0" y="0" z="0" />
+           <rotate axis="x" angle="0" />
+           <scale x="0" y="0" z="0" />
         </transformation>
 
     </transformations>
