@@ -48,8 +48,8 @@
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="0" enabled="tt" >
-            <location x="111111" y="ff" z="ff" w="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <location x="111111" y="22" z="33" w="44" />
+            <ambient r="11" g="11" b="11" a="11" />
             <diffuse r="ff" g="ff" b="ff" a="ff" />
             <specular r="ff" g="ff" b="ff" a="ff" />
         </omni>
@@ -57,8 +57,8 @@
         <spot id="1" enabled="tt" angle="ff" exponent="ff">
             <!-- atencao, "target" e' diferente de "direction" -->
             <target x="ff" y="ff" z="ff" />
-            <location x="ff" y="ff" z="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <location x="01" y="02" z="03" />
+            <ambient r="11" g="11" b="11" a="11" />
             <diffuse r="ff" g="ff" b="ff" a="ff" />
             <specular r="ff" g="ff" b="ff" a="ff" />
         </spot>
