@@ -8,7 +8,8 @@ function MySceneGraph(filename, scene) {
     // File reading
     this.reader = new CGFXMLreader();
 
-    this.primitives = {};   //creating the hash table for primitives
+    this.primitives = {}; //creating the hash table for primitives id will be the keyword
+    this.transformations = {}; //creating the hash table for transformations id will be the keyword
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -99,6 +100,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
     this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
     this.parseLights(rootElement.getElementsByTagName('lights'));
+    this.parseTransformations(rootElement.getElementsByTagName('transformations'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
@@ -107,33 +109,30 @@ MySceneGraph.prototype.parseRoot = function(sceneElements) {
 }
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
-    if (primitivesElems == null) {
-        this.onXMLError("primitives element is missing.");
+    if (primitivesElems.length == 0) {
+        this.onXMLError("primitives::primitives element is missing.");
     }
 
-    //  var elems = primitivesElems[0].getElementsByTagName('primitive');
     var elems = primitivesElems[0].getElementsByTagName('primitive');
-
-    if (elems == null) {
-        this.onXMLError("It must have at least one primitive's block");
+    if (elems.length == 0) {
+        this.onXMLError("primitives::it must have at least one primitive block.");
     }
 
-    var i;
-    for (i = 0; i < elems.length; i++) {
+    for (let elem of elems) {
         //it must have only one type of primitive
-        if (elems[i].children.length != 1) {
-          this.onXMLError("It must have just one tag inside primitive tag, error on index " + i + ".");
+        if (elem.children.length != 1) {
+            this.onXMLError("primitives::it must have just one tag inside primitive tag.");
         }
 
-        var idPrimitive = this.reader.getString(elems[i], 'id');
-        if(typeof this.primitives[idPrimitive] != 'undefined'){
-          this.onXMLError("Already exists a primitive with that id");
+        var idPrimitive = this.reader.getString(elem, 'id');
+        if (typeof this.primitives[idPrimitive] != 'undefined') {
+            this.onXMLError("primitives::already exists a primitive with that id");
         }
 
-        var newElement = elems[i].children[0];
+        var newElement = elem.children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-                this.primitives[idPrimitive]  = new Rectangle(this.scene,
+                this.primitives[idPrimitive] = new Rectangle(this.scene,
                     this.reader.getFloat(newElement, 'x1'),
                     this.reader.getFloat(newElement, 'y1'),
                     this.reader.getFloat(newElement, 'x2'),
@@ -175,7 +174,7 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
     var numberChildren = primitivesElems[0].children.length;
     if (numberChildren == 0) {
         this.onXMLError("it must exists at least one block omni ou spot on lights.");
-        }
+    }
 
     var i;
     for (i = 0; i < numberChildren; i++) {
@@ -190,4 +189,30 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
 
         }
     }
+};
+
+MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
+    if (transformationsElems.length == 0) {
+        this.onXMLError("transformations:: element is missing.")
+    }
+
+    var elems = transformationsElems[0].getElementsByTagName('transformation');
+    if (elems.length == 0) {
+        this.onXMLError("transformations::it must exists at least one block transfrmation.");
+    }
+
+    for (let elem of elems) {
+        if (elem.children.length == 0) {
+            this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
+        }
+
+        var elemId = this.reader.getString(elem, 'id');
+        if (typeof this.transformations[elemId] != 'undefined') {
+            this.onXMLError("transformations::already exists a transformation with that id.");
+        }
+
+        let transformation = new Transformation(this.reader, elem);
+    }
+
+}
 };

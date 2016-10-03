@@ -107,8 +107,8 @@
            <!-- instrucoes a usar sem limite nem ordem -->
            <!-- deve existir pelo menos uma transformacao -->
            <translate x="ff" y="ff" z="ff" />
-           <rotate axis="cc" angle="ff" />
-           <scale x="ff" y="ff" z="ff" />
+      <!-- <rotate axis="cc" angle="ff" />
+           <scale x="ff" y="ff" z="ff" />-->
         </transformation>
 
     </transformations>
@@ -131,7 +131,7 @@
             <torus inner="ff" outer="ff" slices="ii" loops="ii" />-->
 
         </primitive>
-        <primitive id="0">
+        <primitive id="1">
            <rectangle x1="1" y1="6" x2="0" y2="0" />
         </primitive>
 
