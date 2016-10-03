@@ -211,8 +211,7 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
             this.onXMLError("transformations::already exists a transformation with that id.");
         }
 
-        let transformation = new Transformation(this.reader, elem);
+        let transformation = new Transformation(this.scene, this.reader, elem);
     }
 
-}
 };
