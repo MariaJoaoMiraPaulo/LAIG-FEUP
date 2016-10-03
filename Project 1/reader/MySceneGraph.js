@@ -190,11 +190,10 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
       var idLigth = this.reader.getString(elem, 'id');
       switch(elem.tagName){
         case 'omni':
-            console.log("scene"+this.reader);
-            this.lights[idLigth] = new Omni(this.reader,elem.getElementsByTagName('location'), 2, 3, 4);
+            this.lights[idLigth] = new Omni(this.reader,elem);
             break;
         case 'spot':
-            this.lights[idLigth] = new Spot(0, 1, 2, 3, 4);
+            this.lights[idLigth] = new Spot(this.reader,elem);
             break;
 
         default:

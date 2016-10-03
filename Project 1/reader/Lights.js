@@ -1,29 +1,21 @@
 class Lights {
-  constructor(reader, locationElem, ambient, diffuse, specular) {
+  constructor(reader, elem) {
     this.reader = reader;
-    this.locationElem = locationElem;
-    this.ambient = ambient;
-    this.diffuse = diffuse;
-    this.specular = specular;
-
-  //  console.log("Lights:"+this.reader);
-  //  console.log(this.locationElem);
-  //  console.log(this.reader.getFloat(this.locationElem[0],'x'));
-
+    this.elem = elem;
   }
 }
 
 class Omni extends Lights {
-  constructor(reader, location, ambient, diffuse, specular) {
-    super(reader, location, ambient, diffuse, specular);
+  constructor(reader, elem) {
+    super(reader, elem);
     console.log("omni constructor");
+    console.log(this.reader.getFloat(elem.getElementsByTagName('location')[0],'x'));
   }
 }
 
 class Spot extends Lights{
-  constructor(reader, target,location, ambient, diffuse, specular) {
-    super(reader, location, ambient, diffuse, specular);
-    this.target=target;
+  constructor(reader, elem) {
+    super(reader, elem);
     console.log("spot constructor");
   }
 }
