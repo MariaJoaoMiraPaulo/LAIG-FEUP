@@ -79,8 +79,8 @@ XMLscene.prototype.display = function () {
 
 		this.lights[0].update();
     //render graph
-    for(var i=0; i<this.graph.primitives.length;i++){
-      this.graph.primitives[i].display();
+    for(key in this.graph.primitives){
+      this.graph.primitives[key].display();
     }
 	};
 };

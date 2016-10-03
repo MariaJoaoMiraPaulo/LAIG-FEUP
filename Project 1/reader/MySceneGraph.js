@@ -8,7 +8,7 @@ function MySceneGraph(filename, scene) {
     // File reading
     this.reader = new CGFXMLreader();
 
-    this.primitives = [];
+    this.primitives = {};   //creating the hash table for primitives
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -108,38 +108,40 @@ MySceneGraph.prototype.parseRoot = function(sceneElements) {
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
     if (primitivesElems == null) {
-        console.log("primitives element is missing.");
-        return;
+        this.onXMLError("primitives element is missing.");
     }
 
     //  var elems = primitivesElems[0].getElementsByTagName('primitive');
     var elems = primitivesElems[0].getElementsByTagName('primitive');
 
     if (elems == null) {
-        console.log("It must have at least one primitive's block");
-        return;
+        this.onXMLError("It must have at least one primitive's block");
     }
 
     var i;
     for (i = 0; i < elems.length; i++) {
         //it must have only one type of primitive
-        if (elems[i].getElementsByTagName('*').length != 1) {
-            console.log("It must have just one tag inside primitive tag, error on index " + i + ".");
-            return;
+        if (elems[i].children.length != 1) {
+          this.onXMLError("It must have just one tag inside primitive tag, error on index " + i + ".");
+        }
+
+        var idPrimitive = this.reader.getString(elems[i], 'id');
+        if(typeof this.primitives[idPrimitive] != 'undefined'){
+          this.onXMLError("Already exists a primitive with that id");
         }
 
         var newElement = elems[i].children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-                this.primitives.push(new Rectangle(this.scene,
+                this.primitives[idPrimitive]  = new Rectangle(this.scene,
                     this.reader.getFloat(newElement, 'x1'),
                     this.reader.getFloat(newElement, 'y1'),
                     this.reader.getFloat(newElement, 'x2'),
                     this.reader.getFloat(newElement, 'y2')
-                ));
+                );
                 break;
             case 'triangle':
-                this.primitives.push(new Triangle(this.scene,
+                this.primitives[idPrimitive] = new Triangle(this.scene,
                     this.reader.getFloat(newElement, 'x1'),
                     this.reader.getFloat(newElement, 'y1'),
                     this.reader.getFloat(newElement, 'z1'),
@@ -149,16 +151,16 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                     this.reader.getFloat(newElement, 'x3'),
                     this.reader.getFloat(newElement, 'y3'),
                     this.reader.getFloat(newElement, 'z3')
-                ));
+                );
                 break;
             case 'cylinder':
-                this.primitives.push(new Cylinder(this.scene,
+                this.primitives[idPrimitive] = new Cylinder(this.scene,
                     this.reader.getFloat(newElement, 'base'),
                     this.reader.getFloat(newElement, 'top'),
                     this.reader.getFloat(newElement, 'height'),
                     this.reader.getFloat(newElement, 'slices'),
                     this.reader.getFloat(newElement, 'stacks')
-                ));
+                );
         }
 
     }
@@ -167,15 +169,13 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
 
 MySceneGraph.prototype.parseLights = function(primitivesElems) {
     if (primitivesElems == null) {
-        console.log("lights element is missing.");
-        return;
+        this.onXMLError("lights element is missing.");
     }
 
     var numberChildren = primitivesElems[0].children.length;
     if (numberChildren == 0) {
-        console.log("it must exists at least one block omni ou spot on lights.");
-        return;
-    }
+        this.onXMLError("it must exists at least one block omni ou spot on lights.");
+        }
 
     var i;
     for (i = 0; i < numberChildren; i++) {
