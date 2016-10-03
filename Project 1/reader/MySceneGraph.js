@@ -9,6 +9,7 @@ function MySceneGraph(filename, scene) {
     this.reader = new CGFXMLreader();
 
     this.primitives = {};   //creating the hash table for primitives
+    this.lights = {};
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -168,26 +169,35 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
 };
 
 MySceneGraph.prototype.parseLights = function(primitivesElems) {
-    if (primitivesElems == null) {
-        this.onXMLError("lights element is missing.");
+
+    if (primitivesElems.length == 0) {
+        this.onXMLError("Lights:: lights element is missing.");
     }
 
-    var numberChildren = primitivesElems[0].children.length;
-    if (numberChildren == 0) {
-        this.onXMLError("it must exists at least one block omni ou spot on lights.");
-        }
+    var rootLights = primitivesElems[0].children;
+    var numberChildren = rootLights.length;
 
-    var i;
-    for (i = 0; i < numberChildren; i++) {
-        var typeLight = primitivesElems[0].children[i].tagName;
-        switch (typeLight) {
-            case 'omni':
-                break;
-            case 'spot':
-                break;
+    var omniElems = primitivesElems[0].getElementsByTagName('omni');
+    var spotElems = primitivesElems[0].getElementsByTagName('spot');
+    console.log(omniElems.length);
+    console.log(spotElems.length);
 
-            default:
 
-        }
+    if( (omniElems.length + spotElems.length) == 0)
+      this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
+
+    for(let elem of rootLights){
+      var idLigth = this.reader.getString(elem, 'id');
+      switch(elem.tagName){
+        case 'omni':
+            console.log("scene"+this.reader);
+            this.lights[idLigth] = new Omni(this.reader,elem.getElementsByTagName('location'), 2, 3, 4);
+            break;
+        case 'spot':
+            this.lights[idLigth] = new Spot(0, 1, 2, 3, 4);
+            break;
+
+        default:
+      }
     }
 };
