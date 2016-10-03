@@ -5,10 +5,10 @@ class Lights {
         this.ambientElems = [];
     }
     fillValues() {
-        this.ambientElems.push({"r" : this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0], 'r') });
-        this.ambientElems.push({"g" : this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0], 'g') });
-        this.ambientElems.push({"b" : this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0], 'b') });
-        this.ambientElems.push({"a" : this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0], 'a') });
+        this.ambientElems[0] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'r');
+        this.ambientElems[1] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'g');
+        this.ambientElems[2] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'b');
+        this.ambientElems[3] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'a');
         console.log(this.ambientElems);
     }
 
