@@ -1,30 +1,13 @@
-function Rectangle(scene, x1, y1, x2, y2) {
+function Rectangle(scene, reader, newElement) {
     CGFobject.call(this, scene);
 
-    if (typeof x1 == 'undefined') {
-        this.x1 = 0.5;
-    } else {
-        this.x1 = x1;
-    }
-
-    if (typeof y1 == 'undefined') {
-        this.y1 = 0.5;
-    } else {
-        this.y1 = y1;
-    }
-
-    if (typeof x2 == 'undefined') {
-        this.x2 = -0.5;
-    } else {
-        this.x2 = x2;
-    }
-
-    if (typeof y2 == 'undefined') {
-        this.y2 = -0.5;
-    } else {
-        this.y2 = y2;
-    }
-
+    this.reader = reader;
+    this.newElement = newElement;
+    this.values = {};
+    this.values['x1'] = this.reader.getFloat(this.newElement, 'x1');
+    this.values['y1'] = this.reader.getFloat(this.newElement, 'y1');
+    this.values['x2'] = this.reader.getFloat(this.newElement, 'x2');
+    this.values['y2'] = this.reader.getFloat(this.newElement, 'y2');
     this.minS = 0;
     this.maxS = 1;
     this.minT = 0;
@@ -39,10 +22,10 @@ Rectangle.prototype.constructor = Rectangle;
 Rectangle.prototype.initBuffers = function() {
 
     this.vertices = [
-        this.x2, this.y2, 0,
-        this.x2, this.y1, 0,
-        this.x1, this.y2, 0,
-        this.x1, this.y1, 0
+        this.values['x2'], this.values['y2'], 0,
+        this.values['x2'], this.values['y1'], 0,
+        this.values['x1'], this.values['y2'], 0,
+        this.values['x1'], this.values['y1'], 0
     ]
 
     this.indices = [

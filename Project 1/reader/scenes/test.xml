@@ -62,6 +62,8 @@
             <diffuse r="22" g="22" b="22" a="22" />
             <specular r="33" g="33" b="33" a="33" />
         </spot>
+
+
     </lights>
 
 
@@ -115,11 +117,9 @@
 
 
     <primitives>
-
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <primitive id="0">
-
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!--     rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente como-->
@@ -129,8 +129,8 @@
         <cylinder base="2" top="2" height="4" slices="26" stacks="4" />
           <!--     <sphere radius="ff" slices="ii" stacks="ii" />
             <torus inner="ff" outer="ff" slices="ii" loops="ii" />-->
-
         </primitive>
+
         <primitive id="1">
            <rectangle x1="1" y1="6" x2="0" y2="0" />
         </primitive>

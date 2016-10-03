@@ -134,12 +134,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         var newElement = elems[i].children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-                this.primitives[idPrimitive]  = new Rectangle(this.scene,
-                    this.reader.getFloat(newElement, 'x1'),
-                    this.reader.getFloat(newElement, 'y1'),
-                    this.reader.getFloat(newElement, 'x2'),
-                    this.reader.getFloat(newElement, 'y2')
-                );
+                this.primitives[idPrimitive]  = new Rectangle(this.scene,this.reader,newElement);
                 break;
             case 'triangle':
                 this.primitives[idPrimitive] = new Triangle(this.scene,
@@ -179,9 +174,6 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
 
     var omniElems = primitivesElems[0].getElementsByTagName('omni');
     var spotElems = primitivesElems[0].getElementsByTagName('spot');
-    console.log(omniElems.length);
-    console.log(spotElems.length);
-
 
     if( (omniElems.length + spotElems.length) == 0)
       this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
