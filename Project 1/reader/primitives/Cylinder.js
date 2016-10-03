@@ -1,12 +1,18 @@
-function Cylinder(scene,base, top, height, slices, stacks) {
+function Cylinder(scene, reader, newElement) {
 	CGFobject.call(this,scene);
 	this.scene = scene;
-	this.slices = slices;
-	this.stacks = stacks;
-	this.height=height;
-	this.cylinder = new CylinderWithNoCover(scene, slices, stacks);
-	this.top = new Circle(scene, slices);
-	this.bottom = new Circle(scene, slices);
+	this.reader = reader;
+	this.newElement = newElement;
+
+	this.base = this.reader.getFloat(this.newElement,'base');
+	this.top = this.reader.getFloat(this.newElement,'top');
+	this.height = this.reader.getFloat(this.newElement,'height');
+	this.slices = this.reader.getFloat(this.newElement,'slices');
+	this.stacks = this.reader.getFloat(this.newElement,'stacks');
+
+	this.cylinder = new CylinderWithNoCover(this.scene, this.slices, this.stacks);
+	this.top = new Circle(this.scene, this.slices);
+	this.bottom = new Circle(this.scene, this.slices);
 };
 
 Cylinder.prototype = Object.create(CGFobject.prototype);
