@@ -238,6 +238,14 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
     }
 };
 
-MySceneGraph.prototype.parseIllumination = function(transformationsElems) {
-  
+MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
+  this.background['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'r');
+  this.background['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'g');
+  this.background['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'b');
+  this.background['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'a');
+
+  this.ambient['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'r');
+  this.ambient['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'g');
+  this.ambient['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'b');
+  this.ambient['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'a');
 };
