@@ -107,6 +107,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseTransformations(rootElement.getElementsByTagName('transformations'));
     this.parseMaterials(rootElement.getElementsByTagName('materials'));
     this.parseIllumination(rootElement.getElementsByTagName('illumination'));
+    this.parseTextures(rootElement.getElementsByTagName('textures'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
@@ -248,4 +249,32 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
   this.ambient['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'g');
   this.ambient['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'b');
   this.ambient['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'a');
+};
+
+
+MySceneGraph.prototype.parseTextures = function(texturesElems) {
+/*    if (transformationsElems.length == 0) {
+        this.onXMLError("transformations:: element is missing.")
+    }
+
+    var elems = transformationsElems[0].getElementsByTagName('transformation');
+    if (elems.length == 0) {
+        this.onXMLError("transformations::it must exists at least one block transfrmation.");
+    }
+
+    //reading all transfrmation tags
+    for (let elem of elems) {
+        if (elem.children.length == 0) {
+            this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
+        }
+
+        var elemId = this.reader.getString(elem, 'id');
+        if (typeof this.transformations[elemId] != 'undefined') {
+            this.onXMLError("transformations::already exists a transformation with that id.");
+        }
+
+        let transformation = new Transformation(this.scene, this.reader, elem);
+        this.transformations[elemId] = transformation.matrix;
+    }
+    */
 };
