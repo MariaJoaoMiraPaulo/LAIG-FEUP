@@ -194,7 +194,6 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
 
     var rootMaterial = materialsElems[0].children;
     var numberChildren = rootMaterial.length;
-    console.log("number: " + numberChildren);
 
     var elems = materialsElems[0].getElementsByTagName('material').length;
 
@@ -264,7 +263,6 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
     }
     var rootTexture = texturesElems[0].children;
     var numberChildren = rootTexture.length;
-    console.log("number textures: " + numberChildren);
 
    for (let elem of rootTexture) {
         var idTexture = this.reader.getString(elem, 'id');

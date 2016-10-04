@@ -7,7 +7,7 @@ class Lights {
         this.specularElems = {};
         this.locationElems = {};
         this.targetElems = {};
-        var enabled; 
+        var enabled;
         var angle;
         var exponent;
     }
@@ -35,14 +35,8 @@ class Lights {
 class Omni extends Lights {
     constructor(reader, elem) {
         super(reader, elem);
-        console.log("omni constructor");
         super.fillValues();
         this.fillSpecificValues();
-        console.log(this.locationElems);
-        console.log(this.ambientElems);
-        console.log(this.diffuseElems);
-        console.log(this.specularElems);
-        console.log("enabled " +this.enabled );
 
     }
     fillSpecificValues(){
@@ -59,17 +53,8 @@ class Omni extends Lights {
 class Spot extends Lights {
     constructor(reader, elem) {
         super(reader, elem);
-        console.log("spot constructor");
         super.fillValues();
         this.fillSpecificValues();
-        console.log(this.targetElems);
-        console.log(this.locationElems);
-        console.log(this.ambientElems);
-        console.log(this.diffuseElems);
-        console.log(this.specularElems);
-        console.log("enabled " +this.enabled );
-        console.log("angle " +this.angle );
-        console.log("exponent " +this.exponent );
 
     }
 
