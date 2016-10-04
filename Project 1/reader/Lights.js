@@ -7,6 +7,9 @@ class Lights {
         this.specularElems = {};
         this.locationElems = {};
         this.targetElems = {};
+        var enabled; 
+        var angle;
+        var exponent;
     }
     fillValues() {
         this.ambientElems['r'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'r');
@@ -24,6 +27,7 @@ class Lights {
         this.specularElems['b'] = this.reader.getFloat(this.elem.getElementsByTagName('specular')[0],'b');
         this.specularElems['a'] = this.reader.getFloat(this.elem.getElementsByTagName('specular')[0],'a');
 
+        this.enabled = this.reader.getFloat(this.elem,'enabled');
     }
 
 }
@@ -38,6 +42,7 @@ class Omni extends Lights {
         console.log(this.ambientElems);
         console.log(this.diffuseElems);
         console.log(this.specularElems);
+        console.log("enabled " +this.enabled );
 
     }
     fillSpecificValues(){
@@ -45,6 +50,9 @@ class Omni extends Lights {
       this.locationElems['y'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'y');
       this.locationElems['z'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'z');
       this.locationElems['w'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'w');
+
+      this.angle = null;
+      this.exponent = null;
     }
 }
 
@@ -59,6 +67,9 @@ class Spot extends Lights {
         console.log(this.ambientElems);
         console.log(this.diffuseElems);
         console.log(this.specularElems);
+        console.log("enabled " +this.enabled );
+        console.log("angle " +this.angle );
+        console.log("exponent " +this.exponent );
 
     }
 
@@ -70,5 +81,9 @@ class Spot extends Lights {
       this.locationElems['x'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'x');
       this.locationElems['y'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'y');
       this.locationElems['z'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'z');
+
+      this.angle = this.reader.getFloat(this.elem,'angle');
+      this.exponent = this.reader.getFloat(this.elem,'exponent');
+
     }
 }
