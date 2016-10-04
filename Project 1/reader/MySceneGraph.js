@@ -8,11 +8,20 @@ function MySceneGraph(filename, scene) {
     // File reading
     this.reader = new CGFXMLreader();
 
+<<<<<<< HEAD
     this.primitives = {};   //creating the hash table for primitives
     this.lights = {};       //creating the hash table for lights
     this.materials = {};    //creating the hash table for materials
     this.background = {};
     this.ambient = {};
+=======
+    this.transformations = {}; //creating the hash table for transformations id will be the keyword
+    this.primitives = {}; //creating the hash table for primitives
+    this.lights = {}; //creating the hash table for lights
+    this.materials = {}; //creating the hash table for materials
+
+
+>>>>>>> master
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
      * After the file is read, the reader calls onXMLReady on this object.
@@ -102,6 +111,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
     this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
     this.parseLights(rootElement.getElementsByTagName('lights'));
+    this.parseTransformations(rootElement.getElementsByTagName('transformations'));
     this.parseMaterials(rootElement.getElementsByTagName('materials'));
     this.parseIllumination(rootElement.getElementsByTagName('illumination'));
 };
@@ -112,39 +122,36 @@ MySceneGraph.prototype.parseRoot = function(sceneElements) {
 }
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
-    if (primitivesElems == null) {
-        this.onXMLError("primitives element is missing.");
+    if (primitivesElems.length == 0) {
+        this.onXMLError("primitives::primitives element is missing.");
     }
 
-    //  var elems = primitivesElems[0].getElementsByTagName('primitive');
     var elems = primitivesElems[0].getElementsByTagName('primitive');
-
-    if (elems == null) {
-        this.onXMLError("It must have at least one primitive's block");
+    if (elems.length == 0) {
+        this.onXMLError("primitives::it must have at least one primitive block.");
     }
 
-    var i;
-    for (i = 0; i < elems.length; i++) {
+    for (let elem of elems) {
         //it must have only one type of primitive
-        if (elems[i].children.length != 1) {
-          this.onXMLError("It must have just one tag inside primitive tag, error on index " + i + ".");
+        if (elem.children.length != 1) {
+            this.onXMLError("primitives::it must have just one tag inside primitive tag.");
         }
 
-        var idPrimitive = this.reader.getString(elems[i], 'id');
-        if(typeof this.primitives[idPrimitive] != 'undefined'){
-          this.onXMLError("Already exists a primitive with that id");
+        var idPrimitive = this.reader.getString(elem, 'id');
+        if (typeof this.primitives[idPrimitive] != 'undefined') {
+            this.onXMLError("primitives::already exists a primitive with that id");
         }
 
-        var newElement = elems[i].children[0];
+        var newElement = elem.children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-                this.primitives[idPrimitive]  = new Rectangle(this.scene,this.reader,newElement);
+                this.primitives[idPrimitive] = new Rectangle(this.scene, this.reader, newElement);
                 break;
             case 'triangle':
-                this.primitives[idPrimitive] = new Triangle(this.scene,this.reader,newElement);
+                this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);
                 break;
             case 'cylinder':
-                this.primitives[idPrimitive] = new Cylinder(this.scene,this.reader,newElement);
+                this.primitives[idPrimitive] = new Cylinder(this.scene, this.reader, newElement);
         }
     }
 };
@@ -161,21 +168,26 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
     var omniElems = primitivesElems[0].getElementsByTagName('omni');
     var spotElems = primitivesElems[0].getElementsByTagName('spot');
 
-    if( (omniElems.length + spotElems.length) == 0)
-      this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
+    if ((omniElems.length + spotElems.length) == 0)
+        this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
 
-    for(let elem of rootLights){
-      var idLigth = this.reader.getString(elem, 'id');
-      switch(elem.tagName){
-        case 'omni':
-            this.lights[idLigth] = new Omni(this.reader,elem);
-            break;
-        case 'spot':
-            this.lights[idLigth] = new Spot(this.reader,elem);
-            break;
+    for (let elem of rootLights) {
+        var idLigth = this.reader.getString(elem, 'id');
 
-        default:
-      }
+        if (typeof this.lights[idLigth] != 'undefined') {
+            this.onXMLError("lights::already exists a light with that id");
+        }
+
+        switch (elem.tagName) {
+            case 'omni':
+                this.lights[idLigth] = new Omni(this.reader, elem);
+                break;
+            case 'spot':
+                this.lights[idLigth] = new Spot(this.reader, elem);
+                break;
+
+            default:
+        }
     }
 };
 
@@ -191,19 +203,46 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
 
     var elems = materialsElems[0].getElementsByTagName('material').length;
 
-    if (elems == 0 ) {
+    if (elems == 0) {
         this.onXMLError("Material:: It must have at least one material's block");
     }
 
-    for(let elem of rootMaterial){
-      console.log(elem);
-      var idMaterial = this.reader.getString(elem, 'id');
-      this.materials[idMaterial] = new Material(this.scene,this.reader,elem);
+    for (let elem of rootMaterial) {
+        var idMaterial = this.reader.getString(elem, 'id');
+        if (typeof this.lights[idMaterial] != 'undefined') {
+            this.onXMLError("material::already exists a material with that id");
+        }
+        this.materials[idMaterial] = new Material(this.scene, this.reader, elem);
     }
 
 
 };
 
-MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
+
+MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
+    if (transformationsElems.length == 0) {
+        this.onXMLError("transformations:: element is missing.")
+    }
+
+    var elems = transformationsElems[0].getElementsByTagName('transformation');
+    if (elems.length == 0) {
+        this.onXMLError("transformations::it must exists at least one block transfrmation.");
+    }
+
+    //reading all transfrmation tags
+    for (let elem of elems) {
+        if (elem.children.length == 0) {
+            this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
+        }
+
+        var elemId = this.reader.getString(elem, 'id');
+        if (typeof this.transformations[elemId] != 'undefined') {
+            this.onXMLError("transformations::already exists a transformation with that id.");
+        }
+
+        let transformation = new Transformation(this.scene, this.reader, elem);
+        this.transformations[elemId] = transformation.matrix;
+    }
+
 
 };
