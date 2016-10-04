@@ -11,7 +11,8 @@ function MySceneGraph(filename, scene) {
     this.primitives = {};   //creating the hash table for primitives
     this.lights = {};       //creating the hash table for lights
     this.materials = {};    //creating the hash table for materials
-
+    this.background = {};
+    this.ambient = {};
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
      * After the file is read, the reader calls onXMLReady on this object.
@@ -102,6 +103,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
     this.parseLights(rootElement.getElementsByTagName('lights'));
     this.parseMaterials(rootElement.getElementsByTagName('materials'));
+    this.parseIllumination(rootElement.getElementsByTagName('illumination'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
@@ -199,5 +201,9 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
       this.materials[idMaterial] = new Material(this.scene,this.reader,elem);
     }
 
+
+};
+
+MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
 };
