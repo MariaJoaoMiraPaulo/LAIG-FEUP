@@ -47,21 +47,23 @@
 
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="ss" enabled="tt" >
-            <location x="ff" y="ff" z="ff" w="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
+        <omni id="0" enabled="tt" >
+            <location x="00" y="00" z="00" w="00" />
+            <ambient r="11" g="11" b="11" a="11" />
+            <diffuse r="22" g="22" b="22" a="22" />
+            <specular r="33" g="33" b="33" a="33" />
         </omni>
 
-        <spot id="ss" enabled="tt" angle="ff" exponent="ff">
+        <spot id="1" enabled="tt" angle="ff" exponent="ff">
             <!-- atencao, "target" e' diferente de "direction" -->
-            <target x="ff" y="ff" z="ff" />
-            <location x="ff" y="ff" z="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
+            <target x="44" y="44" z="44" />
+            <location x="00" y="00" z="00" />
+            <ambient r="11" g="11" b="11" a="11" />
+            <diffuse r="22" g="22" b="22" a="22" />
+            <specular r="33" g="33" b="33" a="33" />
         </spot>
+
+
     </lights>
 
 
@@ -89,11 +91,11 @@
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <material id="ss" >
-            <emission r="ff" g="ff" b="ff" a="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
-            <shininess value="ff" />
+            <emission r="00" g="00" b="00" a="00" />
+            <ambient r="11" g="11" b="11" a="11" />
+            <diffuse r="22" g="22" b="22" a="22" />
+            <specular r="33" g="33" b="33" a="33" />
+            <shininess value="2" />
         </material>
 
     </materials>
@@ -121,22 +123,20 @@
 
 
     <primitives>
-
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <primitive id="0">
-
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!--     rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente como-->
             <!-- em OpenGL/GLUT; o cilindro deve adicionalmente ter tampas -->
             <!--  <rectangle x1="1" y1="1" x2="0" y2="0" /> -->
-    <!--  <triangle x1="1" y1="1" z1="1" x2="1" y2="0" z2="0" x3="2" y3="2" z3="2" />-->
+      <!--<triangle x1="1" y1="1" z1="1" x2="1" y2="0" z2="0" x3="2" y3="2" z3="2" /> -->
         <cylinder base="2" top="2" height="4" slices="26" stacks="4" />
           <!--     <sphere radius="ff" slices="ii" stacks="ii" />
             <torus inner="ff" outer="ff" slices="ii" loops="ii" />-->
-
         </primitive>
+
         <primitive id="1">
            <rectangle x1="1" y1="6" x2="0" y2="0" />
         </primitive>
