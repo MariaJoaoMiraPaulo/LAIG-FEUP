@@ -12,6 +12,7 @@ function MySceneGraph(filename, scene) {
     this.primitives = {}; //creating the hash table for primitives
     this.lights = {}; //creating the hash table for lights
     this.materials = {}; //creating the hash table for materials
+    this.textures = {};
     this.background = {};
     this.ambient = {};
 
@@ -253,28 +254,24 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
 
 MySceneGraph.prototype.parseTextures = function(texturesElems) {
-/*    if (transformationsElems.length == 0) {
-        this.onXMLError("transformations:: element is missing.")
+  if (texturesElems.length == 0) {
+        this.onXMLError("textures:: element is missing.")
     }
 
-    var elems = transformationsElems[0].getElementsByTagName('transformation');
+    var elems = texturesElems[0].getElementsByTagName('texture');
     if (elems.length == 0) {
-        this.onXMLError("transformations::it must exists at least one block transfrmation.");
+        this.onXMLError("textures::it must exists at least one block texture.");
+    }
+    var rootTexture = texturesElems[0].children;
+    var numberChildren = rootTexture.length;
+    console.log("number textures: " + numberChildren);
+
+   for (let elem of rootTexture) {
+        var idTexture = this.reader.getString(elem, 'id');
+        if (typeof this.lights[idTexture] != 'undefined') {
+            this.onXMLError("texture::already exists a texture with that id");
+        }
+        this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
     }
 
-    //reading all transfrmation tags
-    for (let elem of elems) {
-        if (elem.children.length == 0) {
-            this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
-        }
-
-        var elemId = this.reader.getString(elem, 'id');
-        if (typeof this.transformations[elemId] != 'undefined') {
-            this.onXMLError("transformations::already exists a transformation with that id.");
-        }
-
-        let transformation = new Transformation(this.scene, this.reader, elem);
-        this.transformations[elemId] = transformation.matrix;
-    }
-    */
 };

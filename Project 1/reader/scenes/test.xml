@@ -82,7 +82,7 @@
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
         <texture id="ss" file="ss" length_s="ff" length_t="ff" />
-
+        
     </textures>
 
 
