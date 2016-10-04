@@ -9,9 +9,9 @@ function MySceneGraph(filename, scene) {
     this.reader = new CGFXMLreader();
 
     this.transformations = {}; //creating the hash table for transformations id will be the keyword
-    this.primitives = {};   //creating the hash table for primitives
-    this.lights = {};       //creating the hash table for lights
-    this.materials = {};    //creating the hash table for materials
+    this.primitives = {}; //creating the hash table for primitives
+    this.lights = {}; //creating the hash table for lights
+    this.materials = {}; //creating the hash table for materials
 
 
     /*
@@ -136,13 +136,13 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         var newElement = elem.children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-                this.primitives[idPrimitive]  = new Rectangle(this.scene,this.reader,newElement);
+                this.primitives[idPrimitive] = new Rectangle(this.scene, this.reader, newElement);
                 break;
             case 'triangle':
-                this.primitives[idPrimitive] = new Triangle(this.scene,this.reader,newElement);
+                this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);
                 break;
             case 'cylinder':
-                this.primitives[idPrimitive] = new Cylinder(this.scene,this.reader,newElement);
+                this.primitives[idPrimitive] = new Cylinder(this.scene, this.reader, newElement);
         }
     }
 };
@@ -159,21 +159,26 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
     var omniElems = primitivesElems[0].getElementsByTagName('omni');
     var spotElems = primitivesElems[0].getElementsByTagName('spot');
 
-    if( (omniElems.length + spotElems.length) == 0)
-      this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
+    if ((omniElems.length + spotElems.length) == 0)
+        this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
 
-    for(let elem of rootLights){
-      var idLigth = this.reader.getString(elem, 'id');
-      switch(elem.tagName){
-        case 'omni':
-            this.lights[idLigth] = new Omni(this.reader,elem);
-            break;
-        case 'spot':
-            this.lights[idLigth] = new Spot(this.reader,elem);
-            break;
+    for (let elem of rootLights) {
+        var idLigth = this.reader.getString(elem, 'id');
 
-        default:
-      }
+        if (typeof this.lights[idLigth] != 'undefined') {
+            this.onXMLError("lights::already exists a light with that id");
+        }
+
+        switch (elem.tagName) {
+            case 'omni':
+                this.lights[idLigth] = new Omni(this.reader, elem);
+                break;
+            case 'spot':
+                this.lights[idLigth] = new Spot(this.reader, elem);
+                break;
+
+            default:
+        }
     }
 };
 
@@ -189,14 +194,16 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
 
     var elems = materialsElems[0].getElementsByTagName('material').length;
 
-    if (elems == 0 ) {
+    if (elems == 0) {
         this.onXMLError("Material:: It must have at least one material's block");
     }
 
-    for(let elem of rootMaterial){
-      console.log(elem);
-      var idMaterial = this.reader.getString(elem, 'id');
-      this.materials[idMaterial] = new Material(this.scene,this.reader,elem);
+    for (let elem of rootMaterial) {
+        var idMaterial = this.reader.getString(elem, 'id');
+        if (typeof this.lights[idMaterial] != 'undefined') {
+            this.onXMLError("material::already exists a material with that id");
+        }
+        this.materials[idMaterial] = new Material(this.scene, this.reader, elem);
     }
 
 
