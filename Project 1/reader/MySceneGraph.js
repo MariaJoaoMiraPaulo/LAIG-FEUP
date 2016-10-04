@@ -8,20 +8,13 @@ function MySceneGraph(filename, scene) {
     // File reading
     this.reader = new CGFXMLreader();
 
-<<<<<<< HEAD
-    this.primitives = {};   //creating the hash table for primitives
-    this.lights = {};       //creating the hash table for lights
-    this.materials = {};    //creating the hash table for materials
-    this.background = {};
-    this.ambient = {};
-=======
     this.transformations = {}; //creating the hash table for transformations id will be the keyword
     this.primitives = {}; //creating the hash table for primitives
     this.lights = {}; //creating the hash table for lights
     this.materials = {}; //creating the hash table for materials
+    this.background = {};
+    this.ambient = {};
 
-
->>>>>>> master
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
      * After the file is read, the reader calls onXMLReady on this object.
@@ -243,6 +236,8 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
         let transformation = new Transformation(this.scene, this.reader, elem);
         this.transformations[elemId] = transformation.matrix;
     }
+};
 
-
+MySceneGraph.prototype.parseIllumination = function(transformationsElems) {
+  
 };
