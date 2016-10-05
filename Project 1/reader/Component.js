@@ -56,12 +56,14 @@ class Component {
   }
 
   display(){
-
-    console.log(this.primitivesRefIds);
+    this.scene.pushMatrix();
+    this.scene.multMatrix(this.transformationMatrix);
 
     for(let id of this.primitivesRefIds){
       this.graph.primitives[id].display();
     }
+
+    this.scene.popMatrix();
   }
 
 }

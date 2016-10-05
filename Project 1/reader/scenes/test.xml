@@ -159,8 +159,8 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="1" y="1" z="1" />
-                <rotate axis="x" angle="90" />
+                <translate x="1" y="0" z="0" />
+                <!--<rotate axis="x" angle="90" />-->
                 <scale x="1" y="1" z="1" />
             </transformation>
 
