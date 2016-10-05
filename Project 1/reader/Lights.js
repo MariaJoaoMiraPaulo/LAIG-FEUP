@@ -7,9 +7,9 @@ class Lights {
         this.specularElems = {};
         this.locationElems = {};
         this.targetElems = {};
-        var enabled;
-        var angle;
-        var exponent;
+        this.enabled;
+        this.angle;
+        this.exponent;
     }
     fillValues() {
         this.ambientElems['r'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'r');

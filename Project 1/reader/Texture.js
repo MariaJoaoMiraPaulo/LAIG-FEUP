@@ -3,9 +3,9 @@ class Texture {
         this.scene = scene;
         this.reader = reader;
         this.newElement = newElement;
-        var file;
-        var length_s;
-        var length_t;
+        this.file;
+        this.length_s;
+        this.length_t;
         this.fillValues();
     }
 

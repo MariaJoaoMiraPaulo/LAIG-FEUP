@@ -20,7 +20,7 @@
     <scene root="ss" axis_length="ff" />
 
 
-    <views default="ss" >
+    <views default="vista1" >
 
         <!-- declaracao obrigatoria de pelo menos uma vista; -->
         <!-- se varias vistas declaradas, o default e' a -->
@@ -82,7 +82,7 @@
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
         <texture id="ss" file="ss" length_s="ff" length_t="ff" />
-        
+
     </textures>
 
 

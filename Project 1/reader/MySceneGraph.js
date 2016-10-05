@@ -15,6 +15,7 @@ function MySceneGraph(filename, scene) {
     this.textures = {};
     this.background = {};
     this.ambient = {};
+    this.defaultView;
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -109,6 +110,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseMaterials(rootElement.getElementsByTagName('materials'));
     this.parseIllumination(rootElement.getElementsByTagName('illumination'));
     this.parseTextures(rootElement.getElementsByTagName('textures'));
+    this.parseViews(rootElement.getElementsByTagName('views'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
@@ -271,5 +273,32 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
         }
         this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
     }
+
+};
+
+MySceneGraph.prototype.parseViews = function(viewsElems) {
+
+  if(viewsElems.length == 0){
+    this.onXMLError("views:: element is missing.")
+  }
+
+  console.log("Default :" + this.reader.getString(viewsElems[0],'default'));
+
+  var elems = viewsElems[0].getElementsByTagName('perspective');
+  if(elems.length == 0){
+    this.onXMLError("views:: it must exists at least one block perspective");
+  }
+
+  var rootView = viewsElems[0].children;
+  var numberChildren = rootView.length;
+
+  for (let elem of rootView) {
+       var idPerspective = this.reader.getString(elem, 'id');
+      /* if (typeof this.lights[idTexture] != 'undefined') {
+           this.onXMLError("texture::already exists a texture with that id");
+       }
+       this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
+       */
+   }
 
 };
