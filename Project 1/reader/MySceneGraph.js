@@ -15,6 +15,7 @@ function MySceneGraph(filename, scene) {
     this.textures = {};
     this.background = {};
     this.ambient = {};
+    this.perspectives = {};
     this.defaultView;
 
     /*
@@ -282,7 +283,7 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
     this.onXMLError("views:: element is missing.")
   }
 
-  console.log("Default :" + this.reader.getString(viewsElems[0],'default'));
+  this.defaultView = this.reader.getString(viewsElems[0],'default');
 
   var elems = viewsElems[0].getElementsByTagName('perspective');
   if(elems.length == 0){
@@ -294,6 +295,8 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 
   for (let elem of rootView) {
        var idPerspective = this.reader.getString(elem, 'id');
+       console.log(idPerspective);
+       this.getCoordinates(elem.getElementsByTagName('from'));
       /* if (typeof this.lights[idTexture] != 'undefined') {
            this.onXMLError("texture::already exists a texture with that id");
        }
@@ -302,3 +305,9 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
    }
 
 };
+
+MySceneGraph.prototype.getCoordinates = function(elem){
+  var x = this.reader.getFloat(elem[0],'x');
+  var y = this.reader.getFloat(elem[0],'y');
+  var z = this.reader.getFloat(elem[0],'z');
+}
