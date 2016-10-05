@@ -16,6 +16,7 @@ function MySceneGraph(filename, scene) {
     this.background = {};
     this.ambient = {};
     this.defaultView;
+    this.components = {};
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -111,10 +112,11 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseIllumination(rootElement.getElementsByTagName('illumination'));
     this.parseTextures(rootElement.getElementsByTagName('textures'));
     this.parseViews(rootElement.getElementsByTagName('views'));
+    this.parseComponents(rootElement.getElementsByTagName('components'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
-    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
+//    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
 }
 
@@ -302,3 +304,15 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
    }
 
 };
+
+MySceneGraph.prototype.parseComponents = function(componentElems) {
+
+//TODO é preciso ter pelo menos um bloco componente?
+
+    for(let component of componentElems[0].children){
+      let id = this.reader.getFloat(component, 'id');
+
+      this.components[id] = new Component(this.scene, this.reader, component, this);
+    }
+
+}
