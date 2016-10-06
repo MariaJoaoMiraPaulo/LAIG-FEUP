@@ -296,7 +296,11 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
   for (let elem of rootView) {
        var idPerspective = this.reader.getString(elem, 'id');
        console.log(idPerspective);
-       this.getCoordinates(elem.getElementsByTagName('from'));
+       var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from'));
+       var coordsTo = this.getCoordinates(elem.getElementsByTagName('to'));
+
+       //TODO: preencher hashTable de prespectives. Ainda a decidir como organizar array com conteudo.
+
       /* if (typeof this.lights[idTexture] != 'undefined') {
            this.onXMLError("texture::already exists a texture with that id");
        }
@@ -307,7 +311,21 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 };
 
 MySceneGraph.prototype.getCoordinates = function(elem){
-  var x = this.reader.getFloat(elem[0],'x');
-  var y = this.reader.getFloat(elem[0],'y');
-  var z = this.reader.getFloat(elem[0],'z');
+  var myArray = [];
+
+  var xCoord = this.reader.getFloat(elem[0],'x');
+  var yCoord = this.reader.getFloat(elem[0],'y');
+  var zCoord = this.reader.getFloat(elem[0],'z');
+
+  //TODO: Qual é a melhor maneira? array de objectos ou array. A diferença é aceder com Array[0] ou Array[0].x
+  myArray.push({ x: xCoord, y: yCoord, z:zCoord });
+  console.log("Array de coordenadas:" + myArray[0].x + " " + myArray[0].y + " " + myArray[0].z);
+/*
+  var coords = [];
+  coords.push(xCoord);
+  coords.push(yCoord);
+  coords.push(zCoord);
+  console.log("Array de coordenadas 2:" + coords[0]);
+*/
+  return myArray;
 }
