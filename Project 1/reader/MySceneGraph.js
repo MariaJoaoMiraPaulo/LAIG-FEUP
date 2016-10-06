@@ -15,6 +15,7 @@ function MySceneGraph(filename, scene) {
     this.textures = {};
     this.background = {};
     this.ambient = {};
+    this.perspectives = {};
     this.defaultView;
     this.components = {};
 
@@ -116,7 +117,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
-//    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
+    //    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
 }
 
@@ -244,20 +245,20 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
 };
 
 MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
-  this.background['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'r');
-  this.background['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'g');
-  this.background['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'b');
-  this.background['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'a');
+    this.background['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'r');
+    this.background['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'g');
+    this.background['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'b');
+    this.background['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'a');
 
-  this.ambient['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'r');
-  this.ambient['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'g');
-  this.ambient['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'b');
-  this.ambient['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'a');
+    this.ambient['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'r');
+    this.ambient['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'g');
+    this.ambient['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'b');
+    this.ambient['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'a');
 };
 
 
 MySceneGraph.prototype.parseTextures = function(texturesElems) {
-  if (texturesElems.length == 0) {
+    if (texturesElems.length == 0) {
         this.onXMLError("textures:: element is missing.")
     }
 
@@ -268,7 +269,7 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
     var rootTexture = texturesElems[0].children;
     var numberChildren = rootTexture.length;
 
-   for (let elem of rootTexture) {
+    for (let elem of rootTexture) {
         var idTexture = this.reader.getString(elem, 'id');
         if (typeof this.lights[idTexture] != 'undefined') {
             this.onXMLError("texture::already exists a texture with that id");
@@ -280,39 +281,47 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
 
 MySceneGraph.prototype.parseViews = function(viewsElems) {
 
-  if(viewsElems.length == 0){
-    this.onXMLError("views:: element is missing.")
-  }
+    if (viewsElems.length == 0) {
+        this.onXMLError("views:: element is missing.")
+    }
 
-  console.log("Default :" + this.reader.getString(viewsElems[0],'default'));
+    this.defaultView = this.reader.getString(viewsElems[0], 'default');
 
-  var elems = viewsElems[0].getElementsByTagName('perspective');
-  if(elems.length == 0){
-    this.onXMLError("views:: it must exists at least one block perspective");
-  }
+    var elems = viewsElems[0].getElementsByTagName('perspective');
+    if (elems.length == 0) {
+        this.onXMLError("views:: it must exists at least one block perspective");
+    }
 
-  var rootView = viewsElems[0].children;
-  var numberChildren = rootView.length;
+    var rootView = viewsElems[0].children;
+    var numberChildren = rootView.length;
 
-  for (let elem of rootView) {
-       var idPerspective = this.reader.getString(elem, 'id');
-      /* if (typeof this.lights[idTexture] != 'undefined') {
-           this.onXMLError("texture::already exists a texture with that id");
-       }
-       this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
-       */
-   }
+    for (let elem of rootView) {
+        var idPerspective = this.reader.getString(elem, 'id');
+        console.log(idPerspective);
+        this.getCoordinates(elem.getElementsByTagName('from'));
+        /* if (typeof this.lights[idTexture] != 'undefined') {
+             this.onXMLError("texture::already exists a texture with that id");
+         }
+         this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
+         */
+    }
 
 };
 
 MySceneGraph.prototype.parseComponents = function(componentElems) {
 
-//TODO é preciso ter pelo menos um bloco componente?
+    //TODO é preciso ter pelo menos um bloco componente?
 
-    for(let component of componentElems[0].children){
-      let id = this.reader.getFloat(component, 'id');
+    for (let component of componentElems[0].children) {
+        let id = this.reader.getFloat(component, 'id');
 
-      this.components[id] = new Component(this.scene, this.reader, component, this);
+        this.components[id] = new Component(this.scene, this.reader, component, this);
     }
+}
 
+
+MySceneGraph.prototype.getCoordinates = function(elem) {
+    var x = this.reader.getFloat(elem[0], 'x');
+    var y = this.reader.getFloat(elem[0], 'y');
+    var z = this.reader.getFloat(elem[0], 'z');
 }
