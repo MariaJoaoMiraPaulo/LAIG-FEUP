@@ -27,9 +27,9 @@
         <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
         <!-- a vista muda para a proxima da lista; da -->
         <!-- ultima vista da lista volta 'a primeira -->
-        <perspective id="1" near="ff" far="ff" angle="ff">
+        <perspective id="vista1" near="ff" far="ff" angle="ff">
             <from x="11" y="12" z="13" />
-            <to x="ff" y="ff" z="ff" />
+            <to x="22" y="23" z="24" />
         </perspective>
 
     </views>

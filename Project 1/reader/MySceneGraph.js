@@ -206,11 +206,13 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
 
     for (let elem of rootMaterial) {
         var idMaterial = this.reader.getString(elem, 'id');
-        if (typeof this.lights[idMaterial] != 'undefined') {
+        if (typeof this.materials[idMaterial] != 'undefined') {
             this.onXMLError("material::already exists a material with that id");
         }
         this.materials[idMaterial] = new Material(this.scene, this.reader, elem);
     }
+
+    console.log("MATERIAIS: "+ this.materials);
 
 
 };
@@ -269,10 +271,10 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
 
    for (let elem of rootTexture) {
         var idTexture = this.reader.getString(elem, 'id');
-        if (typeof this.lights[idTexture] != 'undefined') {
+        if (typeof this.textures[idTexture] != 'undefined') {
             this.onXMLError("texture::already exists a texture with that id");
         }
-        this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
+        this.textures[idTexture] = new Texture(this.scene, this.reader, elem);
     }
 
 };
@@ -295,17 +297,10 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 
   for (let elem of rootView) {
        var idPerspective = this.reader.getString(elem, 'id');
-       console.log(idPerspective);
+       console.log("id:" + idPerspective);
        var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from'));
        var coordsTo = this.getCoordinates(elem.getElementsByTagName('to'));
 
-       //TODO: preencher hashTable de prespectives. Ainda a decidir como organizar array com conteudo.
-
-      /* if (typeof this.lights[idTexture] != 'undefined') {
-           this.onXMLError("texture::already exists a texture with that id");
-       }
-       this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
-       */
    }
 
 };
@@ -317,15 +312,7 @@ MySceneGraph.prototype.getCoordinates = function(elem){
   var yCoord = this.reader.getFloat(elem[0],'y');
   var zCoord = this.reader.getFloat(elem[0],'z');
 
-  //TODO: Qual é a melhor maneira? array de objectos ou array. A diferença é aceder com Array[0] ou Array[0].x
   myArray.push({ x: xCoord, y: yCoord, z:zCoord });
   console.log("Array de coordenadas:" + myArray[0].x + " " + myArray[0].y + " " + myArray[0].z);
-/*
-  var coords = [];
-  coords.push(xCoord);
-  coords.push(yCoord);
-  coords.push(zCoord);
-  console.log("Array de coordenadas 2:" + coords[0]);
-*/
   return myArray;
 }
