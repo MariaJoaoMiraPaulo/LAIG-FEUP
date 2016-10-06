@@ -211,10 +211,6 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
         }
         this.materials[idMaterial] = new Material(this.scene, this.reader, elem);
     }
-
-    console.log("MATERIAIS: "+ this.materials);
-
-
 };
 
 
@@ -300,7 +296,12 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
        console.log("id:" + idPerspective);
        var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from'));
        var coordsTo = this.getCoordinates(elem.getElementsByTagName('to'));
-
+       if (typeof this.perspectives[idPerspective] != 'undefined') {
+           this.onXMLError("views:: already exists a texture with that id");
+       }
+       //TODO: Array de objectos?
+       var newArray = [coordsFrom, coordsTo];
+       console.log(newArray);
    }
 
 };
