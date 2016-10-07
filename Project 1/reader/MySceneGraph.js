@@ -17,6 +17,7 @@ function MySceneGraph(filename, scene) {
     this.ambient = {};
     this.perspectives = {};
     this.defaultView;
+    this.components = {};
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -112,10 +113,11 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseIllumination(rootElement.getElementsByTagName('illumination'));
     this.parseTextures(rootElement.getElementsByTagName('textures'));
     this.parseViews(rootElement.getElementsByTagName('views'));
+    this.parseComponents(rootElement.getElementsByTagName('components'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
-    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
+    //    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
 }
 
@@ -241,15 +243,15 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
 };
 
 MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
-  this.background['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'r');
-  this.background['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'g');
-  this.background['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'b');
-  this.background['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0],'a');
+    this.background['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'r');
+    this.background['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'g');
+    this.background['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'b');
+    this.background['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'a');
 
-  this.ambient['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'r');
-  this.ambient['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'g');
-  this.ambient['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'b');
-  this.ambient['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0],'a');
+    this.ambient['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'r');
+    this.ambient['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'g');
+    this.ambient['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'b');
+    this.ambient['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'a');
 };
 
 
@@ -305,6 +307,18 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
    }
 
 };
+
+MySceneGraph.prototype.parseComponents = function(componentElems) {
+
+    //TODO é preciso ter pelo menos um bloco componente?
+
+    for (let component of componentElems[0].children) {
+        let id = this.reader.getFloat(component, 'id');
+
+        this.components[id] = new Component(this.scene, this.reader, component, this);
+    }
+}
+
 
 MySceneGraph.prototype.getCoordinates = function(elem){
   var myArray = [];
