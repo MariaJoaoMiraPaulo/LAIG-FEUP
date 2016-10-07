@@ -271,11 +271,9 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
 };
 
 MySceneGraph.prototype.parseViews = function(viewsElems) {
-
     if (viewsElems.length == 0) {
         this.onXMLError("views:: element is missing.")
     }
-
     this.defaultView = this.reader.getString(viewsElems[0], 'default');
 
     var elems = viewsElems[0].getElementsByTagName('perspective');
@@ -289,18 +287,12 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
     for (let elem of rootView) {
         var idPerspective = this.reader.getString(elem, 'id');
         console.log("id:" + idPerspective);
-        var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from')[0]);
-        var coordsTo = this.getCoordinates(elem.getElementsByTagName('to')[0]);
         if (typeof this.perspectives[idPerspective] != 'undefined') {
             this.onXMLError("views:: already exists a texture with that id");
         }
-        //TODO: Array de objectos? Cannot set property 'vista1' of undefined
-        var newArray = [coordsFrom, coordsTo];
-        //this.prespectives[idPerspective] = newArray;
-        // console.log(this.prespectives[idPerspective]);
-        //console.log(newArray[0][0].x);
+        //TODO: Cannot set property 'vista1' of undefined??
+        //this.prespectives[idPerspective] = this.createCamara(elem);
     }
-
 };
 
 MySceneGraph.prototype.parseComponents = function(componentElems) {
@@ -379,5 +371,13 @@ MySceneGraph.prototype.createTexture = function(newElement) {
   //TODO: Criar array ou textura mesmo?? cgf Texture????
   var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
   return textureArray;
+
+}
+
+MySceneGraph.prototype.createCamara = function(newElement) {
+  //var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
+  //var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
+
+  //TODO: CGF New Camara
 
 }
