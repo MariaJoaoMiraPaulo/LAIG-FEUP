@@ -180,10 +180,10 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
 
         switch (elem.tagName) {
             case 'omni':
-                this.lights[idLigth] = new Omni(this.reader, elem);
+                this.lights[idLigth] = new Omni(this, elem);
                 break;
             case 'spot':
-                this.lights[idLigth] = new Spot(this.reader, elem);
+                this.lights[idLigth] = new Spot(this, elem);
                 break;
 
             default:
@@ -296,8 +296,8 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
     for (let elem of rootView) {
         var idPerspective = this.reader.getString(elem, 'id');
         console.log("id:" + idPerspective);
-        var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from'));
-        var coordsTo = this.getCoordinates(elem.getElementsByTagName('to'));
+        var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from')[0]);
+        var coordsTo = this.getCoordinates(elem.getElementsByTagName('to')[0]);
         if (typeof this.perspectives[idPerspective] != 'undefined') {
             this.onXMLError("views:: already exists a texture with that id");
         }
@@ -325,9 +325,9 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
 MySceneGraph.prototype.getCoordinates = function(elem) {
     var myArray = [];
 
-    var xCoord = this.reader.getFloat(elem[0], 'x');
-    var yCoord = this.reader.getFloat(elem[0], 'y');
-    var zCoord = this.reader.getFloat(elem[0], 'z');
+    var xCoord = this.reader.getFloat(elem, 'x');
+    var yCoord = this.reader.getFloat(elem, 'y');
+    var zCoord = this.reader.getFloat(elem, 'z');
 
     myArray.push({
         x: xCoord,
@@ -383,6 +383,7 @@ MySceneGraph.prototype.createTexture = function(newElement) {
   var length_sElem = this.reader.getFloat(newElement,'length_s');
   var length_tElem = this.reader.getFloat(newElement,'length_t');
 
+  //TODO: Criar array ou textura mesmo?? cgf Texture????
   var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
   return textureArray;
 

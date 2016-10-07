@@ -1,35 +1,23 @@
 class Lights {
-    constructor(reader, elem) {
-        this.reader = reader;
+    constructor(sceneGraph, elem) {
+        this.reader = sceneGraph.reader;
+        this.sceneGraph = sceneGraph;
         this.elem = elem;
-        this.ambientElems = {};
-        this.diffuseElems = {};
-        this.specularElems = {};
-        this.locationElems = {};
-        this.targetElems = {};
+        this.ambientElems = [];
+        this.diffuseElems = [];
+        this.specularElems = [];
+        this.locationElems = [];
+        this.targetElems = [];
         this.enabled;
         this.angle;
         this.exponent;
     }
     fillValues() {
-        this.ambientElems['r'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'r');
-        this.ambientElems['g'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'g');
-        this.ambientElems['b'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'b');
-        this.ambientElems['a'] = this.reader.getFloat(this.elem.getElementsByTagName('ambient')[0],'a');
-
-        this.diffuseElems['r'] = this.reader.getFloat(this.elem.getElementsByTagName('diffuse')[0],'r');
-        this.diffuseElems['g'] = this.reader.getFloat(this.elem.getElementsByTagName('diffuse')[0],'g');
-        this.diffuseElems['b'] = this.reader.getFloat(this.elem.getElementsByTagName('diffuse')[0],'b');
-        this.diffuseElems['a'] = this.reader.getFloat(this.elem.getElementsByTagName('diffuse')[0],'a');
-
-        this.specularElems['r'] = this.reader.getFloat(this.elem.getElementsByTagName('specular')[0],'r');
-        this.specularElems['g'] = this.reader.getFloat(this.elem.getElementsByTagName('specular')[0],'g');
-        this.specularElems['b'] = this.reader.getFloat(this.elem.getElementsByTagName('specular')[0],'b');
-        this.specularElems['a'] = this.reader.getFloat(this.elem.getElementsByTagName('specular')[0],'a');
-
+        this.ambientElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('ambient')[0]);
+        this.diffuseElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('diffuse')[0]);
+        this.specularElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('specular')[0]);
         this.enabled = this.reader.getFloat(this.elem,'enabled');
     }
-
 }
 
 class Omni extends Lights {
@@ -40,11 +28,11 @@ class Omni extends Lights {
 
     }
     fillSpecificValues(){
-      this.locationElems['x'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'x');
-      this.locationElems['y'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'y');
-      this.locationElems['z'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'z');
-      this.locationElems['w'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'w');
-
+      this.xElem = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'x');
+      this.yElem = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'y');
+      this.zElem= this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'z');
+      this.wElem= this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'w');
+      this.locationElems = [{x: this.xElem, y: this.yElem, z: this.zElem, w: this.wElem }];
       this.angle = null;
       this.exponent = null;
     }
@@ -55,20 +43,12 @@ class Spot extends Lights {
         super(reader, elem);
         super.fillValues();
         this.fillSpecificValues();
-
     }
 
     fillSpecificValues(){
-      this.targetElems['x'] = this.reader.getFloat(this.elem.getElementsByTagName('target')[0],'x');
-      this.targetElems['y'] = this.reader.getFloat(this.elem.getElementsByTagName('target')[0],'y');
-      this.targetElems['z'] = this.reader.getFloat(this.elem.getElementsByTagName('target')[0],'z');
-
-      this.locationElems['x'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'x');
-      this.locationElems['y'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'y');
-      this.locationElems['z'] = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'z');
-
+      this.targetElems = this.sceneGraph.getCoordinates(this.elem.getElementsByTagName('target')[0]);
+      this.locationElems = this.sceneGraph.getCoordinates(this.elem.getElementsByTagName('location')[0]);
       this.angle = this.reader.getFloat(this.elem,'angle');
       this.exponent = this.reader.getFloat(this.elem,'exponent');
-
     }
 }
