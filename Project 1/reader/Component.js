@@ -29,7 +29,7 @@ class Component {
       this.transformationId = this.reader.getString(transRef[0], 'id');
     }
     else if(transRef.length == 0){
-      let trans = new Transformation(this.scene, this.reader, transElem);
+      let trans = new Transformation(this.graph, transElem);
       this.transformationMatrix = trans.matrix;
     }
   }

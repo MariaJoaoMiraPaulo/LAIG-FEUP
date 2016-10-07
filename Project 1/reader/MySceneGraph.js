@@ -237,7 +237,7 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
             this.onXMLError("transformations::already exists a transformation with that id.");
         }
 
-        let transformation = new Transformation(this.scene, this.reader, elem);
+        let transformation = new Transformation(this, elem);
         this.transformations[elemId] = transformation.matrix;
     }
 };
@@ -291,7 +291,7 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
             this.onXMLError("views:: already exists a texture with that id");
         }
         //TODO: Cannot set property 'vista1' of undefined??
-        //this.prespectives[idPerspective] = this.createCamara(elem);
+        this.perspectives[idPerspective] = this.createCamara(elem);
     }
 };
 

@@ -1,7 +1,8 @@
 class Transformation {
-    constructor(scene, reader, element) {
-        this.scene = scene;
-        this.reader = reader;
+    constructor(sceneGraph, element) {
+        this.sceneGraph = sceneGraph;
+        this.scene = sceneGraph.scene;
+        this.reader = sceneGraph.reader;
         this.element = element;
         this.matrix;
         this.makingMatrix();
