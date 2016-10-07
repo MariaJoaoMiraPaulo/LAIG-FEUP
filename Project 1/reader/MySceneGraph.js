@@ -211,7 +211,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
         if (typeof this.materials[idMaterial] != 'undefined') {
             this.onXMLError("material::already exists a material with that id");
         }
-        this.materials[idMaterial] = new Material(this.scene, this.reader, elem);
+        this.materials[idMaterial] = this.createMaterial(elem);
     }
 };
 
@@ -256,7 +256,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
 
 MySceneGraph.prototype.parseTextures = function(texturesElems) {
-  if (texturesElems.length == 0) {
+    if (texturesElems.length == 0) {
         this.onXMLError("textures:: element is missing.")
     }
 
@@ -267,7 +267,7 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
     var rootTexture = texturesElems[0].children;
     var numberChildren = rootTexture.length;
 
-   for (let elem of rootTexture) {
+    for (let elem of rootTexture) {
         var idTexture = this.reader.getString(elem, 'id');
         if (typeof this.textures[idTexture] != 'undefined') {
             this.onXMLError("texture::already exists a texture with that id");
@@ -279,32 +279,34 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
 
 MySceneGraph.prototype.parseViews = function(viewsElems) {
 
-  if(viewsElems.length == 0){
-    this.onXMLError("views:: element is missing.")
-  }
+    if (viewsElems.length == 0) {
+        this.onXMLError("views:: element is missing.")
+    }
 
-  this.defaultView = this.reader.getString(viewsElems[0],'default');
+    this.defaultView = this.reader.getString(viewsElems[0], 'default');
 
-  var elems = viewsElems[0].getElementsByTagName('perspective');
-  if(elems.length == 0){
-    this.onXMLError("views:: it must exists at least one block perspective");
-  }
+    var elems = viewsElems[0].getElementsByTagName('perspective');
+    if (elems.length == 0) {
+        this.onXMLError("views:: it must exists at least one block perspective");
+    }
 
-  var rootView = viewsElems[0].children;
-  var numberChildren = rootView.length;
+    var rootView = viewsElems[0].children;
+    var numberChildren = rootView.length;
 
-  for (let elem of rootView) {
-       var idPerspective = this.reader.getString(elem, 'id');
-       console.log("id:" + idPerspective);
-       var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from'));
-       var coordsTo = this.getCoordinates(elem.getElementsByTagName('to'));
-       if (typeof this.perspectives[idPerspective] != 'undefined') {
-           this.onXMLError("views:: already exists a texture with that id");
-       }
-       //TODO: Array de objectos?
-       var newArray = [coordsFrom, coordsTo];
-       console.log(newArray);
-   }
+    for (let elem of rootView) {
+        var idPerspective = this.reader.getString(elem, 'id');
+        console.log("id:" + idPerspective);
+        var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from'));
+        var coordsTo = this.getCoordinates(elem.getElementsByTagName('to'));
+        if (typeof this.perspectives[idPerspective] != 'undefined') {
+            this.onXMLError("views:: already exists a texture with that id");
+        }
+        //TODO: Array de objectos? Cannot set property 'vista1' of undefined
+        var newArray = [coordsFrom, coordsTo];
+        //this.prespectives[idPerspective] = newArray;
+        // console.log(this.prespectives[idPerspective]);
+        //console.log(newArray[0][0].x);
+    }
 
 };
 
@@ -320,14 +322,57 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
 }
 
 
-MySceneGraph.prototype.getCoordinates = function(elem){
-  var myArray = [];
+MySceneGraph.prototype.getCoordinates = function(elem) {
+    var myArray = [];
 
-  var xCoord = this.reader.getFloat(elem[0],'x');
-  var yCoord = this.reader.getFloat(elem[0],'y');
-  var zCoord = this.reader.getFloat(elem[0],'z');
+    var xCoord = this.reader.getFloat(elem[0], 'x');
+    var yCoord = this.reader.getFloat(elem[0], 'y');
+    var zCoord = this.reader.getFloat(elem[0], 'z');
 
-  myArray.push({ x: xCoord, y: yCoord, z:zCoord });
-  console.log("Array de coordenadas:" + myArray[0].x + " " + myArray[0].y + " " + myArray[0].z);
-  return myArray;
+    myArray.push({
+        x: xCoord,
+        y: yCoord,
+        z: zCoord
+    });
+    console.log("Array de coordenadas:" + myArray[0].x + " " + myArray[0].y + " " + myArray[0].z);
+    return myArray;
+}
+
+MySceneGraph.prototype.getRGBA = function(elem) {
+    var myArray = [];
+
+    console.log(elem);
+
+    var rElem = this.reader.getFloat(elem, 'r');
+    var gElem = this.reader.getFloat(elem, 'g');
+    var bElem = this.reader.getFloat(elem, 'b');
+    var aElem = this.reader.getFloat(elem, 'a');
+
+    //TODO: Array de objetos ou array?
+    myArray.push({
+        r: rElem,
+        g: gElem,
+        b: bElem,
+        a: aElem
+    });
+    console.log("Array de rgba:" + myArray[0].r + " " + myArray[0].g + " " + myArray[0].b + " " + myArray[0].a);
+    return myArray;
+}
+
+MySceneGraph.prototype.createMaterial = function(newElement) {
+
+    var emission = this.getRGBA(newElement.getElementsByTagName('emission')[0]);
+    var ambient = this.getRGBA(newElement.getElementsByTagName('ambient')[0]);
+    var diffuse = this.getRGBA(newElement.getElementsByTagName('diffuse')[0]);
+    var specular = this.getRGBA(newElement.getElementsByTagName('specular')[0]);
+    var shininess = this.reader.getFloat(newElement.getElementsByTagName('shininess')[0], 'value');
+
+    var newMaterial = new CGFappearance(this.scene);
+    newMaterial.setSpecular(specular[0].r,specular[0].g,specular[0].b,specular[0].a);
+    newMaterial.setShininess(shininess);
+    newMaterial.setDiffuse(diffuse[0].r,diffuse[0].g,diffuse[0].b,diffuse[0].a);
+    newMaterial.setAmbient(ambient[0].r,ambient[0].g,ambient[0].b,ambient[0].a);
+
+    //TODO: Falta emission? Para que serve?
+    return newMaterial;
 }
