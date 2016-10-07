@@ -290,7 +290,6 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
         if (typeof this.perspectives[idPerspective] != 'undefined') {
             this.onXMLError("views:: already exists a texture with that id");
         }
-        //TODO: Cannot set property 'vista1' of undefined??
         this.perspectives[idPerspective] = this.createCamara(elem);
     }
 };
@@ -357,8 +356,8 @@ MySceneGraph.prototype.createMaterial = function(newElement) {
     newMaterial.setShininess(shininess);
     newMaterial.setDiffuse(diffuse[0].r,diffuse[0].g,diffuse[0].b,diffuse[0].a);
     newMaterial.setAmbient(ambient[0].r,ambient[0].g,ambient[0].b,ambient[0].a);
+    newMaterial.setEmission(emission[0].r,emission[0].g,emission[0].b,emission[0].a);
 
-    //TODO: Falta emission? Para que serve?
     return newMaterial;
 }
 
@@ -368,7 +367,6 @@ MySceneGraph.prototype.createTexture = function(newElement) {
   var length_sElem = this.reader.getFloat(newElement,'length_s');
   var length_tElem = this.reader.getFloat(newElement,'length_t');
 
-  //TODO: Criar array ou textura mesmo?? cgf Texture????
   var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
   return textureArray;
 
