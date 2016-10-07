@@ -272,7 +272,7 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
         if (typeof this.textures[idTexture] != 'undefined') {
             this.onXMLError("texture::already exists a texture with that id");
         }
-        this.textures[idTexture] = new Texture(this.scene, this.reader, elem);
+        this.textures[idTexture] = this.createTexture(elem);
     }
 
 };
@@ -339,7 +339,7 @@ MySceneGraph.prototype.getCoordinates = function(elem) {
 }
 
 MySceneGraph.prototype.getRGBA = function(elem) {
-    var myArray = [];
+    var rgbaArray = [];
 
     console.log(elem);
 
@@ -349,14 +349,14 @@ MySceneGraph.prototype.getRGBA = function(elem) {
     var aElem = this.reader.getFloat(elem, 'a');
 
     //TODO: Array de objetos ou array?
-    myArray.push({
+    rgbaArray.push({
         r: rElem,
         g: gElem,
         b: bElem,
         a: aElem
     });
-    console.log("Array de rgba:" + myArray[0].r + " " + myArray[0].g + " " + myArray[0].b + " " + myArray[0].a);
-    return myArray;
+    console.log("Array de rgba:" + rgbaArray[0].r + " " + rgbaArray[0].g + " " + rgbaArray[0].b + " " + rgbaArray[0].a);
+    return rgbaArray;
 }
 
 MySceneGraph.prototype.createMaterial = function(newElement) {
@@ -375,4 +375,15 @@ MySceneGraph.prototype.createMaterial = function(newElement) {
 
     //TODO: Falta emission? Para que serve?
     return newMaterial;
+}
+
+MySceneGraph.prototype.createTexture = function(newElement) {
+
+  var fileElem = this.reader.getString(newElement,'file');
+  var length_sElem = this.reader.getFloat(newElement,'length_s');
+  var length_tElem = this.reader.getFloat(newElement,'length_t');
+
+  var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
+  return textureArray;
+
 }
