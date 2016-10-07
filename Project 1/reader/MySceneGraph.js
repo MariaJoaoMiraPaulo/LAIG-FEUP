@@ -13,8 +13,8 @@ function MySceneGraph(filename, scene) {
     this.lights = {}; //creating the hash table for lights
     this.materials = {}; //creating the hash table for materials
     this.textures = {};
-    this.background = {};
-    this.ambient = {};
+    this.background = [];
+    this.ambient = [];
     this.perspectives = {};
     this.defaultView;
     this.components = {};
@@ -243,15 +243,8 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
 };
 
 MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
-    this.background['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'r');
-    this.background['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'g');
-    this.background['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'b');
-    this.background['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('background')[0], 'a');
-
-    this.ambient['r'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'r');
-    this.ambient['g'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'g');
-    this.ambient['b'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'b');
-    this.ambient['a'] = this.reader.getFloat(illuminationElems[0].getElementsByTagName('ambient')[0], 'a');
+    this.background = this.getRGBA(illuminationElems[0].getElementsByTagName('background')[0]);
+    this.ambient = this.getRGBA(illuminationElems[0].getElementsByTagName('ambient')[0]);
 };
 
 
