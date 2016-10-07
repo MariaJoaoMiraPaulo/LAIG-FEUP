@@ -208,13 +208,11 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
 
     for (let elem of rootMaterial) {
         var idMaterial = this.reader.getString(elem, 'id');
-        if (typeof this.lights[idMaterial] != 'undefined') {
+        if (typeof this.materials[idMaterial] != 'undefined') {
             this.onXMLError("material::already exists a material with that id");
         }
         this.materials[idMaterial] = new Material(this.scene, this.reader, elem);
     }
-
-
 };
 
 
@@ -258,7 +256,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
 
 MySceneGraph.prototype.parseTextures = function(texturesElems) {
-    if (texturesElems.length == 0) {
+  if (texturesElems.length == 0) {
         this.onXMLError("textures:: element is missing.")
     }
 
@@ -269,42 +267,44 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
     var rootTexture = texturesElems[0].children;
     var numberChildren = rootTexture.length;
 
-    for (let elem of rootTexture) {
+   for (let elem of rootTexture) {
         var idTexture = this.reader.getString(elem, 'id');
-        if (typeof this.lights[idTexture] != 'undefined') {
+        if (typeof this.textures[idTexture] != 'undefined') {
             this.onXMLError("texture::already exists a texture with that id");
         }
-        this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
+        this.textures[idTexture] = new Texture(this.scene, this.reader, elem);
     }
 
 };
 
 MySceneGraph.prototype.parseViews = function(viewsElems) {
 
-    if (viewsElems.length == 0) {
-        this.onXMLError("views:: element is missing.")
-    }
+  if(viewsElems.length == 0){
+    this.onXMLError("views:: element is missing.")
+  }
 
-    this.defaultView = this.reader.getString(viewsElems[0], 'default');
+  this.defaultView = this.reader.getString(viewsElems[0],'default');
 
-    var elems = viewsElems[0].getElementsByTagName('perspective');
-    if (elems.length == 0) {
-        this.onXMLError("views:: it must exists at least one block perspective");
-    }
+  var elems = viewsElems[0].getElementsByTagName('perspective');
+  if(elems.length == 0){
+    this.onXMLError("views:: it must exists at least one block perspective");
+  }
 
-    var rootView = viewsElems[0].children;
-    var numberChildren = rootView.length;
+  var rootView = viewsElems[0].children;
+  var numberChildren = rootView.length;
 
-    for (let elem of rootView) {
-        var idPerspective = this.reader.getString(elem, 'id');
-        console.log(idPerspective);
-        this.getCoordinates(elem.getElementsByTagName('from'));
-        /* if (typeof this.lights[idTexture] != 'undefined') {
-             this.onXMLError("texture::already exists a texture with that id");
-         }
-         this.materials[idTexture] = new Texture(this.scene, this.reader, elem);
-         */
-    }
+  for (let elem of rootView) {
+       var idPerspective = this.reader.getString(elem, 'id');
+       console.log("id:" + idPerspective);
+       var coordsFrom = this.getCoordinates(elem.getElementsByTagName('from'));
+       var coordsTo = this.getCoordinates(elem.getElementsByTagName('to'));
+       if (typeof this.perspectives[idPerspective] != 'undefined') {
+           this.onXMLError("views:: already exists a texture with that id");
+       }
+       //TODO: Array de objectos?
+       var newArray = [coordsFrom, coordsTo];
+       console.log(newArray);
+   }
 
 };
 
@@ -320,8 +320,14 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
 }
 
 
-MySceneGraph.prototype.getCoordinates = function(elem) {
-    var x = this.reader.getFloat(elem[0], 'x');
-    var y = this.reader.getFloat(elem[0], 'y');
-    var z = this.reader.getFloat(elem[0], 'z');
+MySceneGraph.prototype.getCoordinates = function(elem){
+  var myArray = [];
+
+  var xCoord = this.reader.getFloat(elem[0],'x');
+  var yCoord = this.reader.getFloat(elem[0],'y');
+  var zCoord = this.reader.getFloat(elem[0],'z');
+
+  myArray.push({ x: xCoord, y: yCoord, z:zCoord });
+  console.log("Array de coordenadas:" + myArray[0].x + " " + myArray[0].y + " " + myArray[0].z);
+  return myArray;
 }
