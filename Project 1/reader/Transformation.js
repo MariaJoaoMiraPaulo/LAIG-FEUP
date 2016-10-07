@@ -3,6 +3,7 @@ class Transformation {
         this.scene = scene;
         this.reader = reader;
         this.element = element;
+        this.matrix;
         this.makingMatrix();
     }
 

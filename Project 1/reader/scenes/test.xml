@@ -146,22 +146,22 @@
 
     <components>
 
-        <component id="ss">
+        <component id="0">
 
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
 
                 <!-- deve conter uma referencia a uma das "transformation" -->
                 <!-- declaradas anteriormente -->
-                <transformationref id="ss" />
+            <!--    <transformationref id="1" />-->
 
                 <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="ff" y="ff" z="ff" />
-                <rotate axis="cc" angle="ff" />
-                <scale x="ff" y="ff" z="ff" />
+                <translate x="1" y="0" z="0" />
+                <!--<rotate axis="x" angle="90" />-->
+                <scale x="1" y="1" z="1" />
             </transformation>
 
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -188,7 +188,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <componentref id="ss" />
-                <primitiveref id="ss" />
+                <primitiveref id="1" />
 
             </children>
 
