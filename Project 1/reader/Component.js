@@ -7,7 +7,7 @@ class Component {
 
     this.transformationId;
     this.transformationMatrix;
-    this.primitivesRefIds = []; //guard the primitive ids
+    this.childrens = [];
     this.readingComponent();
   }
 
@@ -50,7 +50,7 @@ class Component {
     var primitives = childrenElem.getElementsByTagName('primitiveref');
 
     for(let primitive of primitives){
-      this.primitivesRefIds.push(this.reader.getString(primitive, 'id'));
+      this.childrens.push(this.graph.primitives[this.reader.getString(primitive, 'id')]);
     }
 
   }
@@ -58,9 +58,10 @@ class Component {
   display(){
     this.scene.pushMatrix();
     this.scene.multMatrix(this.transformationMatrix);
+    console.log(this.childrens.length);
 
-    for(let id of this.primitivesRefIds){
-      this.graph.primitives[id].display();
+    for(let children of this.childrens){
+      children.display();
     }
 
     this.scene.popMatrix();
