@@ -8,6 +8,7 @@ class Component {
     this.transformationId;
     this.transformationMatrix;
     this.primitivesRefIds = []; //guard the primitive ids
+    this.materialsRefIds = [];
     this.readingComponent();
   }
 
@@ -35,7 +36,14 @@ class Component {
   }
 
   readingMaterials(materialElem){
+    //Declaração obrigatoria de pelo menos um material
+    var materials = materialElem.getElementsByTagName('material');
+    if(materials.length == 0)
+      this.graph.onXMLError("components:: it must have at least one material block.");
 
+    for( let material of materials){
+      this.materialsRefIds.push(this.reader.getString(material,'id'));
+    }
   }
 
   readingTextures(textureElem){
