@@ -19,10 +19,12 @@
  Sphere.prototype.display = function() {
 
  this.scene.pushMatrix();
+  this.scene.scale(this.radius,this.radius,this.radius);
  	this.SemiSphere1.display();
  this.scene.popMatrix();
 
  	this.scene.pushMatrix();
+    this.scene.scale(this.radius,this.radius,this.radius);
  		this.scene.rotate(Math.PI, 0, 1, 0);
  		this.SemiSphere2.display();
  	this.scene.popMatrix();
