@@ -142,7 +142,7 @@
         </primitive>
 
         <primitive id="2">
-          <sphere radius="11" slices="11" stacks="11" />
+          <sphere radius="10" slices="25" stacks="2" />
         </primitive>
 
     </primitives>
