@@ -226,7 +226,7 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
         this.onXMLError("transformations::it must exists at least one block transfrmation.");
     }
 
-    //reading all transfrmation tags
+    //reading all transformation tags
     for (let elem of elems) {
         if (elem.children.length == 0) {
             this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
@@ -293,7 +293,6 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
         this.perspectives[idPerspective] = this.createCamera(elem);
     }
 
-    console.log("Ola" + this.perspectives[idPerspective]);
 };
 
 MySceneGraph.prototype.parseComponents = function(componentElems) {

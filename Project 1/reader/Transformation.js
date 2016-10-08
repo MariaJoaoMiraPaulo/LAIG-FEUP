@@ -34,11 +34,8 @@ class Transformation {
     }
 
     translate(elem) {
-        var x = this.reader.getFloat(elem, 'x');
-        var y = this.reader.getFloat(elem, 'y');
-        var z = this.reader.getFloat(elem, 'z');
-
-        this.scene.translate(x, y, z);
+        var coords = this.sceneGraph.getCoordinates(elem);
+        this.scene.translate(coords[0].x,coords[0].y,coords[0].z);
 
     }
 
@@ -57,11 +54,8 @@ class Transformation {
     }
 
     scale(elem) {
-        var x = this.reader.getFloat(elem, 'x');
-        var y = this.reader.getFloat(elem, 'y');
-        var z = this.reader.getFloat(elem, 'z');
-
-        this.scene.scale(x, y, z);
+      var coords = this.sceneGraph.getCoordinates(elem);
+      this.scene.scale(coords[0].x,coords[0].y,coords[0].z);
     }
 
 }
