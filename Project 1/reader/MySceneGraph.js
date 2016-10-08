@@ -290,8 +290,10 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
         if (typeof this.perspectives[idPerspective] != 'undefined') {
             this.onXMLError("views:: already exists a texture with that id");
         }
-        this.perspectives[idPerspective] = this.createCamara(elem);
+        this.perspectives[idPerspective] = this.createCamera(elem);
     }
+
+    console.log("Ola" + this.perspectives[idPerspective]);
 };
 
 MySceneGraph.prototype.parseComponents = function(componentElems) {
@@ -372,10 +374,14 @@ MySceneGraph.prototype.createTexture = function(newElement) {
 
 }
 
-MySceneGraph.prototype.createCamara = function(newElement) {
-  //var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
-  //var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
+MySceneGraph.prototype.createCamera = function(newElement) {
+  var nearElem = this.reader.getFloat(newElement, 'near');
+  var angleElem = this.reader.getFloat(newElement, 'angle');
+  var farElem = this.reader.getFloat(newElement, 'far');
+  var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
+  var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
 
-  //TODO: CGF New Camara
-
+  //TODO:: Target??? ultimo parametro da camara
+  var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x,coordsFrom[0].y,coordsFrom[0].z), vec3.fromValues(coordsTo[0].x,coordsTo[0].y, coordsTo[0].y));
+  return newCamera;
 }
