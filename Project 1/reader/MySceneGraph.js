@@ -152,6 +152,11 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 break;
             case 'cylinder':
                 this.primitives[idPrimitive] = new Cylinder(this.scene, this.reader, newElement);
+                break;
+            case 'sphere':
+                this.primitives[idPrimitive] = new Sphere(this.scene, this.reader, newElement);
+                break;
+
         }
     }
 };

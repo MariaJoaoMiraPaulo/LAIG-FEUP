@@ -141,6 +141,10 @@
            <rectangle x1="1" y1="6" x2="0" y2="0" />
         </primitive>
 
+        <primitive id="2">
+          <sphere radius="11" slices="11" stacks="11" />
+        </primitive>
+
     </primitives>
 
 
@@ -188,7 +192,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <componentref id="ss" />
-                <primitiveref id="1" />
+                <primitiveref id="2" />
 
             </children>
 
