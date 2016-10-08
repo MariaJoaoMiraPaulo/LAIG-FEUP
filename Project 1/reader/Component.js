@@ -42,7 +42,8 @@ class Component {
       this.graph.onXMLError("components:: it must have at least one material block.");
 
     for( let material of materials){
-      this.materialsRefIds.push(this.reader.getString(material,'id'));
+      var id = this.reader.getString(material,'id');
+      this.materialsRefIds.push(id);
     }
   }
 
