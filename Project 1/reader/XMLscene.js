@@ -49,49 +49,56 @@ XMLscene.prototype.onGraphLoaded = function() {
     this.lights[0].enable();
 
     this.setXMLIllumination();
+    this.setXMLLights();
 
+};
 
-    XMLscene.prototype.display = function() {
-        // ---- BEGIN Background, camera and axis setup
+XMLscene.prototype.display = function() {
+    // ---- BEGIN Background, camera and axis setup
 
-        // Clear image and depth buffer everytime we update the scene
-        this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
-        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+    // Clear image and depth buffer everytime we update the scene
+    this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-        // Initialize Model-View matrix as identity (no transformation
-        this.updateProjectionMatrix();
-        this.loadIdentity();
+    // Initialize Model-View matrix as identity (no transformation
+    this.updateProjectionMatrix();
+    this.loadIdentity();
 
-        // Apply transformations corresponding to the camera position relative to the origin
-        this.applyViewMatrix();
+    // Apply transformations corresponding to the camera position relative to the origin
+    this.applyViewMatrix();
 
-        // Draw axis
-        this.axis.display();
+    // Draw axis
+    this.axis.display();
 
-        this.setDefaultAppearance();
+    this.setDefaultAppearance();
 
-        // ---- END Background, camera and axis setup
+    // ---- END Background, camera and axis setup
 
-        // it is important that things depending on the proper loading of the graph
-        // only get executed after the graph has loaded correctly.
-        // This is one possible way to do it
-        if (this.graph.loadedOk) {
+    // it is important that things depending on the proper loading of the graph
+    // only get executed after the graph has loaded correctly.
+    // This is one possible way to do it
+    if (this.graph.loadedOk) {
 
-            this.lights[0].update();
-            //render graph
-            /*  for(key in this.graph.primitives){
-                this.graph.primitives[key].display();
-              }*/
-            for (key in this.graph.components) {
-                this.graph.components[key].display();
-            }
-        };
+        this.lights[0].update();
+        //render graph
+        /*  for(key in this.graph.primitives){
+            this.graph.primitives[key].display();
+          }*/
+        for (key in this.graph.components) {
+            this.graph.components[key].display();
+        }
     };
 };
 
 XMLscene.prototype.setXMLIllumination = function() {
     if (this.graph.ambient.length != 0)
         this.setGlobalAmbientLight(this.graph.ambient[0].r, this.graph.ambient[0].g, this.graph.ambient[0].b, this.graph.ambient[0].a);
-    if(this.graph.background.length !=0)
+    if (this.graph.background.length != 0)
         this.gl.clearColor(this.graph.background[0].r, this.graph.background[0].g, this.graph.background[0].b, this.graph.background[0].a)
+};
+
+XMLscene.prototype.setXMLLights = function() {
+    for (key in this.graph.lights) {
+        console.log("luz");
+    }
 };
