@@ -104,7 +104,7 @@ XMLscene.prototype.setXMLLights = function() {
         var light = this.graph.lights[key];
         console.log(light);
         console.log(light.enabled);
-        if(light.enable==0)
+        if(light.enabled)
           this.lights[i].enable();
         else this.lights[i].disable();
 
@@ -113,8 +113,10 @@ XMLscene.prototype.setXMLLights = function() {
         this.lights[i].setSpecular(light.specularElems[0].r,light.specularElems[0].g,light.specularElems[0].b,light.specularElems[0].a);
         this.lights[i].setVisible(true);
 
-        if (this.graph.lights[key] instanceof Omni)
+        if (this.graph.lights[key] instanceof Omni){
             console.log("OMNI");
+            this.lights[i].setPosition(light.locationElems[0].x,light.locationElems[0].y,light.locationElems[0].z,light.locationElems[0].w);
+        }
         else if (this.graph.lights[key] instanceof Spot)
             console.log("SPOT");
 
