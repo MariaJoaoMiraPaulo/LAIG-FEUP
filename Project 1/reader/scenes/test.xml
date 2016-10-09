@@ -37,8 +37,8 @@
 
     <illumination doublesided="tt" local="tt" >
 
-        <ambient r="11" g="22" b="33" a="44" />
-        <background r="55" g="66" b="77" a="88" />
+        <ambient r="0.5" g="0.5" b="0.5" a="1" />
+        <background r="0" g="0" b="0" a="1" />
 
     </illumination>
 
@@ -191,7 +191,7 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <componentref id="ss" />
+              <!--  <componentref id="ss" />-->
                 <primitiveref id="2" />
 
             </children>
