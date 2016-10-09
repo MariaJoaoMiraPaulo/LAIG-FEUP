@@ -10,6 +10,7 @@ class Component {
     this.primitivesRefIds = []; //guard the primitive ids
     this.materialsRefIds = [];
     this.childrens = [];
+    this.parentMaterial;
     this.readingComponent();
   }
 
@@ -21,7 +22,7 @@ class Component {
   }
 
   readingCompTrans(transElem){
-    console.log(transElem.children.length);
+    //console.log(transElem.children.length);
 
     //now we have to see if we heave transformationref
     //or the translates, rotates and scales
@@ -53,13 +54,21 @@ class Component {
   }
 
   readingChildrens(childrenElem){
-    console.log(childrenElem.tagName);
-
     //taking care of componentref
+
+    var components = childrenElem.getElementsByTagName('componentref');
+    for(let component of components){
+      console.log("componentRef: " + this.reader.getString(component, 'id'));
+      if(typeof this.graph.components[this.reader.getString(component, 'id')] == 'undefined')
+          this.graph.onXMLError("components:: it doens't have any component with that id");
+      else this.childrens.push(this.graph.components[this.reader.getString(component, 'id')]);
+    }
 
     var primitives = childrenElem.getElementsByTagName('primitiveref');
 
     for(let primitive of primitives){
+      if(typeof this.graph.primitives[this.reader.getString(primitive, 'id')]== 'undefined')
+          this.graph.onXMLError("components:: it doens't have any primitive with that id");
       this.childrens.push(this.graph.primitives[this.reader.getString(primitive, 'id')]);
     }
 
