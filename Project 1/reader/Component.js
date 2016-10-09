@@ -83,7 +83,7 @@ class Component {
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-        console.log(this.childrens.length);
+      //  console.log(this.childrens.length);
 
         for (let children of this.childrens) {
             children.display();

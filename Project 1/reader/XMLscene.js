@@ -98,7 +98,27 @@ XMLscene.prototype.setXMLIllumination = function() {
 };
 
 XMLscene.prototype.setXMLLights = function() {
-    for (key in this.graph.lights) {
-        console.log("luz");
+
+    var i = 0;
+    for (key in this.graph.lights) { //key = id
+        var light = this.graph.lights[key];
+        console.log(light);
+        console.log(light.enabled);
+        if(light.enable==0)
+          this.lights[i].enable();
+        else this.lights[i].disable();
+
+        this.lights[i].setAmbient(light.ambientElems[0].r,light.ambientElems[0].g,light.ambientElems[0].b,light.ambientElems[0].a);
+        this.lights[i].setDiffuse(light.diffuseElems[0].r,light.diffuseElems[0].g,light.diffuseElems[0].b,light.diffuseElems[0].a);
+        this.lights[i].setSpecular(light.specularElems[0].r,light.specularElems[0].g,light.specularElems[0].b,light.specularElems[0].a);
+        this.lights[i].setVisible(true);
+
+        if (this.graph.lights[key] instanceof Omni)
+            console.log("OMNI");
+        else if (this.graph.lights[key] instanceof Spot)
+            console.log("SPOT");
+
+
+    i++;
     }
 };

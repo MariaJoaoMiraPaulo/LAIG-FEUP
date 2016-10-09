@@ -106,13 +106,13 @@ MySceneGraph.prototype.onXMLError = function(message) {
 
 MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
-    this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
-    this.parseLights(rootElement.getElementsByTagName('lights'));
-    this.parseTransformations(rootElement.getElementsByTagName('transformations'));
-    this.parseMaterials(rootElement.getElementsByTagName('materials'));
-    this.parseIllumination(rootElement.getElementsByTagName('illumination'));
-    this.parseTextures(rootElement.getElementsByTagName('textures'));
     this.parseViews(rootElement.getElementsByTagName('views'));
+    this.parseIllumination(rootElement.getElementsByTagName('illumination'));
+    this.parseLights(rootElement.getElementsByTagName('lights'));
+    this.parseTextures(rootElement.getElementsByTagName('textures'));
+    this.parseMaterials(rootElement.getElementsByTagName('materials'));
+    this.parseTransformations(rootElement.getElementsByTagName('transformations'));
+    this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
     this.parseComponents(rootElement.getElementsByTagName('components'));
 };
 
@@ -123,7 +123,7 @@ MySceneGraph.prototype.parseRoot = function(sceneElements) {
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
     if (primitivesElems.length == 0) {
-        this.onXMLError("primitives::primitives element is missing.");
+        this.onXMLError("primitives:: primitives element is missing.");
     }
 
     var elems = primitivesElems[0].getElementsByTagName('primitive');
@@ -254,6 +254,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
 
 MySceneGraph.prototype.parseTextures = function(texturesElems) {
+  console.log(texturesElems);
     if (texturesElems.length == 0) {
         this.onXMLError("textures:: element is missing.")
     }
