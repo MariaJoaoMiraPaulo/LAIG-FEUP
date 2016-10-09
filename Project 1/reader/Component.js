@@ -10,7 +10,7 @@ class Component {
         this.primitivesRefIds = []; //guard the primitive ids
         this.materialsRefIds = [];
         this.childrens = [];
-        this.parentMaterial = " "; //TODO: String Vazia For root Component ??
+        this.parentMaterial = null; //TODO: igual a null For root Component ??
         this.readingComponent();
     }
 
