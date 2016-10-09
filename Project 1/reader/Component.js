@@ -64,7 +64,7 @@ class Component {
                 this.graph.onXMLError("components:: it doens't have any component with that id");
             else {
                 //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-                this.graph.components[componentrefId].parentMaterial = this.material[0];
+              //  this.graph.components[componentrefId].parentMaterial = this.material[0];
                 this.childrens.push(this.graph.components[this.reader.getString(component, 'id')]);
 
             }

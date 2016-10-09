@@ -5,22 +5,19 @@
 <!-- referido o contrario -->
 
 <!-- Na descricao abaixo, os simbolos utilizados tem o seguinte significado: -->
-    <!-- ii: integer value -->
-    <!-- ff: float value -->
-    <!-- ss: string value -->
-    <!-- cc: character "x" or "y" or "z" -->
-    <!-- tt: "0" or "1" with Boolean significance -->
-
+<!-- ii: integer value -->
+<!-- ff: float value -->
+<!-- ss: string value -->
+<!-- cc: character "x" or "y" or "z" -->
+<!-- tt: "0" or "1" with Boolean significance -->
 
 <dsx>
 
-
     <!-- deve definir-se um objeto para raiz do grafo , assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="ss" axis_length="ff" />
+    <scene root="1" axis_length="ff"/>
 
-
-    <views default="vista1" >
+    <views default="vista1">
 
         <!-- declaracao obrigatoria de pelo menos uma vista; -->
         <!-- se varias vistas declaradas, o default e' a -->
@@ -28,34 +25,32 @@
         <!-- a vista muda para a proxima da lista; da -->
         <!-- ultima vista da lista volta 'a primeira -->
         <perspective id="vista1" near="11" far="22" angle="33">
-            <from x="11" y="12" z="13" />
-            <to x="22" y="23" z="24" />
+            <from x="11" y="12" z="13"/>
+            <to x="22" y="23" z="24"/>
         </perspective>
 
     </views>
 
+    <illumination doublesided="tt" local="tt">
 
-    <illumination doublesided="tt" local="tt" >
-
-        <ambient r="0.5" g="0.5" b="0.5" a="1" />
-        <background r="0" g="0" b="0" a="1" />
+        <ambient r="0.5" g="0.5" b="0.5" a="1"/>
+        <background r="0" g="0" b="0" a="1"/>
 
     </illumination>
-
 
     <lights>
 
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="0" enabled="1" >
-            <location x="1" y="13.5" z="9.5" w="1" />
-            <ambient r="1" g="0" b="0" a="1" />
-            <diffuse r="1" g="0" b="0" a="1" />
-            <specular r="1" g="0" b="0" a="1" />
+        <omni id="0" enabled="1">
+            <location x="1" y="13.5" z="9.5" w="1"/>
+            <ambient r="1" g="0" b="0" a="1"/>
+            <diffuse r="1" g="0" b="0" a="1"/>
+            <specular r="1" g="0" b="0" a="1"/>
         </omni>
 
-      <!--  <spot id="1" enabled="1" angle="ff" exponent="ff"> -->
-            <!-- atencao, "target" e' diferente de "direction" -->
+        <!--  <spot id="1" enabled="1" angle="ff" exponent="ff"> -->
+        <!-- atencao, "target" e' diferente de "direction" -->
         <!--    <target x="44" y="44" z="44" />
             <location x="00" y="00" z="00" />
             <ambient r="11" g="11" b="11" a="11" />
@@ -64,9 +59,7 @@
         </spot>
       -->
 
-
     </lights>
-
 
     <textures>
 
@@ -82,46 +75,43 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
-        <texture id="ss" file="imagem.png" length_s="22.2" length_t="2.3" />
+        <texture id="ss" file="imagem.png" length_s="22.2" length_t="2.3"/>
 
     </textures>
-
 
     <materials>
 
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="ss" >
-            <emission r="00" g="00" b="00" a="00" />
-            <ambient r="11" g="11" b="11" a="11" />
-            <diffuse r="22" g="22" b="22" a="22" />
-            <specular r="33" g="33" b="33" a="33" />
-            <shininess value="2" />
+        <material id="ss">
+            <emission r="00" g="00" b="00" a="00"/>
+            <ambient r="11" g="11" b="11" a="11"/>
+            <diffuse r="22" g="22" b="22" a="22"/>
+            <specular r="33" g="33" b="33" a="33"/>
+            <shininess value="2"/>
         </material>
 
     </materials>
-
 
     <transformations>
 
         <!-- Deve existir um ou mais blocos "transformation" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <transformation id="1">
-           <!-- instrucoes a usar sem limite nem ordem -->
-           <!-- deve existir pelo menos uma transformacao -->
-           <translate x="4" y="4" z="4" />
-           <rotate axis="x" angle="30" />
-           <scale x="1" y="1" z="1" />
+            <!-- instrucoes a usar sem limite nem ordem -->
+            <!-- deve existir pelo menos uma transformacao -->
+            <translate x="4" y="4" z="4"/>
+            <rotate axis="x" angle="30"/>
+            <scale x="1" y="1" z="1"/>
         </transformation>
 
         <transformation id="2">
-           <translate x="0" y="0" z="0" />
-           <rotate axis="x" angle="0" />
-           <scale x="0" y="0" z="0" />
+            <translate x="0" y="0" z="0"/>
+            <rotate axis="x" angle="0"/>
+            <scale x="0" y="0" z="0"/>
         </transformation>
 
     </transformations>
-
 
     <primitives>
         <!-- Deve existir um ou mais blocos "primitive" -->
@@ -132,22 +122,21 @@
             <!-- os parametros devem ser interpretados, genericamente como-->
             <!-- em OpenGL/GLUT; o cilindro deve adicionalmente ter tampas -->
             <!--  <rectangle x1="1" y1="1" x2="0" y2="0" /> -->
-      <!--<triangle x1="1" y1="1" z1="1" x2="1" y2="0" z2="0" x3="2" y3="2" z3="2" /> -->
-        <cylinder base="2" top="2" height="4" slices="26" stacks="4" />
-          <!--     <sphere radius="ff" slices="ii" stacks="ii" />
+            <!--<triangle x1="1" y1="1" z1="1" x2="1" y2="0" z2="0" x3="2" y3="2" z3="2" /> -->
+            <cylinder base="2" top="2" height="4" slices="26" stacks="4"/>
+            <!--     <sphere radius="ff" slices="ii" stacks="ii" />
             <torus inner="ff" outer="ff" slices="ii" loops="ii" />-->
         </primitive>
 
         <primitive id="1">
-           <rectangle x1="1" y1="6" x2="0" y2="0" />
+            <rectangle x1="1" y1="6" x2="0" y2="0"/>
         </primitive>
 
         <primitive id="2">
-          <sphere radius="2" slices="25" stacks="2" />
+            <sphere radius="2" slices="25" stacks="2"/>
         </primitive>
 
     </primitives>
-
 
     <components>
 
@@ -158,15 +147,15 @@
 
                 <!-- deve conter uma referencia a uma das "transformation" -->
                 <!-- declaradas anteriormente -->
-            <!--    <transformationref id="1" />-->
+                <!--    <transformationref id="1" />-->
 
                 <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="0" y="0" z="0" />
+                <translate x="-4" y="0" z="0"/>
                 <!--<rotate axis="x" angle="90" />-->
-                <scale x="1" y="1" z="1" />
+                <scale x="1" y="1" z="1"/>
             </transformation>
 
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -176,7 +165,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss" />
+                <material id="ss"/>
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
@@ -184,7 +173,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="ss" />
+            <texture id="ss"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -192,13 +181,60 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-              <!--  <componentref id="ss" />-->
-                <primitiveref id="2" />
+                <!--  <componentref id="ss" />-->
+                <primitiveref id="2"/>
 
             </children>
 
         </component>
 
+        <component id="1">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+
+                <!-- deve conter uma referencia a uma das "transformation" -->
+                <!-- declaradas anteriormente -->
+                <!--    <transformationref id="1" />-->
+
+                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
+                <!-- usando zero ou mais das instrucoes seguintes, sem -->
+                <!-- limite nem ordem -->
+                <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <translate x="4" y="0" z="0"/>
+                <!--<rotate axis="x" angle="90" />-->
+                <scale x="1" y="1" z="1"/>
+            </transformation>
+
+            <!-- declaracao obrigatoria de pelo menos um material; -->
+            <!-- o material id="inherit", mantem (herda) material do "pai" -->
+            <!-- se varios materiais declarados, o default e' o -->
+            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+            <!-- o material muda para o proximo material da lista; do -->
+            <!-- ultimo material da lista volta ao primeiro -->
+            <materials>
+                <material id="ss"/>
+            </materials>
+
+            <!-- declaracao obrigatoria de texture -->
+            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+            <!-- id="none" remove a textura recebida do pai -->
+            <!-- a textura declarada sobrepoe a textura recebida do -->
+            <!-- objecto "pai" -->
+            <texture id="ss"/>
+
+            <!-- bloco "children" obrigatorio num "component" -->
+            <children>
+
+                <!-- deve existir uma ou mais tags "componentref" e/ou -->
+                <!-- "primitiveref", identificando outros -->
+                <!-- componentes ou primitivas -->
+                <componentref id="0" />
+                <primitiveref id="1"/>
+
+            </children>
+
+        </component>
     </components>
 
 </dsx>

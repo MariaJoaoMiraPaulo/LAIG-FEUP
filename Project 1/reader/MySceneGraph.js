@@ -18,6 +18,8 @@ function MySceneGraph(filename, scene) {
     this.perspectives = {};
     this.defaultView;
     this.components = {};
+    this.rootId;
+    this.axisLength;
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -117,7 +119,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
-    //    this.root = new MiddleNode(this.reader.getString(sceneElements[0], 'root'));
+    this.rootId = this.reader.getString(sceneElements[0], 'root');
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
 }
 
