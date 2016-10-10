@@ -52,59 +52,13 @@ MySceneGraph.prototype.onXMLReady = function() {
     this.scene.onGraphLoaded();
 };
 
-
-
-/*
- * Example of method that parses elements of one block and stores information in a specific data structure
- */
-MySceneGraph.prototype.parseGlobalsExample = function(rootElement) {
-
-    var elems = rootElement.getElementsByTagName('globals');
-    if (elems == null) {
-        return "globals element is missing.";
-    }
-
-    if (elems.length != 1) {
-        return "either zero or more than one 'globals' element found.";
-    }
-
-    // various examples of different types of access
-    var globals = elems[0];
-    this.background = this.reader.getRGBA(globals, 'background');
-    this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill", "line", "point"]);
-    this.cullface = this.reader.getItem(globals, 'cullface', ["back", "front", "none", "frontandback"]);
-    this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw", "cw"]);
-
-    console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
-
-    var tempList = rootElement.getElementsByTagName('list');
-
-    if (tempList == null || tempList.length == 0) {
-        return "list element is missing.";
-    }
-
-    this.list = [];
-    // iterate over every element
-    var nnodes = tempList[0].children.length;
-    for (var i = 0; i < nnodes; i++) {
-        var e = tempList[0].children[i];
-
-        // process each element and store its information
-        this.list[e.id] = e.attributes.getNamedItem("coords").value;
-        console.log("Read list item id " + e.id + " with value " + this.list[e.id]);
-    };
-
-};
-
 /*
  * Callback to be executed on any read error
  */
-
 MySceneGraph.prototype.onXMLError = function(message) {
     console.error("XML Loading Error: " + message);
     this.loadedOk = false;
 };
-
 
 MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
@@ -256,7 +210,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
 
 MySceneGraph.prototype.parseTextures = function(texturesElems) {
-  console.log(texturesElems);
+
     if (texturesElems.length == 0) {
         this.onXMLError("textures:: element is missing.")
     }
@@ -294,7 +248,7 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 
     for (let elem of rootView) {
         var idPerspective = this.reader.getString(elem, 'id');
-        console.log("id:" + idPerspective);
+
         if (typeof this.perspectives[idPerspective] != 'undefined') {
             this.onXMLError("views:: already exists a texture with that id");
         }
@@ -327,28 +281,25 @@ MySceneGraph.prototype.getCoordinates = function(elem) {
         y: yCoord,
         z: zCoord
     });
-    console.log("Array de coordenadas:" + myArray[0].x + " " + myArray[0].y + " " + myArray[0].z);
+
     return myArray;
 }
 
 MySceneGraph.prototype.getRGBA = function(elem) {
     var rgbaArray = [];
 
-    console.log(elem);
-
     var rElem = this.reader.getFloat(elem, 'r');
     var gElem = this.reader.getFloat(elem, 'g');
     var bElem = this.reader.getFloat(elem, 'b');
     var aElem = this.reader.getFloat(elem, 'a');
 
-    //TODO: Array de objetos ou array?
     rgbaArray.push({
         r: rElem,
         g: gElem,
         b: bElem,
         a: aElem
     });
-    console.log("Array de rgba:" + rgbaArray[0].r + " " + rgbaArray[0].g + " " + rgbaArray[0].b + " " + rgbaArray[0].a);
+
     return rgbaArray;
 }
 

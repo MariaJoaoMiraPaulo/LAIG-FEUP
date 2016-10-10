@@ -22,8 +22,6 @@ class Component {
     }
 
     readingCompTrans(transElem) {
-        //console.log(transElem.children.length);
-
         //now we have to see if we heave transformationref
         //or the translates, rotates and scales
         var transRef = transElem.getElementsByTagName('transformationref');
@@ -37,7 +35,6 @@ class Component {
     }
 
     readingMaterials(materialElem) {
-        //Declaração obrigatoria de pelo menos um material
         var materials = materialElem.getElementsByTagName('material');
         if (materials.length == 0)
             this.graph.onXMLError("components:: it must have at least one material block.");
@@ -64,7 +61,7 @@ class Component {
                 this.graph.onXMLError("components:: it doens't have any component with that id");
             else {
                 //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-              //  this.graph.components[componentrefId].parentMaterial = this.material[0];
+                this.graph.components[componentrefId].parentMaterial = this.materialsRefIds[0];
                 this.childrens.push(this.graph.components[this.reader.getString(component, 'id')]);
 
             }
