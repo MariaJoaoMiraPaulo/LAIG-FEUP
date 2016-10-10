@@ -7,18 +7,19 @@ class Component {
 
         this.transformationId;
         this.transformationMatrix;
-        this.materialsRefIds = [];
         this.cgfMaterials = [];
+        this.cgfTexture;
         this.componentsRefId = [];
         this.childrens = [];
         this.parentMaterial = null;
+        this.parentTexture = null;
         this.readingComponent();
     }
 
     readingComponent() {
         this.readingCompTrans(this.element.getElementsByTagName('transformation')[0]);
-        this.readingMaterials(this.element.getElementsByTagName('materials')[0]);
         this.readingTextures(this.element.getElementsByTagName('texture')[0]);
+        this.readingMaterials(this.element.getElementsByTagName('materials')[0]);
         this.readingChildrens(this.element.getElementsByTagName('children')[0]);
     }
 
@@ -42,15 +43,27 @@ class Component {
 
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-            console.log("id" + id);
             this.cgfMaterials.push(this.graph.materials[id]);
-          //  this.materialsRefIds.push(id);
-            //console.log(this.graph.materials['1']);
-            //this.CGFmaterials.push(this.scene.materials[id]);
         }
     }
 
     readingTextures(textureElem) {
+      if(textureElem == null)
+        this.graph.onXMLError("components:: it must have one texture block.");
+
+      var id = this.reader.getString(textureElem,'id');
+      console.log("id: " + id);
+      switch (id) {
+        case 'inherit':
+          this.cgfTexture = this.parentTexture;
+          break;
+        case 'none':
+          this.cgfTexture = null;
+          break;
+        default:
+          this.cgfTexture = this.graph.textures[id];
+
+      }
 
     }
 
@@ -78,7 +91,8 @@ class Component {
                    this.graph.onXMLError("components:: it doens't have any component with that id");
                else {
                    //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-                   this.graph.components[componentRefId].parentMaterial = this.materialsRefIds[0];
+                   this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
+                   this.graph.components[componentRefId].parentTexture = this.cgfTexture;
                    this.childrens.push(this.graph.components[componentRefId]);
                }
       }

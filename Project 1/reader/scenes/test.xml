@@ -174,7 +174,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="ss"/>
+            <texture id="1"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -222,7 +222,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="ss"/>
+            <texture id="1"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
