@@ -12,6 +12,8 @@ XMLscene.prototype.init = function(application) {
 
     this.initLights();
 
+    this.enableTextures(true);
+
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     this.gl.clearDepth(100.0);

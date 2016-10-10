@@ -43,7 +43,11 @@ class Component {
 
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-            this.cgfMaterials.push(this.graph.materials[id]);
+            var materialElem = this.graph.materials[id];
+            console.log(materialElem);
+            console.log(this.cgfTexture[0].file);
+            materialElem.loadTexture();
+            this.cgfMaterials.push(materialElem);
         }
     }
 
@@ -53,7 +57,6 @@ class Component {
         this.graph.onXMLError("components:: it must have one texture block.");
 
       var id = this.reader.getString(textureElem,'id');
-      console.log("id: " + id);
       switch (id) {
         case 'inherit':
           this.cgfTexture = this.parentTexture;
@@ -62,10 +65,11 @@ class Component {
           this.cgfTexture = null;
           break;
         default:
-          this.cgfTexture = this.graph.textures[id];
-
+          if(this.graph.textures[id]=='undefined')
+            this.graph.onXMLError("components:: it doens't exist any texture with that id.");
+          else this.cgfTexture = this.graph.textures[id];
       }
-      //FIXME: Duvida : undefined
+
       console.log(this.cgfTexture);
 
     }
