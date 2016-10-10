@@ -49,15 +49,16 @@
             <specular r="1" g="0" b="0" a="1"/>
         </omni>
 
-        <!--  <spot id="1" enabled="1" angle="ff" exponent="ff"> -->
+       <spot id="1" enabled="1" angle="ff" exponent="ff"> -->
         <!-- atencao, "target" e' diferente de "direction" -->
-        <!--    <target x="44" y="44" z="44" />
-            <location x="00" y="00" z="00" />
-            <ambient r="11" g="11" b="11" a="11" />
-            <diffuse r="22" g="22" b="22" a="22" />
-            <specular r="33" g="33" b="33" a="33" />
+           <target x="0" y="0" z="0" />
+            <location x="1" y="13.5" z="15" />
+            <ambient r="0,549" g="1" b="0.098" a="1" />
+            <diffuse r="1" g="0" b="0" a="1" />
+            <specular r="1" g="0" b="0" a="1" />
         </spot>
-      -->
+
+
 
     </lights>
 
