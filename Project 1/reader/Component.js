@@ -7,10 +7,10 @@ class Component {
 
         this.transformationId;
         this.transformationMatrix;
-        this.primitivesRefIds = []; //guard the primitive ids
         this.materialsRefIds = [];
+        this.componentsRefId = [];
         this.childrens = [];
-        this.parentMaterial = null; //TODO: igual a null For root Component ??
+        this.parentMaterial = null;
         this.readingComponent();
     }
 
@@ -51,20 +51,10 @@ class Component {
 
     readingChildrens(childrenElem) {
         //taking care of componentref
-
-        //TODO: Fix Me
         var components = childrenElem.getElementsByTagName('componentref');
 
         for (let component of components) {
-            var componentrefId = this.reader.getString(component, 'id');
-            if (typeof this.graph.components[componentrefId] == 'undefined')
-                this.graph.onXMLError("components:: it doens't have any component with that id");
-            else {
-                //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-                this.graph.components[componentrefId].parentMaterial = this.materialsRefIds[0];
-                this.childrens.push(this.graph.components[this.reader.getString(component, 'id')]);
-
-            }
+            this.componentsRefId.push(this.reader.getString(component, 'id'));
         }
 
         var primitives = childrenElem.getElementsByTagName('primitiveref');
@@ -77,10 +67,22 @@ class Component {
 
     }
 
+    conectingChildrens(){
+      for(let componentRefId of this.componentsRefId){
+        if (typeof this.graph.components[componentRefId] == 'undefined')
+                   this.graph.onXMLError("components:: it doens't have any component with that id");
+               else {
+                   //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
+                   this.graph.components[componentRefId].parentMaterial = this.materialsRefIds[0];
+                   this.childrens.push(this.graph.components[componentRefId]);
+               }
+      }
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-      //  console.log(this.childrens.length);
+        //  console.log(this.childrens.length);
 
         for (let children of this.childrens) {
             children.display();
