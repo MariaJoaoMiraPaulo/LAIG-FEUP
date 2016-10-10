@@ -80,6 +80,7 @@ XMLscene.prototype.display = function() {
     if (this.graph.loadedOk) {
 
         this.lights[0].update();
+        this.lights[1].update();
         //render graph
         /*  for(key in this.graph.primitives){
             this.graph.primitives[key].display();
@@ -118,10 +119,19 @@ XMLscene.prototype.setXMLLights = function() {
             console.log("OMNI");
             this.lights[i].setPosition(light.locationElems[0].x,light.locationElems[0].y,light.locationElems[0].z,light.locationElems[0].w);
         }
-        else if (this.graph.lights[key] instanceof Spot)
-            console.log("SPOT");
-
-
-    i++;
+        else if (this.graph.lights[key] instanceof Spot){
+          console.log("SPOT");
+          this.lights[i].setSpotCutOff(light.angle);
+          this.lights[i].setSpotExponent(light.exponent);
+          var wElem =1;
+          this.lights[i].setPosition(light.locationElems[0].x,light.locationElems[0].y,light.locationElems[0].z,wElem);
+          var directionX = light.targetElems[0].x - light.locationElems[0].x;
+          var directionY = light.targetElems[0].y - light.locationElems[0].y;
+          var directionZ = light.targetElems[0].z - light.locationElems[0].z;
+          this.lights[i].setSpotDirection(directionX,directionY,directionZ);
+        }
+        i++;
     }
+
+    console.log(this.lights);
 };
