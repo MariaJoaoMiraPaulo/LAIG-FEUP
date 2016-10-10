@@ -48,6 +48,7 @@ class Component {
     }
 
     readingTextures(textureElem) {
+      //FIXME: cgftexture e parentTexture ou só uma variavel de textura?
       if(textureElem == null)
         this.graph.onXMLError("components:: it must have one texture block.");
 
@@ -64,6 +65,8 @@ class Component {
           this.cgfTexture = this.graph.textures[id];
 
       }
+      //FIXME: Duvida : undefined
+      console.log(this.cgfTexture);
 
     }
 
