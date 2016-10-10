@@ -8,6 +8,7 @@ class Component {
         this.transformationId;
         this.transformationMatrix;
         this.materialsRefIds = [];
+        this.cgfMaterials = [];
         this.componentsRefId = [];
         this.childrens = [];
         this.parentMaterial = null;
@@ -41,7 +42,11 @@ class Component {
 
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-            this.materialsRefIds.push(id);
+            console.log("id" + id);
+            this.cgfMaterials.push(this.graph.materials[id]);
+          //  this.materialsRefIds.push(id);
+            //console.log(this.graph.materials['1']);
+            //this.CGFmaterials.push(this.scene.materials[id]);
         }
     }
 
@@ -82,7 +87,7 @@ class Component {
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-        //  console.log(this.childrens.length);
+        this.cgfMaterials[0].apply();
 
         for (let children of this.childrens) {
             children.display();

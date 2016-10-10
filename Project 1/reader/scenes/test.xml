@@ -84,12 +84,12 @@
 
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="ss">
-            <emission r="00" g="00" b="00" a="00"/>
-            <ambient r="11" g="11" b="11" a="11"/>
-            <diffuse r="22" g="22" b="22" a="22"/>
-            <specular r="33" g="33" b="33" a="33"/>
-            <shininess value="2"/>
+        <material id="1">
+            <emission r="0" g="0.6" b="1" a="0.5"/>
+            <ambient r="0" g="0.6" b="1" a="0.5"/>
+            <diffuse r="0" g="0.6" b="1" a="0.5"/>
+            <specular r="0" g="0.6" b="1" a="0.5"/>
+            <shininess value="1"/>
         </material>
 
     </materials>
@@ -166,7 +166,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss"/>
+                <material id="1"/>
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
@@ -214,7 +214,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss"/>
+                <material id="1"/>
             </materials>
 
             <!-- declaracao obrigatoria de texture -->

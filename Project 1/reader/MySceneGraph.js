@@ -174,6 +174,8 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
         }
         this.materials[idMaterial] = this.createMaterial(elem);
     }
+
+    console.log(this.materials['1']);
 };
 
 
