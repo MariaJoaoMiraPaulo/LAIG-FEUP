@@ -47,8 +47,8 @@ class Component {
             console.log(materialElem);
             console.log(this.cgfTexture[0].file);
             //FIXME: Can´t load texture
-            materialElem.loadTexture(this.cgfTexture[0].file);
-            materialElem.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+          //  materialElem.loadTexture(this.cgfTexture[0].file);
+          //  materialElem.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
             console.log("passei");
             this.cgfMaterials.push(materialElem);
         }

@@ -52,6 +52,12 @@ XMLscene.prototype.onGraphLoaded = function() {
 
     this.setXMLIllumination();
     this.setXMLLights();
+    //FIXME: Camara nao faz nada??
+    console.log("perspectives");
+    console.log(this.graph.perspectives);
+    console.log(this.graph.perspectives[this.graph.defaultView]);
+    console.log(this.graph.defaultView);
+    this.camera = this.graph.perspectives[this.graph.defaultView];
 
 };
 
@@ -67,6 +73,7 @@ XMLscene.prototype.display = function() {
     this.loadIdentity();
 
     // Apply transformations corresponding to the camera position relative to the origin
+
     this.applyViewMatrix();
 
     // Draw axis
