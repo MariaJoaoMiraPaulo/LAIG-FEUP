@@ -52,11 +52,6 @@ XMLscene.prototype.onGraphLoaded = function() {
 
     this.setXMLIllumination();
     this.setXMLLights();
-    //FIXME: Camara nao faz nada??
-    console.log("perspectives");
-    console.log(this.graph.perspectives);
-    console.log(this.graph.perspectives[this.graph.defaultView]);
-    console.log(this.graph.defaultView);
     this.camera = this.graph.perspectives[this.graph.defaultView];
 
 };
