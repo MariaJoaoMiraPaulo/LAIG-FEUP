@@ -89,6 +89,7 @@ XMLscene.prototype.display = function() {
             this.graph.components[key].display();
         }*/
         this.graph.components[this.graph.rootId].display();
+        this.graph.primitives[3].display();
     };
 };
 
