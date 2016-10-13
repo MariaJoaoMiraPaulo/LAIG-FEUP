@@ -129,7 +129,7 @@
         </primitive>
 
         <primitive id="3">
-            <torus inner="1" outer="5" slices="20" loops="20"/>
+            <torus inner="1" outer="3" slices="20" loops="20"/>
         </primitive>
 
         <primitive id="1">
@@ -186,7 +186,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <primitiveref id="1"/>
+                <primitiveref id="3"/>
 
             </children>
 
@@ -234,7 +234,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <componentref id="0"/>
-                <primitiveref id="1"/>
+              <!--  <primitiveref id="3"/>-->
 
             </children>
 

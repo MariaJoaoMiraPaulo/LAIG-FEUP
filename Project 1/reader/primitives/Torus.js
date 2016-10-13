@@ -3,9 +3,9 @@ function Torus(scene, reader, newElement) {
 
     this.reader = reader;
     this.newElement = newElement;
-    this.values = {};
-    this.innerRadius = this.reader.getFloat(this.newElement, 'inner');
-    this.outerRadius = this.reader.getFloat(this.newElement, 'outer');
+
+    this.inner = this.reader.getFloat(this.newElement, 'inner');
+    this.outer = this.reader.getFloat(this.newElement, 'outer');
     this.slices = this.reader.getInteger(this.newElement, 'slices');
     this.loops = this.reader.getInteger(this.newElement, 'loops');
     this.minS = 0;
@@ -20,6 +20,8 @@ Torus.prototype = Object.create(CGFobject.prototype);
 Torus.prototype.constructor = Torus;
 
 Torus.prototype.initBuffers = function() {
+
+
     this.vertices = [];
     this.normals = [];
     this.indices = [];
@@ -27,25 +29,28 @@ Torus.prototype.initBuffers = function() {
     var angSlices = (2 * Math.PI) / this.slices;
     var angLoops = (2 * Math.PI) / this.loops;
 
-    for (let i = 0; i < this.slices; i++) {
-        for (let j = 0; j < this.loops; j++) {
-            let x = (this.outer + this.inner * (Math.cos(angLoops) * j)) * (Math.cos(angSlices) * i);
-            let y = (this.outer + this.inner * (Math.cos(angLoops) * j)) * (Math.cos(angSlices) * i);
-            let z = this.inner * (Math.sin(angSlices) * i);
+    for (let i = 0; i <= this.slices; i++) {
+        for (let j = 0; j <= this.loops; j++) {
+            let u = angSlices * i;
+            let v = angLoops * j;
+
+            let x = (this.outer + this.inner * Math.cos(v)) * Math.cos(u);
+            let y = (this.outer + this.inner * Math.cos(v)) * Math.sin(u);
+            let z = this.inner * Math.sin(v);
+
             this.vertices.push(x, y, z);
             this.normals.push(x, y, z);
         }
     }
 
-    for (i = 0; i < this.slices; i++) {
-        for (j = 0; j < this.loops - 1; j++) {
-            this.indices.push(i * this.slices + j, i * this.slices + j + 1, (i + 1) * this.slices + j);
-            this.indices.push(i * this.slices + j + 1, (i + 1) * this.slices + j + 1, (i + 1) * this.slices + j);
-        }
+    for(let i=0;i<this.slices;i++)  {
+        for(let j=0;j<this.loops;j++){
 
-        this.indices.push(i * this.slices + this.slices - 1, i * this.slices, (i + 1) * this.slices + this.slices - 1);
-        this.indices.push(i * this.slices, i * this.slices + this.slices, (i + 1) * this.slices + this.slices - 1);
-    }
+          this.indices.push(j*(this.slices+1)+i, j*(this.slices+1)+i+this.slices+2, j*(this.slices+1)+i+this.slices+1);
+          this.indices.push(j*(this.slices+1)+i, j*(this.slices+1)+i + 1, j*(this.slices+1)+i+this.slices + 2);
+        }
+      }
+
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

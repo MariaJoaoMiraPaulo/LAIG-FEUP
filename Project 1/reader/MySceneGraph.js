@@ -113,7 +113,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.primitives[idPrimitive] = new Sphere(this.scene, this.reader, newElement);
                 break;
             case 'torus':
-                new Torus(this.scene, this.reader, newElement);
+                this.primitives[idPrimitive] = new Torus(this.scene, this.reader, newElement);
                 break;
         }
     }
