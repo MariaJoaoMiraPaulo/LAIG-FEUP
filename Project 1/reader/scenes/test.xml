@@ -24,9 +24,9 @@
         <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
         <!-- a vista muda para a proxima da lista; da -->
         <!-- ultima vista da lista volta 'a primeira -->
-        <perspective id="vista1" near="11" far="22" angle="33">
-            <from x="11" y="12" z="13"/>
-            <to x="22" y="23" z="24"/>
+        <perspective id="vista1" near="0.1" far="500" angle="0.4">
+            <from x="30" y="30" z="30"/>
+            <to x="0" y="0" z="0"/>
         </perspective>
 
     </views>
@@ -75,7 +75,7 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
-        <texture id="ss" file="imagem.png" length_s="22.2" length_t="2.3"/>
+        <texture id="1" file="../img/floor.png" length_s="22.2" length_t="2.3"/>
 
     </textures>
 
@@ -83,12 +83,12 @@
 
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="ss">
-            <emission r="00" g="00" b="00" a="00"/>
-            <ambient r="11" g="11" b="11" a="11"/>
-            <diffuse r="22" g="22" b="22" a="22"/>
-            <specular r="33" g="33" b="33" a="33"/>
-            <shininess value="2"/>
+        <material id="1">
+            <emission r="0" g="0.6" b="1" a="0.5"/>
+            <ambient r="0" g="0.6" b="1" a="0.5"/>
+            <diffuse r="0" g="0.6" b="1" a="0.5"/>
+            <specular r="0" g="0.6" b="1" a="0.5"/>
+            <shininess value="1"/>
         </material>
 
     </materials>
@@ -169,7 +169,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss"/>
+                <material id="1"/>
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
@@ -177,7 +177,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="ss"/>
+            <texture id="1"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -217,7 +217,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss"/>
+                <material id="1"/>
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
@@ -225,7 +225,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="ss"/>
+            <texture id="1"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>

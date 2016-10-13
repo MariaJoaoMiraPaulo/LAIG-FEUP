@@ -7,17 +7,19 @@ class Component {
 
         this.transformationId;
         this.transformationMatrix;
-        this.materialsRefIds = [];
+        this.cgfMaterials = [];
+        this.cgfTexture;
         this.componentsRefId = [];
         this.childrens = [];
         this.parentMaterial = null;
+        this.parentTexture = null;
         this.readingComponent();
     }
 
     readingComponent() {
         this.readingCompTrans(this.element.getElementsByTagName('transformation')[0]);
-        this.readingMaterials(this.element.getElementsByTagName('materials')[0]);
         this.readingTextures(this.element.getElementsByTagName('texture')[0]);
+        this.readingMaterials(this.element.getElementsByTagName('materials')[0]);
         this.readingChildrens(this.element.getElementsByTagName('children')[0]);
     }
 
@@ -41,11 +43,37 @@ class Component {
 
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-            this.materialsRefIds.push(id);
+            var materialElem = this.graph.materials[id];
+            console.log(materialElem);
+            console.log(this.cgfTexture[0].file);
+            //FIXME: Can´t load texture
+          //  materialElem.loadTexture(this.cgfTexture[0].file);
+          //  materialElem.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+            console.log("passei");
+            this.cgfMaterials.push(materialElem);
         }
     }
 
     readingTextures(textureElem) {
+      //FIXME: cgftexture e parentTexture ou só uma variavel de textura?
+      if(textureElem == null)
+        this.graph.onXMLError("components:: it must have one texture block.");
+
+      var id = this.reader.getString(textureElem,'id');
+      switch (id) {
+        case 'inherit':
+          this.cgfTexture = this.parentTexture;
+          break;
+        case 'none':
+          this.cgfTexture = null;
+          break;
+        default:
+          if(this.graph.textures[id]=='undefined')
+            this.graph.onXMLError("components:: it doens't exist any texture with that id.");
+          else this.cgfTexture = this.graph.textures[id];
+      }
+
+      console.log(this.cgfTexture);
 
     }
 
@@ -73,7 +101,8 @@ class Component {
                    this.graph.onXMLError("components:: it doens't have any component with that id");
                else {
                    //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-                   this.graph.components[componentRefId].parentMaterial = this.materialsRefIds[0];
+                   this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
+                   this.graph.components[componentRefId].parentTexture = this.cgfTexture;
                    this.childrens.push(this.graph.components[componentRefId]);
                }
       }
@@ -82,7 +111,7 @@ class Component {
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-        //  console.log(this.childrens.length);
+        this.cgfMaterials[0].apply();
 
         for (let children of this.childrens) {
             children.display();

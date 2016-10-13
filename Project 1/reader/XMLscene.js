@@ -12,6 +12,8 @@ XMLscene.prototype.init = function(application) {
 
     this.initLights();
 
+    this.enableTextures(true);
+
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     this.gl.clearDepth(100.0);
@@ -50,6 +52,7 @@ XMLscene.prototype.onGraphLoaded = function() {
 
     this.setXMLIllumination();
     this.setXMLLights();
+    this.camera = this.graph.perspectives[this.graph.defaultView];
 
 };
 
@@ -65,6 +68,7 @@ XMLscene.prototype.display = function() {
     this.loadIdentity();
 
     // Apply transformations corresponding to the camera position relative to the origin
+
     this.applyViewMatrix();
 
     // Draw axis
