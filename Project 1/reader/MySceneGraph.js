@@ -269,8 +269,8 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
         this.components[id] = new Component(this.scene, this.reader, component, this);
     }
 
-    for(key in this.components){
-      this.components[key].conectingChildrens();
+    for (key in this.components) {
+        this.components[key].conectingChildrens();
     }
 }
 
@@ -318,33 +318,34 @@ MySceneGraph.prototype.createMaterial = function(newElement) {
     var shininess = this.reader.getFloat(newElement.getElementsByTagName('shininess')[0], 'value');
 
     var newMaterial = new CGFappearance(this.scene);
-    newMaterial.setSpecular(specular[0].r,specular[0].g,specular[0].b,specular[0].a);
+    newMaterial.setSpecular(specular[0].r, specular[0].g, specular[0].b, specular[0].a);
     newMaterial.setShininess(shininess);
-    newMaterial.setDiffuse(diffuse[0].r,diffuse[0].g,diffuse[0].b,diffuse[0].a);
-    newMaterial.setAmbient(ambient[0].r,ambient[0].g,ambient[0].b,ambient[0].a);
-    newMaterial.setEmission(emission[0].r,emission[0].g,emission[0].b,emission[0].a);
+    newMaterial.setDiffuse(diffuse[0].r, diffuse[0].g, diffuse[0].b, diffuse[0].a);
+    newMaterial.setAmbient(ambient[0].r, ambient[0].g, ambient[0].b, ambient[0].a);
+    newMaterial.setEmission(emission[0].r, emission[0].g, emission[0].b, emission[0].a);
 
     return newMaterial;
 }
 
 MySceneGraph.prototype.createTexture = function(newElement) {
 
-  var fileElem = this.reader.getString(newElement,'file');
-  var length_sElem = this.reader.getFloat(newElement,'length_s');
-  var length_tElem = this.reader.getFloat(newElement,'length_t');
+    var fileElem = this.reader.getString(newElement, 'file');
+    var length_sElem = this.reader.getFloat(newElement, 'length_s');
+    var length_tElem = this.reader.getFloat(newElement, 'length_t');
 
-  var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
-  return textureArray;
+    var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
+
+    return textureArray;
 
 }
 
 MySceneGraph.prototype.createCamera = function(newElement) {
-  var nearElem = this.reader.getFloat(newElement, 'near');
-  var angleElem = this.reader.getFloat(newElement, 'angle');
-  var farElem = this.reader.getFloat(newElement, 'far');
-  var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
-  var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
+    var nearElem = this.reader.getFloat(newElement, 'near');
+    var angleElem = this.reader.getFloat(newElement, 'angle');
+    var farElem = this.reader.getFloat(newElement, 'far');
+    var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
+    var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
 
-  var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x,coordsFrom[0].y,coordsFrom[0].z), vec3.fromValues(coordsTo[0].x,coordsTo[0].y, coordsTo[0].y));
-  return newCamera;
+    var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x, coordsFrom[0].y, coordsFrom[0].z), vec3.fromValues(coordsTo[0].x, coordsTo[0].y, coordsTo[0].y));
+    return newCamera;
 }

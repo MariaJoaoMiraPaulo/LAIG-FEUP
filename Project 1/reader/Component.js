@@ -52,6 +52,8 @@ class Component {
             console.log("passei");
             this.cgfMaterials.push(materialElem);
         }
+        console.log(this.cgfTexture.file);
+        
     }
 
     readingTextures(textureElem) {

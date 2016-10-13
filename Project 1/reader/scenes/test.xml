@@ -75,7 +75,7 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
-        <texture id="1" file="../img/floor.png" length_s="22.2" length_t="2.3"/>
+        <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
 
     </textures>
 
@@ -186,7 +186,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <primitiveref id="3"/>
+                <primitiveref id="1"/>
 
             </children>
 
