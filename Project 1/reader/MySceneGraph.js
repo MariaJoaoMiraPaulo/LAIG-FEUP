@@ -264,7 +264,7 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 MySceneGraph.prototype.parseComponents = function(componentElems) {
 
     for (let component of componentElems[0].children) {
-        let id = this.reader.getFloat(component, 'id');
+        let id = this.reader.getString(component, 'id');
 
         this.components[id] = new Component(this.scene, this.reader, component, this);
     }

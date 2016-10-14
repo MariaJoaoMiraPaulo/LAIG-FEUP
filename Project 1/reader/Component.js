@@ -53,7 +53,7 @@ class Component {
             this.cgfMaterials.push(materialElem);
         }
         console.log(this.cgfTexture.file);
-        
+
     }
 
     readingTextures(textureElem) {

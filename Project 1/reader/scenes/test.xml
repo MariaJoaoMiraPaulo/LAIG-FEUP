@@ -144,7 +144,7 @@
 
     <components>
 
-        <component id="0">
+        <component id="7">
 
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
@@ -233,7 +233,7 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <componentref id="0"/>
+                <componentref id="7"/>
               <!--  <primitiveref id="3"/>-->
 
             </children>
