@@ -47,9 +47,8 @@ class Component {
             console.log(materialElem);
             console.log(this.cgfTexture[0].file);
             //FIXME: Can´t load texture
-          //  materialElem.loadTexture(this.cgfTexture[0].file);
-          //  materialElem.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
-            console.log("passei");
+            //  materialElem.loadTexture(this.cgfTexture[0].file);
+            //  materialElem.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
             this.cgfMaterials.push(materialElem);
         }
         console.log(this.cgfTexture.file);
@@ -57,25 +56,25 @@ class Component {
     }
 
     readingTextures(textureElem) {
-      //FIXME: cgftexture e parentTexture ou só uma variavel de textura?
-      if(textureElem == null)
-        this.graph.onXMLError("components:: it must have one texture block.");
+        //FIXME: cgftexture e parentTexture ou só uma variavel de textura?
+        if (textureElem == null)
+            this.graph.onXMLError("components:: it must have one texture block.");
 
-      var id = this.reader.getString(textureElem,'id');
-      switch (id) {
-        case 'inherit':
-          this.cgfTexture = this.parentTexture;
-          break;
-        case 'none':
-          this.cgfTexture = null;
-          break;
-        default:
-          if(this.graph.textures[id]=='undefined')
-            this.graph.onXMLError("components:: it doens't exist any texture with that id.");
-          else this.cgfTexture = this.graph.textures[id];
-      }
+        var id = this.reader.getString(textureElem, 'id');
+        switch (id) {
+            case 'inherit':
+                this.cgfTexture = this.parentTexture;
+                break;
+            case 'none':
+                this.cgfTexture = null;
+                break;
+            default:
+                if (this.graph.textures[id] == 'undefined')
+                    this.graph.onXMLError("components:: it doens't exist any texture with that id.");
+                else this.cgfTexture = this.graph.textures[id];
+        }
 
-      console.log(this.cgfTexture);
+        console.log(this.cgfTexture);
 
     }
 
@@ -90,24 +89,28 @@ class Component {
         var primitives = childrenElem.getElementsByTagName('primitiveref');
 
         for (let primitive of primitives) {
-            if (typeof this.graph.primitives[this.reader.getString(primitive, 'id')] == 'undefined')
+            if (typeof this.graph.primitives[this.reader.getString(primitive, 'id')] == 'undefined') {
+                console.log("id da primitiva" + this.graph.primitives[this.reader.getString(primitive, 'id')]);
                 this.graph.onXMLError("components:: it doens't have any primitive with that id");
+            }
+            console.log(this.graph.primitives[this.reader.getString(primitive, 'id')]);
             this.childrens.push(this.graph.primitives[this.reader.getString(primitive, 'id')]);
         }
 
     }
 
-    conectingChildrens(){
-      for(let componentRefId of this.componentsRefId){
-        if (typeof this.graph.components[componentRefId] == 'undefined')
-                   this.graph.onXMLError("components:: it doens't have any component with that id");
-               else {
-                   //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-                   this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
-                   this.graph.components[componentRefId].parentTexture = this.cgfTexture;
-                   this.childrens.push(this.graph.components[componentRefId]);
-               }
-      }
+    conectingChildrens() {
+
+        for (let componentRefId of this.componentsRefId) {
+            if (typeof this.graph.components[componentRefId] == 'undefined')
+                this.graph.onXMLError("components:: it doens't have any component with that id");
+            else {
+                //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
+                this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
+                this.graph.components[componentRefId].parentTexture = this.cgfTexture;
+                this.childrens.push(this.graph.components[componentRefId]);
+            }
+        }
     }
 
     display() {

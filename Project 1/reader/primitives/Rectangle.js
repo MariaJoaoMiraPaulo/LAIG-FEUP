@@ -30,7 +30,9 @@ Rectangle.prototype.initBuffers = function() {
 
     this.indices = [
         2, 1, 0,
-        3, 1, 2
+        3, 1, 2,
+        2, 0, 1,
+        3, 2, 1
     ];
 
     this.normals = [

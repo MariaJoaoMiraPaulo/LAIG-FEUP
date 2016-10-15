@@ -92,7 +92,10 @@ XMLscene.prototype.display = function() {
     /*    for (key in this.graph.components) {
             this.graph.components[key].display();
         }*/
+
+
         this.graph.components[this.graph.rootId].display();
+
     };
 };
 

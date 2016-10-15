@@ -265,6 +265,7 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
 
     for (let component of componentElems[0].children) {
         let id = this.reader.getString(component, 'id');
+        console.log(id);
 
         this.components[id] = new Component(this.scene, this.reader, component, this);
     }

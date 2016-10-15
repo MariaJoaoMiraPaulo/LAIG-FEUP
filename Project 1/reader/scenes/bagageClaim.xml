@@ -145,78 +145,142 @@
     <components>
 
         <component id="1">
-
-            <!-- bloco "transformation" obrigatorio -->
             <transformation>
             </transformation>
-
-            <!-- declaracao obrigatoria de pelo menos um material; -->
-            <!-- o material id="inherit", mantem (herda) material do "pai" -->
-            <!-- se varios materiais declarados, o default e' o -->
-            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
-            <!-- o material muda para o proximo material da lista; do -->
-            <!-- ultimo material da lista volta ao primeiro -->
             <materials>
                 <material id="1"/>
             </materials>
-
-            <!-- declaracao obrigatoria de texture -->
-            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
-            <!-- id="none" remove a textura recebida do pai -->
-            <!-- a textura declarada sobrepoe a textura recebida do -->
-            <!-- objecto "pai" -->
             <texture id="1"/>
-
-            <!-- bloco "children" obrigatorio num "component" -->
             <children>
-
-                <!-- deve existir uma ou mais tags "componentref" e/ou -->
-                <!-- "primitiveref", identificando outros -->
-                <!-- componentes ou primitivas -->
-                <!--  <componentref id="ss" />-->
                 <componentref id="cubo"/>
-
             </children>
-
         </component>
+
 
         <component id="cubo">
-
-            <!-- bloco "transformation" obrigatorio -->
             <transformation>
-
             </transformation>
 
-            <!-- declaracao obrigatoria de pelo menos um material; -->
-            <!-- o material id="inherit", mantem (herda) material do "pai" -->
-            <!-- se varios materiais declarados, o default e' o -->
-            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
-            <!-- o material muda para o proximo material da lista; do -->
-            <!-- ultimo material da lista volta ao primeiro -->
             <materials>
                 <material id="1"/>
             </materials>
 
-            <!-- declaracao obrigatoria de texture -->
-            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
-            <!-- id="none" remove a textura recebida do pai -->
-            <!-- a textura declarada sobrepoe a textura recebida do -->
-            <!-- objecto "pai" -->
             <texture id="1"/>
 
-            <!-- bloco "children" obrigatorio num "component" -->
             <children>
-
-                <!-- deve existir uma ou mais tags "componentref" e/ou -->
-                <!-- "primitiveref", identificando outros -->
-                <!-- componentes ou primitivas -->
-            <!--   <componentref id="lado2"/>-->
-                <primitiveref id="1"/>
+              <componentref id="lado1"/>
+             <componentref id="lado2"/>
+             <componentref id="lado3"/>
+              <componentref id="lado4"/>
+               <componentref id="lado5"/> 
+               <componentref id="lado6"/>
 
             </children>
+        </component>
 
+        <component id="lado1">
+            <transformation>
+                <translate x="0" y="0" z="-0.5"/>
+            </transformation>
+
+            <materials>
+                <material id="1"/>
+            </materials>
+
+            <texture id="1"/>
+
+            <children>
+               <primitiveref id="1"/>
+            </children>
         </component>
+
+        <component id="lado2">
+            <transformation>
+              <translate x="0" y="0" z="0.5"/>
+            </transformation>
+
+            <materials>
+                <material id="1"/>
+            </materials>
+
+            <texture id="1"/>
+
+            <children>
+               <primitiveref id="1"/>
+            </children>
         </component>
+
+        <component id="lado3">
+            <transformation>
+                <translate x="-0.5" y="0" z="0"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+
+            <materials>
+                <material id="1"/>
+            </materials>
+
+            <texture id="1"/>
+
+            <children>
+               <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado4">
+            <transformation>
+              <translate x="0" y="-0.5" z="0"/>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="1"/>
+            </materials>
+
+            <texture id="1"/>
+
+            <children>
+               <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado5">
+            <transformation>
+              <translate x="0" y="0.5" z="0"/>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="1"/>
+            </materials>
+
+            <texture id="1"/>
+
+            <children>
+               <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado6">
+            <transformation>
+                <translate x="0.5" y="0" z="0"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+
+            <materials>
+                <material id="1"/>
+            </materials>
+
+            <texture id="1"/>
+
+            <children>
+               <primitiveref id="1"/>
+            </children>
+        </component>
+
+
+
+
     </components>
 
 </dsx>
