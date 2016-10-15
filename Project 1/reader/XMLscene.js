@@ -50,11 +50,20 @@ XMLscene.prototype.onGraphLoaded = function() {
     this.lights[0].setVisible(true);
     this.lights[0].enable();
 
+
     this.setXMLIllumination();
     this.setXMLLights();
   //  this.camera = this.graph.perspectives[this.graph.defaultView];
 
 };
+
+
+XMLscene.prototype.updateLights = function() {
+  for (i = 0; i < this.lights.length; i++)
+    this.lights[i].update();
+
+};
+
 
 XMLscene.prototype.display = function() {
     // ---- BEGIN Background, camera and axis setup
@@ -83,7 +92,7 @@ XMLscene.prototype.display = function() {
     // This is one possible way to do it
     if (this.graph.loadedOk) {
 
-        this.lights[0].update();
+        this.updateLights();
       //  this.lights[1].update();
         //render graph
         /*  for(key in this.graph.primitives){

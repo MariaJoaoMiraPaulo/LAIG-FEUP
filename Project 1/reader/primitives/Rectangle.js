@@ -36,10 +36,10 @@ Rectangle.prototype.initBuffers = function() {
     ];
 
     this.normals = [
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1,
-        0, 0, 1
+      this.values['x2'], this.values['y2'], 0,
+      this.values['x2'], this.values['y1'], 0,
+      this.values['x1'], this.values['y2'], 0,
+      this.values['x1'], this.values['y1'], 0
 
     ];
 
