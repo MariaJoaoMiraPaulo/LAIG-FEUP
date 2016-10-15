@@ -82,6 +82,22 @@
             <shininess value="1"/>
         </material>
 
+        <material id="wallMaterial">
+            <emission r="0.7" g="0.6" b="0.4" a="1"/>
+            <ambient r="0.7" g="0.6" b="0.4" a="1"/>
+            <diffuse r="0.7" g="0.6" b="0.4" a="1"/>
+            <specular r="0.7" g="0.6" b="0.4" a="1"/>
+            <shininess value="20"/>
+        </material>
+
+        <material id="floorMaterial">
+            <emission r="0.6" g="0.4" b="0.2" a="1"/>
+            <ambient r="0.6" g="0.4" b="0.2" a="1"/>
+            <diffuse r="0.6" g="0.4" b="0.2" a="1"/>
+            <specular r="0.6" g="0.4" b="0.2" a="1"/>
+            <shininess value="20"/>
+        </material>
+
     </materials>
 
     <transformations>
@@ -102,6 +118,10 @@
     <primitives>
         <primitive id="cylindricBag">
             <cylinder base="2" top="2" height="4" slices="26" stacks="4"/>
+        </primitive>
+
+        <primitive id="tableTop">
+            <cylinder base="2" top="2" height="0.05" slices="26" stacks="4"/>
         </primitive>
 
         <primitive id="3">
@@ -126,14 +146,392 @@
             </materials>
             <texture id="1"/>
             <children>
-                <componentref id="BagOnCarpet"/>
+                <componentref id="BoardFlights"/>
+                <componentref id="CarpetAllBags"/>
+                <componentref id="OtherBags1"/>
+                <componentref id="OtherBags2"/>
+                <componentref id="OtherBags3"/>
+                <componentref id="walls"/>
+                <componentref id="floor"/>
+                <componentref id="CompleteFirstchair"/>
+                <componentref id="table"/>
+
+            </children>
+        </component>
+
+        <component id="OtherBags1">
+            <transformation>
+              <translate x="1.5" y="0.35" z="5.2"/>
+              <rotate axis="y" angle="20"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+              <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+        <component id="OtherBags2">
+            <transformation>
+              <translate x="1" y="0.45" z="5"/>
+              <rotate axis="y" angle="45"/>
+              <scale x="1.3" y="1.3" z="1.3"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+              <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+        <component id="OtherBags3">
+            <transformation>
+              <translate x="1" y="0.19" z="5.5"/>
+              <rotate axis="y" angle="10"/>
+              <scale x="1" y="1" z="0.8"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+              <componentref id="cylindricBagWithHandel"/>
+            </children>
+        </component>
+
+        <component id="BoardFlights">
+            <transformation>
+                <translate x="0.1" y="2.7" z="2.5"/>
+                <rotate axis="y" angle="-90"/>
+                <scale x="2" y="1.5" z="2"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+              <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="table">
+            <transformation>
+                <translate x="0.3" y="0.25" z="3.7"/>
+                <scale x="0.3" y="0.3" z="0.3"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="tablecomponents"/>
+            </children>
+        </component>
+
+        <component id="tablecomponents">
+            <transformation></transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="topTable"/>
+                <componentref id="baseTable"/>
+                <componentref id="secondbaseTable"/>
+            </children>
+        </component>
+
+        <component id="topTable">
+            <transformation>
+                <translate x="0" y="0.75" z="0"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <primitiveref id="tableTop"/>
+            </children>
+        </component>
+
+        <component id="secondbaseTable">
+            <transformation>
+                <scale x="0.4" y="0.4" z="0.4"/>
+                <translate x="0" y="-1.9" z="0"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <primitiveref id="tableTop"/>
+            </children>
+        </component>
+
+        <component id="baseTable">
+            <transformation>
+                <scale x="0.2" y="1.5" z="0.2"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="CompleteFirstchair">
+            <transformation>
+                <translate x="0.5" y="0.45" z="3"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="chair"/>
+            </children>
+        </component>
+
+        <component id="chair">
+            <transformation>
+                <scale x="0.5" y="0.5" z="0.5"/>
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="chair1"/>
+                <componentref id="chair2"/>
+                <componentref id="chair3"/>
+                <componentref id="chair4"/>
+                <componentref id="chairfoot1"/>
+                <componentref id="chairfoot2"/>
+                <componentref id="chairfoot3"/>
+                <componentref id="chairfoot4"/>
+            </children>
+        </component>
+
+        <component id="chairfoot1">
+            <transformation>
+                <translate x="0" y="-0.41" z="0"/>
+                <scale x="0.25" y="0.80" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="chairfoot2">
+            <transformation>
+                <translate x="1.2" y="-0.41" z="0"/>
+                <scale x="0.25" y="0.80" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="chairfoot3">
+            <transformation>
+                <translate x="2.4" y="-0.41" z="0"/>
+                <scale x="0.25" y="0.80" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="chairfoot4">
+            <transformation>
+                <translate x="3.6" y="-0.41" z="0"/>
+                <scale x="0.25" y="0.80" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="chair4">
+            <transformation>
+                <translate x="3.6" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="chairpart1"/>
+                <componentref id="chairpart2"/>
+            </children>
+        </component>
+
+        <component id="chair3">
+            <transformation>
+                <translate x="2.4" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="chairpart1"/>
+                <componentref id="chairpart2"/>
+            </children>
+        </component>
+
+        <component id="chair2">
+            <transformation>
+                <translate x="1.2" y="0" z="0"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="chairpart1"/>
+                <componentref id="chairpart2"/>
+            </children>
+        </component>
+
+        <component id="chair1">
+            <transformation></transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="chairpart1"/>
+                <componentref id="chairpart2"/>
+            </children>
+        </component>
+
+        <component id="chairpart1">
+            <transformation>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="chairpart2">
+            <transformation>
+                <translate x="0" y="0.5" z="-0.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="CarpetAllBags">
+            <transformation>
+                <translate x="3.5" y="0.17" z="1.85"/>
+            </transformation>
+            <materials>
+                <material id="floorMaterial"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="Bag1onCarpet"/>
+                <componentref id="Bag2onCarpet"/>
+                <componentref id="Bag3onCarpet"/>
                 <componentref id="BagCarpet"/>
             </children>
         </component>
 
-        <component id="BagOnCarpet">
+        <component id="floor">
             <transformation>
-              <translate x="1.8" y="0.6" z="1"/>
+                <scale x="6" y="4" z="6"/>
+                <rotate axis="x" angle="90"/>
+                <translate x="0.5" y="0.5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="floorMaterial"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="walls">
+            <transformation></transformation>
+            <materials>
+                <material id="wallMaterial"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="wall1"/>
+                <componentref id="wall2"/>
+            </children>
+        </component>
+
+        <component id="wall1">
+            <transformation>
+                <scale x="6" y="4" z="6"/>
+                <translate x="0.5" y="0.5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="wallMaterial"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="wall2">
+            <transformation>
+                <scale x="6" y="4" z="6"/>
+                <rotate axis="y" angle="-90"/>
+                <translate x="0.5" y="0.5" z="0"/>
+            </transformation>
+            <materials>
+                <material id="wallMaterial"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="Bag1onCarpet">
+            <transformation>
+                <translate x="1.2" y="0.5" z="1.2"/>
             </transformation>
             <materials>
                 <material id="1"/>
@@ -144,19 +542,47 @@
             </children>
         </component>
 
-        <component id="BagCarpet">
+        <component id="Bag3onCarpet">
             <transformation>
-              <scale x="0.9" y="0.9" z="0.9"/>
-              <rotate axis="y" angle="-90"/>
+                <translate x="1.2" y="0.3" z="-0.8"/>
+                <rotate axis="x" angle="-90"/>
+                <rotate axis="z" angle="45"/>
             </transformation>
             <materials>
                 <material id="1"/>
             </materials>
             <texture id="1"/>
             <children>
-              <componentref id="carpetStructure1"/>
-              <componentref id="carpetStructure2"/>
-              <componentref id="carpetStructure3"/>
+                <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+        <component id="Bag2onCarpet">
+            <transformation>
+                <translate x="-0.6" y="0.35" z="1.2"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cylindricBagWithHandel"/>
+            </children>
+        </component>
+
+        <component id="BagCarpet">
+            <transformation>
+                <scale x="0.6" y="0.6" z="0.6"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="carpetStructure1"/>
+                <componentref id="carpetStructure2"/>
+                <componentref id="carpetStructure3"/>
             </children>
         </component>
 
@@ -189,7 +615,7 @@
 
         <component id="carpetStructure3">
             <transformation>
-              <translate x="-2.4" y="1" z="0"/>
+                <translate x="-2.9" y="1.25" z="0"/>
                 <scale x="0.2" y="2" z="5"/>
             </transformation>
             <materials>
@@ -202,7 +628,9 @@
         </component>
 
         <component id="cylindricBagWithHandel">
-            <transformation></transformation>
+            <transformation>
+                <scale x="0.75" y="0.75" z="0.75"/>
+            </transformation>
             <materials>
                 <material id="1"/>
             </materials>
@@ -226,7 +654,7 @@
             </materials>
             <texture id="1"/>
             <children>
-              <primitiveref id="cylindricBag"/>
+                <primitiveref id="cylindricBag"/>
             </children>
         </component>
 
@@ -284,16 +712,16 @@
 
         <component id="RectangleBag">
             <transformation>
-              <scale x="0.6" y="0.6" z="0.6"/>
+                <scale x="0.45" y="0.45" z="0.45"/>
             </transformation>
             <materials>
                 <material id="2"/>
             </materials>
             <texture id="1"/>
             <children>
-              <componentref id="bag"/>
-              <componentref id="handel"/>
-              <componentref id="roolers"/>
+                <componentref id="bag"/>
+                <componentref id="handel"/>
+                <componentref id="roolers"/>
             </children>
         </component>
 
