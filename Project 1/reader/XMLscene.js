@@ -122,8 +122,7 @@ XMLscene.prototype.setXMLLights = function() {
     var i = 0;
     for (key in this.graph.lights) { //key = id
         var light = this.graph.lights[key];
-        console.log(light);
-        console.log(light.enabled);
+
         if(light.enabled)
           this.lights[i].enable();
         else this.lights[i].disable();
@@ -134,11 +133,9 @@ XMLscene.prototype.setXMLLights = function() {
         this.lights[i].setVisible(true);
 
         if (this.graph.lights[key] instanceof Omni){
-            console.log("OMNI");
             this.lights[i].setPosition(light.locationElems[0].x,light.locationElems[0].y,light.locationElems[0].z,light.locationElems[0].w);
         }
         else if (this.graph.lights[key] instanceof Spot){
-          console.log("SPOT");
           this.lights[i].setSpotCutOff(light.angle);
           this.lights[i].setSpotExponent(light.exponent);
           var wElem =1;
@@ -150,6 +147,4 @@ XMLscene.prototype.setXMLLights = function() {
         }
         i++;
     }
-
-    console.log(this.lights);
 };

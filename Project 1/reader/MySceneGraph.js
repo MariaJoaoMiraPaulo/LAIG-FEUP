@@ -179,7 +179,6 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
         this.materials[idMaterial] = this.createMaterial(elem);
     }
 
-    console.log(this.materials['1']);
 };
 
 
@@ -269,7 +268,6 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
 
     for (let component of componentElems[0].children) {
         let id = this.reader.getString(component, 'id');
-        console.log(id);
 
         this.components[id] = new Component(this.scene, this.reader, component, this);
     }

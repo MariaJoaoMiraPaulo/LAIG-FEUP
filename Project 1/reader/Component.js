@@ -45,14 +45,10 @@ class Component {
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
             var materialElem = this.graph.materials[id];
-            console.log(materialElem);
-          //  console.log(this.cgfTexture[0].file);
-            //FIXME: Can´t load texture
-            //  materialElem.loadTexture(this.cgfTexture[0].file);
-            //  materialElem.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
+
             this.cgfMaterials.push(materialElem);
         }
-        
+
         this.cgfMaterials[0].setTexture(this.cgfTexture);
 
     }
@@ -77,8 +73,6 @@ class Component {
                 else this.cgfTexture = this.graph.textures[id];
         }
 
-        console.log(this.cgfTexture);
-
     }
 
     readingChildrens(childrenElem) {
@@ -93,10 +87,8 @@ class Component {
 
         for (let primitive of primitives) {
             if (typeof this.graph.primitives[this.reader.getString(primitive, 'id')] == 'undefined') {
-                console.log("id da primitiva" + this.graph.primitives[this.reader.getString(primitive, 'id')]);
                 this.graph.onXMLError("components:: it doens't have any primitive with that id");
             }
-            console.log(this.graph.primitives[this.reader.getString(primitive, 'id')]);
             this.childrens.push(this.graph.primitives[this.reader.getString(primitive, 'id')]);
         }
 
