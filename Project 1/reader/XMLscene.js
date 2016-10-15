@@ -10,7 +10,7 @@ XMLscene.prototype.init = function(application) {
 
     this.initCameras();
 
-    this.initLights();
+  //  this.initLights();
 
     this.enableTextures(true);
 
@@ -84,7 +84,7 @@ XMLscene.prototype.display = function() {
     if (this.graph.loadedOk) {
 
         this.lights[0].update();
-        this.lights[1].update();
+      //  this.lights[1].update();
         //render graph
         /*  for(key in this.graph.primitives){
             this.graph.primitives[key].display();
@@ -104,6 +104,7 @@ XMLscene.prototype.setXMLIllumination = function() {
         this.setGlobalAmbientLight(this.graph.ambient[0].r, this.graph.ambient[0].g, this.graph.ambient[0].b, this.graph.ambient[0].a);
     if (this.graph.background.length != 0)
         this.gl.clearColor(this.graph.background[0].r, this.graph.background[0].g, this.graph.background[0].b, this.graph.background[0].a)
+
 };
 
 XMLscene.prototype.setXMLLights = function() {
