@@ -53,7 +53,8 @@ XMLscene.prototype.onGraphLoaded = function() {
 
     this.setXMLIllumination();
     this.setXMLLights();
-  //  this.camera = this.graph.perspectives[this.graph.defaultView];
+    this.camera = this.graph.perspectives[this.graph.defaultView];
+    this.interface.setActiveCamera(this.camera);
 
 };
 

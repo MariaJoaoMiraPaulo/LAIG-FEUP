@@ -9,6 +9,7 @@ class Component {
         this.transformationMatrix;
         this.cgfMaterials = [];
         this.cgfTexture;
+        this.cgfTextureId;
         this.componentsRefId = [];
         this.childrens = [];
         this.parentMaterial = null;
@@ -45,13 +46,14 @@ class Component {
             var id = this.reader.getString(material, 'id');
             var materialElem = this.graph.materials[id];
             console.log(materialElem);
-            console.log(this.cgfTexture[0].file);
+          //  console.log(this.cgfTexture[0].file);
             //FIXME: Can´t load texture
             //  materialElem.loadTexture(this.cgfTexture[0].file);
             //  materialElem.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
             this.cgfMaterials.push(materialElem);
         }
-        console.log(this.cgfTexture.file);
+        
+        this.cgfMaterials[0].setTexture(this.cgfTexture);
 
     }
 
@@ -61,9 +63,10 @@ class Component {
             this.graph.onXMLError("components:: it must have one texture block.");
 
         var id = this.reader.getString(textureElem, 'id');
+        this.cgfTextureId = id;
         switch (id) {
             case 'inherit':
-                this.cgfTexture = this.parentTexture;
+              //  this.cgfTexture = this.parentTexture;
                 break;
             case 'none':
                 this.cgfTexture = null;
@@ -106,8 +109,8 @@ class Component {
                 this.graph.onXMLError("components:: it doens't have any component with that id");
             else {
                 //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-                this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
-                this.graph.components[componentRefId].parentTexture = this.cgfTexture;
+            //    this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
+            //    this.graph.components[componentRefId].parentTexture = this.cgfTexture;
                 this.childrens.push(this.graph.components[componentRefId]);
             }
         }
@@ -116,9 +119,13 @@ class Component {
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
+        this.cgfMaterials[0].setTexture(this.cgfTexture);
         this.cgfMaterials[0].apply();
 
         for (let children of this.childrens) {
+          if(children.cgfTextureId == "inherit"){
+             children.cgfTexture = this.cgfTexture;
+           }
             children.display();
         }
 

@@ -75,6 +75,8 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
     this.rootId = this.reader.getString(sceneElements[0], 'root');
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
+
+    this.scene.axis = new CGFaxis(this.scene, this.axisLength);
 }
 
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
@@ -208,6 +210,8 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
 };
 
 MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
+    this.illuminationDoubleSided = this.reader.getBoolean(illuminationElems[0], 'doublesided');
+    this.illuminationLocal = this.reader.getBoolean(illuminationElems[0], 'local');
     this.background = this.getRGBA(illuminationElems[0].getElementsByTagName('background')[0]);
     this.ambient = this.getRGBA(illuminationElems[0].getElementsByTagName('ambient')[0]);
 };
@@ -334,9 +338,9 @@ MySceneGraph.prototype.createTexture = function(newElement) {
     var length_sElem = this.reader.getFloat(newElement, 'length_s');
     var length_tElem = this.reader.getFloat(newElement, 'length_t');
 
-    var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
+    //var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
 
-    return textureArray;
+    return (new CGFtexture(this.scene, fileElem));
 
 }
 

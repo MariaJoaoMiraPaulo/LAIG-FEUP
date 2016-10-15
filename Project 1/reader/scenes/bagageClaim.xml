@@ -1,6 +1,6 @@
 <dsx>
 
-    <scene root="1" axis_length="ff"/>
+    <scene root="1" axis_length="10"/>
 
     <views default="vista1">
 
@@ -11,7 +11,7 @@
 
     </views>
 
-    <illumination doublesided="tt" local="tt">
+    <illumination doublesided="1" local="0">
 
         <ambient r="0.1" g="0.1" b="0.1" a="1"/>
         <background r="0" g="0" b="0" a="1"/>
@@ -62,6 +62,7 @@
     <textures>
 
         <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
+        <texture id="2" file="img/bag1.jpg" length_s="22.2" length_t="2.3"/>
 
     </textures>
 
@@ -841,7 +842,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="2"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -855,7 +856,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <componentref id="lado1"/>
@@ -877,7 +878,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <primitiveref id="1"/>
@@ -893,7 +894,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <primitiveref id="1"/>
@@ -910,7 +911,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <primitiveref id="1"/>
@@ -927,7 +928,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <primitiveref id="1"/>
@@ -944,7 +945,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <primitiveref id="1"/>
@@ -961,7 +962,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <primitiveref id="1"/>
