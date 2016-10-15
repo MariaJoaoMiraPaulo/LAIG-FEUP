@@ -71,7 +71,7 @@
     </transformations>
 
     <primitives>
-        <primitive id="malaCilindrica">
+        <primitive id="cylindricBag">
             <cylinder base="2" top="2" height="4" slices="26" stacks="4"/>
         </primitive>
 
@@ -83,7 +83,7 @@
             <rectangle x1="0.5" y1="0.5" x2="-0.5" y2="-0.5"/>
         </primitive>
 
-        <primitive id="rodaPeMala">
+        <primitive id="roolerBag">
             <sphere radius="0.1" slices="25" stacks="2"/>
         </primitive>
     </primitives>
@@ -97,24 +97,153 @@
             </materials>
             <texture id="1"/>
             <children>
-                <componentref id="malaCilindricaPega"/>
+                <componentref id="BagCarpet"/>
             </children>
         </component>
 
-        <component id="malaCilindricaPega">
+        <component id="BagCarpet">
             <transformation></transformation>
             <materials>
                 <material id="1"/>
             </materials>
             <texture id="1"/>
             <children>
-                <componentref id="malaCilindrica"/>
-                <componentref id="pegaCilindrica"/>
+              <!--<componentref id="carpetStucture1"/>
+              <componentref id="carpetStucture2"/>
+              <componentref id="carpetStucture3"/>
+              <componentref id="carpetStuctureInterior"/>
+              <componentref id="carpetStuctureWall"/>-->
+              <componentref id="carpetStucturea1"/>
+              <componentref id="carpetStucturea2"/>
+              <componentref id="carpetStucturea3"/>
+            </children>
+        </component>
+
+        <component id="carpetStucturea1">
+            <transformation>
+                <scale x="5" y="0.5" z="5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="carpetStucturea2">
+            <transformation>
+                <translate x="0" y="0.5" z="0"/>
+                <scale x="3" y="1" z="3"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="carpetStucturea3">
+            <transformation>
+              <translate x="-2.4" y="1" z="0"/>
+                <scale x="0.2" y="2" z="5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="carpetStuctureWall">
+            <transformation>
+                <translate x="-2.75" y="1.5" z="0"/>
+                <scale x="0.5" y="4" z="5.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="carpetStuctureInterior">
+            <transformation>
+                <translate x="-1" y="0.5" z="0"/>
+                <scale x="4" y="2" z="2.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="carpetStucture1">
+            <transformation>
+                <translate x="0" y="0" z="2"/>
+                <scale x="5" y="1" z="1.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="carpetStucture2">
+            <transformation>
+                <translate x="0" y="0" z="-2"/>
+                <scale x="5" y="1" z="1.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="carpetStucture3">
+            <transformation>
+                <translate x="1.75" y="0" z="0"/>
+                <scale x="1.5" y="1" z="2.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="cylindricBagWithHandel">
+            <transformation></transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="1"/>
+            <children>
+                <componentref id="cylindricBag"/>
+                <componentref id="cylindricHandel"/>
 
             </children>
         </component>
 
-        <component id="malaCilindrica">
+        <component id="cylindricBag">
             <transformation>
                 <rotate axis="y" angle="-90"/>
                 <scale x="0.25" y="0.25" z="0.25"/>
@@ -126,11 +255,11 @@
             </materials>
             <texture id="1"/>
             <children>
-              <primitiveref id="malaCilindrica"/>
+              <primitiveref id="cylindricBag"/>
             </children>
         </component>
 
-        <component id="pegaCilindrica">
+        <component id="cylindricHandel">
             <transformation>
                 <translate x="0" y="0.1" z="0"/>
             </transformation>
@@ -142,13 +271,13 @@
             <texture id="1"/>
 
             <children>
-                <componentref id="pega1cilindrica"/>
-                <componentref id="pega2cilindrica"/>
-                <componentref id="pega3"/>
+                <componentref id="cylindricHandel1"/>
+                <componentref id="cylindricHandel2"/>
+                <componentref id="handel3"/>
             </children>
         </component>
 
-        <component id="pega1cilindrica">
+        <component id="cylindricHandel1">
             <transformation>
                 <translate x="-0.2" y="0.25" z="0"/>
                 <scale x="0.02" y="0.5" z="0.1"/>
@@ -165,7 +294,7 @@
             </children>
         </component>
 
-        <component id="pega2cilindrica">
+        <component id="cylindricHandel2">
             <transformation>
                 <translate x="0.2" y="0.25" z="0"/>
                 <scale x="0.02" y="0.5" z="0.1"/>
@@ -182,32 +311,32 @@
             </children>
         </component>
 
-        <component id="malaRectangulaPega">
+        <component id="RectangleBag">
             <transformation></transformation>
             <materials>
                 <material id="1"/>
             </materials>
             <texture id="1"/>
             <children>
-              <componentref id="mala"/>
-              <componentref id="pega"/>
-              <componentref id="pesMala"/>
+              <componentref id="bag"/>
+              <componentref id="handel"/>
+              <componentref id="roolers"/>
             </children>
         </component>
 
-        <component id="pesMala">
+        <component id="roolers">
             <transformation></transformation>
             <materials>
                 <material id="1"/>
             </materials>
             <texture id="1"/>
             <children>
-                <componentref id="pe1"/>
-                <componentref id="pe2"/>
+                <componentref id="rooler1"/>
+                <componentref id="rooler2"/>
             </children>
         </component>
 
-        <component id="pe1">
+        <component id="rooler1">
             <transformation>
                 <translate x="0.35" y="-0.65" z="0"/>
             </transformation>
@@ -216,11 +345,11 @@
             </materials>
             <texture id="1"/>
             <children>
-                <primitiveref id="rodaPeMala"/>
+                <primitiveref id="roolerBag"/>
             </children>
         </component>
 
-        <component id="pe2">
+        <component id="rooler2">
             <transformation>
                 <translate x="-0.35" y="-0.65" z="0"/>
             </transformation>
@@ -229,11 +358,11 @@
             </materials>
             <texture id="1"/>
             <children>
-                <primitiveref id="rodaPeMala"/>
+                <primitiveref id="roolerBag"/>
             </children>
         </component>
 
-        <component id="pega">
+        <component id="handel">
             <transformation>
                 <translate x="0" y="1" z="-0.1"/>
             </transformation>
@@ -245,13 +374,13 @@
             <texture id="1"/>
 
             <children>
-                <componentref id="pega1"/>
-                <componentref id="pega2"/>
-                <componentref id="pega3"/>
+                <componentref id="handel1"/>
+                <componentref id="handel2"/>
+                <componentref id="handel3"/>
             </children>
         </component>
 
-        <component id="pega1">
+        <component id="handel1">
             <transformation>
                 <translate x="-0.2" y="0" z="0"/>
                 <scale x="0.02" y="1" z="0.1"/>
@@ -268,7 +397,7 @@
             </children>
         </component>
 
-        <component id="pega2">
+        <component id="handel2">
             <transformation>
                 <translate x="0.2" y="0" z="0"/>
                 <scale x="0.02" y="1" z="0.1"/>
@@ -285,7 +414,7 @@
             </children>
         </component>
 
-        <component id="pega3">
+        <component id="handel3">
             <transformation>
                 <translate x="0" y="0.5" z="0"/>
                 <scale x="0.5" y="0.02" z="0.1"/>
@@ -302,7 +431,7 @@
             </children>
         </component>
 
-        <component id="mala">
+        <component id="bag">
             <transformation>
                 <scale x="0.7" y="1.3" z="0.5"/>
             </transformation>
