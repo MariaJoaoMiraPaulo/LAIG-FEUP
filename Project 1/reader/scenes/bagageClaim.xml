@@ -62,7 +62,15 @@
     <textures>
 
         <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
-        <texture id="2" file="img/bag1.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="bag1" file="img/bag1.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="arrivals" file="img/flights.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="metal" file="img/metal.jpeg" length_s="22.2" length_t="2.3"/>
+        <texture id="carpet" file="img/carpet.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="bag2" file="img/bag2.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="bag3" file="img/bag3.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="bag4" file="img/bag4.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="bagdoor" file="img/bagdoor.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="terminal" file="img/terminal.png" length_s="22.2" length_t="2.3"/>
 
     </textures>
 
@@ -92,10 +100,10 @@
         </material>
 
         <material id="floorMaterial">
-            <emission r="0.6" g="0.4" b="0.2" a="1"/>
-            <ambient r="0.6" g="0.4" b="0.2" a="1"/>
-            <diffuse r="0.6" g="0.4" b="0.2" a="1"/>
-            <specular r="0.6" g="0.4" b="0.2" a="1"/>
+            <emission r="0.9" g="0.9" b="0.8" a="1"/>
+            <ambient r="0.9" g="0.9" b="0.8" a="1"/>
+            <diffuse r="0.9" g="0.9" b="0.8" a="1"/>
+            <specular r="0.9" g="0.9" b="0.8" a="1"/>
             <shininess value="20"/>
         </material>
 
@@ -147,7 +155,7 @@
             </materials>
             <texture id="1"/>
             <children>
-                <componentref id="BoardFlights"/>
+               <componentref id="BoardFlights"/>
                 <componentref id="CarpetAllBags"/>
                 <componentref id="OtherBags1"/>
                 <componentref id="OtherBags2"/>
@@ -156,7 +164,6 @@
                 <componentref id="floor"/>
                 <componentref id="CompleteFirstchair"/>
                 <componentref id="table"/>
-
             </children>
         </component>
 
@@ -168,7 +175,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="bag2"/>
             <children>
               <componentref id="RectangleBag"/>
             </children>
@@ -183,7 +190,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="bag3"/>
             <children>
               <componentref id="RectangleBag"/>
             </children>
@@ -198,7 +205,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="bag1"/>
             <children>
               <componentref id="cylindricBagWithHandel"/>
             </children>
@@ -213,7 +220,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="arrivals"/>
             <children>
               <primitiveref id="1"/>
             </children>
@@ -295,7 +302,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="chair"/>
             </children>
@@ -309,7 +316,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="chair1"/>
                 <componentref id="chair2"/>
@@ -330,7 +337,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="cubo"/>
             </children>
@@ -344,7 +351,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="cubo"/>
             </children>
@@ -358,7 +365,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="cubo"/>
             </children>
@@ -372,7 +379,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="cubo"/>
             </children>
@@ -385,7 +392,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="chairpart1"/>
                 <componentref id="chairpart2"/>
@@ -399,7 +406,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="chairpart1"/>
                 <componentref id="chairpart2"/>
@@ -413,7 +420,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="chairpart1"/>
                 <componentref id="chairpart2"/>
@@ -425,7 +432,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="chairpart1"/>
                 <componentref id="chairpart2"/>
@@ -439,7 +446,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -452,7 +459,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -483,7 +490,7 @@
             <materials>
                 <material id="floorMaterial"/>
             </materials>
-            <texture id="1"/>
+            <texture id="null"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -494,7 +501,7 @@
             <materials>
                 <material id="wallMaterial"/>
             </materials>
-            <texture id="1"/>
+            <texture id="null"/>
             <children>
                 <componentref id="wall1"/>
                 <componentref id="wall2"/>
@@ -509,7 +516,7 @@
             <materials>
                 <material id="wallMaterial"/>
             </materials>
-            <texture id="1"/>
+            <texture id="null"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -524,7 +531,7 @@
             <materials>
                 <material id="wallMaterial"/>
             </materials>
-            <texture id="1"/>
+            <texture id="null"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -537,7 +544,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="bag4"/>
             <children>
                 <componentref id="RectangleBag"/>
             </children>
@@ -552,7 +559,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="bag1"/>
             <children>
                 <componentref id="RectangleBag"/>
             </children>
@@ -565,7 +572,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="cylindricBagWithHandel"/>
             </children>
@@ -573,7 +580,7 @@
 
         <component id="BagCarpet">
             <transformation>
-                <scale x="0.6" y="0.6" z="0.6"/>
+               <scale x="0.6" y="0.6" z="0.6"/>
                 <rotate axis="y" angle="-90"/>
             </transformation>
             <materials>
@@ -584,6 +591,54 @@
                 <componentref id="carpetStructure1"/>
                 <componentref id="carpetStructure2"/>
                 <componentref id="carpetStructure3"/>
+                <componentref id="bagdoor1"/>
+                <componentref id="bagdoor2"/>
+                <componentref id="terminalCube"/>
+            </children>
+        </component>
+
+
+        <component id="terminalCube">
+            <transformation>
+                <translate x="0" y="1.5" z="0"/>
+                <rotate axis="z" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="terminal"/>
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="bagdoor1">
+            <transformation>
+                <translate x="-2.7" y="1" z="1.3"/>
+                <rotate axis="y" angle="-90"/>
+                <scale x="1.6" y="1.6" z="1.6"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="bagdoor"/>
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="bagdoor2">
+            <transformation>
+                <translate x="-2.7" y="1" z="-1.3"/>
+                <rotate axis="y" angle="-90"/>
+                <scale x="1.6" y="1.6" z="1.6"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="bagdoor"/>
+            <children>
+                <primitiveref id="1"/>
             </children>
         </component>
 
@@ -594,7 +649,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="carpet"/>
             <children>
                 <componentref id="cubo"/>
             </children>
@@ -608,7 +663,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="cubo"/>
             </children>
@@ -622,7 +677,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="cubo"/>
             </children>
@@ -718,7 +773,7 @@
             <materials>
                 <material id="2"/>
             </materials>
-            <texture id="1"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="bag"/>
                 <componentref id="handel"/>
@@ -731,7 +786,7 @@
             <materials>
                 <material id="2"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="rooler1"/>
                 <componentref id="rooler2"/>
@@ -745,7 +800,7 @@
             <materials>
                 <material id="2"/>
             </materials>
-            <texture id="1"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="roolerBag"/>
             </children>
@@ -758,7 +813,7 @@
             <materials>
                 <material id="2"/>
             </materials>
-            <texture id="1"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="roolerBag"/>
             </children>
@@ -773,7 +828,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="metal"/>
 
             <children>
                 <componentref id="handel1"/>
@@ -792,7 +847,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -809,7 +864,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -826,7 +881,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="1"/>
+            <texture id="inherit"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -842,7 +897,7 @@
                 <material id="2"/>
             </materials>
 
-            <texture id="2"/>
+            <texture id="inherit"/>
 
             <children>
                 <componentref id="cubo"/>
