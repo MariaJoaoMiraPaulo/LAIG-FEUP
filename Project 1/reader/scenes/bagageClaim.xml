@@ -57,14 +57,6 @@
             <specular r="1" g="0" b="0" a="1"/>
         </spot>
 
-        <spot id="5" enabled="1" angle="20" exponent="1">
-            <target x="0" y="2.7" z="3.5"/>
-            <location x="-0.3" y="2.7" z="3.5"/>
-            <ambient r="0" g="0" b="0" a="1"/>
-            <diffuse r="1" g="0" b="0" a="1"/>
-            <specular r="1" g="0" b="0" a="1"/>
-        </spot>
-
     </lights>
 
     <textures>
@@ -157,7 +149,7 @@
             <cylinder base="2" top="2" height="0.05" slices="26" stacks="4"/>
         </primitive>
 
-        <primitive id="3">
+        <primitive id="donut">
             <torus inner="1" outer="3" slices="20" loops="20"/>
         </primitive>
 
@@ -196,13 +188,29 @@
                 <componentref id="dangerWarning"/>
                 <componentref id="foodMachine"/>
                 <componentref id="signalBagageClaim"/>
+                <componentref id="donutOnTable"/>
+
             </children>
         </component>
 
+        <component id="donutOnTable">
+            <transformation>
+              <translate x="0.4" y="0.52" z="3.7"/>
+              <scale x="0.02" y="0.02" z="0.02"/>
+              <rotate axis="x" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="null"/>
+            <children>
+            <primitiveref id="donut"/>
+            </children>
+        </component>
 
         <component id="foodMachine">
             <transformation>
-              <translate x="7" y="1" z="0.5"/>
+              <translate x="7" y="1.5" z="0.5"/>
               <scale x="0.5" y="0.5" z="0.5"/>
             </transformation>
             <materials>
@@ -213,7 +221,6 @@
             <componentref id="cuboMachine"/>
             </children>
         </component>
-
 
         <component id="cuboMachine">
             <transformation>
@@ -1112,7 +1119,7 @@
                 <componentref id="lado3carpet"/>
                 <componentref id="lado4"/>
                 <componentref id="lado5"/>
-                <componentref id="lado6carpet"/>
+                <componentref id="lado6"/>
 
             </children>
         </component>

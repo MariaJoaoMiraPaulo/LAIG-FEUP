@@ -8,10 +8,6 @@ function Torus(scene, reader, newElement) {
     this.outer = this.reader.getFloat(this.newElement, 'outer');
     this.slices = this.reader.getInteger(this.newElement, 'slices');
     this.loops = this.reader.getInteger(this.newElement, 'loops');
-    this.minS = 0;
-    this.maxS = 1;
-    this.minT = 0;
-    this.maxT = 1;
 
     this.initBuffers();
 };

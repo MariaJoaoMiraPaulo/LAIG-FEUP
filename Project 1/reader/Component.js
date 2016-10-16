@@ -97,8 +97,12 @@ class Component {
     conectingChildrens() {
 
         for (let componentRefId of this.componentsRefId) {
-            if (typeof this.graph.components[componentRefId] == 'undefined')
-                this.graph.onXMLError("components:: it doens't have any component with that id");
+            if (typeof this.graph.components[componentRefId] == 'undefined'){
+              console.log(componentRefId);
+              console.log(this.graph.components[componentRefId]);
+              this.graph.onXMLError("components:: it doens't have any component with that id");
+            }
+
             else {
                 //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
             //    this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
