@@ -7,9 +7,14 @@ class Component {
 
         this.transformationId;
         this.transformationMatrix;
+
         this.cgfMaterials = [];
+        this.cgfMaterialId;
+        this.cgfMaterial;
+
         this.cgfTexture;
         this.cgfTextureId;
+
         this.componentsRefId = [];
         this.childrens = [];
         this.parentMaterial = null;
@@ -42,15 +47,29 @@ class Component {
         if (materials.length == 0)
             this.graph.onXMLError("components:: it must have at least one material block.");
 
+        let i = 0;
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-            var materialElem = this.graph.materials[id];
 
-            this.cgfMaterials.push(materialElem);
+            switch (id) {
+                case 'inherit':
+                    this.cgfMaterialId = "inherit";
+                    break;
+                case 'none':
+                    this.cgfMaterial = null;
+                    break;
+                default:
+                    if (this.graph.materials[id] == 'undefined')
+                        this.graph.onXMLError("components:: it doens't exist any material with that id.");
+                    else {
+                        if (i == 0) {
+                            this.cgfMaterial = this.graph.materials[id];
+                            i++
+                        }
+                        this.cgfMaterials.push(this.graph.materials[id]);
+                    }
+            }
         }
-
-      //  this.cgfMaterials[0].setTexture(this.cgfTexture);
-
     }
 
     readingTextures(textureElem) {
@@ -62,7 +81,7 @@ class Component {
         this.cgfTextureId = id;
         switch (id) {
             case 'inherit':
-              //  this.cgfTexture = this.parentTexture;
+                //  this.cgfTexture = this.parentTexture;
                 break;
             case 'none':
                 this.cgfTexture = null;
@@ -97,16 +116,14 @@ class Component {
     conectingChildrens() {
 
         for (let componentRefId of this.componentsRefId) {
-            if (typeof this.graph.components[componentRefId] == 'undefined'){
-              console.log(componentRefId);
-              console.log(this.graph.components[componentRefId]);
-              this.graph.onXMLError("components:: it doens't have any component with that id");
-            }
-
-            else {
+            if (typeof this.graph.components[componentRefId] == 'undefined') {
+                console.log(componentRefId);
+                console.log(this.graph.components[componentRefId]);
+                this.graph.onXMLError("components:: it doens't have any component with that id");
+            } else {
                 //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-            //    this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
-            //    this.graph.components[componentRefId].parentTexture = this.cgfTexture;
+                //    this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
+                //    this.graph.components[componentRefId].parentTexture = this.cgfTexture;
                 this.childrens.push(this.graph.components[componentRefId]);
             }
         }
@@ -115,13 +132,18 @@ class Component {
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-         this.cgfMaterials[0].setTexture(this.cgfTexture);
-        this.cgfMaterials[0].apply();
+        if(this.cgfTexture != 'undefined' && this.cgfMaterial != null)
+          this.cgfMaterial.setTexture(this.cgfTexture);
+        if(this.cgfMaterial != null )
+          this.cgfMaterial.apply();
 
         for (let children of this.childrens) {
-          if(children.cgfTextureId == "inherit"){
-             children.cgfTexture = this.cgfTexture;
-           }
+            if (children.cgfTextureId == "inherit") {
+                children.cgfTexture = this.cgfTexture;
+            }
+            if (children.cgfMaterialId == "inherit") {
+                children.cgfMaterial = this.cgfMaterial;
+            }
             children.display();
         }
 

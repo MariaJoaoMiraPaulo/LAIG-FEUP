@@ -1,6 +1,6 @@
 <dsx>
 
-    <scene root="1" axis_length="0"/>
+    <scene root="root" axis_length="0"/>
 
     <views default="vista1">
 
@@ -198,7 +198,7 @@
 
     <components>
 
-        <component id="1">
+        <component id="root">
             <transformation></transformation>
             <materials>
                 <material id="2"/>
@@ -222,7 +222,7 @@
                 <componentref id="foodMachine"/>
                 <componentref id="signalBagageClaim"/>
                 <componentref id="donutOnTable"/>
-               <componentref id="signalWarning"/>
+               <!--<componentref id="signalWarning"/>-->
             </children>
         </component>
 
@@ -991,7 +991,7 @@
             </transformation>
 
             <materials>
-                <material id="1"/>
+                <material id="none"/>
             </materials>
 
             <texture id="carpet"/>
@@ -1010,7 +1010,7 @@
             </transformation>
 
             <materials>
-                <material id="1"/>
+                <material id="none"/>
             </materials>
 
             <texture id="ihnerit"/>
@@ -1027,7 +1027,7 @@
             </transformation>
 
             <materials>
-                <material id="1"/>
+                <material id="none"/>
             </materials>
 
             <texture id="ihnerit"/>
@@ -1179,7 +1179,7 @@
             <transformation></transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1199,7 +1199,7 @@
             <transformation></transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1221,7 +1221,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="metal"/>
@@ -1238,7 +1238,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1254,7 +1254,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1270,7 +1270,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="metal"/>
@@ -1287,7 +1287,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1304,7 +1304,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="metal"/>
@@ -1321,7 +1321,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1338,7 +1338,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1355,7 +1355,7 @@
             </transformation>
 
             <materials>
-                <material id="2"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="inherit"/>
@@ -1365,8 +1365,6 @@
             </children>
         </component>
 
-    </components>
-
     <component id="lado6carpet">
         <transformation>
             <translate x="0.5" y="0" z="0"/>
@@ -1374,7 +1372,7 @@
         </transformation>
 
         <materials>
-            <material id="2"/>
+            <material id="inherit"/>
         </materials>
 
         <texture id="metal"/>
