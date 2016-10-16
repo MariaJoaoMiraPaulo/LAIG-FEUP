@@ -37,9 +37,11 @@ MyInterface.prototype.processKeyboard = function(event) {
   switch (event.keyCode) {
     case 86:
         console.log("Key 'V' pressed... Mudar Vista");
+				this.scene.changingToNextCamera();
       break;
     case 118:
         console.log("Key 'v' pressed... Mudar Vista");
+				this.scene.changingToNextCamera();
     break;
     default:
 

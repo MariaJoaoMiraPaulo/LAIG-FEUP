@@ -15,7 +15,7 @@ function MySceneGraph(filename, scene) {
     this.textures = {};
     this.background = [];
     this.ambient = [];
-    this.perspectives = {};
+    this.perspectives = [];
     this.defaultView;
     this.components = {};
     this.rootId;
@@ -255,11 +255,12 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 
     for (let elem of rootView) {
         var idPerspective = this.reader.getString(elem, 'id');
+        console.log(idPerspective);
 
-        if (typeof this.perspectives[idPerspective] != 'undefined') {
+      /*  if (typeof this.perspectives[idPerspective] != 'undefined') {
             this.onXMLError("views:: already exists a texture with that id");
-        }
-        this.perspectives[idPerspective] = this.createCamera(elem);
+        }*/
+        this.perspectives.push(this.createCamera(elem));
     }
 
 };
@@ -270,7 +271,7 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
         let id = this.reader.getString(component, 'id');
 
         this.components[id] = new Component(this.scene, this.reader, component, this);
-        
+
     }
 
     for (key in this.components) {

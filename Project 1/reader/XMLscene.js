@@ -53,7 +53,8 @@ XMLscene.prototype.onGraphLoaded = function() {
 
     this.setXMLIllumination();
     this.setXMLLights();
-    this.camera = this.graph.perspectives[this.graph.defaultView];
+    this.camera = this.graph.perspectives[0];
+    this.nextPerspective = 0;
     this.interface.setActiveCamera(this.camera);
 
 };
@@ -148,3 +149,13 @@ XMLscene.prototype.setXMLLights = function() {
         i++;
     }
 };
+
+XMLscene.prototype.changingToNextCamera = function() {
+  if(this.nextPerspective == this.graph.perspectives.length-1){
+    this.nextPerspective = 0;
+  }
+  else this.nextPerspective ++;
+
+  this.camera = this.graph.perspectives[this.nextPerspective];
+  this.interface.setActiveCamera(this.camera);
+}
