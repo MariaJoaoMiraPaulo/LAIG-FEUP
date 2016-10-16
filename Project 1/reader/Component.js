@@ -49,7 +49,7 @@ class Component {
             this.cgfMaterials.push(materialElem);
         }
 
-        this.cgfMaterials[0].setTexture(this.cgfTexture);
+      //  this.cgfMaterials[0].setTexture(this.cgfTexture);
 
     }
 
@@ -111,7 +111,7 @@ class Component {
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-        this.cgfMaterials[0].setTexture(this.cgfTexture);
+         this.cgfMaterials[0].setTexture(this.cgfTexture);
         this.cgfMaterials[0].apply();
 
         for (let children of this.childrens) {
