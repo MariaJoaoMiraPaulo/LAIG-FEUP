@@ -69,8 +69,7 @@
         <texture id="bag3" file="img/bag3.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="bag4" file="img/bag4.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="bagdoor" file="img/bagdoor.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="bag5" file="img/bag5.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="bag6" file="img/bag6.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="bag5" file="img/bag5.jpeg" length_s="22.2" length_t="2.3"/>
         <texture id="bag7" file="img/bag7.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="terminal" file="img/terminal.png" length_s="22.2" length_t="2.3"/>
         <texture id="tv" file="img/tv1.png" length_s="22.2" length_t="2.3"/>
@@ -78,6 +77,9 @@
         <texture id="foodmachine" file="img/food.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="signalbagage" file="img/signal2.png" length_s="22.2" length_t="2.3"/>
         <texture id="ball" file="img/ball.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="donut" file="img/donut.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="floor" file="img/floor.jpeg" length_s="22.2" length_t="2.3"/>
+        <texture id="signal" file="img/signal.jpg" length_s="22.2" length_t="2.3"/>
 
 
     </textures>
@@ -100,10 +102,10 @@
         </material>
 
         <material id="wallMaterial">
-            <emission r="0.7" g="0.6" b="0.4" a="1"/>
-            <ambient r="0.7" g="0.6" b="0.4" a="1"/>
-            <diffuse r="0.7" g="0.6" b="0.4" a="1"/>
-            <specular r="0.7" g="0.6" b="0.4" a="1"/>
+            <emission r="0.6" g="0.6" b="0.5" a="1"/>
+            <ambient r="0.6" g="0.6" b="0.5" a="1"/>
+            <diffuse r="0.6" g="0.6" b="0.5" a="1"/>
+            <specular r="0.6" g="0.6" b="0.5" a="1"/>
             <shininess value="20"/>
         </material>
 
@@ -164,6 +166,10 @@
         <primitive id="SphereBall">
             <sphere radius="0.15" slices="25" stacks="2"/>
         </primitive>
+
+          <primitive id="triangle">
+        <triangle x1="1" y1="1" z1="1" x2="1" y2="0" z2="0" x3="2" y3="2" z3="2" />
+        </primitive>
     </primitives>
 
     <components>
@@ -181,6 +187,8 @@
                 <componentref id="OtherBags2"/>
                 <componentref id="OtherBags3"/>
                 <componentref id="OtherBags4"/>
+                <componentref id="OtherBags5"/>
+                <componentref id="OtherBags6"/>
                 <componentref id="walls"/>
                 <componentref id="floor"/>
                 <componentref id="CompleteFirstchair"/>
@@ -189,7 +197,21 @@
                 <componentref id="foodMachine"/>
                 <componentref id="signalBagageClaim"/>
                 <componentref id="donutOnTable"/>
+              <!--  <componentref id="signalWarning"/>-->
+            </children>
+        </component>
 
+        <component id="signalWarning">
+            <transformation>
+              <rotate axis="y" angle="90"/>
+              <translate x="0.2" y="2" z="3.7"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="signal"/>
+            <children>
+            <primitiveref id="triangle"/>
             </children>
         </component>
 
@@ -202,7 +224,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="null"/>
+            <texture id="donut"/>
             <children>
             <primitiveref id="donut"/>
             </children>
@@ -210,7 +232,7 @@
 
         <component id="foodMachine">
             <transformation>
-              <translate x="7" y="1.5" z="0.5"/>
+              <translate x="7" y="1.3" z="0.5"/>
               <scale x="0.5" y="0.5" z="0.5"/>
             </transformation>
             <materials>
@@ -340,6 +362,36 @@
                 <material id="1"/>
             </materials>
             <texture id="bag3"/>
+            <children>
+              <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+        <component id="OtherBags5">
+            <transformation>
+              <translate x="5" y="0.45" z="6"/>
+              <rotate axis="y" angle="10"/>
+              <scale x="1.3" y="1.3" z="1.3"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="bag5"/>
+            <children>
+              <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+        <component id="OtherBags6">
+            <transformation>
+              <translate x="5.3" y="0.45" z="5.7"/>
+              <rotate axis="y" angle="-20"/>
+              <scale x="1" y="1" z="1"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="bag1"/>
             <children>
               <componentref id="RectangleBag"/>
             </children>
@@ -670,7 +722,7 @@
             <materials>
                 <material id="floorMaterial"/>
             </materials>
-            <texture id="null"/>
+            <texture id="floor"/>
             <children>
                 <primitiveref id="1"/>
             </children>

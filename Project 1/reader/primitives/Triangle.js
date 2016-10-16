@@ -25,7 +25,7 @@ Triangle.prototype.initBuffers = function() {
     this.vertices = [
         this.values['x1'], this.values['y1'], this.values['z1'],
         this.values['x2'], this.values['y2'], this.values['z2'],
-        this.values['x3'], this.values['y3'], this.values['z3']
+        this.values['x3'], this.values['y3'], this.values['z3'],
     ]
 
     this.indices = [
@@ -34,9 +34,11 @@ Triangle.prototype.initBuffers = function() {
 
 
     this.normals = [
-      this.values['x1'], this.values['y1'], this.values['z1'],
-      this.values['x2'], this.values['y2'], this.values['z2'],
-      this.values['x3'], this.values['y3'], this.values['z3']
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1
+
     ];
 
     this.texCoords = [
