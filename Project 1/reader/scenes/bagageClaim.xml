@@ -1269,7 +1269,7 @@
 
     </components>
 
-    <component id="lado6carpet">
+    <component id="lado6carpet">  
         <transformation>
             <translate x="0.5" y="0" z="0"/>
             <rotate axis="y" angle="-90"/>
