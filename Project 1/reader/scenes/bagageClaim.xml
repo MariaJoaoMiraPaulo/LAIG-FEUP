@@ -76,6 +76,7 @@
         <texture id="terminal" file="img/terminal.png" length_s="22.2" length_t="2.3"/>
         <texture id="tv" file="img/tv.png" length_s="22.2" length_t="2.3"/>
         <texture id="danger" file="img/danger.jpg" length_s="22.2" length_t="2.3"/>
+        <texture id="foodmachine" file="img/food.jpg" length_s="22.2" length_t="2.3"/>
 
 
     </textures>
@@ -179,6 +180,57 @@
                 <componentref id="CompleteFirstchair"/>
                 <componentref id="table"/>
                 <componentref id="dangerWarning"/>
+                <componentref id="foodMachine"/>
+            </children>
+        </component>
+
+
+        <component id="foodMachine">
+            <transformation>
+              <translate x="7" y="1" z="0.5"/>
+              <scale x="0.5" y="0.5" z="0.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="null"/>
+            <children>
+            <componentref id="cuboMachine"/>
+            </children>
+        </component>
+
+
+        <component id="cuboMachine">
+            <transformation>
+                <scale x="1.8" y="5" z="1.5"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+              <componentref id="lado1"/>
+              <componentref id="lado2machine"/>
+              <componentref id="lado3"/>
+              <componentref id="lado4"/>
+              <componentref id="lado5"/>
+              <componentref id="lado6"/>
+            </children>
+        </component>
+
+        <component id="lado2machine">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+
+            <materials>
+                <material id="2"/>
+            </materials>
+
+            <texture id="foodmachine"/>
+
+            <children>
+                <primitiveref id="1"/>
             </children>
         </component>
 
