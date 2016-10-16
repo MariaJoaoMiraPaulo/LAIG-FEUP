@@ -85,6 +85,7 @@
         <texture id="danger" file="img/danger.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="foodmachine" file="img/food.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="signalbagage" file="img/signal2.png" length_s="22.2" length_t="2.3"/>
+        <texture id="ball" file="img/ball.jpg" length_s="22.2" length_t="2.3"/>
 
 
     </textures>
@@ -167,6 +168,10 @@
         <primitive id="roolerBag">
             <sphere radius="0.1" slices="25" stacks="2"/>
         </primitive>
+
+        <primitive id="SphereBall">
+            <sphere radius="0.15" slices="25" stacks="2"/>
+        </primitive>
     </primitives>
 
     <components>
@@ -183,6 +188,7 @@
                 <componentref id="OtherBags1"/>
                 <componentref id="OtherBags2"/>
                 <componentref id="OtherBags3"/>
+                <componentref id="OtherBags4"/>
                 <componentref id="walls"/>
                 <componentref id="floor"/>
                 <componentref id="CompleteFirstchair"/>
@@ -344,6 +350,20 @@
             <texture id="bag1"/>
             <children>
               <componentref id="cylindricBagWithHandel"/>
+            </children>
+        </component>
+
+        <component id="OtherBags4">
+            <transformation>
+              <translate x="0.7" y="0.19" z="5.9"/>
+              <rotate axis="y" angle="50"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="ball"/>
+            <children>
+              <primitiveref id="SphereBall"/>
             </children>
         </component>
 
