@@ -27,7 +27,7 @@ function CylinderWithNoCover(scene, slices, stacks) {
 	for(i = 0; i <= this.stacks; i++) {
 		for(j = 0; j < this.slices; j++) {
 			this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),zCoord);
-			this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
+			this.normals.push(Math.cos(ang*j),Math.sin(ang*j),zCoord);
 			this.texCoords.push(xCoord, yCoord);
 			xCoord += patchLengthx;
 		}
