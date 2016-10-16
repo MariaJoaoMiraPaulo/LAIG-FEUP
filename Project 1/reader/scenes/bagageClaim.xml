@@ -8,6 +8,30 @@
             <from x="30" y="30" z="30"/>
             <to x="0" y="0" z="0"/>
         </perspective>
+        <perspective id="vista2" near="0.1" far="300" angle="0.2">
+            <from x="40" y="40" z="40"/>
+            <to x="0" y="0" z="0"/>
+        </perspective>
+        <perspective id="vista3" near="0.1" far="200" angle="0.4">
+            <from x="40" y="10" z="5"/>
+            <to x="0" y="0" z="5"/>
+        </perspective>
+        <perspective id="vista4" near="0.1" far="200" angle="0.4">
+            <from x="5" y="10" z="40"/>
+            <to x="5" y="0" z="0"/>
+        </perspective>
+        <perspective id="vista5" near="0.1" far="200" angle="0.4">
+            <from x="5" y="40" z="5"/>
+            <to x="5" y="0" z="5"/>
+        </perspective>
+        <perspective id="vista6" near="0.1" far="200" angle="0.4">
+            <from x="20" y="10" z="10"/>
+            <to x="0" y="0" z="5"/>
+        </perspective>
+        <perspective id="vista7" near="0.1" far="200" angle="0.4">
+            <from x="3" y="10" z="20"/>
+            <to x="3" y="0" z="0"/>
+        </perspective>
 
     </views>
 
@@ -168,7 +192,7 @@
         </primitive>
 
           <primitive id="triangle">
-        <triangle x1="1" y1="1" z1="1" x2="1" y2="0" z2="0" x3="2" y3="2" z3="2" />
+        <triangle x1="0" y1="1" z1="0" x2="0.5" y2="0" z2="0" x3="-0.5" y3="0" z3="0" />
         </primitive>
     </primitives>
 
@@ -198,14 +222,14 @@
                 <componentref id="foodMachine"/>
                 <componentref id="signalBagageClaim"/>
                 <componentref id="donutOnTable"/>
-              <!--  <componentref id="signalWarning"/>-->
+               <componentref id="signalWarning"/>
             </children>
         </component>
 
         <component id="signalWarning">
             <transformation>
+              <translate x="0.2" y="2" z="6"/>
               <rotate axis="y" angle="90"/>
-              <translate x="0.2" y="2" z="3.7"/>
             </transformation>
             <materials>
                 <material id="1"/>

@@ -270,7 +270,7 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
         let id = this.reader.getString(component, 'id');
 
         this.components[id] = new Component(this.scene, this.reader, component, this);
-        console.log( this.components[id]);
+        
     }
 
     for (key in this.components) {
