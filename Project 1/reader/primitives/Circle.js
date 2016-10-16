@@ -2,38 +2,46 @@
  * Circle
  * @constructor
  */
- function Circle(scene, slices) {
- 	CGFobject.call(this,scene);
+function Circle(scene, slices) {
+    CGFobject.call(this, scene);
 
-	this.slices = slices;
+    this.slices = slices;
 
- 	this.initBuffers();
- };
+    this.initBuffers();
+};
 
- Circle.prototype = Object.create(CGFobject.prototype);
- Circle.prototype.constructor = Circle;
+Circle.prototype = Object.create(CGFobject.prototype);
+Circle.prototype.constructor = Circle;
 
- Circle.prototype.initBuffers = function() {
- 	this.vertices = [];
- 	this.normals = [];
- 	this.indices = [];
+Circle.prototype.initBuffers = function() {
+    this.vertices = [];
+    this.normals = [];
+    this.indices = [];
+    this.texCoords = [];
+    this.texCoords.push(0.5, 0.5);
 
-	var ang=(2*Math.PI)/this.slices;
+    var ang = (2 * Math.PI) / this.slices;
+    var length = 1 / this.slices; //to use when calculating texCoords
+    var xCoord;
+    var yCoord;
 
-	for(j = 0; j < this.slices; j++) {
-		this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),0);
-		this.normals.push(0, 0, 1);
-	}
+    for (j = 0; j < this.slices; j++) {
+        xCoord = Math.cos(ang * j);
+        yCoord = Math.sin(ang * j);
+        this.vertices.push(Math.cos(ang * j), Math.sin(ang * j), 0);
+        this.normals.push(Math.cos(ang * j), Math.sin(ang * j), 0);
+        this.texCoords.push((xCoord+1)*0.5, -(yCoord+1)*0.5);
+    }
 
-	this.vertices.push(0, 0, 0);
-	this.normals.push(0, 0, 1);
+    this.vertices.push(0, 0, 0);
+    this.normals.push(0, 0, 0);
 
-	for(i = 0; i < this.slices - 1; i++) {
-		this.indices.push(i, i + 1, this.slices);
-	}
+    for (i = 0; i < this.slices - 1; i++) {
+        this.indices.push(i, i + 1, this.slices);
+    }
 
-	this.indices.push(this.slices - 1, 0, this.slices);
+    this.indices.push(this.slices - 1, 0, this.slices);
 
- 	this.primitiveType = this.scene.gl.TRIANGLES;
- 	this.initGLBuffers();
- };
+    this.primitiveType = this.scene.gl.TRIANGLES;
+    this.initGLBuffers();
+};
