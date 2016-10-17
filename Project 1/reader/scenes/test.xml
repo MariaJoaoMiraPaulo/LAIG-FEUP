@@ -42,15 +42,14 @@
 
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="0" enabled="1">
-            <location x="1" y="13.5" z="9.5" w="1"/>
-            <ambient r="1" g="0" b="0" a="1"/>
-            <diffuse r="1" g="0" b="0" a="1"/>
-            <specular r="1" g="0" b="0" a="1"/>
-        </omni>
+      <omni id="0" enabled="1">
+            <location x="30" y="30" z="30" w="1"/>
+            <ambient r="1" g="1" b="1" a="1"/>
+            <diffuse r="1" g="1" b="1" a="1"/>
+            <specular r="1" g="1" b="1" a="1"/>
+        </omni>-->
 
-        <spot id="1" enabled="1" angle="ff" exponent="ff">
-            -->
+        <spot id="1" enabled="0" angle="ff" exponent="ff">
             <!-- atencao, "target" e' diferente de "direction" -->
             <target x="0" y="0" z="0"/>
             <location x="1" y="13.5" z="15"/>
@@ -83,12 +82,19 @@
 
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="1">
-            <emission r="0" g="0" b="0" a="1"/>
-            <ambient r="0.2" g="0.2" b="0.2" a="1"/>
-            <diffuse r="1" g="1" b="1" a="1"/>
-            <specular r="0.5" g="0.5" b="0.5" a="1"/>
-            <shininess value="20"/>
+        <material id="2">
+            <emission r="1" g="0" b="0" a="1"/>
+            <ambient r="1" g="0" b="0" a="1"/>
+            <diffuse r="1" g="0" b="0" a="1"/>
+            <specular r="1" g="0" b="0" a="1"/>
+            <shininess value="10"/>
+        </material>
+        <material id="3">
+            <emission r="0" g="0" b="1" a="1"/>
+            <ambient r="0" g="0" b="1" a="1"/>
+            <diffuse r="0" g="0" b="1" a="1"/>
+            <specular r="0" g="0" b="1" a="1"/>
+            <shininess value="10"/>
         </material>
 
     </materials>
@@ -157,7 +163,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="1"/>
+                <material id="3"/>
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
@@ -174,17 +180,148 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-              <!--  <componentref id="mala"/>-->
-              <primitiveref id="3"/>
+                <componentref id="bag"/>
+            <!--  <primitiveref id="3"/>-->
 
             </children>
 
         </component>
 
+        <component id="bag">
+            <transformation>
+                <scale x="0.7" y="1.3" z="0.5"/>
+            </transformation>
 
+            <materials>
+                <material id="none"/>
+            </materials>
 
+            <texture id="none"/>
 
+            <children>
+                <componentref id="cubo"/>
+            </children>
         </component>
-    </components>
+
+        <component id="cubo">
+            <transformation></transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <componentref id="lado1"/>
+                <componentref id="lado2"/>
+                <componentref id="lado3"/>
+                <componentref id="lado4"/>
+                <componentref id="lado5"/>
+                <componentref id="lado6"/>
+
+            </children>
+        </component>
+
+        <component id="lado1">
+            <transformation>
+                <translate x="0" y="0" z="-0.5"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado2">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado3">
+            <transformation>
+                <translate x="-0.5" y="0" z="0"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado4">
+            <transformation>
+                <translate x="0" y="-0.5" z="0"/>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado5">
+            <transformation>
+                <translate x="0" y="0.5" z="0"/>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado6">
+            <transformation>
+                <translate x="0.5" y="0" z="0"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
 
 </dsx>
