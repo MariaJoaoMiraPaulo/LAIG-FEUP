@@ -122,24 +122,37 @@ class Component {
                 console.log(this.graph.components[componentRefId]);
                 this.graph.onXMLError("components:: it doens't have any component with that id");
             } else {
-                //Cada nó recebe propriedades de aspeto do seu antecessor. Adicionando material do Pai ao filho
-                //    this.graph.components[componentRefId].parentMaterial = this.cgfMaterials[0];
-                //    this.graph.components[componentRefId].parentTexture = this.cgfTexture;
                 this.childrens.push(this.graph.components[componentRefId]);
             }
         }
     }
 
+  /*  addingInheritStuff() {
+        for (let children of this.childrens) {
+            if (children.cgfTextureId == "inherit") {
+                children.cgfTexture = this.cgfTexture;
+            }
+            if (children.cgfMaterialId == "inherit") {
+                children.cgfMaterial = this.cgfMaterial;
+            }
+
+            if ( children instanceof Component){
+                children.addingInheritStuff();
+                console.log(children);
+              }
+        }
+    }*/
+
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-        if(this.cgfTexture != 'undefined' && this.cgfMaterial != null)
-          this.cgfMaterial.setTexture(this.cgfTexture);
-        if(this.cgfMaterial != null )
-          this.cgfMaterial.apply();
+        if (this.cgfTexture != 'undefined' && this.cgfMaterial != null)
+            this.cgfMaterial.setTexture(this.cgfTexture);
+        if (this.cgfMaterial != null)
+            this.cgfMaterial.apply();
 
         for (let children of this.childrens) {
-            if (children.cgfTextureId == "inherit") {
+           if (children.cgfTextureId == "inherit") {
                 children.cgfTexture = this.cgfTexture;
             }
             if (children.cgfMaterialId == "inherit") {

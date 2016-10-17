@@ -35,17 +35,65 @@ Triangle.prototype.initBuffers = function() {
 
 
     this.normals = [
-      this.values['x1'], this.values['y1'], this.values['z1'],
-      this.values['x2'], this.values['y2'], this.values['z2'],
-      this.values['x3'], this.values['y3'], this.values['z3']
+        this.values['x1'], this.values['y1'], this.values['z1'],
+        this.values['x2'], this.values['y2'], this.values['z2'],
+        this.values['x3'], this.values['y3'], this.values['z3']
     ];
-
-    this.texCoords = [
-		    0.5, 0.5,
-        1,0,
-        0,1
-    ];
-
+    this.texCoords = [];
+    /*    this.texCoords = [
+    		    0.5, 0,
+            0,1,
+            1,1
+        ];*/
+    this.calculatingTexCoords();
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
+};
+
+Triangle.prototype.calculatingTexCoords = function() {
+    this.texCoords.push(0, 1);
+
+    var p1p2 = vec3.fromValues(this.values['x2'] - this.values['x1'], this.values['y2'] - this.values['y1'], this.values['z2'] - this.values['z1']);
+    var p1p3 = vec3.fromValues(this.values['x3'] - this.values['x1'], this.values['y3'] - this.values['y1'], this.values['z3'] - this.values['z1']);
+
+    var angle = this.angle(p1p2, p1p3);
+    var triangleHeight = Math.round(vec3.length(p1p2) * Math.sin(angle) * 100) / 100; // vec3.len
+    var triangleWidth = Math.round(vec3.length(p1p3) * 100) / 100;
+
+    if (triangleWidth > triangleHeight) {
+        this.texCoords.push(1, 1); // pushing p3
+
+        let newTriangleHeight = triangleHeight / triangleWidth;
+        let tCoord = 1 - newTriangleHeight;
+        let sCoord = newTriangleHeight / Math.tan(angle);
+
+        this.texCoords.push(tCoord, sCoord); // pushing p2
+
+    } else if (triangleWidth == triangleHeight) {
+        this.texCoords.push(0.5, 0);
+        this.texCoords.push(1, 1);
+
+    } else if (triangleWidth < triangleHeight) {
+        this.texCoords.push(Math.cos(angle), 0); // pushing p2
+
+        var newTriangleWidth = triangleWidth / triangleHeight;
+
+        this.texCoords.push(newTriangleWidth, 1); // pushing p3
+    }
+};
+
+Triangle.prototype.angle = function(a, b) {
+
+    var tempA = vec3.fromValues(a[0], a[1], a[2]);
+    var tempB = vec3.fromValues(b[0], b[1], b[2]);
+
+    vec3.normalize(tempA, tempA);
+    vec3.normalize(tempB, tempB);
+
+    var cosine = vec3.dot(tempA, tempB);
+    if (cosine > 1.0) {
+        return 0;
+    } else {
+        return Math.acos(cosine);
+    }
 };

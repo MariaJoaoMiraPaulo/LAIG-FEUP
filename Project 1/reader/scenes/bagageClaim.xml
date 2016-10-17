@@ -208,7 +208,7 @@
         </primitive>
 
           <primitive id="triangle">
-        <triangle x1="0" y1="1" z1="0" x2="0.5" y2="0" z2="0" x3="-0.5" y3="0" z3="0" />
+        <triangle x1="-0.5" y1="0" z1="0" x2="0" y2="1" z2="0" x3="0.5" y3="0" z3="0" />
         </primitive>
     </primitives>
 
@@ -238,7 +238,7 @@
                 <componentref id="foodMachine"/>
                 <componentref id="signalBagageClaim"/>
                 <componentref id="donutOnTable"/>
-               <!--<componentref id="signalWarning"/>-->
+                <componentref id="signalWarning"/>
             </children>
         </component>
 
@@ -279,7 +279,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="null"/>
+            <texture id="none"/>
             <children>
             <componentref id="cuboMachine"/>
             </children>
