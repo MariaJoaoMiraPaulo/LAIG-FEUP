@@ -159,3 +159,18 @@ XMLscene.prototype.changingToNextCamera = function() {
   this.camera = this.graph.perspectives[this.nextPerspective];
   this.interface.setActiveCamera(this.camera);
 }
+
+XMLscene.prototype.changingToNextMaterial = function() {
+  for (component in this.graph.components){
+    if(this.graph.components[component].cgfMaterialId != "inherit" && this.graph.components[component].cgfMaterialId != "none" ){
+      if(this.graph.components[component].nextMaterial == this.graph.components[component].cgfMaterials.length -1)
+          this.graph.components[component].nextMaterial = 0;
+      else this.graph.components[component].nextMaterial ++;
+
+      console.log(component);
+      console.log("new Material: " + this.graph.components[component].nextMaterial);
+
+      this.graph.components[component].cgfMaterial = this.graph.components[component].cgfMaterials[this.graph.components[component].nextMaterial];
+    }
+  }
+}

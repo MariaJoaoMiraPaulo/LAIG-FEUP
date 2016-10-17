@@ -11,6 +11,7 @@ class Component {
         this.cgfMaterials = [];
         this.cgfMaterialId;
         this.cgfMaterial;
+        this.nextMaterial = 0;
 
         this.cgfTexture;
         this.cgfTextureId;

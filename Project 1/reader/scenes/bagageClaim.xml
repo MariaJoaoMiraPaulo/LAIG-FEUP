@@ -133,11 +133,27 @@
             <shininess value="20"/>
         </material>
 
+        <material id="wallMaterial2">
+            <emission r="0.7" g="0.7" b="0.8" a="1"/>
+            <ambient r="0.7" g="0.7" b="0.8" a="1"/>
+            <diffuse r="0.7" g="0.7" b="0.8" a="1"/>
+            <specular r="0.7" g="0.7" b="0.8" a="1"/>
+            <shininess value="20"/>
+        </material>
+
         <material id="floorMaterial">
             <emission r="0.9" g="0.9" b="0.8" a="1"/>
             <ambient r="0.9" g="0.9" b="0.8" a="1"/>
             <diffuse r="0.9" g="0.9" b="0.8" a="1"/>
             <specular r="0.9" g="0.9" b="0.8" a="1"/>
+            <shininess value="20"/>
+        </material>
+
+        <material id="floorMaterial2">
+            <emission r="0.4" g="0.4" b="0.4" a="1"/>
+            <ambient r="0.4" g="0.4" b="0.4" a="1"/>
+            <diffuse r="0.4" g="0.4" b="0.4" a="1"/>
+            <specular r="0.4" g="0.4" b="0.4" a="1"/>
             <shininess value="20"/>
         </material>
 
@@ -760,8 +776,9 @@
             </transformation>
             <materials>
                 <material id="floorMaterial"/>
+                <material id="floorMaterial2"/>
             </materials>
-            <texture id="floor"/>
+            <texture id="none"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -771,8 +788,9 @@
             <transformation></transformation>
             <materials>
                 <material id="wallMaterial"/>
+                <material id="wallMaterial2"/>
             </materials>
-            <texture id="null"/>
+            <texture id="none"/>
             <children>
                 <componentref id="wall1"/>
                 <componentref id="wall2"/>
@@ -785,7 +803,7 @@
                 <translate x="0.5" y="0.5" z="0"/>
             </transformation>
             <materials>
-                <material id="wallMaterial"/>
+                <material id="inherit"/>
             </materials>
             <texture id="null"/>
             <children>
@@ -800,7 +818,7 @@
                 <translate x="0.5" y="0.5" z="0"/>
             </transformation>
             <materials>
-                <material id="wallMaterial"/>
+                <material id="inherit"/>
             </materials>
             <texture id="null"/>
             <children>
