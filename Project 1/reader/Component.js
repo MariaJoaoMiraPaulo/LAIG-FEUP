@@ -52,25 +52,21 @@ class Component {
         let i = 0;
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-
-            switch (id) {
-                case 'inherit':
-                    this.cgfMaterialId = "inherit";
-                    break;
-                case 'none':
-                    this.cgfMaterial = null;
-                    break;
-                default:
-                    if (this.graph.materials[id] == 'undefined')
-                        this.graph.onXMLError("components:: it doens't exist any material with that id.");
-                    else {
-                        if (i == 0) {
-                            this.cgfMaterial = this.graph.materials[id];
-                            i++
-                        }
-                        this.cgfMaterials.push(this.graph.materials[id]);
-                    }
+            console.log(id);
+            console.log(this.graph.materials[id]);
+            if(id == "inherit"){
+              this.cgfMaterialId = "inherit";
+              break;
             }
+            else if (typeof this.graph.materials[id] == 'undefined')
+                    this.graph.onXMLError("components:: it doens't exist any material with that id.");
+                else {
+                    if (i == 0) {
+                        this.cgfMaterial = this.graph.materials[id];
+                        i++
+                    }
+                    this.cgfMaterials.push(this.graph.materials[id]);
+                }
         }
     }
 

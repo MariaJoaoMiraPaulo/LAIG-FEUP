@@ -61,253 +61,225 @@ MySceneGraph.prototype.onXMLError = function(message) {
 };
 
 MySceneGraph.prototype.parseTags = function(rootElement) {
-    this.parseRoot(rootElement.children[0]);
-    this.parseViews(rootElement.children[1]);
-    this.parseIllumination(rootElement.children[2]);
-    this.parseLights(rootElement.children[3]);
-    this.parseTextures(rootElement.children[4]);
-    this.parseMaterials(rootElement.children[5]);
-    this.parseTransformations(rootElement.children[6]);
-    this.parsePrimitives(rootElement.children[7]);
-    this.parseComponents(rootElement.children[8]);
+  console.log(rootElement);
+    this.parseRoot(rootElement.getElementsByTagName('scene'));
+    this.parseViews(rootElement.getElementsByTagName('views'));
+    this.parseIllumination(rootElement.getElementsByTagName('illumination'));
+    this.parseLights(rootElement.getElementsByTagName('lights'));
+    this.parseTextures(rootElement.getElementsByTagName('textures'));
+    this.parseMaterials(rootElement.getElementsByTagName('materials'));
+    this.parseTransformations(rootElement.getElementsByTagName('transformations'));
+    this.parsePrimitives(rootElement.getElementsByTagName('primitives'));
+    this.parseComponents(rootElement.getElementsByTagName('components'));
 };
 
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
-    if (sceneElements.nodeName == 'scene') {
-        this.rootId = this.reader.getString(sceneElements, 'root');
-        console.log(this.rootId);
-        this.axisLength = this.reader.getFloat(sceneElements, 'axis_length');
-        console.log(this.axisLength);
+    this.rootId = this.reader.getString(sceneElements[0], 'root');
+    this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
 
-        this.scene.axis = new CGFaxis(this.scene, this.axisLength);
-    } else this.onXMLError("The first block should be Scene. Incorrect order of blocks.");
+    this.scene.axis = new CGFaxis(this.scene, this.axisLength);
+}
 
-};
-
-MySceneGraph.prototype.parseViews = function(viewsElems) {
-
-    if (viewsElems.length == 0) {
-        this.onXMLError("views:: element is missing.")
+MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
+    if (primitivesElems.length == 0) {
+        this.onXMLError("primitives:: primitives element is missing.");
     }
 
-    if (viewsElems.nodeName == 'views') {
-        this.defaultView = this.reader.getString(viewsElems, 'default');
+    var elems = primitivesElems[0].getElementsByTagName('primitive');
+    if (elems.length == 0) {
+        this.onXMLError("primitives::it must have at least one primitive block.");
+    }
 
-        var elems = viewsElems.getElementsByTagName('perspective');
-        if (elems.length == 0) {
-            this.onXMLError("views:: it must exists at least one block perspective");
+    for (let elem of elems) {
+        //it must have only one type of primitive
+        if (elem.children.length != 1) {
+            this.onXMLError("primitives::it must have just one tag inside primitive tag.");
         }
 
-        var rootView = viewsElems.children;
-        var numberChildren = rootView.length;
-
-        for (let elem of rootView) {
-            var idPerspective = this.reader.getString(elem, 'id');
-            console.log(idPerspective);
-
-            /*  if (typeof this.perspectives[idPerspective] != 'undefined') {
-                  this.onXMLError("views:: already exists a texture with that id");
-              }*/
-            this.perspectives.push(this.createCamera(elem));
+        var idPrimitive = this.reader.getString(elem, 'id');
+        if (typeof this.primitives[idPrimitive] != 'undefined') {
+            this.onXMLError("primitives::already exists a primitive with that id");
         }
 
-    } else this.onXMLError("The second block should be Views instead of " + viewsElems.nodeName +". Incorrect order of blocks.");
-
-};
-
-
-MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
-
-    if (illuminationElems.nodeName == 'illumination') {
-        this.illuminationDoubleSided = this.reader.getBoolean(illuminationElems, 'doublesided');
-        this.illuminationLocal = this.reader.getBoolean(illuminationElems, 'local');
-        this.background = this.getRGBA(illuminationElems.getElementsByTagName('background')[0]);
-        this.ambient = this.getRGBA(illuminationElems.getElementsByTagName('ambient')[0]);
-    } else this.onXMLError("The third block should be Illumination instead of " +illuminationElems.nodeName + ". Incorrect order of blocks.");
+        var newElement = elem.children[0];
+        switch (newElement.tagName) {
+            case 'rectangle':
+                this.primitives[idPrimitive] = new Rectangle(this.scene, this.reader, newElement);
+                break;
+            case 'triangle':
+                this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);
+                break;
+            case 'cylinder':
+                this.primitives[idPrimitive] = new Cylinder(this.scene, this.reader, newElement);
+                break;
+            case 'sphere':
+                this.primitives[idPrimitive] = new Sphere(this.scene, this.reader, newElement);
+                break;
+            case 'torus':
+                this.primitives[idPrimitive] = new Torus(this.scene, this.reader, newElement);
+                break;
+        }
+    }
 };
 
 MySceneGraph.prototype.parseLights = function(primitivesElems) {
-
 
     if (primitivesElems.length == 0) {
         this.onXMLError("Lights:: lights element is missing.");
     }
 
-    if (primitivesElems.nodeName == 'lights') {
-        var rootLights = primitivesElems.children;
-        var numberChildren = rootLights.length;
+    var rootLights = primitivesElems[0].children;
+    var numberChildren = rootLights.length;
 
-        var omniElems = primitivesElems.getElementsByTagName('omni');
-        var spotElems = primitivesElems.getElementsByTagName('spot');
+    var omniElems = primitivesElems[0].getElementsByTagName('omni');
+    var spotElems = primitivesElems[0].getElementsByTagName('spot');
 
-        if ((omniElems.length + spotElems.length) == 0)
-            this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
+    if ((omniElems.length + spotElems.length) == 0)
+        this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
 
-        for (let elem of rootLights) {
-            var idLigth = this.reader.getString(elem, 'id');
+    for (let elem of rootLights) {
+        var idLigth = this.reader.getString(elem, 'id');
 
-            if (typeof this.lights[idLigth] != 'undefined') {
-                this.onXMLError("lights::already exists a light with that id");
-            }
-
-            switch (elem.tagName) {
-                case 'omni':
-                    this.lights[idLigth] = new Omni(this, elem);
-                    break;
-                case 'spot':
-                    this.lights[idLigth] = new Spot(this, elem);
-                    break;
-
-                default:
-            }
+        if (typeof this.lights[idLigth] != 'undefined') {
+            this.onXMLError("lights::already exists a light with that id");
         }
-    } else this.onXMLError("The fourth block should be Lights instead of " + primitivesElems.nodeName +". Incorrect order of blocks.");
-};
 
-MySceneGraph.prototype.parseTextures = function(texturesElems) {
+        switch (elem.tagName) {
+            case 'omni':
+                this.lights[idLigth] = new Omni(this, elem);
+                break;
+            case 'spot':
+                this.lights[idLigth] = new Spot(this, elem);
+                break;
 
-
-    if (texturesElems.length == 0) {
-        this.onXMLError("textures:: element is missing.")
+            default:
+        }
     }
-    if (texturesElems.nodeName == 'textures') {
-        var elems = texturesElems.getElementsByTagName('texture');
-        if (elems.length == 0) {
-            this.onXMLError("textures::it must exists at least one block texture.");
-        }
-        var rootTexture = texturesElems.children;
-        var numberChildren = rootTexture.length;
-
-        for (let elem of rootTexture) {
-            var idTexture = this.reader.getString(elem, 'id');
-            if (typeof this.textures[idTexture] != 'undefined') {
-                this.onXMLError("texture::already exists a texture with that id");
-            }
-            this.textures[idTexture] = this.createTexture(elem);
-        }
-    } else this.onXMLError("The fifth block should be Textures instead of "+ texturesElems.nodeName + ". Incorrect order of blocks.");
-
 };
 
 MySceneGraph.prototype.parseMaterials = function(materialsElems) {
-
 
     if (materialsElems.length == 0) {
         this.onXMLError("Materials:: materials element is missing.");
     }
 
-    if (materialsElems.nodeName == 'materials') {
-        var rootMaterial = materialsElems.children;
-        var numberChildren = rootMaterial.length;
+    var rootMaterial = materialsElems[0].children;
+    var numberChildren = rootMaterial.length;
 
-        var elems = materialsElems.getElementsByTagName('material').length;
+    var elems = materialsElems[0].getElementsByTagName('material').length;
 
-        if (elems == 0) {
-            this.onXMLError("Material:: It must have at least one material's block");
+    if (elems == 0) {
+        this.onXMLError("Material:: It must have at least one material's block");
+    }
+
+    for (let elem of rootMaterial) {
+        var idMaterial = this.reader.getString(elem, 'id');
+        if (typeof this.materials[idMaterial] != 'undefined') {
+            this.onXMLError("material::already exists a material with that id");
         }
-
-        for (let elem of rootMaterial) {
-            var idMaterial = this.reader.getString(elem, 'id');
-            if (typeof this.materials[idMaterial] != 'undefined') {
-                this.onXMLError("material::already exists a material with that id");
-            }
-            this.materials[idMaterial] = this.createMaterial(elem);
-
-        }
-    } else this.onXMLError("The sixth block should be Materials instead of " + materialsElems.nodeName +  ". Incorrect order of blocks.");
+        this.materials[idMaterial] = this.createMaterial(elem);
+    }
 
 };
 
+
 MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
-
-
     if (transformationsElems.length == 0) {
         this.onXMLError("transformations:: element is missing.")
     }
 
-    if (transformationsElems.nodeName == 'transformations') {
-        var elems = transformationsElems.getElementsByTagName('transformation');
-        if (elems.length == 0) {
-            this.onXMLError("transformations::it must exists at least one block transfrmation.");
+    var elems = transformationsElems[0].getElementsByTagName('transformation');
+    if (elems.length == 0) {
+        this.onXMLError("transformations::it must exists at least one block transfrmation.");
+    }
+
+    //reading all transformation tags
+    for (let elem of elems) {
+        if (elem.children.length == 0) {
+            this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
         }
 
-        //reading all transformation tags
-        for (let elem of elems) {
-            if (elem.children.length == 0) {
-                this.onXMLError("transformations::it must exists at least one transformation inside a transformation tag.");
-            }
-
-            var elemId = this.reader.getString(elem, 'id');
-            if (typeof this.transformations[elemId] != 'undefined') {
-                this.onXMLError("transformations::already exists a transformation with that id.");
-            }
-
-            let transformation = new Transformation(this, elem);
-            this.transformations[elemId] = transformation.matrix;
+        var elemId = this.reader.getString(elem, 'id');
+        if (typeof this.transformations[elemId] != 'undefined') {
+            this.onXMLError("transformations::already exists a transformation with that id.");
         }
-    } else this.onXMLError("The seventh block should be Transformations instead of" +transformationsElems.nodeName+". Incorrect order of blocks.");
+
+        let transformation = new Transformation(this, elem);
+        this.transformations[elemId] = transformation.matrix;
+    }
+};
+
+MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
+    this.illuminationDoubleSided = this.reader.getBoolean(illuminationElems[0], 'doublesided');
+    this.illuminationLocal = this.reader.getBoolean(illuminationElems[0], 'local');
+    this.background = this.getRGBA(illuminationElems[0].getElementsByTagName('background')[0]);
+    this.ambient = this.getRGBA(illuminationElems[0].getElementsByTagName('ambient')[0]);
 };
 
 
-MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
+MySceneGraph.prototype.parseTextures = function(texturesElems) {
 
-    if (primitivesElems.length == 0) {
-        this.onXMLError("primitives:: primitives element is missing.");
+    if (texturesElems.length == 0) {
+        this.onXMLError("textures:: element is missing.")
     }
 
-    if (primitivesElems.nodeName == 'primitives') {
-        var elems = primitivesElems.getElementsByTagName('primitive');
-        if (elems.length == 0) {
-            this.onXMLError("primitives::it must have at least one primitive block.");
+    var elems = texturesElems[0].getElementsByTagName('texture');
+    if (elems.length == 0) {
+        this.onXMLError("textures::it must exists at least one block texture.");
+    }
+    var rootTexture = texturesElems[0].children;
+    var numberChildren = rootTexture.length;
+
+    for (let elem of rootTexture) {
+        var idTexture = this.reader.getString(elem, 'id');
+        if (typeof this.textures[idTexture] != 'undefined') {
+            this.onXMLError("texture::already exists a texture with that id");
         }
+        this.textures[idTexture] = this.createTexture(elem);
+    }
 
-        for (let elem of elems) {
-            //it must have only one type of primitive
-            if (elem.children.length != 1) {
-                this.onXMLError("primitives::it must have just one tag inside primitive tag.");
-            }
+};
 
-            var idPrimitive = this.reader.getString(elem, 'id');
-            if (typeof this.primitives[idPrimitive] != 'undefined') {
-                this.onXMLError("primitives::already exists a primitive with that id");
-            }
+MySceneGraph.prototype.parseViews = function(viewsElems) {
+    if (viewsElems.length == 0) {
+        this.onXMLError("views:: element is missing.")
+    }
+    this.defaultView = this.reader.getString(viewsElems[0], 'default');
 
-            var newElement = elem.children[0];
-            switch (newElement.tagName) {
-                case 'rectangle':
-                    this.primitives[idPrimitive] = new Rectangle(this.scene, this.reader, newElement);
-                    break;
-                case 'triangle':
-                    this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);
-                    break;
-                case 'cylinder':
-                    this.primitives[idPrimitive] = new Cylinder(this.scene, this.reader, newElement);
-                    break;
-                case 'sphere':
-                    this.primitives[idPrimitive] = new Sphere(this.scene, this.reader, newElement);
-                    break;
-                case 'torus':
-                    this.primitives[idPrimitive] = new Torus(this.scene, this.reader, newElement);
-                    break;
-            }
-        }
-    } else this.onXMLError("The eighth block should be primitives instead of"+ primitivesElems.nodeName +". Incorrect order of blocks.");
+    var elems = viewsElems[0].getElementsByTagName('perspective');
+    if (elems.length == 0) {
+        this.onXMLError("views:: it must exists at least one block perspective");
+    }
+
+    var rootView = viewsElems[0].children;
+    var numberChildren = rootView.length;
+
+    for (let elem of rootView) {
+        var idPerspective = this.reader.getString(elem, 'id');
+        console.log(idPerspective);
+
+        /*  if (typeof this.perspectives[idPerspective] != 'undefined') {
+              this.onXMLError("views:: already exists a texture with that id");
+          }*/
+        this.perspectives.push(this.createCamera(elem));
+    }
+
 };
 
 MySceneGraph.prototype.parseComponents = function(componentElems) {
 
-    if (componentElems.tagName == 'components') {
-        for (let component of componentElems.children) {
-            let id = this.reader.getString(component, 'id');
+    for (let component of componentElems[0].children) {
+        let id = this.reader.getString(component, 'id');
 
-            this.components[id] = new Component(this.scene, this.reader, component, this);
+        this.components[id] = new Component(this.scene, this.reader, component, this);
 
-        }
+    }
 
-        for (key in this.components) {
-            this.components[key].conectingChildrens();
-        }
-    } else this.onXMLError("The ninth block should be Components instead of "+ componentElems.tagName + ". Incorrect order of blocks.");
+    for (key in this.components) {
+        this.components[key].conectingChildrens();
+    }
+
+//    this.components[this.rootId].addingInheritStuff();
 }
 
 
