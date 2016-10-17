@@ -37,6 +37,7 @@ class Component {
 
         if (transRef.length == 1) {
             this.transformationId = this.reader.getString(transRef[0], 'id');
+            this.transformationMatrix = this.graph.transformations[this.transformationId];
         } else if (transRef.length == 0) {
             let trans = new Transformation(this.graph, transElem);
             this.transformationMatrix = trans.matrix;
