@@ -21,14 +21,17 @@ Torus.prototype.initBuffers = function() {
     this.vertices = [];
     this.normals = [];
     this.indices = [];
+    this.texCoords = [];
 
     var angSlices = (2 * Math.PI) / this.slices;
     var angLoops = (2 * Math.PI) / this.loops;
+    var texS = 1 / this.loops;
+    var texT = 1 / this.slices;
 
-    for (let i = 0; i <= this.slices; i++) {
-        for (let j = 0; j <= this.loops; j++) {
-            let u = angSlices * i;
-            let v = angLoops * j;
+    for (let i = 0; i <= this.loops; i++) {
+        for (let j = 0; j <= this.slices; j++) {
+            let u = angLoops * i;
+            let v = angSlices * j;
 
             let x = (this.outer + this.inner * Math.cos(v)) * Math.cos(u);
             let y = (this.outer + this.inner * Math.cos(v)) * Math.sin(u);
@@ -36,25 +39,22 @@ Torus.prototype.initBuffers = function() {
 
             this.vertices.push(x, y, z);
             this.normals.push(x, y, z);
+
+            var s = 1 - i * texS;
+            var t = 1 - j * texT;
+            this.texCoords.push(s, t);
         }
 
     }
 
-    for (let i = 0; i < this.slices; i++) {
-        for (let j = 0; j < this.loops; j++) {
-
-                this.indices.push(j * (this.slices + 1) + i, j * (this.slices + 1) + i + this.slices + 2, j * (this.slices + 1) + i + this.slices + 1);
-                this.indices.push(j * (this.slices + 1) + i, j * (this.slices + 1) + i + 1, j * (this.slices + 1) + i + this.slices + 2);
-      //      this.indices.push(i * this.loops + j, i * this.loops + j + 1,(i + 1) * this.slices + j + 1);
-    //        this.indices.push(i * this.loops + j, (i + 1) * this.slices + j + 1,(i + 1) * this.slices + j);
+    for (let i = 0; i < this.loops; i++) {
+        for (let j = 0; j < this.slices; j++) {
+            this.indices.push(j * (this.slices + 1) + i, j * (this.slices + 1) + i + this.slices + 1,
+                j * (this.slices + 1) + i + this.slices + 2);
+            this.indices.push(j * (this.slices + 1) + i, j * (this.slices + 1) + i + this.slices + 2,
+                j * (this.slices + 1) + i + 1);
         }
     }
-/*
-    let len = this.slices-1
-    for (let j = 0; j < this.loops; j++) {
-        this.indices.push(j, len * this.slices + j + 1, j+1);
-        this.indices.push(j, len * this.slices + j, len * this.slices + j + 1);
-    }*/
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

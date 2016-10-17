@@ -43,16 +43,16 @@
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
       <omni id="0" enabled="1">
-            <location x="30" y="30" z="30" w="1"/>
+            <location x="10" y="10" z="10" w="1"/>
             <ambient r="1" g="1" b="1" a="1"/>
             <diffuse r="1" g="1" b="1" a="1"/>
             <specular r="1" g="1" b="1" a="1"/>
         </omni>-->
 
-        <spot id="1" enabled="0" angle="ff" exponent="ff">
+        <spot id="1" enabled="1" angle="ff" exponent="ff">
             <!-- atencao, "target" e' diferente de "direction" -->
             <target x="0" y="0" z="0"/>
-            <location x="1" y="13.5" z="15"/>
+            <location x="10" y="10" z="10"/>
             <ambient r="0,549" g="1" b="0.098" a="1"/>
             <diffuse r="1" g="0" b="0" a="1"/>
             <specular r="1" g="0" b="0" a="1"/>
@@ -135,7 +135,7 @@
         </primitive>
 
         <primitive id="3">
-            <torus inner="1" outer="3" slices="20" loops="20"/>
+            <torus inner="1" outer="5" slices="20" loops="20"/>
         </primitive>
 
         <primitive id="1">
@@ -180,11 +180,27 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <componentref id="bag"/>
+                <!--<componentref id="bag"/>-->
+                <componentref id="torus"/>
             <!--  <primitiveref id="3"/>-->
 
             </children>
 
+        </component>
+
+        <component id="torus">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="none"/>
+            </materials>
+
+            <texture id="none"/>
+
+            <children>
+                <primitiveref id="3"/>
+            </children>
         </component>
 
         <component id="bag">
