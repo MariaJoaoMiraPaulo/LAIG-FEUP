@@ -257,9 +257,9 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
         var idPerspective = this.reader.getString(elem, 'id');
         console.log(idPerspective);
 
-      /*  if (typeof this.perspectives[idPerspective] != 'undefined') {
-            this.onXMLError("views:: already exists a texture with that id");
-        }*/
+        /*  if (typeof this.perspectives[idPerspective] != 'undefined') {
+              this.onXMLError("views:: already exists a texture with that id");
+          }*/
         this.perspectives.push(this.createCamera(elem));
     }
 
@@ -277,6 +277,8 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
     for (key in this.components) {
         this.components[key].conectingChildrens();
     }
+
+//    this.components[this.rootId].addingInheritStuff();
 }
 
 
