@@ -162,7 +162,7 @@ XMLscene.prototype.changingToNextCamera = function() {
 
 XMLscene.prototype.changingToNextMaterial = function() {
   for (component in this.graph.components){
-    if(this.graph.components[component].cgfMaterialId != "inherit" && this.graph.components[component].cgfMaterialId != "none" ){
+    if(this.graph.components[component].cgfMaterialId != "inherit" ){
       if(this.graph.components[component].nextMaterial == this.graph.components[component].cgfMaterials.length -1)
           this.graph.components[component].nextMaterial = 0;
       else this.graph.components[component].nextMaterial ++;

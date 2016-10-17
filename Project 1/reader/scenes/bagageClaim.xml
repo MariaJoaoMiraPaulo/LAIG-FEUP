@@ -1009,7 +1009,7 @@
             </transformation>
 
             <materials>
-                <material id="none"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="carpet"/>
@@ -1028,7 +1028,7 @@
             </transformation>
 
             <materials>
-                <material id="none"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="ihnerit"/>
@@ -1045,7 +1045,7 @@
             </transformation>
 
             <materials>
-                <material id="none"/>
+                <material id="inherit"/>
             </materials>
 
             <texture id="ihnerit"/>
