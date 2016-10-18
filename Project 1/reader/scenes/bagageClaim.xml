@@ -878,7 +878,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="null"/>
+            <texture id="none"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -893,7 +893,7 @@
             <materials>
                 <material id="inherit"/>
             </materials>
-            <texture id="null"/>
+            <texture id="none"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -1103,7 +1103,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="ihnerit"/>
+            <texture id="inherit"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -1120,7 +1120,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="ihnerit"/>
+            <texture id="inherit"/>
 
             <children>
                 <componentref id="cubo"/>

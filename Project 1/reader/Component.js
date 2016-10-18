@@ -5,7 +5,6 @@ class Component {
         this.element = element;
         this.graph = graph;
 
-        this.transformationId;
         this.transformationMatrix;
 
         this.cgfMaterials = [];
@@ -18,8 +17,6 @@ class Component {
 
         this.componentsRefId = [];
         this.childrens = [];
-        this.parentMaterial = null;
-        this.parentTexture = null;
         this.readingComponent();
     }
 
@@ -36,11 +33,15 @@ class Component {
         var transRef = transElem.getElementsByTagName('transformationref');
 
         if (transRef.length == 1) {
-            this.transformationId = this.reader.getString(transRef[0], 'id');
-            this.transformationMatrix = this.graph.transformations[this.transformationId];
+            let id = this.reader.getString(transRef[0], 'id');
+            this.transformationMatrix = this.graph.transformations[id];
         } else if (transRef.length == 0) {
+            // creating component transformation matrix
             let trans = new Transformation(this.graph, transElem);
             this.transformationMatrix = trans.matrix;
+        }
+        else {
+          this.graph.onXMLError("components:: Only can exist one transformationref tag.");
         }
     }
 
@@ -52,40 +53,37 @@ class Component {
         let i = 0;
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-            if(id == "inherit"){
-              this.cgfMaterialId = "inherit";
-              break;
-            }
-            else if (typeof this.graph.materials[id] == 'undefined')
-                    this.graph.onXMLError("components:: it doens't exist any material with that id.");
-                else {
-                    if (i == 0) {
-                        this.cgfMaterial = this.graph.materials[id];
-                        i++
-                    }
-                    this.cgfMaterials.push(this.graph.materials[id]);
+            if (id == "inherit") {
+                this.cgfMaterialId = "inherit";
+                break;
+            } else if (typeof this.graph.materials[id] == 'undefined')
+                this.graph.onXMLError("components:: it doens't exist any material with that id.");
+            else {
+                if (i == 0) {
+                    this.cgfMaterial = this.graph.materials[id];
+                    i++
                 }
+                this.cgfMaterials.push(this.graph.materials[id]);
+            }
         }
     }
 
     readingTextures(textureElem) {
-        //FIXME: cgftexture e parentTexture ou só uma variavel de textura?
+
         if (textureElem == null)
             this.graph.onXMLError("components:: it must have one texture block.");
 
         var id = this.reader.getString(textureElem, 'id');
         this.cgfTextureId = id;
-        switch (id) {
-            case 'inherit':
-                //  this.cgfTexture = this.parentTexture;
-                break;
-            case 'none':
-                this.cgfTexture = null;
-                break;
-            default:
-                if (this.graph.textures[id] == 'undefined')
-                    this.graph.onXMLError("components:: it doens't exist any texture with that id.");
-                else this.cgfTexture = this.graph.textures[id];
+
+        if (id == "inherit") {
+            this.cgfTexture = null;
+        } else if (id == "none") {
+            this.cgfTexture = null;
+        } else if (id != "inherit" && id != "none") {
+            if (typeof this.graph.textures[id] == 'undefined')
+                this.graph.onXMLError("components:: it doens't exist any texture with that id, " + id + ".");
+            else this.cgfTexture = this.graph.textures[id];
         }
 
     }
@@ -122,22 +120,6 @@ class Component {
         }
     }
 
-  /*  addingInheritStuff() {
-        for (let children of this.childrens) {
-            if (children.cgfTextureId == "inherit") {
-                children.cgfTexture = this.cgfTexture;
-            }
-            if (children.cgfMaterialId == "inherit") {
-                children.cgfMaterial = this.cgfMaterial;
-            }
-
-            if ( children instanceof Component){
-                children.addingInheritStuff();
-                console.log(children);
-              }
-        }
-    }*/
-
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
@@ -147,7 +129,7 @@ class Component {
             this.cgfMaterial.apply();
 
         for (let children of this.childrens) {
-           if (children.cgfTextureId == "inherit") {
+            if (children.cgfTextureId == "inherit") {
                 children.cgfTexture = this.cgfTexture;
             }
             if (children.cgfMaterialId == "inherit") {

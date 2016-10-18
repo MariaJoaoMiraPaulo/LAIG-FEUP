@@ -181,7 +181,7 @@
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
-            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+              <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
