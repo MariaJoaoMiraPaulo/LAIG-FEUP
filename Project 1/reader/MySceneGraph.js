@@ -17,7 +17,7 @@ function MySceneGraph(filename, scene) {
     this.ambient = [];
     this.perspectives = [];
     this.perspectivesIds = [];
-    this.defaultView;
+    this.defaultViewIndex;
     this.components = {};
     this.rootId;
     this.axisLength;
@@ -238,7 +238,7 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
     for (let elem of rootTexture) {
         var idTexture = this.reader.getString(elem, 'id');
         if (typeof this.textures[idTexture] != 'undefined') {
-            this.onXMLError("texture::already exists a texture with that id, "+ idTexture+".");
+            this.onXMLError("texture::already exists a texture with that id, " + idTexture + ".");
         }
         this.textures[idTexture] = this.createTexture(elem);
     }
@@ -249,7 +249,8 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
     if (viewsElems.length == 0) {
         this.onXMLError("views:: element is missing.")
     }
-    this.defaultView = this.reader.getString(viewsElems[0], 'default');
+
+    var defaultViewId = this.reader.getString(viewsElems[0], 'default');
 
     var elems = viewsElems[0].getElementsByTagName('perspective');
     if (elems.length == 0) {
@@ -258,16 +259,27 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 
     var rootView = viewsElems[0].children;
     var numberChildren = rootView.length;
+    var thereIsAValidDefaultView = false;
 
     for (let elem of rootView) {
         var idPerspective = this.reader.getString(elem, 'id');
 
         // checking if there is already a view with this id
         if (this.thereIsAViewWithThatId(idPerspective)) {
-            this.onXMLError("views:: already exists a view with that id, "+ idPerspective+".");
+            this.onXMLError("views:: already exists a view with that id, " + idPerspective + ".");
+        } else {
+            if (idPerspective == defaultViewId) {
+                this.defaultViewIndex = this.perspectives.length;
+                thereIsAValidDefaultView = true;
+            }
+
+            this.perspectives.push(this.createCamera(elem));
+            this.perspectivesIds.push(idPerspective);
         }
-        this.perspectives.push(this.createCamera(elem));
-        this.perspectivesIds.push(idPerspective);
+    }
+
+    if (!thereIsAValidDefaultView) {
+        this.onXMLError("views:: you have to put a valid default view.");
     }
 
 };
@@ -353,8 +365,6 @@ MySceneGraph.prototype.createTexture = function(newElement) {
     var fileElem = this.reader.getString(newElement, 'file');
     var length_sElem = this.reader.getFloat(newElement, 'length_s');
     var length_tElem = this.reader.getFloat(newElement, 'length_t');
-
-    //var textureArray = [{file: fileElem, length_s: length_sElem, length_t: length_tElem}];
 
     return (new CGFtexture(this.scene, fileElem));
 

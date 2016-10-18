@@ -10,7 +10,7 @@ XMLscene.prototype.init = function(application) {
 
     this.initCameras();
 
-  //  this.initLights();
+    //  this.initLights();
 
     this.enableTextures(true);
 
@@ -46,26 +46,21 @@ XMLscene.prototype.setDefaultAppearance = function() {
 // Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function() {
-    //	this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
     this.lights[0].setVisible(true);
     this.lights[0].enable();
 
-
     this.setXMLIllumination();
     this.setXMLLights();
-    this.camera = this.graph.perspectives[0];
+    this.camera = this.graph.perspectives[this.graph.defaultViewIndex];
     this.nextPerspective = 0;
     this.interface.setActiveCamera(this.camera);
 
 };
 
-
 XMLscene.prototype.updateLights = function() {
-  for (i = 0; i < this.lights.length; i++)
-    this.lights[i].update();
-
+    for (i = 0; i < this.lights.length; i++)
+        this.lights[i].update();
 };
-
 
 XMLscene.prototype.display = function() {
     // ---- BEGIN Background, camera and axis setup
@@ -79,7 +74,6 @@ XMLscene.prototype.display = function() {
     this.loadIdentity();
 
     // Apply transformations corresponding to the camera position relative to the origin
-
     this.applyViewMatrix();
 
     // Draw axis
@@ -95,18 +89,8 @@ XMLscene.prototype.display = function() {
     if (this.graph.loadedOk) {
 
         this.updateLights();
-      //  this.lights[1].update();
-        //render graph
-        /*  for(key in this.graph.primitives){
-            this.graph.primitives[key].display();
-          }*/
-    /*    for (key in this.graph.components) {
-            this.graph.components[key].display();
-        }*/
-
 
         this.graph.components[this.graph.rootId].display();
-
     };
 };
 
@@ -124,53 +108,48 @@ XMLscene.prototype.setXMLLights = function() {
     for (key in this.graph.lights) { //key = id
         var light = this.graph.lights[key];
 
-        if(light.enabled)
-          this.lights[i].enable();
+        if (light.enabled)
+            this.lights[i].enable();
         else this.lights[i].disable();
 
-        this.lights[i].setAmbient(light.ambientElems[0].r,light.ambientElems[0].g,light.ambientElems[0].b,light.ambientElems[0].a);
-        this.lights[i].setDiffuse(light.diffuseElems[0].r,light.diffuseElems[0].g,light.diffuseElems[0].b,light.diffuseElems[0].a);
-        this.lights[i].setSpecular(light.specularElems[0].r,light.specularElems[0].g,light.specularElems[0].b,light.specularElems[0].a);
+        this.lights[i].setAmbient(light.ambientElems[0].r, light.ambientElems[0].g, light.ambientElems[0].b, light.ambientElems[0].a);
+        this.lights[i].setDiffuse(light.diffuseElems[0].r, light.diffuseElems[0].g, light.diffuseElems[0].b, light.diffuseElems[0].a);
+        this.lights[i].setSpecular(light.specularElems[0].r, light.specularElems[0].g, light.specularElems[0].b, light.specularElems[0].a);
         this.lights[i].setVisible(true);
 
-        if (this.graph.lights[key] instanceof Omni){
-            this.lights[i].setPosition(light.locationElems[0].x,light.locationElems[0].y,light.locationElems[0].z,light.locationElems[0].w);
-        }
-        else if (this.graph.lights[key] instanceof Spot){
-          this.lights[i].setSpotCutOff(light.angle);
-          this.lights[i].setSpotExponent(light.exponent);
-          var wElem =1;
-          this.lights[i].setPosition(light.locationElems[0].x,light.locationElems[0].y,light.locationElems[0].z,wElem);
-          var directionX = light.targetElems[0].x - light.locationElems[0].x;
-          var directionY = light.targetElems[0].y - light.locationElems[0].y;
-          var directionZ = light.targetElems[0].z - light.locationElems[0].z;
-          this.lights[i].setSpotDirection(directionX,directionY,directionZ);
+        if (this.graph.lights[key] instanceof Omni) {
+            this.lights[i].setPosition(light.locationElems[0].x, light.locationElems[0].y, light.locationElems[0].z, light.locationElems[0].w);
+        } else if (this.graph.lights[key] instanceof Spot) {
+            this.lights[i].setSpotCutOff(light.angle);
+            this.lights[i].setSpotExponent(light.exponent);
+            var wElem = 1;
+            this.lights[i].setPosition(light.locationElems[0].x, light.locationElems[0].y, light.locationElems[0].z, wElem);
+            var directionX = light.targetElems[0].x - light.locationElems[0].x;
+            var directionY = light.targetElems[0].y - light.locationElems[0].y;
+            var directionZ = light.targetElems[0].z - light.locationElems[0].z;
+            this.lights[i].setSpotDirection(directionX, directionY, directionZ);
         }
         i++;
     }
 };
 
 XMLscene.prototype.changingToNextCamera = function() {
-  if(this.nextPerspective == this.graph.perspectives.length-1){
-    this.nextPerspective = 0;
-  }
-  else this.nextPerspective ++;
+    if (this.nextPerspective == this.graph.perspectives.length - 1) {
+        this.nextPerspective = 0;
+    } else this.nextPerspective++;
 
-  this.camera = this.graph.perspectives[this.nextPerspective];
-  this.interface.setActiveCamera(this.camera);
+    this.camera = this.graph.perspectives[this.nextPerspective];
+    this.interface.setActiveCamera(this.camera);
 }
 
 XMLscene.prototype.changingToNextMaterial = function() {
-  for (component in this.graph.components){
-    if(this.graph.components[component].cgfMaterialId != "inherit" ){
-      if(this.graph.components[component].nextMaterial == this.graph.components[component].cgfMaterials.length -1)
-          this.graph.components[component].nextMaterial = 0;
-      else this.graph.components[component].nextMaterial ++;
+    for (component in this.graph.components) {
+        if (this.graph.components[component].cgfMaterialId != "inherit") {
+            if (this.graph.components[component].nextMaterial == this.graph.components[component].cgfMaterials.length - 1)
+                this.graph.components[component].nextMaterial = 0;
+            else this.graph.components[component].nextMaterial++;
 
-      console.log(component);
-      console.log("new Material: " + this.graph.components[component].nextMaterial);
-
-      this.graph.components[component].cgfMaterial = this.graph.components[component].cgfMaterials[this.graph.components[component].nextMaterial];
+            this.graph.components[component].cgfMaterial = this.graph.components[component].cgfMaterials[this.graph.components[component].nextMaterial];
+        }
     }
-  }
 }

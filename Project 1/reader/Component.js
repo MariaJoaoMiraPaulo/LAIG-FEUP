@@ -39,9 +39,8 @@ class Component {
             // creating component transformation matrix
             let trans = new Transformation(this.graph, transElem);
             this.transformationMatrix = trans.matrix;
-        }
-        else {
-          this.graph.onXMLError("components:: Only can exist one transformationref tag.");
+        } else {
+            this.graph.onXMLError("components:: Only can exist one transformationref tag.");
         }
     }
 
@@ -57,7 +56,7 @@ class Component {
                 this.cgfMaterialId = "inherit";
                 break;
             } else if (typeof this.graph.materials[id] == 'undefined')
-                this.graph.onXMLError("components:: it doens't exist any material with that id, "+ id+".");
+                this.graph.onXMLError("components:: it doens't exist any material with that id, " + id + ".");
             else {
                 if (i == 0) {
                     this.cgfMaterial = this.graph.materials[id];
@@ -101,7 +100,7 @@ class Component {
         for (let primitive of primitives) {
             let id = this.reader.getString(primitive, 'id');
             if (typeof this.graph.primitives[id] == 'undefined') {
-                this.graph.onXMLError("components:: it doens't have any primitive with that id, "+ id+".");
+                this.graph.onXMLError("components:: it doens't have any primitive with that id, " + id + ".");
             }
             this.childrens.push(this.graph.primitives[this.reader.getString(primitive, 'id')]);
         }
@@ -112,7 +111,7 @@ class Component {
 
         for (let componentRefId of this.componentsRefId) {
             if (typeof this.graph.components[componentRefId] == 'undefined') {
-                this.graph.onXMLError("components:: it doens't have any component with that id, "+ componentRefId+".");
+                this.graph.onXMLError("components:: it doens't have any component with that id, " + componentRefId + ".");
             } else {
                 this.childrens.push(this.graph.components[componentRefId]);
             }
