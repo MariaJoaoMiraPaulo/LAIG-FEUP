@@ -52,8 +52,6 @@ class Component {
         let i = 0;
         for (let material of materials) {
             var id = this.reader.getString(material, 'id');
-            console.log(id);
-            console.log(this.graph.materials[id]);
             if(id == "inherit"){
               this.cgfMaterialId = "inherit";
               break;

@@ -61,7 +61,6 @@ MySceneGraph.prototype.onXMLError = function(message) {
 };
 
 MySceneGraph.prototype.parseTags = function(rootElement) {
-  console.log(rootElement);
     this.parseRoot(rootElement.getElementsByTagName('scene'));
     this.parseViews(rootElement.getElementsByTagName('views'));
     this.parseIllumination(rootElement.getElementsByTagName('illumination'));
