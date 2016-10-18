@@ -1,8 +1,9 @@
 class Lights {
-    constructor(sceneGraph, elem) {
+    constructor(sceneGraph, elem, idLight) {
         this.reader = sceneGraph.reader;
         this.sceneGraph = sceneGraph;
         this.elem = elem;
+        this.id = idLight;
         this.ambientElems = [];
         this.diffuseElems = [];
         this.specularElems = [];
@@ -16,13 +17,13 @@ class Lights {
         this.ambientElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('ambient')[0]);
         this.diffuseElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('diffuse')[0]);
         this.specularElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('specular')[0]);
-        this.enabled = this.reader.getFloat(this.elem,'enabled');
+        this.enabled = this.reader.getBoolean(this.elem,'enabled');
     }
 }
 
 class Omni extends Lights {
-    constructor(reader, elem) {
-        super(reader, elem);
+    constructor(reader, elem, idLight) {
+        super(reader, elem, idLight);
         super.fillValues();
         this.fillSpecificValues();
 
@@ -39,8 +40,8 @@ class Omni extends Lights {
 }
 
 class Spot extends Lights {
-    constructor(reader, elem) {
-        super(reader, elem);
+    constructor(reader, elem, idLight) {
+        super(reader, elem, idLight);
         super.fillValues();
         this.fillSpecificValues();
     }

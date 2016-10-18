@@ -14,20 +14,14 @@ MyInterface.prototype.init = function(application) {
 	//  http://workshop.chromeexperiments.com/examples/gui
 
 	this.gui = new dat.GUI();
+  this.group = this.gui.addFolder('Lights');
+  this.group.open();
+
 	return true;
 };
 
-MyInterface.prototype.onGraphLoaded = function(){
-    var group = this.gui.addFolder('Lights');
-    group.open();
-	var self = this;
-
-	for(key in this.scene.lightsEnabled){
-	    var controller = group.add(this.scene.lightsEnabled, key);
-	    controller.onChange(function(enable) {
-	    	self.scene.updateLight(key, enable);
-	    });
-	}
+MyInterface.prototype.addALight = function(i, id){
+	    this.group.add(this.scene.lightsEnabled,i, this.scene.lightsEnabled[i]).name(id);
 }
 
 MyInterface.prototype.processKeyboard = function(event) {

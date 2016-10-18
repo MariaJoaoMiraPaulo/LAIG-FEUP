@@ -22,6 +22,7 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.axis = new CGFaxis(this);
+    this.lightsEnabled= [];
 
 };
 
@@ -54,12 +55,15 @@ XMLscene.prototype.onGraphLoaded = function() {
     this.camera = this.graph.perspectives[this.graph.defaultViewIndex];
     this.nextPerspective = 0;
     this.interface.setActiveCamera(this.camera);
-
 };
 
 XMLscene.prototype.updateLights = function() {
-    for (i = 0; i < this.lights.length; i++)
+    for (i = 0; i < this.lights.length; i++){
+        if(!this.lightsEnabled[i])
+          this.lights[i].disable();
+          else this.lights[i].enable();
         this.lights[i].update();
+      }
 };
 
 XMLscene.prototype.display = function() {
@@ -129,8 +133,11 @@ XMLscene.prototype.setXMLLights = function() {
             var directionZ = light.targetElems[0].z - light.locationElems[0].z;
             this.lights[i].setSpotDirection(directionX, directionY, directionZ);
         }
+        this.lightsEnabled.push(light.enabled);
+        this.interface.addALight(i, light.id)
         i++;
     }
+    console.log(this.lightsEnabled);
 };
 
 XMLscene.prototype.changingToNextCamera = function() {

@@ -146,10 +146,10 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
 
         switch (elem.tagName) {
             case 'omni':
-                this.lights[idLight] = new Omni(this, elem);
+                this.lights[idLight] = new Omni(this, elem, idLight);
                 break;
             case 'spot':
-                this.lights[idLight] = new Spot(this, elem);
+                this.lights[idLight] = new Spot(this, elem, idLight);
                 break;
 
             default:
