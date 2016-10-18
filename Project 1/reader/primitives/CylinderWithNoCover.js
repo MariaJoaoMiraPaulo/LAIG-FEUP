@@ -1,8 +1,10 @@
-function CylinderWithNoCover(scene, slices, stacks) {
+function CylinderWithNoCover(scene, slices, stacks, base, top) {
  	CGFobject.call(this,scene);
 
 	this.slices = slices;
 	this.stacks = stacks;
+  this.baseRadius = base;
+  this.topRadius = top;
 
  	this.initBuffers();
  };
@@ -23,11 +25,13 @@ function CylinderWithNoCover(scene, slices, stacks) {
 	var ang=(2*Math.PI)/this.slices;
   var zCoord = 0;
   var zLength = 1/this.stacks;
+  var deltaRadius = (this.topRadius-this.baseRadius) / this.stacks ;
 
 	for(i = 0; i <= this.stacks; i++) {
+    delta = (deltaRadius * i ) + this.baseRadius;
 		for(j = 0; j < this.slices; j++) {
-			this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),zCoord);
-			this.normals.push(Math.cos(ang*j),Math.sin(ang*j),zCoord);
+			this.vertices.push(delta *  Math.cos(ang*j), delta * Math.sin(ang*j),zCoord);
+			this.normals.push(delta * Math.cos(ang*j), delta * Math.sin(ang*j),zCoord);
 			this.texCoords.push(xCoord, yCoord);
 			xCoord += patchLengthx;
 		}
