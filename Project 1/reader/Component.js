@@ -57,7 +57,7 @@ class Component {
                 this.cgfMaterialId = "inherit";
                 break;
             } else if (typeof this.graph.materials[id] == 'undefined')
-                this.graph.onXMLError("components:: it doens't exist any material with that id.");
+                this.graph.onXMLError("components:: it doens't exist any material with that id, "+ id+".");
             else {
                 if (i == 0) {
                     this.cgfMaterial = this.graph.materials[id];
@@ -99,8 +99,9 @@ class Component {
         var primitives = childrenElem.getElementsByTagName('primitiveref');
 
         for (let primitive of primitives) {
-            if (typeof this.graph.primitives[this.reader.getString(primitive, 'id')] == 'undefined') {
-                this.graph.onXMLError("components:: it doens't have any primitive with that id");
+            let id = this.reader.getString(primitive, 'id');
+            if (typeof this.graph.primitives[id] == 'undefined') {
+                this.graph.onXMLError("components:: it doens't have any primitive with that id, "+ id+".");
             }
             this.childrens.push(this.graph.primitives[this.reader.getString(primitive, 'id')]);
         }
@@ -111,9 +112,7 @@ class Component {
 
         for (let componentRefId of this.componentsRefId) {
             if (typeof this.graph.components[componentRefId] == 'undefined') {
-                console.log(componentRefId);
-                console.log(this.graph.components[componentRefId]);
-                this.graph.onXMLError("components:: it doens't have any component with that id");
+                this.graph.onXMLError("components:: it doens't have any component with that id, "+ componentRefId+".");
             } else {
                 this.childrens.push(this.graph.components[componentRefId]);
             }

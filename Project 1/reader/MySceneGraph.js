@@ -98,7 +98,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
 
         var idPrimitive = this.reader.getString(elem, 'id');
         if (typeof this.primitives[idPrimitive] != 'undefined') {
-            this.onXMLError("primitives::already exists a primitive with that id");
+            this.onXMLError("primitives::already exists a primitive with that id, " + idPrimitive + ".");
         }
 
         var newElement = elem.children[0];
@@ -135,21 +135,21 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
     var spotElems = primitivesElems[0].getElementsByTagName('spot');
 
     if ((omniElems.length + spotElems.length) == 0)
-        this.onXMLError("Lights:: it must exists at least one block omni ou spot on lights.");
+        this.onXMLError("Lights:: it must exists at least one block omni or spot on lights.");
 
     for (let elem of rootLights) {
-        var idLigth = this.reader.getString(elem, 'id');
+        var idLight = this.reader.getString(elem, 'id');
 
-        if (typeof this.lights[idLigth] != 'undefined') {
-            this.onXMLError("lights::already exists a light with that id");
+        if (typeof this.lights[idLight] != 'undefined') {
+            this.onXMLError("lights::already exists a light with that id, " + idLight + ".");
         }
 
         switch (elem.tagName) {
             case 'omni':
-                this.lights[idLigth] = new Omni(this, elem);
+                this.lights[idLight] = new Omni(this, elem);
                 break;
             case 'spot':
-                this.lights[idLigth] = new Spot(this, elem);
+                this.lights[idLight] = new Spot(this, elem);
                 break;
 
             default:
@@ -175,7 +175,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
     for (let elem of rootMaterial) {
         var idMaterial = this.reader.getString(elem, 'id');
         if (typeof this.materials[idMaterial] != 'undefined') {
-            this.onXMLError("material::already exists a material with that id");
+            this.onXMLError("material::already exists a material with that id, " + idMaterial + ".");
         }
         this.materials[idMaterial] = this.createMaterial(elem);
     }
@@ -201,7 +201,7 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
 
         var elemId = this.reader.getString(elem, 'id');
         if (typeof this.transformations[elemId] != 'undefined') {
-            this.onXMLError("transformations::already exists a transformation with that id.");
+            this.onXMLError("transformations::already exists a transformation with that id, " + elemId + ".");
         }
 
         let transformation = new Transformation(this, elem);
@@ -210,6 +210,11 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
 };
 
 MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
+
+    if (illuminationElems.length == 0) {
+        this.onXMLError("illumination:: element is missing.")
+    }
+
     this.illuminationDoubleSided = this.reader.getBoolean(illuminationElems[0], 'doublesided');
     this.illuminationLocal = this.reader.getBoolean(illuminationElems[0], 'local');
     this.background = this.getRGBA(illuminationElems[0].getElementsByTagName('background')[0]);
@@ -233,7 +238,7 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
     for (let elem of rootTexture) {
         var idTexture = this.reader.getString(elem, 'id');
         if (typeof this.textures[idTexture] != 'undefined') {
-            this.onXMLError("texture::already exists a texture with that id");
+            this.onXMLError("texture::already exists a texture with that id, "+ idTexture+".");
         }
         this.textures[idTexture] = this.createTexture(elem);
     }
@@ -256,9 +261,10 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 
     for (let elem of rootView) {
         var idPerspective = this.reader.getString(elem, 'id');
-        
+
+        // checking if there is already a view with this id
         if (this.thereIsAViewWithThatId(idPerspective)) {
-            this.onXMLError("views:: already exists a view with that id");
+            this.onXMLError("views:: already exists a view with that id, "+ idPerspective+".");
         }
         this.perspectives.push(this.createCamera(elem));
         this.perspectivesIds.push(idPerspective);
