@@ -42,6 +42,8 @@ class Transformation {
     rotate(elem) {
         var axis = this.reader.getString(elem, 'axis');
         var angle = this.reader.getFloat(elem, 'angle'); //receive the angle in degrees
+        if(isNaN(angle))
+            this.sceneGraph.onXMLError('Transformation Block expected a float number on angle.');
         angle = (angle * Math.PI) / 180; //passes the angle to radians
 
         if (axis == 'x')
