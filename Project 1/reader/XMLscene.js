@@ -47,8 +47,8 @@ XMLscene.prototype.setDefaultAppearance = function() {
 // Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function() {
-    this.lights[0].setVisible(true);
-    this.lights[0].enable();
+  //  this.lights[0].setVisible(true);
+  //  this.lights[0].enable();
 
     this.setXMLIllumination();
     this.setXMLLights();
