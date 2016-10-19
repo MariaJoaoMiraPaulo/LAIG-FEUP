@@ -77,7 +77,8 @@ MySceneGraph.prototype.parseRoot = function(sceneElements) {
     this.rootId = this.reader.getString(sceneElements[0], 'root');
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
     if(isNaN(this.axisLength))
-        this.onXMLError('Scene Block expected a float number on axisLength.');
+      this.onXMLError("Scene Block expected a float on axis length");
+
     this.scene.axis = new CGFaxis(this.scene, this.axisLength);
 }
 
@@ -218,10 +219,10 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
     this.illuminationDoubleSided = this.reader.getBoolean(illuminationElems[0], 'doublesided');
     if(typeof this.illuminationDoubleSided != "boolean")
-        this.onXMLError('Ilumination Block expected a boolean on doublesided.');
+        this.sceneGraph.onXMLError('Ilumination Block expected a boolean on doublesided.');
     this.illuminationLocal = this.reader.getBoolean(illuminationElems[0], 'local');
     if(typeof this.illuminationLocal != "boolean")
-        this.onXMLError('Ilumination Block expected a boolean on local.');
+        this.sceneGraph.onXMLError('Ilumination Block expected a boolean on local.');
     this.background = this.getRGBA(illuminationElems[0].getElementsByTagName('background')[0]);
     this.ambient = this.getRGBA(illuminationElems[0].getElementsByTagName('ambient')[0]);
 };
@@ -318,13 +319,13 @@ MySceneGraph.prototype.getCoordinates = function(elem) {
 
     var xCoord = this.reader.getFloat(elem, 'x');
     if(isNaN(xCoord))
-        this.onXMLError('Expected a float number on coordinate x.');
+        this.sceneGraph.onXMLError('Expected a float number on coordinate x.');
     var yCoord = this.reader.getFloat(elem, 'y');
     if(isNaN(yCoord))
-        this.onXMLError('Expected a float number on coordinate y.');
+        this.sceneGraph.onXMLError('Expected a float number on coordinate y.');
     var zCoord = this.reader.getFloat(elem, 'z');
     if(isNaN(zCoord))
-        this.onXMLError('Expected a float number on coordinate z.');
+        this.sceneGraph.onXMLError('Expected a float number on coordinate z.');
 
     myArray.push({
         x: xCoord,
@@ -340,16 +341,16 @@ MySceneGraph.prototype.getRGBA = function(elem) {
 
     var rElem = this.reader.getFloat(elem, 'r');
     if(isNaN(rElem))
-        this.onXMLError('Expected a float number on component r.');
+        this.sceneGraph.onXMLError('Expected a float number on component r.');
     var gElem = this.reader.getFloat(elem, 'g');
     if(isNaN(gElem))
-        this.onXMLError('Expected a float number on component g.');
+        this.sceneGraph.onXMLError('Expected a float number on component g.');
     var bElem = this.reader.getFloat(elem, 'b');
     if(isNaN(bElem))
-        this.onXMLError('Expected a float number on component g.');
-    var aElem = this.reader.getFloat(elem, 'b');
+        this.sceneGraph.onXMLError('Expected a float number on component b.');
+    var aElem = this.reader.getFloat(elem, 'a');
     if(isNaN(aElem))
-        this.onXMLError('Expected a float number on component a.');
+        this.sceneGraph.onXMLError('Expected a float number on component a.');
 
     rgbaArray.push({
         r: rElem,
@@ -368,6 +369,8 @@ MySceneGraph.prototype.createMaterial = function(newElement) {
     var diffuse = this.getRGBA(newElement.getElementsByTagName('diffuse')[0]);
     var specular = this.getRGBA(newElement.getElementsByTagName('specular')[0]);
     var shininess = this.reader.getFloat(newElement.getElementsByTagName('shininess')[0], 'value');
+    if(isNaN(shininess))
+        this.sceneGraph.onXMLError('Material Block expected a float number on shininess.');
 
     var newMaterial = new CGFappearance(this.scene);
     newMaterial.setSpecular(specular[0].r, specular[0].g, specular[0].b, specular[0].a);
@@ -384,10 +387,10 @@ MySceneGraph.prototype.createTexture = function(newElement) {
     var fileElem = this.reader.getString(newElement, 'file');
     var length_sElem = this.reader.getFloat(newElement, 'length_s');
     if(isNaN(length_sElem))
-        this.onXMLError('Texture Block expected a float number on length_s.');
+        this.sceneGraph.onXMLError('Texture Block expected a float number on length_s.');
     var length_tElem = this.reader.getFloat(newElement, 'length_t');
     if(isNaN(length_tElem))
-        this.onXMLError('Texture Block expected a float number on length_t.');
+        this.sceneGraph.onXMLError('Texture Block expected a float number on length_t.');
 
     return (new CGFtexture(this.scene, fileElem));
 
@@ -396,13 +399,13 @@ MySceneGraph.prototype.createTexture = function(newElement) {
 MySceneGraph.prototype.createCamera = function(newElement) {
     var nearElem = this.reader.getFloat(newElement, 'near');
     if(isNaN(nearElem))
-        this.onXMLError('Views Block expected a float number on near.');
+        this.sceneGraph.onXMLError('Views Block expected a float number on near.');
     var angleElem = this.reader.getFloat(newElement, 'angle');
     if(isNaN(angleElem))
-        this.onXMLError('Views Block expected a float number on angle.');
+        this.sceneGraph.onXMLError('Views Block expected a float number on angle.');
     var farElem = this.reader.getFloat(newElement, 'far');
     if(isNaN(farElem))
-        this.onXMLError('Views Block expected a float number on far.');
+        this.sceneGraph.onXMLError('Views Block expected a float number on far.');
     var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
     var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
 
