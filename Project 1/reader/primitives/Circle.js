@@ -21,7 +21,6 @@ Circle.prototype.initBuffers = function() {
     this.texCoords.push(0.5, 0.5);
 
     var ang = (2 * Math.PI) / this.slices;
-    var length = 1 / this.slices; //to use when calculating texCoords
     var xCoord;
     var yCoord;
 
@@ -30,7 +29,9 @@ Circle.prototype.initBuffers = function() {
         yCoord = Math.sin(ang * j);
         this.vertices.push(Math.cos(ang * j), Math.sin(ang * j), 0);
         this.normals.push(Math.cos(ang * j), Math.sin(ang * j), 0);
-        this.texCoords.push((xCoord+1)*0.5, -(yCoord+1)*0.5);
+        this.texCoords.push(0.5+Math.cos(ang * i)/2, 0.5 - Math.sin(ang * i)/2);
+		    this.texCoords.push(0.5+Math.cos(ang * (i+1))/2,0.5 - Math.sin(ang * (i+1))/2);
+		    this.texCoords.push(0.5,0.5);
     }
 
     this.vertices.push(0, 0, 0);
