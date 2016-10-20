@@ -24,6 +24,7 @@ XMLscene.prototype.init = function(application) {
     this.axis = new CGFaxis(this);
     this.lightsEnabled= [];
 
+
 };
 
 XMLscene.prototype.initLights = function() {
@@ -134,7 +135,7 @@ XMLscene.prototype.setXMLLights = function() {
             this.lights[i].setSpotDirection(directionX, directionY, directionZ);
         }
         this.lightsEnabled.push(light.enabled);
-        this.interface.addALight(i, light.id)
+        this.interface.addALight(i, light.id);
         i++;
     }
     console.log(this.lightsEnabled);
