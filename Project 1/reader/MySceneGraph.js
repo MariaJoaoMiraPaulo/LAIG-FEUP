@@ -139,6 +139,7 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
     if ((omniElems.length + spotElems.length) == 0)
         this.onXMLError("Lights:: it must exists at least one block omni or spot on lights.");
 
+    var i=0;
     for (let elem of rootLights) {
         var idLight = this.reader.getString(elem, 'id');
 
@@ -148,14 +149,15 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
 
         switch (elem.tagName) {
             case 'omni':
-                this.lights[idLight] = new Omni(this, elem, idLight);
+                this.lights[idLight] = new Omni(this, elem, idLight,i);
                 break;
             case 'spot':
-                this.lights[idLight] = new Spot(this, elem, idLight);
+                this.lights[idLight] = new Spot(this, elem, idLight,i);
                 break;
 
             default:
         }
+        i++;
     }
 };
 
