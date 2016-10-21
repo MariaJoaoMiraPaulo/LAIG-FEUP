@@ -8,8 +8,6 @@ function Sphere(scene, reader, newElement) {
       this.stacks = this.reader.getInteger(this.newElement, 'stacks');
       this.radius = this.reader.getFloat(this.newElement, 'radius');
 
-      this.SemiSphere1 = new SemiSphere(this.scene, this.slices, this.stacks, this.radius);
-      this.SemiSphere2 = new SemiSphere(this.scene, this.slices, this.stacks, this.radius);
       this.initBuffers();
   };
 
