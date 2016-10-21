@@ -74,6 +74,7 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
+
         <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
         <texture id="cone" file="img/conePattern.png" length_s="22.2" length_t="2.3"/>
         <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
@@ -159,7 +160,7 @@
         </primitive>
 
         <primitive id="2">
-            <sphere radius="2" slices="25" stacks="2"/>
+            <sphere radius="2" slices="100" stacks="100"/>
         </primitive>
 
     </primitives>
@@ -197,7 +198,7 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <primitiveref id="0"/>
+                <primitiveref id="2"/>
 
             </children>
 
