@@ -222,11 +222,11 @@
         </primitive>
 
         <primitive id="roolerBag">
-            <sphere radius="0.1" slices="25" stacks="2"/>
+            <sphere radius="0.1" slices="100" stacks="100"/>
         </primitive>
 
         <primitive id="SphereBall">
-            <sphere radius="0.15" slices="25" stacks="2"/>
+            <sphere radius="0.15" slices="100" stacks="100"/>
         </primitive>
 
         <primitive id="triangle">
