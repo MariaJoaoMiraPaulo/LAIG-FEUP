@@ -96,7 +96,7 @@
         <texture id="bag5" file="img/bag5.jpeg" length_s="22.2" length_t="2.3"/>
         <texture id="bag7" file="img/bag7.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="terminal" file="img/terminal.png" length_s="22.2" length_t="2.3"/>
-        <texture id="tv" file="img/tv.png" length_s="22.2" length_t="2.3"/>
+        <texture id="tvArrivals" file="img/tvArrivals.png" length_s="22.2" length_t="2.3"/>
         <texture id="danger" file="img/danger.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="foodmachine" file="img/food.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="signalbagage" file="img/signal.png" length_s="22.2" length_t="2.3"/>
@@ -548,7 +548,7 @@
             <materials>
                 <material id="1"/>
             </materials>
-            <texture id="tv"/>
+            <texture id="tvArrivals"/>
             <children>
                 <primitiveref id="1"/>
             </children>
@@ -557,7 +557,7 @@
         <component id="signalBagageClaim">
             <transformation>
                 <translate x="0.1" y="2.7" z="3.5"/>
-                <rotate axis="y" angle="-90"/>
+                <rotate axis="y" angle="90"/>
                 <scale x="2" y="0.7" z="2"/>
             </transformation>
             <materials>
