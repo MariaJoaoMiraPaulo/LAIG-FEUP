@@ -54,3 +54,7 @@ function CylinderWithNoCover(scene, slices, stacks, base, top) {
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
+
+ CylinderWithNoCover.prototype.updateTextCoords = function(s,t) {
+
+ };

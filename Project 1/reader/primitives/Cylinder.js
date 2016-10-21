@@ -38,3 +38,6 @@ this.scene.popMatrix();
 		this.bottom.display();
 	this.scene.popMatrix();
 }
+
+Cylinder.prototype.updateTextCoords = function(s,t) {
+}

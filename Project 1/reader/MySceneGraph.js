@@ -248,7 +248,13 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
         if (typeof this.textures[idTexture] != 'undefined') {
             this.onXMLError("texture::already exists a texture with that id, " + idTexture + ".");
         }
-        this.textures[idTexture] = this.createTexture(elem);
+        var s = this.reader.getFloat(elem, 'length_s');
+        if(isNaN(s))
+            this.sceneGraph.onXMLError('Expected a float number on length_s.');
+        var t = this.reader.getFloat(elem, 'length_t');
+        if(isNaN(t))
+            this.sceneGraph.onXMLError('Expected a float number on length_t.');
+        this.textures[idTexture] = [{texture: this.createTexture(elem), length_s: s, length_t: t }];
     }
 
 };

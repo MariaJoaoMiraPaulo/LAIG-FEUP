@@ -85,26 +85,26 @@
 
     <textures>
 
-        <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
-        <texture id="bag1" file="img/bag1.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="metal" file="img/metal.jpeg" length_s="22.2" length_t="2.3"/>
-        <texture id="carpet" file="img/carpet.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="bag2" file="img/bag2.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="bag3" file="img/bag3.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="bag4" file="img/bag4.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="bagdoor" file="img/bagdoor.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="bag5" file="img/bag5.jpeg" length_s="22.2" length_t="2.3"/>
-        <texture id="bag7" file="img/bag7.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="terminal" file="img/terminal.png" length_s="22.2" length_t="2.3"/>
-        <texture id="tvArrivals" file="img/tvArrivals.png" length_s="22.2" length_t="2.3"/>
-        <texture id="danger" file="img/danger.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="foodmachine" file="img/food.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="signalbagage" file="img/signal.png" length_s="22.2" length_t="2.3"/>
-        <texture id="ball" file="img/ball.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="donut" file="img/donut.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="floor" file="img/floor.jpeg" length_s="22.2" length_t="2.3"/>
-        <texture id="signal" file="img/signal.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="cone" file="img/conePattern.png" length_s="22.2" length_t="2.3"/>
+        <texture id="1" file="img/floor.png" length_s="1" length_t="1"/>
+        <texture id="bag1" file="img/bag1.jpg" length_s="1" length_t="1"/>
+        <texture id="metal" file="img/metal.jpeg" length_s="1" length_t="1"/>
+        <texture id="carpet" file="img/carpet.jpg" length_s="1" length_t="1"/>
+        <texture id="bag2" file="img/bag2.jpg" length_s="1" length_t="1"/>
+        <texture id="bag3" file="img/bag3.jpg" length_s="1" length_t="1"/>
+        <texture id="bag4" file="img/bag4.jpg" length_s="1" length_t="1"/>
+        <texture id="bagdoor" file="img/bagdoor.jpg" length_s="1" length_t="1"/>
+        <texture id="bag5" file="img/bag5.jpeg" length_s="1" length_t="1"/>
+        <texture id="bag7" file="img/bag7.jpg" length_s="1" length_t="1"/>
+        <texture id="terminal" file="img/terminal.png" length_s="1" length_t="1"/>
+        <texture id="tvArrivals" file="img/tvArrivals.png" length_s="1" length_t="1"/>
+        <texture id="danger" file="img/danger.jpg" length_s="1" length_t="1"/>
+        <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
+        <texture id="signalbagage" file="img/signal.png" length_s="1" length_t="1"/>
+        <texture id="ball" file="img/ball.jpg" length_s="1" length_t="1"/>
+        <texture id="donut" file="img/donut.jpg" length_s="1" length_t="1"/>
+        <texture id="floor" file="img/floor.jpeg" length_s="1" length_t="1"/>
+        <texture id="signal" file="img/signal.jpg" length_s="1" length_t="1"/>
+        <texture id="cone" file="img/conePattern.png" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -962,6 +962,7 @@
         <component id="terminalCube">
             <transformation>
                 <translate x="0" y="1.1" z="0"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
             <materials>
                 <material id="1"/>

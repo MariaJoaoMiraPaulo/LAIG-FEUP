@@ -81,3 +81,7 @@
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
+
+ SemiSphere.prototype.updateTextCoords = function(s,t) {
+
+ };

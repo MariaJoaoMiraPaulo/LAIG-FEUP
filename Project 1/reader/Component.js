@@ -13,6 +13,8 @@ class Component {
         this.nextMaterial = 0;
 
         this.cgfTexture;
+        this.length_sTexture;
+        this.length_tTexture;
         this.cgfTextureId;
 
         this.componentsRefId = [];
@@ -82,7 +84,13 @@ class Component {
         } else if (id != "inherit" && id != "none") {
             if (typeof this.graph.textures[id] == 'undefined')
                 this.graph.onXMLError("components:: it doens't exist any texture with that id, " + id + ".");
-            else this.cgfTexture = this.graph.textures[id];
+            else{
+                this.cgfTexture = this.graph.textures[id][0].texture;
+                this.length_sTexture =  this.graph.textures[id][0].length_s;
+                this.length_tTexture = this.graph.textures[id][0].length_t;
+            }
+
+
         }
 
     }
@@ -132,6 +140,9 @@ class Component {
             }
             if (children.cgfMaterialId == "inherit") {
                 children.cgfMaterial = this.cgfMaterial;
+            }
+            if(!(children instanceof Component)){
+            //  children.updateTextCoords(this.length_sTexture,this.length_tTexture);
             }
             children.display();
         }

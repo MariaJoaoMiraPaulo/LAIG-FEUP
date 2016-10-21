@@ -74,6 +74,7 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
+        <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
         <texture id="cone" file="img/conePattern.png" length_s="22.2" length_t="2.3"/>
         <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
 
@@ -144,7 +145,7 @@
             <!-- em OpenGL/GLUT; o cilindro deve adicionalmente ter tampas -->
             <!--  <rectangle x1="1" y1="1" x2="0" y2="0" /> -->
             <!--<triangle x1="1" y1="1" z1="1" x2="1" y2="0" z2="0" x3="2" y3="2" z3="2" /> -->
-            <cylinder base="0." top="0.5" height="1.5" slices="26" stacks="4"/>
+            <cylinder base="0" top="0.5" height="1.5" slices="26" stacks="4"/>
             <!--     <sphere radius="ff" slices="ii" stacks="ii" />
             <torus inner="ff" outer="ff" slices="ii" loops="ii" />-->
         </primitive>
@@ -185,7 +186,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="cone"/>
+            <texture id="foodmachine"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>

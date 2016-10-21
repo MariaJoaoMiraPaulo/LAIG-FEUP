@@ -97,3 +97,7 @@ Triangle.prototype.angle = function(a, b) {
         return Math.acos(cosine);
     }
 };
+
+Triangle.prototype.updateTextCoords = function(s,t) {
+  
+}

@@ -29,3 +29,7 @@
  		this.SemiSphere2.display();
  	this.scene.popMatrix();
  }
+
+Sphere.prototype.updateTextCoords = function(s,t) {
+
+};
