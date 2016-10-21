@@ -27,7 +27,6 @@ class Lights {
     setXMLLightOnSceneComponentsRgb(){
       if (this.enabled)
         this.scene.lights[this.i].enable();
-
       else this.scene.lights[this.i].disable();
 
       this.scene.lights[this.i].setAmbient(this.ambientElems[0].r,this.ambientElems[0].g, this.ambientElems[0].b, this.ambientElems[0].a);

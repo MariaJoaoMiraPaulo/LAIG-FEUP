@@ -52,7 +52,6 @@ XMLscene.prototype.onGraphLoaded = function() {
   //  this.lights[0].enable();
 
     this.setXMLIllumination();
-    //this.setXMLLights();
     this.camera = this.graph.perspectives[this.graph.defaultViewIndex];
     this.nextPerspective = 0;
     this.interface.setActiveCamera(this.camera);
@@ -105,40 +104,6 @@ XMLscene.prototype.setXMLIllumination = function() {
     if (this.graph.background.length != 0)
         this.gl.clearColor(this.graph.background[0].r, this.graph.background[0].g, this.graph.background[0].b, this.graph.background[0].a)
 
-};
-
-XMLscene.prototype.setXMLLights = function() {
-
-    var i = 0;
-    for (key in this.graph.lights) { //key = id
-        var light = this.graph.lights[key];
-
-        if (light.enabled)
-            this.lights[i].enable();
-        else this.lights[i].disable();
-
-        this.lights[i].setAmbient(light.ambientElems[0].r, light.ambientElems[0].g, light.ambientElems[0].b, light.ambientElems[0].a);
-        this.lights[i].setDiffuse(light.diffuseElems[0].r, light.diffuseElems[0].g, light.diffuseElems[0].b, light.diffuseElems[0].a);
-        this.lights[i].setSpecular(light.specularElems[0].r, light.specularElems[0].g, light.specularElems[0].b, light.specularElems[0].a);
-        this.lights[i].setVisible(true);
-
-        if (this.graph.lights[key] instanceof Omni) {
-            this.lights[i].setPosition(light.locationElems[0].x, light.locationElems[0].y, light.locationElems[0].z, light.locationElems[0].w);
-        } else if (this.graph.lights[key] instanceof Spot) {
-            this.lights[i].setSpotCutOff(light.angle);
-            this.lights[i].setSpotExponent(light.exponent);
-            var wElem = 1;
-            this.lights[i].setPosition(light.locationElems[0].x, light.locationElems[0].y, light.locationElems[0].z, wElem);
-            var directionX = light.targetElems[0].x - light.locationElems[0].x;
-            var directionY = light.targetElems[0].y - light.locationElems[0].y;
-            var directionZ = light.targetElems[0].z - light.locationElems[0].z;
-            this.lights[i].setSpotDirection(directionX, directionY, directionZ);
-        }
-        this.lightsEnabled.push(light.enabled);
-        this.interface.addALight(i, light.id);
-        i++;
-    }
-    console.log(this.lightsEnabled);
 };
 
 XMLscene.prototype.changingToNextCamera = function() {

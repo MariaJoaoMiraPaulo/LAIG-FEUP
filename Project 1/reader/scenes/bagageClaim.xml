@@ -76,7 +76,7 @@
         <spot id="4" enabled="0" angle="20" exponent="2">
             <target x="0" y="0" z="0"/>
             <location x="1" y="13.5" z="15"/>
-            <ambient r="0,549" g="1" b="0.098" a="1"/>
+            <ambient r="0.8" g="0.9" b="1" a="1"/>
             <diffuse r="1" g="0" b="0" a="1"/>
             <specular r="1" g="0" b="0" a="1"/>
         </spot>
@@ -96,10 +96,10 @@
         <texture id="bag5" file="img/bag5.jpeg" length_s="22.2" length_t="2.3"/>
         <texture id="bag7" file="img/bag7.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="terminal" file="img/terminal.png" length_s="22.2" length_t="2.3"/>
-        <texture id="tv" file="img/tv1.png" length_s="22.2" length_t="2.3"/>
+        <texture id="tv" file="img/tv.png" length_s="22.2" length_t="2.3"/>
         <texture id="danger" file="img/danger.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="foodmachine" file="img/food.jpg" length_s="22.2" length_t="2.3"/>
-        <texture id="signalbagage" file="img/signal2.png" length_s="22.2" length_t="2.3"/>
+        <texture id="signalbagage" file="img/signal.png" length_s="22.2" length_t="2.3"/>
         <texture id="ball" file="img/ball.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="donut" file="img/donut.jpg" length_s="22.2" length_t="2.3"/>
         <texture id="floor" file="img/floor.jpeg" length_s="22.2" length_t="2.3"/>
@@ -962,7 +962,6 @@
         <component id="terminalCube">
             <transformation>
                 <translate x="0" y="1.1" z="0"/>
-                <rotate axis="z" angle="-90"/>
             </transformation>
             <materials>
                 <material id="1"/>

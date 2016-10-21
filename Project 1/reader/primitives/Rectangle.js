@@ -44,10 +44,10 @@ Rectangle.prototype.initBuffers = function() {
     ];
 
     this.texCoords = [
-        this.minS, this.maxT,
-        this.minS, this.minT,
         this.maxS, this.maxT,
-        this.maxS, this.minT
+        this.maxS, this.minT,
+        this.minS, this.maxT,
+        this.minS, this.minT
     ];
 
     this.primitiveType = this.scene.gl.TRIANGLES;
