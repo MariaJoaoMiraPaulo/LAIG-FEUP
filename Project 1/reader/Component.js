@@ -1,3 +1,11 @@
+ /**
+  * Represents scene component to be read
+  * @param scene CGFscene where the component will be displayed
+  * @param reader CGFXMLreader
+  * @param newElement component to be read
+  * @param graph scene graph
+  * @constructor
+  */
 class Component {
     constructor(scene, reader, element, graph) {
         this.scene = scene;
@@ -22,13 +30,19 @@ class Component {
         this.readingComponent();
     }
 
+  /*
+ * Reads the component's transformation tag, texture tag, material tag and children
+ */
     readingComponent() {
         this.readingCompTrans(this.element.getElementsByTagName('transformation')[0]);
         this.readingTextures(this.element.getElementsByTagName('texture')[0]);
         this.readingMaterials(this.element.getElementsByTagName('materials')[0]);
-        this.readingChildrens(this.element.getElementsByTagName('children')[0]);
+        this.readingChildren(this.element.getElementsByTagName('children')[0]);
     }
 
+    /*
+   * Reads the component's transformation tag
+   */
     readingCompTrans(transElem) {
         //now we have to see if we heave transformationref
         //or the translates, rotates and scales
@@ -46,6 +60,9 @@ class Component {
         }
     }
 
+    /*
+   * Reads the component's material tag
+   */
     readingMaterials(materialElem) {
         var materials = materialElem.getElementsByTagName('material');
         if (materials.length == 0)
@@ -69,6 +86,9 @@ class Component {
         }
     }
 
+    /*
+   * Reads the component's texture tag
+   */
     readingTextures(textureElem) {
 
         if (textureElem == null)
@@ -95,7 +115,10 @@ class Component {
 
     }
 
-    readingChildrens(childrenElem) {
+    /*
+   * Reads the component's children. Adds component's primitives children to the graph scene.
+   */
+    readingChildren(childrenElem) {
         //taking care of componentref
         var components = childrenElem.getElementsByTagName('componentref');
 
@@ -115,6 +138,9 @@ class Component {
 
     }
 
+    /*
+   * Reads the component's children. Adds component's components children to the graph scene.
+   */
     conectingChildrens() {
 
         for (let componentRefId of this.componentsRefId) {
@@ -126,6 +152,9 @@ class Component {
         }
     }
 
+  /**
+  * Depth-first display of components.
+  */
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
