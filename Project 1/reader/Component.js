@@ -185,7 +185,7 @@ class Component {
 
               this.cgfMaterial.setTextureWrap(wrapS, wrapT);
               this.cgfMaterial.apply();
-
+              
               children.updateTexCoords(this.length_sTexture,this.length_tTexture);*/
             }
             children.display();

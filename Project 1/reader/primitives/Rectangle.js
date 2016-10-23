@@ -69,7 +69,7 @@ Rectangle.prototype.initBuffers = function() {
  * @param s s domain amplification factor
  * @param t t domain amplification factor
  */
-Rectangle.prototype.updateTextCoords = function(s, t) {
+Rectangle.prototype.updateTexCoords = function(s, t) {
 
   for (var i = 0; i < this.texCoords.length; i += 2) {
       this.texCoords[i] = this.originalTexCoords[i] / s;
