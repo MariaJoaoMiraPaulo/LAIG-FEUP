@@ -1,3 +1,7 @@
+/**
+* Transformation
+ * @constructor
+*/
 class Transformation {
     constructor(sceneGraph, element) {
         this.sceneGraph = sceneGraph;
@@ -8,6 +12,10 @@ class Transformation {
         this.makingMatrix();
     }
 
+    /**
+    * Creates the matrix of a transformation
+    * @constructor
+    */
     makingMatrix() {
 
         this.scene.pushMatrix();
@@ -33,12 +41,20 @@ class Transformation {
         this.scene.popMatrix();
     }
 
+    /**
+    * Translate
+    * @param elem elem to be translate
+    */
     translate(elem) {
         var coords = this.sceneGraph.getCoordinates(elem);
         this.scene.translate(coords[0].x,coords[0].y,coords[0].z);
 
     }
 
+    /**
+    * Rotate
+    * @param elem elem to be rotate
+    */
     rotate(elem) {
         var axis = this.reader.getString(elem, 'axis');
         var angle = this.reader.getFloat(elem, 'angle'); //receive the angle in degrees
@@ -55,6 +71,10 @@ class Transformation {
         else console.error("transformations::incorrect axis");
     }
 
+    /**
+    * Scale
+    * @param elem elem to be scale
+    */
     scale(elem) {
       var coords = this.sceneGraph.getCoordinates(elem);
       this.scene.scale(coords[0].x,coords[0].y,coords[0].z);
