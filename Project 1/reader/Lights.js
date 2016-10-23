@@ -1,3 +1,11 @@
+/**
+ * Class responsible for reading scene lights
+ * @param graph scene graph
+ * @param elem light tag to be read
+ * @param idLight idLight to be read
+ * @param i light to be read
+ * @constructor
+ */
 class Lights {
     constructor(graph, elem, idLight, i) {
         this.reader = graph.reader;
@@ -15,6 +23,10 @@ class Lights {
         this.angle;
         this.exponent;
     }
+
+    /**
+     * Reads the characteristics of a light, including ambient, diffuse, specular contributions and enabled state
+     */
     fillValues() {
         this.ambientElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('ambient')[0]);
         this.diffuseElems = this.sceneGraph.getRGBA(this.elem.getElementsByTagName('diffuse')[0]);
@@ -24,6 +36,9 @@ class Lights {
             this.sceneGraph.onXMLError('Lights Block expected a boolean on enabled.');
     }
 
+    /**
+     * Defines the characteristics of a light, including ambient, diffuse, specular contributions, visible and enabled state
+     */
     setXMLLightOnSceneComponentsRgb(){
       if (this.enabled)
         this.scene.lights[this.i].enable();
@@ -36,12 +51,23 @@ class Lights {
 
     }
 
+    /**
+     * Adds a light to the scene
+     */
     addLight(){
       this.scene.lightsEnabled.push(this.enabled);
       this.scene.interface.addALight(this.i, this.id);
     }
 }
 
+/**
+ * Class responsible for reading scene Omni lights
+ * @param scene scene graph
+ * @param elem light tag to be read
+ * @param idLight idLight to be read
+ * @param i light to be read
+ * @constructor
+ */
 class Omni extends Lights {
     constructor(scene, elem, idLight,i) {
         super(scene, elem, idLight,i);
@@ -52,6 +78,10 @@ class Omni extends Lights {
         super.addLight();
 
     }
+
+    /**
+     * Reads the specifics characteristics of a omni light like location
+     */
     fillSpecificValues(){
       this.xElem = this.reader.getFloat(this.elem.getElementsByTagName('location')[0],'x');
       if(isNaN(this.xElem))
@@ -70,11 +100,22 @@ class Omni extends Lights {
       this.exponent = null;
     }
 
+    /**
+     * Fills omni light location
+     */
     setXMLLightSpecificValues(){
       this.scene.lights[this.i].setPosition(this.locationElems[0].x,this.locationElems[0].y,this.locationElems[0].z,this.locationElems[0].w);
     }
 }
 
+/**
+ * Class responsible for reading scene Spot lights
+ * @param scene scene graph
+ * @param elem light tag to be read
+ * @param idLight idLight to be read
+ * @param i light to be read
+ * @constructor
+ */
 class Spot extends Lights {
     constructor(scene, elem, idLight,i) {
         super(scene, elem, idLight, i);
@@ -85,6 +126,9 @@ class Spot extends Lights {
         super.addLight();
     }
 
+    /**
+     * Reads the specifics characteristics of a spot light, including location, angle, exponent and target
+     */
     fillSpecificValues(){
       this.targetElems = this.sceneGraph.getCoordinates(this.elem.getElementsByTagName('target')[0]);
       this.locationElems = this.sceneGraph.getCoordinates(this.elem.getElementsByTagName('location')[0]);
@@ -96,6 +140,9 @@ class Spot extends Lights {
           this.sceneGraph.onXMLError('Lights Block expected a float number on exponent.');
     }
 
+    /**
+     * Fills spot light position, direction, angle and exponent
+     */
     setXMLLightSpecificValues(){
       this.scene.lights[this.i].setSpotCutOff(this.angle);
       this.scene.lights[this.i].setSpotExponent(this.exponent);
