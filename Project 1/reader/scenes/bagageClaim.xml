@@ -84,6 +84,8 @@
     </lights>
 
     <textures>
+
+        <texture id="1" file="img/floor.png" length_s="1" length_t="1"/>
         <texture id="bag1" file="img/bag1.jpg" length_s="1" length_t="1"/>
         <texture id="metal" file="img/metal.jpeg" length_s="1" length_t="1"/>
         <texture id="carpet" file="img/carpet.jpg" length_s="1" length_t="1"/>
@@ -245,7 +247,7 @@
             <materials>
                 <material id="2"/>
             </materials>
-            <texture id="metal"/>
+            <texture id="1"/>
             <children>
                 <componentref id="BoardFlights"/>
                 <componentref id="CarpetAllBags"/>
@@ -272,7 +274,7 @@
 
         <component id="wetFloorSign">
             <transformation>
-              <translate x="3" y="0.25" z="6"/>
+              <translate x="3" y="0.3" z="6"/>
               <rotate axis="y" angle="45"/>
               <scale x="0.5" y="0.5" z="1"/>
             </transformation>
@@ -290,6 +292,7 @@
             <transformation>
                 <translate x="0" y="0.5" z="0.2"/>
                 <rotate axis="x" angle="-12"/>
+                <rotate axis="y" angle="180"/>
                 <scale x="1.5" y="2" z="1"/>
             </transformation>
             <materials>
@@ -306,7 +309,6 @@
             <transformation>
                 <translate x="0" y="0.5" z="-0.2"/>
                 <rotate axis="x" angle="12"/>
-                <rotate axis="y" angle="180"/>
                 <scale x="1.5" y="2" z="1"/>
             </transformation>
             <materials>
@@ -428,6 +430,7 @@
         <component id="lado2machine">
             <transformation>
                 <translate x="0" y="0" z="0.5"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
 
             <materials>
@@ -592,6 +595,7 @@
             <transformation>
                 <translate x="4" y="3" z="0.2"/>
                 <scale x="2" y="1.5" z="2"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
             <materials>
                 <material id="1"/>
@@ -605,7 +609,7 @@
         <component id="signalBagageClaim">
             <transformation>
                 <translate x="0.1" y="2.7" z="3.5"/>
-                <rotate axis="y" angle="90"/>
+                <rotate axis="y" angle="-90"/>
                 <scale x="2" y="0.7" z="2"/>
             </transformation>
             <materials>
@@ -880,7 +884,7 @@
             <materials>
                 <material id="floorMaterial"/>
             </materials>
-            <texture id="none"/>
+            <texture id="1"/>
             <children>
                 <componentref id="Bag1onCarpet"/>
                 <componentref id="Bag2onCarpet"/>
@@ -922,6 +926,7 @@
             <transformation>
                 <scale x="8" y="5" z="8"/>
                 <translate x="0.5" y="0.5" z="0"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
             <materials>
                 <material id="inherit"/>
@@ -1388,6 +1393,7 @@
         <component id="lado2">
             <transformation>
                 <translate x="0" y="0" z="0.5"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
 
             <materials>
@@ -1404,6 +1410,7 @@
         <component id="lado2carpet">
             <transformation>
                 <translate x="0" y="0" z="0.5"/>
+                <rotate axis="y" angle="180"/>
             </transformation>
 
             <materials>
@@ -1420,7 +1427,7 @@
         <component id="lado3">
             <transformation>
                 <translate x="-0.5" y="0" z="0"/>
-                <rotate axis="y" angle="-90"/>
+                <rotate axis="y" angle="90"/>
             </transformation>
 
             <materials>
@@ -1437,7 +1444,7 @@
         <component id="lado3carpet">
             <transformation>
                 <translate x="-0.5" y="0" z="0"/>
-                <rotate axis="y" angle="-90"/>
+                <rotate axis="y" angle="90"/>
             </transformation>
 
             <materials>
@@ -1454,7 +1461,7 @@
         <component id="lado4">
             <transformation>
                 <translate x="0" y="-0.5" z="0"/>
-                <rotate axis="x" angle="90"/>
+                <rotate axis="x" angle="-90"/>
             </transformation>
 
             <materials>
@@ -1501,6 +1508,7 @@
                 <primitiveref id="1"/>
             </children>
         </component>
+
 
     </components>
 

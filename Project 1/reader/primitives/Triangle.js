@@ -39,7 +39,6 @@ Triangle.prototype.initBuffers = function() {
     ]
 
     this.indices = [
-        2, 0, 1,
         2, 1, 0
     ];
 

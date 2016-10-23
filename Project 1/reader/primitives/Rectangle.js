@@ -39,10 +39,8 @@ Rectangle.prototype.initBuffers = function() {
     ]
 
     this.indices = [
-        2, 1, 0,
-        3, 1, 2,
-        2, 0, 1,
-        3, 2, 1
+        0, 1, 2,
+        2, 1, 3
     ];
 
     this.normals = [
@@ -54,10 +52,10 @@ Rectangle.prototype.initBuffers = function() {
     ];
 
     this.originalTexCoords = [
-        this.minS, this.maxT,
-        this.minS, this.minT,
         this.maxS, this.maxT,
-        this.maxS, this.minT
+        this.maxS, this.minT,
+        this.minS, this.maxT,
+        this.minS, this.minT
     ];
 
     this.texCoords = this.originalTexCoords.slice();

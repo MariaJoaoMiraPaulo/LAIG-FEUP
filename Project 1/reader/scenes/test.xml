@@ -199,7 +199,7 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <componentref id="wetFloorSign"/>
+                <componentref id="wetFloorSign1"/>
             </children>
 
         </component>
@@ -222,6 +222,7 @@
             <transformation>
                 <translate x="0" y="0.5" z="0.2"/>
                 <rotate axis="x" angle="-12"/>
+                <rotate axis="y" angle="180"/>
                 <scale x="1.5" y="2" z="1"/>
             </transformation>
             <materials>
@@ -238,7 +239,6 @@
             <transformation>
                 <translate x="0" y="0.5" z="-0.2"/>
                 <rotate axis="x" angle="12"/>
-                <rotate axis="y" angle="180"/>
                 <scale x="1.5" y="2" z="1"/>
             </transformation>
             <materials>
@@ -249,6 +249,7 @@
                 <primitiveref id="1"/>
             </children>
         </component>
+
 
 
     </components>
