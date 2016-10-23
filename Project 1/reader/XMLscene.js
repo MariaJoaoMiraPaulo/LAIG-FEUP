@@ -1,3 +1,7 @@
+/**
+ * XMLScene
+ * @constructor
+ */
 function XMLscene() {
     CGFscene.call(this);
 }
@@ -5,12 +9,14 @@ function XMLscene() {
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
+/**
+ * XMLScene init
+ * @param {CGFapplication} application
+ */
 XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
 
     this.initCameras();
-
-    //  this.initLights();
 
     this.enableTextures(true);
 
@@ -24,20 +30,15 @@ XMLscene.prototype.init = function(application) {
     this.axis = new CGFaxis(this);
     this.lightsEnabled= [];
 
-
-};
-
-XMLscene.prototype.initLights = function() {
-
-    this.lights[0].setPosition(2, 3, 3, 1);
-    this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.lights[0].update();
 };
 
 XMLscene.prototype.initCameras = function() {
     this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 };
 
+/**
+ * Sets default Appearance
+ */
 XMLscene.prototype.setDefaultAppearance = function() {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -48,8 +49,6 @@ XMLscene.prototype.setDefaultAppearance = function() {
 // Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function() {
-  //  this.lights[0].setVisible(true);
-  //  this.lights[0].enable();
 
     this.setXMLIllumination();
     this.camera = this.graph.perspectives[this.graph.defaultViewIndex];
@@ -57,6 +56,9 @@ XMLscene.prototype.onGraphLoaded = function() {
     this.interface.setActiveCamera(this.camera);
 };
 
+/**
+ * Updates lights
+ */
 XMLscene.prototype.updateLights = function() {
     for (i = 0; i < this.lights.length; i++){
         if(!this.lightsEnabled[i])
@@ -66,6 +68,9 @@ XMLscene.prototype.updateLights = function() {
       }
 };
 
+/**
+ * Displays both the graph and axis and updates lights
+ */
 XMLscene.prototype.display = function() {
     // ---- BEGIN Background, camera and axis setup
 
@@ -98,6 +103,9 @@ XMLscene.prototype.display = function() {
     };
 };
 
+/**
+ * Sets the scene Ilumination, ambient and background
+ */
 XMLscene.prototype.setXMLIllumination = function() {
     if (this.graph.ambient.length != 0)
         this.setGlobalAmbientLight(this.graph.ambient[0].r, this.graph.ambient[0].g, this.graph.ambient[0].b, this.graph.ambient[0].a);
@@ -106,6 +114,9 @@ XMLscene.prototype.setXMLIllumination = function() {
 
 };
 
+/**
+ * Changes to the next Prespective
+ */
 XMLscene.prototype.changingToNextCamera = function() {
     if (this.nextPerspective == this.graph.perspectives.length - 1) {
         this.nextPerspective = 0;
@@ -115,6 +126,9 @@ XMLscene.prototype.changingToNextCamera = function() {
     this.interface.setActiveCamera(this.camera);
 }
 
+/**
+ * Changes to the next Material
+ */
 XMLscene.prototype.changingToNextMaterial = function() {
     for (component in this.graph.components) {
         if (this.graph.components[component].cgfMaterialId != "inherit") {
