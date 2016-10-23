@@ -221,7 +221,7 @@
         </primitive>
 
         <primitive id="roolerBag">
-            <sphere radius="0.1" slices="100" stacks="100"/>
+            <cylinder base="0.1" top="0.1" height="0.1" slices="26" stacks="4"/>
         </primitive>
 
         <primitive id="SphereBall">
