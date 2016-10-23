@@ -158,7 +158,7 @@ class Component {
     display() {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transformationMatrix);
-        if (this.cgfTexture != 'undefined' && this.cgfMaterial != null)
+        if ((typeof this.cgfTexture != 'undefined') && this.cgfMaterial != null)
             this.cgfMaterial.setTexture(this.cgfTexture);
         if (this.cgfMaterial != null)
             this.cgfMaterial.apply();
@@ -166,27 +166,15 @@ class Component {
         for (let children of this.childrens) {
             if (children.cgfTextureId == "inherit") {
                 children.cgfTexture = this.cgfTexture;
+                children.length_sTexture = this.length_sTexture;
+                children.length_tTexture = this.length_tTexture;
             }
             if (children.cgfMaterialId == "inherit") {
                 children.cgfMaterial = this.cgfMaterial;
             }
             if(!(children instanceof Component)){
-        /*      let wrapS = 'CLAMP_TO_EDGE';
-              let wrapT = 'CLAMP_TO_EDGE';
-
-              if(this.length_sTexture < 1)
-              {
-                wrapS = 'REPEAT';
-              }
-              if(this.length_tTexture < 1)
-              {
-                wrapT = 'REPEAT';
-              }
-
-              this.cgfMaterial.setTextureWrap(wrapS, wrapT);
-              this.cgfMaterial.apply();
-              
-              children.updateTexCoords(this.length_sTexture,this.length_tTexture);*/
+              if(!(isNaN(this.length_sTexture) || isNaN(this.length_tTexture)))
+                children.updateTexCoords(this.length_sTexture,this.length_tTexture);
             }
             children.display();
         }

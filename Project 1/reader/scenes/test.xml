@@ -49,7 +49,7 @@
             <specular r="1" g="1" b="1" a="1"/>
         </omni>-->
 
-        <spot id="1" enabled="1" angle="ff" exponent="ff">
+        <spot id="1" enabled="1" angle="2" exponent="2">
             <!-- atencao, "target" e' diferente de "direction" -->
             <target x="0" y="0" z="0"/>
             <location x="10" y="10" z="10"/>
@@ -76,9 +76,9 @@
         <!-- quadricas (esfera, ciclindro...) -->
 
         <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
-        <texture id="cone" file="img/conePattern.png" length_s="22.2" length_t="2.3"/>
-        <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
+        <texture id="cone" file="img/conePattern.png" length_s="1" length_t="1"/>
         <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
+        <texture id="terminal" file="img/terminal.png" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -188,7 +188,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="caution"/>
+            <texture id="terminal"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -199,58 +199,178 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <componentref id="wetFloorSign1"/>
+                <componentref id="cubo"/>
             </children>
 
         </component>
 
-        <component id="wetFloorSign">
+        <component id="foodMachine">
             <transformation>
-              <translate x="4" y="0" z="4"/>
             </transformation>
             <materials>
-                <material id="1"/>
+                <material id="inherit"/>
             </materials>
-            <texture id="caution"/>
+            <texture id="none"/>
             <children>
-              <componentref id="wetFloorSign1"/>
-              <componentref id="wetFloorSign2"/>
+                <componentref id="cuboMachine"/>
             </children>
         </component>
 
-        <component id="wetFloorSign1">
+        <component id="cuboMachine">
             <transformation>
-                <translate x="0" y="0.5" z="0.2"/>
-                <rotate axis="x" angle="-12"/>
+                <scale x="1.8" y="5" z="1.5"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="lado1"/>
+                <componentref id="lado2machine"/>
+                <componentref id="lado3"/>
+                <componentref id="lado4"/>
+                <componentref id="lado5"/>
+                <componentref id="lado6"/>
+            </children>
+        </component>
+
+        <component id="lado2machine">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
                 <rotate axis="y" angle="180"/>
-                <scale x="1.5" y="2" z="1"/>
             </transformation>
+
             <materials>
-                <material id="1"/>
+                <material id="inherit"/>
             </materials>
-            <texture id="caution"/>
+
+            <texture id="foodmachine"/>
+
             <children>
                 <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="cubo">
+            <transformation></transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <componentref id="lado1"/>
+                <componentref id="lado2"/>
+                <componentref id="lado3"/>
+                <componentref id="lado4"/>
+                <componentref id="lado5"/>
+                <componentref id="lado6"/>
 
             </children>
         </component>
 
-        <component id="wetFloorSign2">
+        <component id="lado1">
             <transformation>
-                <translate x="0" y="0.5" z="-0.2"/>
-                <rotate axis="x" angle="12"/>
-                <scale x="1.5" y="2" z="1"/>
+                <translate x="0" y="0" z="-0.5"/>
             </transformation>
+
             <materials>
-                <material id="1"/>
+                <material id="inherit"/>
             </materials>
-            <texture id="caution"/>
+
+            <texture id="terminal"/>
+
             <children>
                 <primitiveref id="1"/>
             </children>
         </component>
 
+        <component id="lado2">
+            <transformation>
+                <translate x="0" y="0" z="0.5"/>
+                <rotate axis="y" angle="180"/>
+            </transformation>
 
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado3">
+            <transformation>
+                <translate x="-0.5" y="0" z="0"/>
+                <rotate axis="y" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado4">
+            <transformation>
+                <translate x="0" y="-0.5" z="0"/>
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado5">
+            <transformation>
+                <translate x="0" y="0.5" z="0"/>
+                <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="lado6">
+            <transformation>
+                <translate x="0.5" y="0" z="0"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
 
     </components>
 
