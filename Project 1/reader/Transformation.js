@@ -1,6 +1,8 @@
 /**
 * Transformation
- * @constructor
+* @param sceneGraph CGFscene where the component will be displayed
+* @param element transformation to be read
+* @constructor
 */
 class Transformation {
     constructor(sceneGraph, element) {

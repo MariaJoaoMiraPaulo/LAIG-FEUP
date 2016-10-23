@@ -1,5 +1,7 @@
 /**
  * Reads scene objects and properties from the specified 'filename', assigning them to the specified 'scene'
+ * @param filename dsx to be parsed
+ * @param scene scene o be used
  * @constructor
  */
 function MySceneGraph(filename, scene) {
@@ -16,15 +18,15 @@ function MySceneGraph(filename, scene) {
     this.primitives = {}; //creating the hash table for primitives
     this.lights = {}; //creating the hash table for lights
     this.materials = {}; //creating the hash table for materials
-    this.textures = {};
-    this.background = [];
-    this.ambient = [];
-    this.perspectives = [];
-    this.perspectivesIds = [];
-    this.defaultViewIndex;
-    this.components = {};
-    this.rootId;
-    this.axisLength;
+    this.textures = {}; //creating the hash table for textures
+    this.background = []; //creating the array for background elements
+    this.ambient = []; //creating the array for ambient elements
+    this.perspectives = []; //creating the array for perspectives
+    this.perspectivesIds = []; //creating the array for perspectivesIds
+    this.defaultViewIndex; // index of the default view of the scene
+    this.components = {}; //creating the hash table for components
+    this.rootId; // component id of the root of the graph
+    this.axisLength; // lengt of the axis of the scene
 
     /*
      * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -35,7 +37,7 @@ function MySceneGraph(filename, scene) {
     this.reader.open('scenes/' + filename, this);
 }
 
-/*
+/**
  * Callback to be executed after successful reading
  */
 MySceneGraph.prototype.onXMLReady = function() {
@@ -55,8 +57,9 @@ MySceneGraph.prototype.onXMLReady = function() {
     this.scene.onGraphLoaded();
 };
 
-/*
+/**
  * Callback to be executed on any read error
+ * @param message to be displayed
  */
 MySceneGraph.prototype.onXMLError = function(message) {
     console.error("XML Loading Error: " + message);
@@ -65,6 +68,7 @@ MySceneGraph.prototype.onXMLError = function(message) {
 
 /**
  * Start to read Scene Tags by a specific order
+ * @param rootElement elements to be proccessed
  */
 MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
@@ -80,6 +84,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
 
 /**
  * Start to read Scene Blocks by a specific order
+ * @param sceneElements scene elements to be proccessed
  */
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
     this.rootId = this.reader.getString(sceneElements[0], 'root');

@@ -2,7 +2,7 @@
   * Represents scene component to be read
   * @param scene CGFscene where the component will be displayed
   * @param reader CGFXMLreader
-  * @param newElement component to be read
+  * @param element component to be read
   * @param graph scene graph
   * @constructor
   */
@@ -30,7 +30,7 @@ class Component {
         this.readingComponent();
     }
 
-  /*
+  /**
  * Reads the component's transformation tag, texture tag, material tag and children
  */
     readingComponent() {
@@ -40,8 +40,9 @@ class Component {
         this.readingChildren(this.element.getElementsByTagName('children')[0]);
     }
 
-    /*
+    /**
    * Reads the component's transformation tag
+   * @param transElem transformation elements to be read
    */
     readingCompTrans(transElem) {
         //now we have to see if we heave transformationref
@@ -60,8 +61,9 @@ class Component {
         }
     }
 
-    /*
+    /**
    * Reads the component's material tag
+   * @param materialElem material elements to be read
    */
     readingMaterials(materialElem) {
         var materials = materialElem.getElementsByTagName('material');
@@ -86,8 +88,9 @@ class Component {
         }
     }
 
-    /*
+    /**
    * Reads the component's texture tag
+   * @param textureElem texture elements to be read
    */
     readingTextures(textureElem) {
 
@@ -115,8 +118,9 @@ class Component {
 
     }
 
-    /*
+    /**
    * Reads the component's children. Adds component's primitives children to the graph scene.
+   * @param childrenElem children elements to be read
    */
     readingChildren(childrenElem) {
         //taking care of componentref
@@ -138,7 +142,7 @@ class Component {
 
     }
 
-    /*
+    /**
    * Reads the component's children. Adds component's components children to the graph scene.
    */
     conectingChildrens() {
