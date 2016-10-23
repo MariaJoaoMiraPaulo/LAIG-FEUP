@@ -1,3 +1,7 @@
+/**
+ * Reads scene objects and properties from the specified 'filename', assigning them to the specified 'scene'
+ * @constructor
+ */
 function MySceneGraph(filename, scene) {
     this.loadedOk = null;
 
@@ -61,6 +65,9 @@ MySceneGraph.prototype.onXMLError = function(message) {
     this.loadedOk = false;
 };
 
+/**
+ * Start to read Scene Tags by a specific order
+ */
 MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
     this.parseViews(rootElement.getElementsByTagName('views'));
@@ -73,6 +80,9 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
     this.parseComponents(rootElement.getElementsByTagName('components'));
 };
 
+/**
+ * Start to read Scene Blocks by a specific order
+ */
 MySceneGraph.prototype.parseRoot = function(sceneElements) {
     this.rootId = this.reader.getString(sceneElements[0], 'root');
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
@@ -82,6 +92,10 @@ MySceneGraph.prototype.parseRoot = function(sceneElements) {
     this.scene.axis = new CGFaxis(this.scene, this.axisLength);
 }
 
+/**
+ * Parses the Primitives block
+ * @param primitivesElems primitives block to be read
+ */
 MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
     if (primitivesElems.length == 0) {
         this.onXMLError("primitives:: primitives element is missing.");
@@ -124,17 +138,21 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
     }
 };
 
-MySceneGraph.prototype.parseLights = function(primitivesElems) {
+/**
+ * Parses the Lights block
+ * @param lightsElems lights block to be read
+ */
+MySceneGraph.prototype.parseLights = function(lightsElems) {
 
-    if (primitivesElems.length == 0) {
+    if (lightsElems.length == 0) {
         this.onXMLError("Lights:: lights element is missing.");
     }
 
-    var rootLights = primitivesElems[0].children;
+    var rootLights = lightsElems[0].children;
     var numberChildren = rootLights.length;
 
-    var omniElems = primitivesElems[0].getElementsByTagName('omni');
-    var spotElems = primitivesElems[0].getElementsByTagName('spot');
+    var omniElems = lightsElems[0].getElementsByTagName('omni');
+    var spotElems = lightsElems[0].getElementsByTagName('spot');
 
     if ((omniElems.length + spotElems.length) == 0)
         this.onXMLError("Lights:: it must exists at least one block omni or spot on lights.");
@@ -161,6 +179,10 @@ MySceneGraph.prototype.parseLights = function(primitivesElems) {
     }
 };
 
+/**
+ * Parses the Materials block
+ * @param materialsElems materials block to be read
+ */
 MySceneGraph.prototype.parseMaterials = function(materialsElems) {
 
     if (materialsElems.length == 0) {
@@ -186,7 +208,10 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
 
 };
 
-
+/**
+ * Parses the Transformations block
+ * @param transformationsElems transformations block to be read
+ */
 MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
     if (transformationsElems.length == 0) {
         this.onXMLError("transformations:: element is missing.")
@@ -213,6 +238,10 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
     }
 };
 
+/**
+ * Parses the Ilumination block
+ * @param illuminationElems illumination block to be read
+ */
 MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
 
     if (illuminationElems.length == 0) {
@@ -229,7 +258,10 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
     this.ambient = this.getRGBA(illuminationElems[0].getElementsByTagName('ambient')[0]);
 };
 
-
+/**
+ * Parses the Textures block
+ * @param texturesElems textures block to be read
+ */
 MySceneGraph.prototype.parseTextures = function(texturesElems) {
 
     if (texturesElems.length == 0) {
@@ -259,6 +291,10 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
 
 };
 
+/**
+ * Parses the Views block
+ * @param viewsElems views block to be read
+ */
 MySceneGraph.prototype.parseViews = function(viewsElems) {
     if (viewsElems.length == 0) {
         this.onXMLError("views:: element is missing.")
@@ -298,6 +334,10 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
 
 };
 
+/**
+ * Checks if there is a view with one specific id
+ * @param idPerspective perspective id
+ */
 MySceneGraph.prototype.thereIsAViewWithThatId = function(idPerspective) {
     for (let id of this.perspectivesIds) {
         if (id == idPerspective)
@@ -307,6 +347,10 @@ MySceneGraph.prototype.thereIsAViewWithThatId = function(idPerspective) {
     return false;
 };
 
+/**
+ * Parses the Components block
+ * @param componentElems components block to be read
+ */
 MySceneGraph.prototype.parseComponents = function(componentElems) {
 
     for (let component of componentElems[0].children) {
@@ -322,6 +366,10 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
 }
 
 
+/**
+ * Returns an array with x, y and z coordinates
+ * @param elem elem to be read
+ */
 MySceneGraph.prototype.getCoordinates = function(elem) {
     var myArray = [];
 
@@ -344,6 +392,10 @@ MySceneGraph.prototype.getCoordinates = function(elem) {
     return myArray;
 }
 
+/**
+ * Returns an array with r, g , b and a components
+ * @param elem elem to be read
+ */
 MySceneGraph.prototype.getRGBA = function(elem) {
     var rgbaArray = [];
 
@@ -370,6 +422,10 @@ MySceneGraph.prototype.getRGBA = function(elem) {
     return rgbaArray;
 }
 
+/**
+ * Creates a CGF material
+ * @param newElement elem to be read
+ */
 MySceneGraph.prototype.createMaterial = function(newElement) {
 
     var emission = this.getRGBA(newElement.getElementsByTagName('emission')[0]);
@@ -390,6 +446,10 @@ MySceneGraph.prototype.createMaterial = function(newElement) {
     return newMaterial;
 }
 
+/**
+ * Creates a CGF texture
+ * @param newElement elem to be read
+ */
 MySceneGraph.prototype.createTexture = function(newElement) {
 
     var fileElem = this.reader.getString(newElement, 'file');
@@ -404,6 +464,10 @@ MySceneGraph.prototype.createTexture = function(newElement) {
 
 }
 
+/**
+ * Creates a CGF camera
+ * @param newElement elem to be read
+ */
 MySceneGraph.prototype.createCamera = function(newElement) {
     var nearElem = this.reader.getFloat(newElement, 'near');
     if(isNaN(nearElem))
