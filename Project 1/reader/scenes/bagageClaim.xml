@@ -1207,7 +1207,8 @@
 
         <component id="rooler1">
             <transformation>
-                <translate x="0.35" y="-0.65" z="0"/>
+                <translate x="0.3" y="-0.65" z="0"/>
+                  <rotate axis="y" angle="90"/>
             </transformation>
             <materials>
                 <material id="2"/>
@@ -1220,7 +1221,8 @@
 
         <component id="rooler2">
             <transformation>
-                <translate x="-0.35" y="-0.65" z="0"/>
+                <translate x="-0.3" y="-0.65" z="0"/>
+                <rotate axis="y" angle="90"/>
             </transformation>
             <materials>
                 <material id="2"/>
