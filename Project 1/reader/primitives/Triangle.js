@@ -48,14 +48,11 @@ Triangle.prototype.initBuffers = function() {
         this.values['x2'], this.values['y2'], this.values['z2'],
         this.values['x3'], this.values['y3'], this.values['z3']
     ];
+
     this.originalTexCoords = [];
-    /*    this.originalTexCoords = [
-    		    0.5, 0,
-            0,1,
-            1,1
-        ];*/
     this.calculatingoriginalTexCoords();
     this.texCoords = this.originalTexCoords.slice();
+    
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
