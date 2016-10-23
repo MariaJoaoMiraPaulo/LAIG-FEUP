@@ -171,7 +171,22 @@ class Component {
                 children.cgfMaterial = this.cgfMaterial;
             }
             if(!(children instanceof Component)){
-            //  children.updateTexCoords(this.length_sTexture,this.length_tTexture);
+        /*      let wrapS = 'CLAMP_TO_EDGE';
+              let wrapT = 'CLAMP_TO_EDGE';
+
+              if(this.length_sTexture < 1)
+              {
+                wrapS = 'REPEAT';
+              }
+              if(this.length_tTexture < 1)
+              {
+                wrapT = 'REPEAT';
+              }
+
+              this.cgfMaterial.setTextureWrap(wrapS, wrapT);
+              this.cgfMaterial.apply();
+
+              children.updateTexCoords(this.length_sTexture,this.length_tTexture);*/
             }
             children.display();
         }
