@@ -1,3 +1,10 @@
+/**
+ * Cylinder
+ * @param scene CGFscene where the Cylinder will be displayed
+ * @param reader CGFXMLreader
+ * @param newElement tag Cylinder to be read
+ * @constructor
+ */
 function Cylinder(scene, reader, newElement) {
 	CGFobject.call(this,scene);
 	this.scene = scene;
@@ -19,6 +26,9 @@ function Cylinder(scene, reader, newElement) {
 Cylinder.prototype = Object.create(CGFobject.prototype);
 Cylinder.prototype.constructor=Cylinder;
 
+/**
+ * Adds the base and the top of the cylinder. Updates cylinder's height
+ */
 Cylinder.prototype.display = function() {
 
 this.scene.pushMatrix();
@@ -39,5 +49,5 @@ this.scene.popMatrix();
 	this.scene.popMatrix();
 }
 
-Cylinder.prototype.updateTextCoords = function(s,t) {
+Cylinder.prototype.updateTexCoords = function(s,t) {
 }

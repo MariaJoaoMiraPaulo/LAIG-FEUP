@@ -1,3 +1,10 @@
+/**
+ * Torus
+ * @param scene CGFscene where the Torus will be displayed
+ * @param reader CGFXMLreader
+ * @param newElement tag Torus to be read
+ * @constructor
+ */
 function Torus(scene, reader, newElement) {
     CGFobject.call(this, scene);
 
@@ -15,13 +22,16 @@ function Torus(scene, reader, newElement) {
 Torus.prototype = Object.create(CGFobject.prototype);
 Torus.prototype.constructor = Torus;
 
+/**
+ * Initializes the Torus buffers (vertices, indices, normals and texCoords)
+ */
 Torus.prototype.initBuffers = function() {
 
 
     this.vertices = [];
     this.normals = [];
     this.indices = [];
-    this.texCoords = [];
+    this.originalTexCoords = [];
 
     var angSlices = (2 * Math.PI) / this.slices;
     var angLoops = (2 * Math.PI) / this.loops;
@@ -42,7 +52,7 @@ Torus.prototype.initBuffers = function() {
 
             var s = 1 - i * texS;
             var t = 1 - j * texT;
-            this.texCoords.push(s, t);
+            this.originalTexCoords.push(s, t);
         }
 
     }
@@ -56,10 +66,21 @@ Torus.prototype.initBuffers = function() {
         }
     }
 
+    this.texCoords = this.originalTexCoords.slice();
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
 
-Torus.prototype.updateTextCoords = function(s,t) {
-  
+/**
+ * Updates the Torus amplification factors
+ * @param s s domain amplification factor
+ * @param t t domain amplification factor
+ */
+Torus.prototype.updateTexCoords = function(s,t) {
+  for (var i = 0; i < this.texCoords.length; i += 2) {
+      this.texCoords[i] = this.originalTexCoords[i] / s;
+      this.texCoords[i + 1] = this.originalTexCoords[i+1] / t;
+    }
+
+    this.updateTexCoordsGLBuffers();
 };

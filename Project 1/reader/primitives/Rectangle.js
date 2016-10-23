@@ -1,3 +1,10 @@
+/**
+ * Rectangle
+ * @param scene CGFscene where the Rectangle will be displayed
+ * @param reader CGFXMLreader
+ * @param newElement tag rectangle to be read
+ * @constructor
+ */
 function Rectangle(scene, reader, newElement) {
     CGFobject.call(this, scene);
 
@@ -19,6 +26,9 @@ function Rectangle(scene, reader, newElement) {
 Rectangle.prototype = Object.create(CGFobject.prototype);
 Rectangle.prototype.constructor = Rectangle;
 
+/**
+ * Initializes the Rectangle buffers (vertices, indices, normals and texCoords)
+ */
 Rectangle.prototype.initBuffers = function() {
 
     this.vertices = [
@@ -43,27 +53,30 @@ Rectangle.prototype.initBuffers = function() {
 
     ];
 
-    this.texCoords = [
+    this.originalTexCoords = [
         this.minS, this.maxT,
         this.minS, this.minT,
         this.maxS, this.maxT,
         this.maxS, this.minT
     ];
 
+    this.texCoords = this.originalTexCoords.slice();
+
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
 
+/**
+ * Updates the Rectangle amplification factors
+ * @param s s domain amplification factor
+ * @param t t domain amplification factor
+ */
 Rectangle.prototype.updateTextCoords = function(s, t) {
-    var dist_s = Math.abs(this.values['x1'] - this.values['x2']); // S Length
-    var dist_t = Math.abs(this.values['y1'] - this.values['y2']); // T Length
 
-    this.texCoords = [
-        this.minS, this.maxT * dist_t / t,
-        this.minS, this.minT,
-        this.maxS * dist_s / s, this.maxT * dist_t / t,
-        this.maxS * dist_s / s, this.minT
-    ];
+  for (var i = 0; i < this.texCoords.length; i += 2) {
+      this.texCoords[i] = this.originalTexCoords[i] / s;
+      this.texCoords[i + 1] = this.originalTexCoords[i+1] / t;
+    }
 
     this.updateTexCoordsGLBuffers();
 };

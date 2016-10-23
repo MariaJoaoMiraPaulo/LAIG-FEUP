@@ -1,3 +1,10 @@
+/**
+ * Triangle
+ * @param scene CGFscene where the Triangle will be displayed
+ * @param reader CGFXMLreader
+ * @param newElement tag Triangle to be read
+ * @constructor
+ */
 function Triangle(scene, reader, newElement) {
     CGFobject.call(this, scene);
     this.reader = reader;
@@ -20,6 +27,9 @@ function Triangle(scene, reader, newElement) {
 Triangle.prototype = Object.create(CGFobject.prototype);
 Triangle.prototype.constructor = Triangle;
 
+/**
+ * Initializes the Triangle buffers (vertices, indices, normals and texCoords)
+ */
 Triangle.prototype.initBuffers = function() {
 
     this.vertices = [
@@ -39,19 +49,23 @@ Triangle.prototype.initBuffers = function() {
         this.values['x2'], this.values['y2'], this.values['z2'],
         this.values['x3'], this.values['y3'], this.values['z3']
     ];
-    this.texCoords = [];
-    /*    this.texCoords = [
+    this.originalTexCoords = [];
+    /*    this.originalTexCoords = [
     		    0.5, 0,
             0,1,
             1,1
         ];*/
-    this.calculatingTexCoords();
+    this.calculatingoriginalTexCoords();
+    this.texCoords = this.originalTexCoords.slice();
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
 
-Triangle.prototype.calculatingTexCoords = function() {
-    this.texCoords.push(0, 1);
+/**
+ * Updates the original texCoords
+ */
+Triangle.prototype.calculatingoriginalTexCoords = function() {
+    this.originalTexCoords.push(0, 1);
 
     var p1p2 = vec3.fromValues(this.values['x2'] - this.values['x1'], this.values['y2'] - this.values['y1'], this.values['z2'] - this.values['z1']);
     var p1p3 = vec3.fromValues(this.values['x3'] - this.values['x1'], this.values['y3'] - this.values['y1'], this.values['z3'] - this.values['z1']);
@@ -61,27 +75,33 @@ Triangle.prototype.calculatingTexCoords = function() {
     var triangleWidth = Math.round(vec3.length(p1p3) * 100) / 100;
 
     if (triangleWidth > triangleHeight) {
-        this.texCoords.push(1, 1); // pushing p3
+        this.originalTexCoords.push(1, 1); // pushing p3
 
         let newTriangleHeight = triangleHeight / triangleWidth;
         let tCoord = 1 - newTriangleHeight;
         let sCoord = newTriangleHeight / Math.tan(angle);
 
-        this.texCoords.push(tCoord, sCoord); // pushing p2
+        this.originalTexCoords.push(tCoord, sCoord); // pushing p2
 
     } else if (triangleWidth == triangleHeight) {
-        this.texCoords.push(0.5, 0);
-        this.texCoords.push(1, 1);
+        this.originalTexCoords.push(0.5, 0);
+        this.originalTexCoords.push(1, 1);
 
     } else if (triangleWidth < triangleHeight) {
-        this.texCoords.push(Math.cos(angle), 0); // pushing p2
+        this.originalTexCoords.push(Math.cos(angle), 0); // pushing p2
 
         var newTriangleWidth = triangleWidth / triangleHeight;
 
-        this.texCoords.push(newTriangleWidth, 1); // pushing p3
+        this.originalTexCoords.push(newTriangleWidth, 1); // pushing p3
     }
 };
 
+
+/**
+ * Returns the angle between two vectores
+ * @param a vector a
+ * @param b vector b
+ */
 Triangle.prototype.angle = function(a, b) {
 
     var tempA = vec3.fromValues(a[0], a[1], a[2]);
@@ -98,6 +118,16 @@ Triangle.prototype.angle = function(a, b) {
     }
 };
 
-Triangle.prototype.updateTextCoords = function(s,t) {
-  
+/**
+ * Updates the Triangle amplification factors
+ * @param s s domain amplification factor
+ * @param t t domain amplification factor
+ */
+Triangle.prototype.updateTexCoords = function(s,t) {
+  for (var i = 0; i < this.texCoords.length; i += 2) {
+      this.texCoords[i] = this.originalTexCoords[i] / s;
+      this.texCoords[i + 1] = this.originalTexCoords[i+1] / t;
+    }
+
+    this.updateTexCoordsGLBuffers();
 }

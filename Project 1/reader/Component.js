@@ -142,7 +142,7 @@ class Component {
                 children.cgfMaterial = this.cgfMaterial;
             }
             if(!(children instanceof Component)){
-            //  children.updateTextCoords(this.length_sTexture,this.length_tTexture);
+            //  children.updateTexCoords(this.length_sTexture,this.length_tTexture);
             }
             children.display();
         }
