@@ -84,8 +84,6 @@
     </lights>
 
     <textures>
-
-        <texture id="1" file="img/floor.png" length_s="1" length_t="1"/>
         <texture id="bag1" file="img/bag1.jpg" length_s="1" length_t="1"/>
         <texture id="metal" file="img/metal.jpeg" length_s="1" length_t="1"/>
         <texture id="carpet" file="img/carpet.jpg" length_s="1" length_t="1"/>
@@ -247,7 +245,7 @@
             <materials>
                 <material id="2"/>
             </materials>
-            <texture id="1"/>
+            <texture id="none"/>
             <children>
                 <componentref id="BoardFlights"/>
                 <componentref id="CarpetAllBags"/>
@@ -884,7 +882,7 @@
             <materials>
                 <material id="floorMaterial"/>
             </materials>
-            <texture id="1"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="Bag1onCarpet"/>
                 <componentref id="Bag2onCarpet"/>

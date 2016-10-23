@@ -42,6 +42,7 @@ MySceneGraph.prototype.onXMLReady = function() {
     console.log("XML Loading finished.");
     var rootElement = this.reader.xmlDoc.documentElement;
 
+    this.loadedOk = true;
     // Here should go the calls for different functions to parse the various blocks
     //var error = this.parseGlobalsExample(rootElement);
     var error = this.parseTags(rootElement);
@@ -50,9 +51,6 @@ MySceneGraph.prototype.onXMLReady = function() {
         this.onXMLError(error);
         return;
     }
-
-    this.loadedOk = true;
-
     // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
     this.scene.onGraphLoaded();
 };
