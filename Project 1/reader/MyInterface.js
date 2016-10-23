@@ -1,3 +1,7 @@
+/**
+ * Interface
+ * @constructor
+ */
 function MyInterface() {
 	//call CGFinterface constructor
 	CGFinterface.call(this);
@@ -6,6 +10,10 @@ function MyInterface() {
 MyInterface.prototype = Object.create(CGFinterface.prototype);
 MyInterface.prototype.constructor = MyInterface;
 
+/**
+ * init
+ * @param {CGFapplication} application
+ */
 MyInterface.prototype.init = function(application) {
 	// call CGFinterface init
 	CGFinterface.prototype.init.call(this, application);
@@ -20,10 +28,19 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
+/**
+ * Adds a light to the interface
+ * @param i light to be added
+  * @param id id of the light to be added
+ */
 MyInterface.prototype.addALight = function(i, id){
 	    this.group.add(this.scene.lightsEnabled,i, this.scene.lightsEnabled[i]).name(id);
 }
 
+/**
+ * processKeyboard
+ * @param event {Event}
+ */
 MyInterface.prototype.processKeyboard = function(event) {
 	// call CGFinterface default code (omit if you want to override)
 	CGFinterface.prototype.processKeyboard.call(this,event);
