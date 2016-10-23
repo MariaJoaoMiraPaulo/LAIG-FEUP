@@ -78,6 +78,7 @@
         <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
         <texture id="cone" file="img/conePattern.png" length_s="22.2" length_t="2.3"/>
         <texture id="1" file="img/floor.png" length_s="22.2" length_t="2.3"/>
+        <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -187,7 +188,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="foodmachine"/>
+            <texture id="caution"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -198,11 +199,57 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <primitiveref id="2"/>
-
+                <componentref id="wetFloorSign"/>
             </children>
 
         </component>
+
+        <component id="wetFloorSign">
+            <transformation>
+              <translate x="4" y="0" z="4"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="caution"/>
+            <children>
+              <componentref id="wetFloorSign1"/>
+              <componentref id="wetFloorSign2"/>
+            </children>
+        </component>
+
+        <component id="wetFloorSign1">
+            <transformation>
+                <translate x="0" y="0.5" z="0.2"/>
+                <rotate axis="x" angle="-12"/>
+                <scale x="1.5" y="2" z="1"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="caution"/>
+            <children>
+                <primitiveref id="1"/>
+
+            </children>
+        </component>
+
+        <component id="wetFloorSign2">
+            <transformation>
+                <translate x="0" y="0.5" z="-0.2"/>
+                <rotate axis="x" angle="12"/>
+                <rotate axis="y" angle="180"/>
+                <scale x="1.5" y="2" z="1"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="caution"/>
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
 
     </components>
 

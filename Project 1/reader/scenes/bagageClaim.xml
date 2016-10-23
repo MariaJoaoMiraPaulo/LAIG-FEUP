@@ -105,6 +105,7 @@
         <texture id="floor" file="img/floor.jpeg" length_s="1" length_t="1"/>
         <texture id="signal" file="img/signal.jpg" length_s="1" length_t="1"/>
         <texture id="cone" file="img/conePattern.png" length_s="1" length_t="1"/>
+        <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -267,6 +268,55 @@
                 <componentref id="donutOnTable"/>
                 <componentref id="signalWarning"/>
                 <componentref id="Trafficcone"/>
+                <componentref id="wetFloorSign"/>
+            </children>
+        </component>
+
+        <component id="wetFloorSign">
+            <transformation>
+              <translate x="3" y="0.25" z="6"/>
+              <rotate axis="y" angle="45"/>
+              <scale x="0.5" y="0.5" z="1"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="caution"/>
+            <children>
+              <componentref id="wetFloorSign1"/>
+              <componentref id="wetFloorSign2"/>
+            </children>
+        </component>
+
+        <component id="wetFloorSign1">
+            <transformation>
+                <translate x="0" y="0.5" z="0.2"/>
+                <rotate axis="x" angle="-12"/>
+                <scale x="1.5" y="2" z="1"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="caution"/>
+            <children>
+                <primitiveref id="1"/>
+
+            </children>
+        </component>
+
+        <component id="wetFloorSign2">
+            <transformation>
+                <translate x="0" y="0.5" z="-0.2"/>
+                <rotate axis="x" angle="12"/>
+                <rotate axis="y" angle="180"/>
+                <scale x="1.5" y="2" z="1"/>
+            </transformation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="caution"/>
+            <children>
+                <primitiveref id="1"/>
             </children>
         </component>
 
@@ -1448,23 +1498,6 @@
             </materials>
 
             <texture id="inherit"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-        <component id="lado6carpet">
-            <transformation>
-                <translate x="0.5" y="0" z="0"/>
-                <rotate axis="y" angle="-90"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="metal"/>
 
             <children>
                 <primitiveref id="1"/>
