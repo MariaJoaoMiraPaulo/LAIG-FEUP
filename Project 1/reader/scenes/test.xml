@@ -76,7 +76,7 @@
         <!-- quadricas (esfera, ciclindro...) -->
 
         <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
-        <texture id="cone" file="img/conePattern.png" length_s="1" length_t="1"/>
+        <texture id="cone" file="img/conePattern.png" length_s="2" length_t="2"/>
         <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
         <texture id="terminal" file="img/terminal.png" length_s="1" length_t="1"/>
 
@@ -152,6 +152,10 @@
             <torus inner="ff" outer="ff" slices="ii" loops="ii" />-->
         </primitive>
 
+        <primitive id="SphereBall">
+            <sphere radius="5" slices="100" stacks="100"/>
+        </primitive>
+
         <primitive id="3">
             <torus inner="1" outer="5" slices="20" loops="20"/>
         </primitive>
@@ -162,6 +166,10 @@
 
         <primitive id="2">
             <sphere radius="2" slices="100" stacks="100"/>
+        </primitive>
+
+        <primitive id="cone">
+          <cylinder base="1" top="1" height="2" slices="26" stacks="4"/>
         </primitive>
 
     </primitives>
@@ -188,7 +196,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="terminal"/>
+            <texture id="cone"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -199,179 +207,9 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <componentref id="cubo"/>
+                <primitiveref id="SphereBall"/>
             </children>
 
         </component>
-
-        <component id="foodMachine">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="none"/>
-            <children>
-                <componentref id="cuboMachine"/>
-            </children>
-        </component>
-
-        <component id="cuboMachine">
-            <transformation>
-                <scale x="1.8" y="5" z="1.5"/>
-            </transformation>
-            <materials>
-                <material id="inherit"/>
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="lado1"/>
-                <componentref id="lado2machine"/>
-                <componentref id="lado3"/>
-                <componentref id="lado4"/>
-                <componentref id="lado5"/>
-                <componentref id="lado6"/>
-            </children>
-        </component>
-
-        <component id="lado2machine">
-            <transformation>
-                <translate x="0" y="0" z="0.5"/>
-                <rotate axis="y" angle="180"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="foodmachine"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-        <component id="cubo">
-            <transformation></transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="inherit"/>
-
-            <children>
-                <componentref id="lado1"/>
-                <componentref id="lado2"/>
-                <componentref id="lado3"/>
-                <componentref id="lado4"/>
-                <componentref id="lado5"/>
-                <componentref id="lado6"/>
-
-            </children>
-        </component>
-
-        <component id="lado1">
-            <transformation>
-                <translate x="0" y="0" z="-0.5"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="terminal"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-        <component id="lado2">
-            <transformation>
-                <translate x="0" y="0" z="0.5"/>
-                <rotate axis="y" angle="180"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="inherit"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-        <component id="lado3">
-            <transformation>
-                <translate x="-0.5" y="0" z="0"/>
-                <rotate axis="y" angle="90"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="inherit"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-        <component id="lado4">
-            <transformation>
-                <translate x="0" y="-0.5" z="0"/>
-                <rotate axis="x" angle="-90"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="inherit"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-        <component id="lado5">
-            <transformation>
-                <translate x="0" y="0.5" z="0"/>
-                <rotate axis="x" angle="90"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="inherit"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-        <component id="lado6">
-            <transformation>
-                <translate x="0.5" y="0" z="0"/>
-                <rotate axis="y" angle="-90"/>
-            </transformation>
-
-            <materials>
-                <material id="inherit"/>
-            </materials>
-
-            <texture id="inherit"/>
-
-            <children>
-                <primitiveref id="1"/>
-            </children>
-        </component>
-
-    </components>
 
 </dsx>

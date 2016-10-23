@@ -50,4 +50,7 @@ this.scene.popMatrix();
 }
 
 Cylinder.prototype.updateTexCoords = function(s,t) {
+	this.cylinder.updateTexCoords(s,t);
+	this.top.updateTexCoords(s,t);
+	this.bottom.updateTexCoords(s,t);
 }
