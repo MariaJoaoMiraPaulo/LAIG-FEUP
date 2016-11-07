@@ -137,6 +137,21 @@
 
     </transformations>
 
+    <!-- novo bloco de animacao -->
+    <!-- novo bloco de animacao -->
+    <animations>
+        <!-- podem existir zero ou mais nós "animation" -->
+        <!-- span é o tempo, em segundos, que a animação deve -->
+        <!-- demorar. Nesta versão do formato DSX, type pode ter -->
+        <!-- o valor "linear" ou "circular"; na animacao circular -->
+        <!-- os angulos sao expressos em graus  -->
+        <animation id="1" span="1" type="linear">
+            <controlpoint xx="22" yy="11" zz="1" />
+                      ...
+        </animation>
+        <animation id="2" span="2" type="circular" center="2 3 12" radius="20" startang="20" rotang="20" />
+    </animations>
+
     <primitives>
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
