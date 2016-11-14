@@ -145,12 +145,21 @@
         <!-- demorar. Nesta versão do formato DSX, type pode ter -->
         <!-- o valor "linear" ou "circular"; na animacao circular -->
         <!-- os angulos sao expressos em graus  -->
+
+        <animation id="3" span="1" type="linear">
+            <controlpoint xx="2" yy="0" zz="3" />
+            <controlpoint xx="2" yy="0" zz="2" />
+            <controlpoint xx="1" yy="0" zz="2" />
+            <controlpoint xx="1" yy="0" zz="1" />
+        </animation>
+
         <animation id="2" span="1" type="linear">
             <controlpoint xx="1" yy="0" zz="1" />
             <controlpoint xx="1" yy="0" zz="2" />
             <controlpoint xx="2" yy="0" zz="2" />
             <controlpoint xx="2" yy="0" zz="3" />
         </animation>
+
         <animation id="1" span="2" type="circular" center="2 0 2" radius="20" startang="20" rotang="20" />
     </animations>
 
@@ -202,7 +211,7 @@
 
           <animation>
             <animationref id="2" />
-            <animationref id="1" />
+            <animationref id="3" />
           </animation>
 
             <!-- declaracao obrigatoria de pelo menos um material; -->

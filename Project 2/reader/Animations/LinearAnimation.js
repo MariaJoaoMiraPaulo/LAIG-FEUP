@@ -17,12 +17,13 @@ class LinearAnimation extends Animation {
         this.pointsDistance = vec3.length(this.direction);
         this.distanceSinceLastPoint = 0;
         this.atualPointIdArray = 1;
-        this.totalDistanceCovered = 0;
 
         this.totalDist;
         this.velocity;
 
         this.getTotalDistanceAndVelocity();
+
+        this.over = false;
     }
 
     getTotalDistanceAndVelocity() {
@@ -41,10 +42,10 @@ class LinearAnimation extends Animation {
 
     updatingVariables() {
 
-        console.log("Vou trocar de ponto "+ this.atualPointIdArray);
         this.atualPointIdArray++;
         if (this.atualPointIdArray == this.controlPoints.length) {
             this.atualPointIdArray = 1;
+            this.over = true;
         }
 
         vec3.sub(this.direction, this.controlPoints[this.atualPointIdArray], this.controlPoints[this.atualPointIdArray - 1]);
@@ -73,5 +74,10 @@ class LinearAnimation extends Animation {
       let z = this.controlPoints[this.atualPointIdArray-1][2];
       this.scene.translate(x,y,z);
       this.scene.translate(this.atualPosition[0],this.atualPosition[1],this.atualPosition[2]);
+    }
+
+    clone(){
+      var copy = new LinearAnimation(this.scene,this.id,this.animationTime,this.controlPoints);
+      return copy;
     }
 }

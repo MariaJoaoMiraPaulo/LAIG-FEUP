@@ -152,4 +152,8 @@ XMLscene.prototype.update = function(currTime) {
     for (animationId in this.graph.animations) {
         this.graph.animations[animationId].update(deltaTime);
     }
+
+    for (componentsId in this.graph.components) {
+        this.graph.components[componentsId].update(deltaTime);
+    }
 }
