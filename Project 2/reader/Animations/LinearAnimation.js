@@ -36,8 +36,6 @@ class LinearAnimation extends Animation {
         }
 
         this.velocity = this.totalDist / this.animationTime;
-        console.log(this.totalDist);
-        console.log(this.velocity);
     }
 
     updatingVariables() {

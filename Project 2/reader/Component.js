@@ -70,14 +70,12 @@
       * @param animationElem animation elements to be read
       */
      readingAnimations(animationElem) {
-         console.log("Reading Animations");
-         console.log(animationElem);
 
          var animations = animationElem.getElementsByTagName('animationref');
 
          for (let animation of animations) {
              var id = this.reader.getString(animation, 'id');
-             console.log(id);
+             
              if (typeof this.graph.animations[id] == 'undefined') {
                  this.scene.onXMLError("AnimationRef: it doesn't exist any animations with that id");
              } else this.animations.push(this.graph.animations[id].clone());
@@ -191,9 +189,7 @@
          if (this.cgfMaterial != null)
              this.cgfMaterial.apply();
 
-         //for(let animation of this.animations){
          this.animations[this.atualAnimationId].display();
-         //}
 
          for (let children of this.childrens) {
              if (children.cgfTextureId == "inherit") {
