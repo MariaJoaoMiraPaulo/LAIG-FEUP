@@ -159,7 +159,7 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="2" type="circular" center="2 0 2" radius="20" startang="20" rotang="20" />
+        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="20" rotang="360" />
     </animations>
 
     <primitives>
@@ -209,8 +209,7 @@
           </transformation>
 
           <animation>
-            <animationref id="2" />
-            <animationref id="3" />
+            <animationref id="1" />
           </animation>
 
             <!-- declaracao obrigatoria de pelo menos um material; -->
