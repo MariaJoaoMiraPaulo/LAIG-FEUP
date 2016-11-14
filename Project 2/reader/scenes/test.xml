@@ -159,7 +159,7 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="20" rotang="360" />
+        <animation id="1" span="6" type="circular" center="2 0 2" radius="3" startang="20" rotang="360" />
     </animations>
 
     <primitives>
@@ -195,6 +195,16 @@
 
         <primitive id="cone">
           <cylinder base="1" top="1" height="2" slices="26" stacks="4"/>
+        </primitive>
+
+        <primitive id="plane">
+           <plane dimX="ff" dimY="ff" partsX="ii" partsY="ii"/>
+        </primitive>
+
+        <primitive id="patch">
+          <patch orderU="ii" orderV="ii" partsU="ii" partsV="ii" >
+              <controlpoint x="ff" y="ff" z="ff" />
+          </patch>
         </primitive>
 
     </primitives>

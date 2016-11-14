@@ -139,6 +139,15 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'torus':
                 this.primitives[idPrimitive] = new Torus(this.scene, this.reader, newElement);
                 break;
+            case 'plane':
+                this.primitives[idPrimitive] = new Plane(this.scene, this.reader, newElement);
+                break;
+            case 'vehicle':
+                this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader, newElement);
+                break;
+            case 'patch':
+                this.primitives[idPrimitive] = new Patch(this.scene, this.reader, newElement);
+                break;
         }
     }
 };
