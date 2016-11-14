@@ -276,7 +276,7 @@ MySceneGraph.prototype.parseAnimations = function(animationElems) {
                   this.onXMLError('Animation Block expected float numbers on controlPoints Array.');
               controlPointsArray.push(coord);
             }
-            this.animations[animationId] = new LinearAnimation(animationId,animationSpan,controlPointsArray);
+            this.animations[animationId] = new LinearAnimation(this.scene,animationId,animationSpan,controlPointsArray);
             break;
           case 'circular':
           var circularAnimationRadius = this.reader.getFloat(elem, 'radius');

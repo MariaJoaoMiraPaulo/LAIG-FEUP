@@ -146,7 +146,10 @@
         <!-- o valor "linear" ou "circular"; na animacao circular -->
         <!-- os angulos sao expressos em graus  -->
         <animation id="2" span="1" type="linear">
-            <controlpoint xx="22" yy="11" zz="1" />
+            <controlpoint xx="1" yy="0" zz="1" />
+            <controlpoint xx="1" yy="0" zz="2" />
+            <controlpoint xx="2" yy="0" zz="2" />
+            <controlpoint xx="2" yy="0" zz="3" />
         </animation>
         <animation id="1" span="2" type="circular" center="2 0 2" radius="20" startang="20" rotang="20" />
     </animations>
@@ -193,9 +196,14 @@
         <component id="1">
 
             <!-- bloco "transformation" obrigatorio -->
-            <transformation>
+          <transformation>
             <translate x="2" y="0" z="2"/>
           </transformation>
+
+          <animation>
+            <animationref id="2" />
+            <animationref id="1" />
+          </animation>
 
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -213,8 +221,6 @@
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
             <texture id="cone"/>
-
-            <animationref id="1" />
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>

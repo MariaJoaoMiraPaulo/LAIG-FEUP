@@ -18,7 +18,7 @@ class CircularAnimation extends Animation{
     console.log("Raio: "+this.radius);
     this.startAng = startAng;
     console.log("Angulo Inicial: " + this.startAng);
-    this.rotAng = rotAng;    
+    this.rotAng = rotAng;
     console.log("Angulo Rotaçao: " + this.rotAng);
 
   }
@@ -28,6 +28,6 @@ class CircularAnimation extends Animation{
   }
 
   update(deltaTime){
-    console.log("entrei Circular");
+    
   }
 }

@@ -28,8 +28,10 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.axis = new CGFaxis(this);
+
+    this.lightsEnabled = [];
+
     this.setUpdatePeriod(20);
-    this.lightsEnabled= [];
 
 };
 
@@ -61,12 +63,12 @@ XMLscene.prototype.onGraphLoaded = function() {
  * Updates lights
  */
 XMLscene.prototype.updateLights = function() {
-    for (i = 0; i < this.lights.length; i++){
-        if(!this.lightsEnabled[i])
-          this.lights[i].disable();
-          else this.lights[i].enable();
+    for (i = 0; i < this.lights.length; i++) {
+        if (!this.lightsEnabled[i])
+            this.lights[i].disable();
+        else this.lights[i].enable();
         this.lights[i].update();
-      }
+    }
 };
 
 /**
@@ -142,9 +144,12 @@ XMLscene.prototype.changingToNextMaterial = function() {
     }
 }
 
-XMLscene.prototype.update = function(currTime){
-console.log("entrei");
-for (animationId in this.graph.animations) {
-  this.graph.animations[animationId].update(currTime);
-}
+XMLscene.prototype.update = function(currTime) {
+
+    var deltaTime = (currTime - this.lastUpdateTime) / 1000;
+    this.lastUpdateTime = currTime;
+
+    for (animationId in this.graph.animations) {
+        this.graph.animations[animationId].update(deltaTime);
+    }
 }

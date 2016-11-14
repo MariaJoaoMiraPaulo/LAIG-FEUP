@@ -38,7 +38,7 @@ class Component {
         this.readingCompTrans(this.element.getElementsByTagName('transformation')[0]);
         this.readingTextures(this.element.getElementsByTagName('texture')[0]);
         this.readingMaterials(this.element.getElementsByTagName('materials')[0]);
-        this.readingAnimations(this.element.getElementsByTagName('animationref'));
+        this.readingAnimations(this.element.getElementsByTagName('animation')[0]);
         this.readingChildren(this.element.getElementsByTagName('children')[0]);
 
     }
@@ -69,9 +69,12 @@ class Component {
    * @param animationElem animation elements to be read
    */
     readingAnimations(animationElem) {
+      console.log("Reading Animations");
       console.log(animationElem);
 
-      for (let animation of animationElem) {
+      var animations = animationElem.getElementsByTagName('animationref');
+
+      for (let animation of animations) {
           var id = this.reader.getString(animation, 'id');
           console.log(id);
           if(typeof this.graph.animations[id] == 'undefined')
@@ -189,9 +192,9 @@ class Component {
         if (this.cgfMaterial != null)
             this.cgfMaterial.apply();
 
-        for(let animation of this.animations){
-          animation.display();
-        }
+        //for(let animation of this.animations){
+          this.animations[0].display();
+        //}
 
         for (let children of this.childrens) {
             if (children.cgfTextureId == "inherit") {
