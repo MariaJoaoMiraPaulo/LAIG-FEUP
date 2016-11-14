@@ -159,7 +159,6 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-
         <animation id="1" span="2" type="circular" center="2 0 2" radius="20" startang="20" rotang="20" />
     </animations>
 
