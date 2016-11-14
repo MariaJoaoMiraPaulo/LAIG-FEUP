@@ -3,8 +3,12 @@
 * @constructor
 */
 class LinearAnimation extends Animation{
-  constructor(id, animationTime, controlPoints){
-    super(id, animationTime);
+  constructor(scene, id, animationTime, controlPoints){
+    super(scene, id, animationTime);
     this.controlPoints = controlPoints;
+  }
+
+  update(deltaTime){
+    console.log("entrei");
   }
 }

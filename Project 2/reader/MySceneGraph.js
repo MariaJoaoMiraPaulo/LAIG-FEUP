@@ -291,7 +291,7 @@ MySceneGraph.prototype.parseAnimations = function(animationElems) {
           var center = this.reader.getString(elem, 'center');
           var centerCoordinates = center.split(" ");
           var coords = vec3.fromValues(centerCoordinates[0],centerCoordinates[1],centerCoordinates[2]);
-          this.animations[animationId] = new CircularAnimation(animationId,animationSpan,coords, circularAnimationRadius,circularAnimationStartAng,circularAnimationRotAng);
+          this.animations[animationId] = new CircularAnimation(this.scene,animationId,animationSpan,coords, circularAnimationRadius,circularAnimationStartAng,circularAnimationRotAng);
             break;
           default:
 

@@ -28,6 +28,7 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.axis = new CGFaxis(this);
+    this.setUpdatePeriod(20);
     this.lightsEnabled= [];
 
 };
@@ -139,4 +140,11 @@ XMLscene.prototype.changingToNextMaterial = function() {
             this.graph.components[component].cgfMaterial = this.graph.components[component].cgfMaterials[this.graph.components[component].nextMaterial];
         }
     }
+}
+
+XMLscene.prototype.update = function(currTime){
+console.log("entrei");
+for (animationId in this.graph.animations) {
+  this.graph.animations[animationId].update(currTime);
+}
 }
