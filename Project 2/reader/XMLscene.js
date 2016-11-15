@@ -33,6 +33,8 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(20);
 
+    this.plane = new Plane(this,3,2,10,7);
+
 };
 
 XMLscene.prototype.initCameras = function() {
