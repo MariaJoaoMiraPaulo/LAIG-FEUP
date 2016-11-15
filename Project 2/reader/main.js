@@ -19,6 +19,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'primitives/Re
 
 
 
+
 main=function()
 {
 	// Standard application, scene and interface setup

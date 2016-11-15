@@ -17,7 +17,8 @@ class CircularAnimation extends Animation{
     this.dist = ((this.rotAng*Math.PI)/180)*this.radius;
     this.atualdist=0;
     this.atualAngle=0;
-    console.log("Dist:"+this.dist);
+
+    this.over = false;
 
   }
 
@@ -33,9 +34,12 @@ class CircularAnimation extends Animation{
     if(this.atualAngle<((this.rotAng*Math.PI)/180)){
       this.atualdist+= ((deltaTime/1000)*this.dist)/(this.animationTime/1000);
       this.atualAngle = this.atualdist/this.radius;
-      console.log("atual \n" + this.atualAngle);
     }
-    else console.log("acabei");
+    else {
+      this.over = true;
+      this.atualAngle = 0;
+      this.atualdist = 0;
+    }
   }
 
     clone() {
