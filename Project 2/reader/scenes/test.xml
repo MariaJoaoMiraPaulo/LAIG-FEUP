@@ -198,7 +198,7 @@
         </primitive>
 
         <primitive id="plane">
-           <plane dimX="ff" dimY="ff" partsX="ii" partsY="ii"/>
+           <plane dimX="4" dimY="4" partsX="20" partsY="20"/>
         </primitive>
 
         <primitive id="patch">
@@ -249,7 +249,7 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <primitiveref id="cone"/>
+                <primitiveref id="plane"/>
             </children>
 
         </component>

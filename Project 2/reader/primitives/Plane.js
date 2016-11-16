@@ -1,52 +1,56 @@
-/**
- * Plane
- * @constructor
- */
-class Plane {//extends CGFnurbsObject {
-    constructor(scene, dimX, dimY, partsX, partsY) {
-        //super(scene, getSurfacePoint, partsX, partsY);
+function Plane(scene, dimX, dimY, partsX, partsY) {
 
-      /*  getSurfacePoint = function(u, v) {
-          //  return nurbsSurface.getPoint(u, v);
-        };*/
+    this.surface;
+    this.func;
+    this.minX = dimX/2;
+    this.minY = dimY/2;
 
-        this.controlPoints = [];
+    this.createSurface(dimX,dimY);
+    CGFnurbsObject.call(this, scene, this.func, partsX, partsY);
 
-        this.createControlPoints();
-    }
+};
 
-    createControlPoints() {
+Plane.prototype = Object.create(CGFnurbsObject.prototype);
+Plane.prototype.constructor = Plane;
 
-        let patchY = -this.dimY / 2;
-        let lengthY = this.dimY / this.partsY;
-        let patchX = -this.dimX / 2;
-        let lengthX = this.dimX / this.partsX;
+Plane.prototype.createSurface = function() {
 
-        for (let x = 0; x < this.partsX; x++) {
-            let temp = [];
-            patchX += lengthX;
-            for (let y = 0; y < this.partsY; y++) {
-                temp.push(patchX, patchY, 0, 1);
-                patchY += lengthY;
-            }
+  var degree1 = 1;
+  var degree2 = 1;
 
-            patchY = -this.dimY / 2;
-            this.controlPoints.push(temp);
-        }
+  var knots1 = this.getKnotsVector(degree1);
+  var knots2 = this.getKnotsVector(degree2);
+  var controlPoints = [
+    [
+      [-this.minX,-this.minY,0,1],
+      [-this.minX,this.minY,0,1]
+    ],
+    [
+      [this.minX,-this.minY,0,1],
+      [this.minX,this.minY,0,1]
+    ]
+  ];
 
-    }
+this.surface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlPoints);
+this.func = function(u,v){
+      return this.surface.getPoint(u,v) ;
+   }
+};
 
-    makeSurface() { //(id, degree1, degree2, controlvertexes, translation)
+Plane.prototype.getKnotsVector = function(degree) {
+	var v = new Array();
+	for (var i=0; i<=degree; i++) {
+		v.push(0);
+	}
+	for (var i=0; i<=degree; i++) {
+		v.push(1);
+	}
+	return v;
+}
 
-        /*    var knots1 = this.getKnotsVector(degree1); // to be built inside webCGF in later versions ()
-            var knots2 = this.getKnotsVector(degree2); // to be built inside webCGF in later versions
+Plane.prototype.updateTexCoords = function(s,t) {
+}
 
-            var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlvertexes); // TODO  (CGF 0.19.3): remove knots1 and knots2 from CGFnurbsSurface method call. Calculate inside method.
-            getSurfacePoint = function(u, v) {
-                return nurbsSurface.getPoint(u, v);
-            };
-
-            var obj = new CGFnurbsObject(this, getSurfacePoint, 20, 20);
-            this.surfaces.push(obj);*/
-    }
+Plane.prototype.display = function() {
+  CGFnurbsObject.prototype.display.call(this);
 }
