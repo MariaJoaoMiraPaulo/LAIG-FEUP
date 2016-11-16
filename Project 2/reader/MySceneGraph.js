@@ -143,24 +143,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.readingPlane(newElement, idPrimitive);
                 break;
             case 'patch':
-                {
-                    var orderU = this.reader.getFloat(newElement, 'orderU');
-                    var orderV = this.reader.getFloat(newElement, 'orderV');
-                    var partsU = this.reader.getFloat(newElement, 'partsU');
-                    var partsV = this.reader.getFloat(newElement, 'partsV');
-                    var controlPoints = [];
-                    var points = newElement.getElementsByTagName("controlpoint");
-                    if (points.length != (orderV + 1) * (orderU + 1)) {
-                        this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
-                    }
-                    for (let point of points) {
-                        x = this.reader.getFloat(point, 'x');
-                        y = this.reader.getFloat(point, 'y');
-                        z = this.reader.getFloat(point, 'z');
-                        controlPoints.push([x, y, z, 1]);
-                    }
-                    this.primitives[idPrimitive] = new Patch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
-                }
+                this.readingPatch(newElement, idPrimitive);
                 break;
             case 'vehicle':
                 this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
@@ -657,6 +640,29 @@ MySceneGraph.prototype.readingPlane = function(newElement, idPrimitive) {
   let dimY = this.reader.getFloat(newElement, 'dimY');
   let partsX = this.reader.getFloat(newElement, 'partsX');
   let partsY = this.reader.getFloat(newElement, 'partsY');
-  
+
   this.primitives[idPrimitive] = new Plane(this.scene, dimX, dimY, partsX, partsY);
+}
+
+/**
+ * Reads patch primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
+  let orderU = this.reader.getFloat(newElement, 'orderU');
+  let orderV = this.reader.getFloat(newElement, 'orderV');
+  let partsU = this.reader.getFloat(newElement, 'partsU');
+  let partsV = this.reader.getFloat(newElement, 'partsV');
+  let controlPoints = [];
+  let points = newElement.getElementsByTagName("controlpoint");
+  if (points.length != (orderV + 1) * (orderU + 1)) {
+      this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
+  }
+  for (let point of points) {
+      let x = this.reader.getFloat(point, 'x');
+      let y = this.reader.getFloat(point, 'y');
+      let z = this.reader.getFloat(point, 'z');
+      controlPoints.push([x, y, z, 1]);
+  }
+  this.primitives[idPrimitive] = new Patch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
 }
