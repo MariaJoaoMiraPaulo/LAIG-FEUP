@@ -1,3 +1,12 @@
+/**
+ * Plane
+ * @param scene CGFscene where the Plane will be displayed
+ * @param dimX X dimensions
+ * @param dimY Y dimensions
+ * @param partsX number of divisions on x axis
+ * @param partsY number of divisions on y axis
+ * @constructor
+ */
 function Plane(scene, dimX, dimY, partsX, partsY) {
 
     this.surface;
@@ -13,6 +22,9 @@ function Plane(scene, dimX, dimY, partsX, partsY) {
 Plane.prototype = Object.create(CGFnurbsObject.prototype);
 Plane.prototype.constructor = Plane;
 
+/**
+ * Creates the new surface
+ */
 Plane.prototype.createSurface = function() {
 
   var degree1 = 1;
@@ -37,6 +49,9 @@ this.func = function(u,v){
    }
 };
 
+/**
+ * Method to get knots vector
+ */
 Plane.prototype.getKnotsVector = function(degree) {
 	var v = new Array();
 	for (var i=0; i<=degree; i++) {
@@ -48,9 +63,13 @@ Plane.prototype.getKnotsVector = function(degree) {
 	return v;
 }
 
+
 Plane.prototype.updateTexCoords = function(s,t) {
 }
 
+/**
+ * Method to display the plane
+ */
 Plane.prototype.display = function() {
   CGFnurbsObject.prototype.display.call(this);
 }

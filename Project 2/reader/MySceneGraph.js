@@ -140,11 +140,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.readingTorus(newElement, idPrimitive);
                 break;
             case 'plane':
-                var dimX = this.reader.getFloat(newElement, 'dimX');
-                var dimY = this.reader.getFloat(newElement, 'dimY');
-                var partsX = this.reader.getFloat(newElement, 'partsX');
-                var partsY = this.reader.getFloat(newElement, 'partsY');
-                this.primitives[idPrimitive] = new Plane(this.scene, dimX, dimY, partsX, partsY, newElement);
+                this.readingPlane(newElement, idPrimitive);
                 break;
             case 'patch':
                 {
@@ -650,4 +646,17 @@ MySceneGraph.prototype.readingTorus = function(newElement, idPrimitive) {
   let loops = this.reader.getInteger(newElement, 'loops');
 
   this.primitives[idPrimitive] = new Torus(this.scene, inner, outer, slices, loops);
+}
+
+/**
+ * Reads plane primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingPlane = function(newElement, idPrimitive) {
+  let dimX = this.reader.getFloat(newElement, 'dimX');
+  let dimY = this.reader.getFloat(newElement, 'dimY');
+  let partsX = this.reader.getFloat(newElement, 'partsX');
+  let partsY = this.reader.getFloat(newElement, 'partsY');
+  
+  this.primitives[idPrimitive] = new Plane(this.scene, dimX, dimY, partsX, partsY);
 }
