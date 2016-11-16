@@ -5,17 +5,15 @@
  * @param newElement tag Cylinder to be read
  * @constructor
  */
-function Cylinder(scene, reader, newElement) {
+function Cylinder(scene, baseRadius, topRadius, height, slices, stacks) {
 	CGFobject.call(this,scene);
 	this.scene = scene;
-	this.reader = reader;
-	this.newElement = newElement;
-
-	this.baseRadius = this.reader.getFloat(this.newElement,'base');
-	this.topRadius = this.reader.getFloat(this.newElement,'top');
-	this.height = this.reader.getFloat(this.newElement,'height');
-	this.slices = this.reader.getFloat(this.newElement,'slices');
-	this.stacks = this.reader.getFloat(this.newElement,'stacks');
+	
+	this.baseRadius = baseRadius;
+	this.topRadius = topRadius;
+	this.height = height;
+	this.slices = slices;
+	this.stacks = stacks;
 
 
 	this.cylinder = new CylinderWithNoCover(this.scene, this.slices, this.stacks, this.baseRadius, this.topRadius);

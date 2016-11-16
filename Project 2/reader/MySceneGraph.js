@@ -137,7 +137,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);
                 break;
             case 'cylinder':
-                this.primitives[idPrimitive] = new Cylinder(this.scene, this.reader, newElement);
+                this.readingCylinder(newElement, idPrimitive);
                 break;
             case 'sphere':
                 this.primitives[idPrimitive] = new Sphere(this.scene, this.reader, newElement);
@@ -567,7 +567,7 @@ MySceneGraph.prototype.createTexture = function(newElement) {
 
 /**
  * Creates a CGF camera
- * @param newElement elem to be read
+ * @param newElement element to be read
  */
 MySceneGraph.prototype.createCamera = function(newElement) {
     var nearElem = this.reader.getFloat(newElement, 'near');
@@ -585,3 +585,17 @@ MySceneGraph.prototype.createCamera = function(newElement) {
     var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x, coordsFrom[0].y, coordsFrom[0].z), vec3.fromValues(coordsTo[0].x, coordsTo[0].y, coordsTo[0].y));
     return newCamera;
 }
+
+/**
+ * Reads cylinder primitives
+ * @param newElement element to be read
+ */
+ MySceneGraph.prototype.readingCylinder = function(newElement,idPrimitive) {
+   let baseRadius = this.reader.getFloat(newElement,'base');
+   let topRadius = this.reader.getFloat(newElement,'top');
+   let height = this.reader.getFloat(newElement,'height');
+   let slices = this.reader.getFloat(newElement,'slices');
+   let stacks = this.reader.getFloat( newElement,'stacks');
+
+   this.primitives[idPrimitive] = new Cylinder(this.scene, baseRadius, topRadius, height, slices, stacks);
+ }
