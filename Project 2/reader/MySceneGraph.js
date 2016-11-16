@@ -140,7 +140,31 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.primitives[idPrimitive] = new Torus(this.scene, this.reader, newElement);
                 break;
             case 'plane':
-                this.primitives[idPrimitive] = new Plane(this.scene, this.reader.getFloat(newElement,'dimX'),this.reader.getFloat(newElement,'dimY'),this.reader.getFloat(newElement,'partsX'),this.reader.getFloat(newElement,'partsY'), newElement);
+                var dimX = this.reader.getFloat(newElement,'dimX');
+                var dimY = this.reader.getFloat(newElement,'dimY');
+                var partsX = this.reader.getFloat(newElement,'partsX');
+                var partsY = this.reader.getFloat(newElement,'partsY');
+                this.primitives[idPrimitive] = new Plane(this.scene,dimX,dimY,partsX,partsY, newElement);
+                break;
+            case 'patch':
+              {
+                var orderU = this.reader.getFloat(newElement,'orderU');
+                  var orderV = this.reader.getFloat(newElement,'orderV');
+                  var partsU = this.reader.getFloat(newElement,'partsU');
+                  var partsV = this.reader.getFloat(newElement,'partsV');
+                  var controlPoints=[];
+                  var points=newElement.getElementsByTagName("controlpoint");
+                  if(points.length != (orderV+1)*(orderU+1)){
+                    this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
+                  }
+                  for(let point of points){
+                    x=this.reader.getFloat(point,'x');
+                    y=this.reader.getFloat(point,'y');
+                    z=this.reader.getFloat(point,'z');
+                    controlPoints.push([x,y,z,1]);
+                  }
+                  this.primitives[idPrimitive] = new Patch(this.scene,orderU,orderV,partsU,partsV,controlPoints);
+              }
                 break;
             case 'vehicle':
                 this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader, newElement);

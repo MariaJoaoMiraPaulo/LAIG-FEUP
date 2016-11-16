@@ -202,8 +202,19 @@
         </primitive>
 
         <primitive id="patch">
-          <patch orderU="ii" orderV="ii" partsU="ii" partsV="ii" >
-              <controlpoint x="ff" y="ff" z="ff" />
+          <patch orderU="2" orderV="3" partsU="20" partsV="20" >
+              <controlpoint x="-1.5" y="-1.5" z="0" />
+              <controlpoint x="-2.0" y="-2.0" z="2" />
+              <controlpoint x="-2.0" y="2.0" z="2" />
+              <controlpoint x="-1.5" y="1.5" z="0" />
+              <controlpoint x="0" y="0" z="3" />
+              <controlpoint x="0" y="-2.0" z="3" />
+              <controlpoint x="0" y="2.0" z="3" />
+              <controlpoint x="0" y="0" z="3" />
+              <controlpoint x="1.5" y="-1.5" z="0" />
+              <controlpoint x="2" y="-2.0" z="2" />
+              <controlpoint x="2" y="2.0" z="2" />
+              <controlpoint x="1.5" y="1.5" z="0" />
           </patch>
         </primitive>
 
@@ -249,7 +260,7 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <primitiveref id="plane"/>
+                <primitiveref id="patch"/>
             </children>
 
         </component>
