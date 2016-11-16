@@ -5,15 +5,13 @@
  * @param newElement tag Sphere to be read
  * @constructor
  */
-function Sphere(scene, reader, newElement) {
+function Sphere(scene, slices, stacks, radius) {
       CGFobject.call(this, scene);
-
-      this.newElement = newElement;
-      this.reader = reader;
-      this.sceneGraph = scene;
-      this.slices = this.reader.getInteger(this.newElement, 'slices');
-      this.stacks = this.reader.getInteger(this.newElement, 'stacks');
-      this.radius = this.reader.getFloat(this.newElement, 'radius');
+      this.scene = scene;
+      
+      this.slices = slices;
+      this.stacks = stacks;
+      this.radius = radius;
 
       this.initBuffers();
   };

@@ -134,10 +134,10 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.readingCylinder(newElement, idPrimitive);
                 break;
             case 'sphere':
-                this.primitives[idPrimitive] = new Sphere(this.scene, this.reader, newElement);
+                this.readingSphere(newElement, idPrimitive);
                 break;
             case 'torus':
-                this.primitives[idPrimitive] = new Torus(this.scene, this.reader, newElement);
+                this.readingTorus(newElement, idPrimitive);
                 break;
             case 'plane':
                 var dimX = this.reader.getFloat(newElement, 'dimX');
@@ -625,4 +625,29 @@ MySceneGraph.prototype.readingTriangle = function(newElement, idPrimitive) {
     values['z3'] = this.reader.getFloat(newElement, 'z3');
 
     this.primitives[idPrimitive] = new Triangle(this.scene, values);
+}
+
+/**
+ * Reads sphere primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingSphere = function(newElement, idPrimitive) {
+  let slices = this.reader.getInteger(newElement, 'slices');
+  let stacks = this.reader.getInteger(newElement, 'stacks');
+  let radius = this.reader.getFloat(newElement, 'radius');
+
+  this.primitives[idPrimitive] = new Sphere(this.scene, slices, stacks, radius);
+}
+
+/**
+ * Reads torus primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingTorus = function(newElement, idPrimitive) {
+  let inner = this.reader.getFloat(newElement, 'inner');
+  let outer = this.reader.getFloat(newElement, 'outer');
+  let slices = this.reader.getInteger(newElement, 'slices');
+  let loops = this.reader.getInteger(newElement, 'loops');
+
+  this.primitives[idPrimitive] = new Torus(this.scene, inner, outer, slices, loops);
 }

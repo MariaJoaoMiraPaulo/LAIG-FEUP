@@ -5,16 +5,15 @@
  * @param newElement tag Torus to be read
  * @constructor
  */
-function Torus(scene, reader, newElement) {
+function Torus(scene, inner, outer, slices, loops) {
     CGFobject.call(this, scene);
 
-    this.reader = reader;
-    this.newElement = newElement;
+    this.scene = scene;
 
-    this.inner = this.reader.getFloat(this.newElement, 'inner');
-    this.outer = this.reader.getFloat(this.newElement, 'outer');
-    this.slices = this.reader.getInteger(this.newElement, 'slices');
-    this.loops = this.reader.getInteger(this.newElement, 'loops');
+    this.inner = inner;
+    this.outer = outer;
+    this.slices = slices;
+    this.loops = loops;
 
     this.initBuffers();
 };
