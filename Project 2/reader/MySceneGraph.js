@@ -128,7 +128,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.readingRetangle(newElement, idPrimitive);
                 break;
             case 'triangle':
-                this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);
+                this.readingTriangle(newElement, idPrimitive)
                 break;
             case 'cylinder':
                 this.readingCylinder(newElement, idPrimitive);
@@ -140,31 +140,31 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.primitives[idPrimitive] = new Torus(this.scene, this.reader, newElement);
                 break;
             case 'plane':
-                var dimX = this.reader.getFloat(newElement,'dimX');
-                var dimY = this.reader.getFloat(newElement,'dimY');
-                var partsX = this.reader.getFloat(newElement,'partsX');
-                var partsY = this.reader.getFloat(newElement,'partsY');
-                this.primitives[idPrimitive] = new Plane(this.scene,dimX,dimY,partsX,partsY, newElement);
+                var dimX = this.reader.getFloat(newElement, 'dimX');
+                var dimY = this.reader.getFloat(newElement, 'dimY');
+                var partsX = this.reader.getFloat(newElement, 'partsX');
+                var partsY = this.reader.getFloat(newElement, 'partsY');
+                this.primitives[idPrimitive] = new Plane(this.scene, dimX, dimY, partsX, partsY, newElement);
                 break;
             case 'patch':
-              {
-                var orderU = this.reader.getFloat(newElement,'orderU');
-                  var orderV = this.reader.getFloat(newElement,'orderV');
-                  var partsU = this.reader.getFloat(newElement,'partsU');
-                  var partsV = this.reader.getFloat(newElement,'partsV');
-                  var controlPoints=[];
-                  var points=newElement.getElementsByTagName("controlpoint");
-                  if(points.length != (orderV+1)*(orderU+1)){
-                    this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
-                  }
-                  for(let point of points){
-                    x=this.reader.getFloat(point,'x');
-                    y=this.reader.getFloat(point,'y');
-                    z=this.reader.getFloat(point,'z');
-                    controlPoints.push([x,y,z,1]);
-                  }
-                  this.primitives[idPrimitive] = new Patch(this.scene,orderU,orderV,partsU,partsV,controlPoints);
-              }
+                {
+                    var orderU = this.reader.getFloat(newElement, 'orderU');
+                    var orderV = this.reader.getFloat(newElement, 'orderV');
+                    var partsU = this.reader.getFloat(newElement, 'partsU');
+                    var partsV = this.reader.getFloat(newElement, 'partsV');
+                    var controlPoints = [];
+                    var points = newElement.getElementsByTagName("controlpoint");
+                    if (points.length != (orderV + 1) * (orderU + 1)) {
+                        this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
+                    }
+                    for (let point of points) {
+                        x = this.reader.getFloat(point, 'x');
+                        y = this.reader.getFloat(point, 'y');
+                        z = this.reader.getFloat(point, 'z');
+                        controlPoints.push([x, y, z, 1]);
+                    }
+                    this.primitives[idPrimitive] = new Patch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
+                }
                 break;
             case 'vehicle':
                 this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
@@ -293,33 +293,33 @@ MySceneGraph.prototype.parseAnimations = function(animationElems) {
         if (isNaN(animationSpan))
             this.onXMLError('Animation Block expected a float number on span.');
         switch (animationType) {
-          case 'linear':
-            var controlPoints = elem.getElementsByTagName('controlpoint');
-            var controlPointsArray = new Array();
-            for(let point of controlPoints){
-              var coord = vec3.fromValues(this.reader.getFloat(point,'xx'),this.reader.getFloat(point,'yy'),this.reader.getFloat(point,'zz'));
-              if (isNaN(this.reader.getFloat(point,'xx')) || isNaN(this.reader.getFloat(point,'yy'))|| isNaN(this.reader.getFloat(point,'zz')))
-                  this.onXMLError('Animation Block expected float numbers on controlPoints Array.');
-              controlPointsArray.push(coord);
-            }
-            this.animations[animationId] = new LinearAnimation(this.scene,animationId,animationSpan,controlPointsArray);
-            break;
-          case 'circular':
-          var circularAnimationRadius = this.reader.getFloat(elem, 'radius');
-          if (isNaN(circularAnimationRadius))
-              this.onXMLError('Animation Block expected a float number on radius.');
-          var circularAnimationStartAng = this.reader.getFloat(elem, 'startang');
-          if (isNaN(circularAnimationStartAng))
-              this.onXMLError('Animation Block expected a float number on startang.');
-          var circularAnimationRotAng = this.reader.getFloat(elem, 'rotang');
-          if (isNaN(circularAnimationRotAng))
-              this.onXMLError('Animation Block expected a float number on rotang.');
-          var center = this.reader.getString(elem, 'center');
-          var centerCoordinates = center.split(" ");
-          var coords = vec3.fromValues(centerCoordinates[0],centerCoordinates[1],centerCoordinates[2]);
-          this.animations[animationId] = new CircularAnimation(this.scene,animationId,animationSpan,coords, circularAnimationRadius,circularAnimationStartAng,circularAnimationRotAng);
-            break;
-          default:
+            case 'linear':
+                var controlPoints = elem.getElementsByTagName('controlpoint');
+                var controlPointsArray = new Array();
+                for (let point of controlPoints) {
+                    var coord = vec3.fromValues(this.reader.getFloat(point, 'xx'), this.reader.getFloat(point, 'yy'), this.reader.getFloat(point, 'zz'));
+                    if (isNaN(this.reader.getFloat(point, 'xx')) || isNaN(this.reader.getFloat(point, 'yy')) || isNaN(this.reader.getFloat(point, 'zz')))
+                        this.onXMLError('Animation Block expected float numbers on controlPoints Array.');
+                    controlPointsArray.push(coord);
+                }
+                this.animations[animationId] = new LinearAnimation(this.scene, animationId, animationSpan, controlPointsArray);
+                break;
+            case 'circular':
+                var circularAnimationRadius = this.reader.getFloat(elem, 'radius');
+                if (isNaN(circularAnimationRadius))
+                    this.onXMLError('Animation Block expected a float number on radius.');
+                var circularAnimationStartAng = this.reader.getFloat(elem, 'startang');
+                if (isNaN(circularAnimationStartAng))
+                    this.onXMLError('Animation Block expected a float number on startang.');
+                var circularAnimationRotAng = this.reader.getFloat(elem, 'rotang');
+                if (isNaN(circularAnimationRotAng))
+                    this.onXMLError('Animation Block expected a float number on rotang.');
+                var center = this.reader.getString(elem, 'center');
+                var centerCoordinates = center.split(" ");
+                var coords = vec3.fromValues(centerCoordinates[0], centerCoordinates[1], centerCoordinates[2]);
+                this.animations[animationId] = new CircularAnimation(this.scene, animationId, animationSpan, coords, circularAnimationRadius, circularAnimationStartAng, circularAnimationRotAng);
+                break;
+            default:
 
         }
     }
@@ -584,25 +584,45 @@ MySceneGraph.prototype.createCamera = function(newElement) {
  * Reads cylinder primitives
  * @param newElement element to be read
  */
- MySceneGraph.prototype.readingCylinder = function(newElement,idPrimitive) {
-   let baseRadius = this.reader.getFloat(newElement,'base');
-   let topRadius = this.reader.getFloat(newElement,'top');
-   let height = this.reader.getFloat(newElement,'height');
-   let slices = this.reader.getFloat(newElement,'slices');
-   let stacks = this.reader.getFloat( newElement,'stacks');
+MySceneGraph.prototype.readingCylinder = function(newElement, idPrimitive) {
+    let baseRadius = this.reader.getFloat(newElement, 'base');
+    let topRadius = this.reader.getFloat(newElement, 'top');
+    let height = this.reader.getFloat(newElement, 'height');
+    let slices = this.reader.getFloat(newElement, 'slices');
+    let stacks = this.reader.getFloat(newElement, 'stacks');
 
-   this.primitives[idPrimitive] = new Cylinder(this.scene, baseRadius, topRadius, height, slices, stacks);
- }
+    this.primitives[idPrimitive] = new Cylinder(this.scene, baseRadius, topRadius, height, slices, stacks);
+}
 
- /**
-  * Reads retangle primitives
-  * @param newElement element to be read
-  */
-  MySceneGraph.prototype.readingRetangle = function(newElement,idPrimitive) {
-    let x1=this.reader.getFloat(newElement, 'x1');
-    let x2=this.reader.getFloat(newElement, 'x2');
-    let y1=this.reader.getFloat(newElement, 'y1');
-    let y2=this.reader.getFloat(newElement, 'y2');
+/**
+ * Reads retangle primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingRetangle = function(newElement, idPrimitive) {
+    let x1 = this.reader.getFloat(newElement, 'x1');
+    let x2 = this.reader.getFloat(newElement, 'x2');
+    let y1 = this.reader.getFloat(newElement, 'y1');
+    let y2 = this.reader.getFloat(newElement, 'y2');
 
-    this.primitives[idPrimitive] = new Rectangle(this.scene,x1, y1, x2, y2);
-  }
+    this.primitives[idPrimitive] = new Rectangle(this.scene, x1, y1, x2, y2);
+}
+
+/**
+ * Reads triangle primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingTriangle = function(newElement, idPrimitive) {
+    let values = {};
+
+    values['x1']  = this.reader.getFloat(newElement, 'x1');
+    values['y1']  = this.reader.getFloat(newElement, 'y1');
+    values['z1']  = this.reader.getFloat(newElement, 'z1');
+    values['x2']  = this.reader.getFloat(newElement, 'x2');
+    values['y2']  = this.reader.getFloat(newElement, 'y2');
+    values['z2']  = this.reader.getFloat(newElement, 'z2');
+    values['x3']  = this.reader.getFloat(newElement, 'x3');
+    values['y3']  = this.reader.getFloat(newElement, 'y3');
+    values['z3'] = this.reader.getFloat(newElement, 'z3');
+
+    this.primitives[idPrimitive] = new Triangle(this.scene, values);
+}
