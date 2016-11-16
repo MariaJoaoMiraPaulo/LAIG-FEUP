@@ -160,7 +160,7 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="20" rotang="0" />
+        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="0" rotang="0" />
     </animations>
 
     <primitives>
@@ -231,7 +231,7 @@
 
             <!-- bloco "transformation" obrigatorio -->
           <transformation>
-          <!--  <translate x="2" y="0" z="2"/> -->
+            <rotate axis="x" angle="90"/>
           </transformation>
 
           <animation>
@@ -264,7 +264,7 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <primitiveref id="test"/>
+                <primitiveref id="1"/>
             </children>
 
         </component>

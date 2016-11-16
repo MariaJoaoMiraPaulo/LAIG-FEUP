@@ -125,7 +125,13 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         var newElement = elem.children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-                this.primitives[idPrimitive] = new Rectangle(this.scene, this.reader, newElement);
+            {
+                var x1=this.reader.getFloat(newElement, 'x1');
+                var x2=this.reader.getFloat(newElement, 'x2');
+                var y1=this.reader.getFloat(newElement, 'y1');
+                var y2=this.reader.getFloat(newElement, 'y2');
+                this.primitives[idPrimitive] = new Rectangle(this.scene,x1, y1, x2, y2);
+            }
                 break;
             case 'triangle':
                 this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);

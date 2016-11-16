@@ -5,16 +5,14 @@
  * @param newElement tag rectangle to be read
  * @constructor
  */
-function Rectangle(scene, reader, newElement) {
+function Rectangle(scene, x1, y1, x2, y2) {
     CGFobject.call(this, scene);
 
-    this.reader = reader;
-    this.newElement = newElement;
     this.values = {};
-    this.values['x1'] = this.reader.getFloat(this.newElement, 'x1');
-    this.values['y1'] = this.reader.getFloat(this.newElement, 'y1');
-    this.values['x2'] = this.reader.getFloat(this.newElement, 'x2');
-    this.values['y2'] = this.reader.getFloat(this.newElement, 'y2');
+    this.values['x1'] = x1;
+    this.values['y1'] = y1;
+    this.values['x2'] = x2;
+    this.values['y2'] = y2;
     this.minS = 0;
     this.maxS = 1;
     this.minT = 0;
