@@ -125,13 +125,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
         var newElement = elem.children[0];
         switch (newElement.tagName) {
             case 'rectangle':
-            {
-                var x1=this.reader.getFloat(newElement, 'x1');
-                var x2=this.reader.getFloat(newElement, 'x2');
-                var y1=this.reader.getFloat(newElement, 'y1');
-                var y2=this.reader.getFloat(newElement, 'y2');
-                this.primitives[idPrimitive] = new Rectangle(this.scene,x1, y1, x2, y2);
-            }
+                this.readingRetangle(newElement, idPrimitive);
                 break;
             case 'triangle':
                 this.primitives[idPrimitive] = new Triangle(this.scene, this.reader, newElement);
@@ -599,3 +593,16 @@ MySceneGraph.prototype.createCamera = function(newElement) {
 
    this.primitives[idPrimitive] = new Cylinder(this.scene, baseRadius, topRadius, height, slices, stacks);
  }
+
+ /**
+  * Reads retangle primitives
+  * @param newElement element to be read
+  */
+  MySceneGraph.prototype.readingRetangle = function(newElement,idPrimitive) {
+    let x1=this.reader.getFloat(newElement, 'x1');
+    let x2=this.reader.getFloat(newElement, 'x2');
+    let y1=this.reader.getFloat(newElement, 'y1');
+    let y2=this.reader.getFloat(newElement, 'y2');
+
+    this.primitives[idPrimitive] = new Rectangle(this.scene,x1, y1, x2, y2);
+  }
