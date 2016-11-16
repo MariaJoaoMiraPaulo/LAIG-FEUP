@@ -47,7 +47,6 @@ Patch.prototype.updateTexCoords = function(s,t) {
 }
 
 Patch.prototype.display = function() {
-  console.log("Entrei");
   this.scene.pushMatrix();
   CGFnurbsObject.prototype.display.call(this);
   this.scene.popMatrix();
