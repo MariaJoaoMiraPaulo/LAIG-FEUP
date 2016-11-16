@@ -167,11 +167,8 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
               }
                 break;
             case 'vehicle':
-                this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader, newElement);
+                this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
                 break;
-            /*case 'patch':
-                this.primitives[idPrimitive] = new Patch(this.scene, this.reader, newElement);
-                break;*/
         }
     }
 };

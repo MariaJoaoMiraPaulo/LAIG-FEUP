@@ -79,6 +79,7 @@
         <texture id="cone" file="img/conePattern.png" length_s="2" length_t="2"/>
         <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
         <texture id="terminal" file="img/terminal.png" length_s="1" length_t="1"/>
+        <texture id="bag" file="img/bag1.jpg" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -159,7 +160,7 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="20" rotang="180" />
+        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="20" rotang="0" />
     </animations>
 
     <primitives>
@@ -201,6 +202,10 @@
            <plane dimX="4" dimY="4" partsX="20" partsY="20"/>
         </primitive>
 
+        <primitive id="test">
+           <vehicle/>
+        </primitive>
+
         <primitive id="patch">
           <patch orderU="2" orderV="3" partsU="20" partsV="20" >
               <controlpoint x="-1.5" y="-1.5" z="0" />
@@ -226,12 +231,11 @@
 
             <!-- bloco "transformation" obrigatorio -->
           <transformation>
-            <translate x="2" y="0" z="2"/>
+          <!--  <translate x="2" y="0" z="2"/> -->
           </transformation>
 
           <animation>
             <animationref id="1" />
-            <animationref id="2" />
           </animation>
 
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -249,7 +253,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="cone"/>
+            <texture id="bag"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -260,7 +264,7 @@
                 <!--  <componentref id="ss" />-->
                 <!--<componentref id="bag"/>-->
                 <!--    <componentref id="torus"/> -->
-                <primitiveref id="patch"/>
+                <primitiveref id="test"/>
             </children>
 
         </component>
