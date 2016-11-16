@@ -146,7 +146,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.readingPatch(newElement, idPrimitive);
                 break;
             case 'vehicle':
-                this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
+                this.readingVehicle(newElement, idPrimitive);
                 break;
         }
     }
@@ -665,4 +665,12 @@ MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
       controlPoints.push([x, y, z, 1]);
   }
   this.primitives[idPrimitive] = new Patch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
+}
+
+/**
+ * Reads vehicle primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingVehicle = function(newElement, idPrimitive) {
+  this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
 }
