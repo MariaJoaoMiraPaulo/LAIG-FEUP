@@ -147,7 +147,6 @@
     </transformations>
 
     <!-- novo bloco de animacao -->
-    <!-- novo bloco de animacao -->
     <animations>
         <!-- podem existir zero ou mais nós "animation" -->
         <!-- span é o tempo, em segundos, que a animação deve -->

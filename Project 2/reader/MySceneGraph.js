@@ -285,14 +285,10 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
  */
 MySceneGraph.prototype.parseAnimations = function(animationElems) {
     if (animationElems.length == 0) {
-        this.onXMLError("animationElems:: element is missing.")
+        this.onXMLError("animations:: element is missing.")
     }
 
     var elems = animationElems[0].getElementsByTagName('animation');
-
-    if (elems.length == 0) {
-        this.onXMLError("animation::it must exists at least one block animation.");
-    }
 
     //reading all animation tags
     for (let elem of elems) {

@@ -71,16 +71,17 @@
       */
      readingAnimations(animationElem) {
 
-         var animations = animationElem.getElementsByTagName('animationref');
+         if (typeof animationElem != 'undefined') {
+             var animations = animationElem.getElementsByTagName('animationref');
 
-         for (let animation of animations) {
-             var id = this.reader.getString(animation, 'id');
-             
-             if (typeof this.graph.animations[id] == 'undefined') {
-                 this.scene.onXMLError("AnimationRef: it doesn't exist any animations with that id");
-             } else this.animations.push(this.graph.animations[id].clone());
+             for (let animation of animations) {
+                 var id = this.reader.getString(animation, 'id');
+
+                 if (typeof this.graph.animations[id] == 'undefined') {
+                     this.scene.onXMLError("AnimationRef: it doesn't exist any animations with that id");
+                 } else this.animations.push(this.graph.animations[id].clone());
+             }
          }
-
      }
 
      /**
@@ -189,7 +190,8 @@
          if (this.cgfMaterial != null)
              this.cgfMaterial.apply();
 
-         this.animations[this.atualAnimationId].display();
+         if (typeof this.animations[this.atualAnimationId] != 'undefined')
+             this.animations[this.atualAnimationId].display();
 
          for (let children of this.childrens) {
              if (children.cgfTextureId == "inherit") {
@@ -212,14 +214,17 @@
 
      update(deltaTime) {
 
-         this.animations[this.atualAnimationId].update(deltaTime);
+         if (typeof this.animations[this.atualAnimationId] != 'undefined') {
 
-         if(this.animations[this.atualAnimationId].over){
-           this.animations[this.atualAnimationId].over=false;
-           this.atualAnimationId++;
-           if(this.atualAnimationId == this.animations.length){
-             this.atualAnimationId=0;
-           }
+             this.animations[this.atualAnimationId].update(deltaTime);
+
+             if (this.animations[this.atualAnimationId].over) {
+                 this.animations[this.atualAnimationId].over = false;
+                 this.atualAnimationId++;
+                 if (this.atualAnimationId == this.animations.length) {
+                     this.atualAnimationId = 0;
+                 }
+             }
          }
      }
 
