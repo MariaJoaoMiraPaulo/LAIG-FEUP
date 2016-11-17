@@ -46,6 +46,8 @@ function Vehicle(scene, reader) {
     this.whellTop = new Patch(this.scene, 3, 6, 20, 20, points6);
     this.wheel = new Cylinder(this.scene, 0.5, 0.5, 0.4, 50, 50);
 		this.back = new Patch(this.scene,1,1,20,20,points8);
+		this.cable = new Cylinder(this.scene,0.1,0.1,6,20,20);
+		this.quad = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
 
 
 };
@@ -133,6 +135,15 @@ Vehicle.prototype.display = function () {
     this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
     this.wheel.display();
     this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.translate(0,0.5,-9);
+		this.cable.display();
+		this.scene.popMatrix();
+
+
+
+
 }
 
 Vehicle.prototype.updateTexCoords = function (s, t) {
