@@ -139,7 +139,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'torus':
                 this.readingTorus(newElement, idPrimitive);
                 break;
-            case 'plane':
+            case 'plane':  
                 this.readingPlane(newElement, idPrimitive);
                 break;
             case 'patch':
