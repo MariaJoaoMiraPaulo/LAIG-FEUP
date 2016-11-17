@@ -9,7 +9,7 @@
  * @constructor
  */
 function Patch(scene, orderU, orderV, partsU, partsV,points) {
-  this.scene=scene;
+    this.scene=scene;
     var knots1 = this.getKnotsVector(orderU);
     var knots2 = this.getKnotsVector(orderV);
 

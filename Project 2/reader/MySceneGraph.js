@@ -593,14 +593,14 @@ MySceneGraph.prototype.readingRetangle = function(newElement, idPrimitive) {
 MySceneGraph.prototype.readingTriangle = function(newElement, idPrimitive) {
     let values = {};
 
-    values['x1']  = this.reader.getFloat(newElement, 'x1');
-    values['y1']  = this.reader.getFloat(newElement, 'y1');
-    values['z1']  = this.reader.getFloat(newElement, 'z1');
-    values['x2']  = this.reader.getFloat(newElement, 'x2');
-    values['y2']  = this.reader.getFloat(newElement, 'y2');
-    values['z2']  = this.reader.getFloat(newElement, 'z2');
-    values['x3']  = this.reader.getFloat(newElement, 'x3');
-    values['y3']  = this.reader.getFloat(newElement, 'y3');
+    values['x1'] = this.reader.getFloat(newElement, 'x1');
+    values['y1'] = this.reader.getFloat(newElement, 'y1');
+    values['z1'] = this.reader.getFloat(newElement, 'z1');
+    values['x2'] = this.reader.getFloat(newElement, 'x2');
+    values['y2'] = this.reader.getFloat(newElement, 'y2');
+    values['z2'] = this.reader.getFloat(newElement, 'z2');
+    values['x3'] = this.reader.getFloat(newElement, 'x3');
+    values['y3'] = this.reader.getFloat(newElement, 'y3');
     values['z3'] = this.reader.getFloat(newElement, 'z3');
 
     this.primitives[idPrimitive] = new Triangle(this.scene, values);
@@ -611,11 +611,11 @@ MySceneGraph.prototype.readingTriangle = function(newElement, idPrimitive) {
  * @param newElement element to be read
  */
 MySceneGraph.prototype.readingSphere = function(newElement, idPrimitive) {
-  let slices = this.reader.getInteger(newElement, 'slices');
-  let stacks = this.reader.getInteger(newElement, 'stacks');
-  let radius = this.reader.getFloat(newElement, 'radius');
+    let slices = this.reader.getInteger(newElement, 'slices');
+    let stacks = this.reader.getInteger(newElement, 'stacks');
+    let radius = this.reader.getFloat(newElement, 'radius');
 
-  this.primitives[idPrimitive] = new Sphere(this.scene, slices, stacks, radius);
+    this.primitives[idPrimitive] = new Sphere(this.scene, slices, stacks, radius);
 }
 
 /**
@@ -623,12 +623,12 @@ MySceneGraph.prototype.readingSphere = function(newElement, idPrimitive) {
  * @param newElement element to be read
  */
 MySceneGraph.prototype.readingTorus = function(newElement, idPrimitive) {
-  let inner = this.reader.getFloat(newElement, 'inner');
-  let outer = this.reader.getFloat(newElement, 'outer');
-  let slices = this.reader.getInteger(newElement, 'slices');
-  let loops = this.reader.getInteger(newElement, 'loops');
+    let inner = this.reader.getFloat(newElement, 'inner');
+    let outer = this.reader.getFloat(newElement, 'outer');
+    let slices = this.reader.getInteger(newElement, 'slices');
+    let loops = this.reader.getInteger(newElement, 'loops');
 
-  this.primitives[idPrimitive] = new Torus(this.scene, inner, outer, slices, loops);
+    this.primitives[idPrimitive] = new Torus(this.scene, inner, outer, slices, loops);
 }
 
 /**
@@ -636,12 +636,12 @@ MySceneGraph.prototype.readingTorus = function(newElement, idPrimitive) {
  * @param newElement element to be read
  */
 MySceneGraph.prototype.readingPlane = function(newElement, idPrimitive) {
-  let dimX = this.reader.getFloat(newElement, 'dimX');
-  let dimY = this.reader.getFloat(newElement, 'dimY');
-  let partsX = this.reader.getFloat(newElement, 'partsX');
-  let partsY = this.reader.getFloat(newElement, 'partsY');
+    let dimX = this.reader.getFloat(newElement, 'dimX');
+    let dimY = this.reader.getFloat(newElement, 'dimY');
+    let partsX = this.reader.getFloat(newElement, 'partsX');
+    let partsY = this.reader.getFloat(newElement, 'partsY');
 
-  this.primitives[idPrimitive] = new Plane(this.scene, dimX, dimY, partsX, partsY);
+    this.primitives[idPrimitive] = new Plane(this.scene, dimX, dimY, partsX, partsY);
 }
 
 /**
@@ -649,22 +649,22 @@ MySceneGraph.prototype.readingPlane = function(newElement, idPrimitive) {
  * @param newElement element to be read
  */
 MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
-  let orderU = this.reader.getFloat(newElement, 'orderU');
-  let orderV = this.reader.getFloat(newElement, 'orderV');
-  let partsU = this.reader.getFloat(newElement, 'partsU');
-  let partsV = this.reader.getFloat(newElement, 'partsV');
-  let controlPoints = [];
-  let points = newElement.getElementsByTagName("controlpoint");
-  if (points.length != (orderV + 1) * (orderU + 1)) {
-      this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
-  }
-  for (let point of points) {
-      let x = this.reader.getFloat(point, 'x');
-      let y = this.reader.getFloat(point, 'y');
-      let z = this.reader.getFloat(point, 'z');
-      controlPoints.push([x, y, z, 1]);
-  }
-  this.primitives[idPrimitive] = new Patch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
+    let orderU = this.reader.getFloat(newElement, 'orderU');
+    let orderV = this.reader.getFloat(newElement, 'orderV');
+    let partsU = this.reader.getFloat(newElement, 'partsU');
+    let partsV = this.reader.getFloat(newElement, 'partsV');
+    let controlPoints = [];
+    let points = newElement.getElementsByTagName("controlpoint");
+    if (points.length != (orderV + 1) * (orderU + 1)) {
+        this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
+    }
+    for (let point of points) {
+        let x = this.reader.getFloat(point, 'x');
+        let y = this.reader.getFloat(point, 'y');
+        let z = this.reader.getFloat(point, 'z');
+        controlPoints.push([x, y, z, 1]);
+    }
+    this.primitives[idPrimitive] = new Patch(this.scene, orderU, orderV, partsU, partsV, controlPoints);
 }
 
 /**
@@ -672,5 +672,5 @@ MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
  * @param newElement element to be read
  */
 MySceneGraph.prototype.readingVehicle = function(newElement, idPrimitive) {
-  this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
+    this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
 }

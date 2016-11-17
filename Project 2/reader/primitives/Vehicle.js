@@ -15,12 +15,17 @@ var points3 = [[-1.5,0,1,1],[-2,1,0.8,1],[-2,1,-0.8,1],[-1.5,2,-0.8,1],
 								[-1.5,0,-1,1],[-1.5,0.8,-1,1],[-1.5,1,-1,1],[-1.5,2,-1,1],
 								[-1.5,0,-1,1],[-1.5,0.8,-1,1],[-1.5,1,-1,1],[-1.5,2,-1,1]];
 
+/*var points4 = [[-1.5,2,-0.8,1], [-1.8,2.2,-1.4,1], [-1.8,2,-2,1], [-1.5,2,-2.8,1],
+ 							 [-1.3,2,-0.8,1], [-1.3,2.2,-1.4,1], [-1.3,2,-2,1], [-1.3,2,-2.8,1],
+							 [-1.1,2,-0.8,1], [-0.8,2.2,-1.4,1], [-0.8,2,-2,1], [-1.1,2,-2.8,1]];*/
+
 
 
 	this.front = new Patch(this.scene,3,3,20,20,points);
 	this.doorLeft = new Patch(this.scene,2,3,20,20,points2);
 	this.doorRight = new Patch(this.scene,2,3,20,20,points3);
 	this.rect = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
+//	this.ceiling = new Patch(this.scene, 3,3,20,20,points4);
 	//this.wheel1 = new Cylinder();
 
 
@@ -52,6 +57,10 @@ this.scene.popMatrix();
 this.scene.pushMatrix();
 	//this.scene.rotate(Math.PI,0,1,0);
 //	this.doorRight.display();
+this.scene.popMatrix();
+
+this.scene.pushMatrix();
+//	this.ceiling.display();
 this.scene.popMatrix();
 }
 
