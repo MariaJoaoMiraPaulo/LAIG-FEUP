@@ -1,8 +1,10 @@
 /**
  * Rectangle
  * @param scene CGFscene where the Rectangle will be displayed
- * @param reader CGFXMLreader
- * @param newElement tag rectangle to be read
+ * @param x1 x of the first point
+ * @param y1 y of the first point
+ * @param x2 x of the second point
+ * @param y2 y of the second point
  * @constructor
  */
 function Rectangle(scene, x1, y1, x2, y2) {

@@ -47,7 +47,8 @@
             <ambient r="1" g="1" b="1" a="1"/>
             <diffuse r="1" g="1" b="1" a="1"/>
             <specular r="1" g="1" b="1" a="1"/>
-        </omni>-->
+        </omni>
+        -->
 
         <spot id="1" enabled="1" angle="2" exponent="2">
             <!-- atencao, "target" e' diferente de "direction" -->
@@ -155,19 +156,19 @@
         <!-- os angulos sao expressos em graus  -->
 
         <animation id="3" span="1" type="linear">
-            <controlpoint xx="2" yy="3" zz="3" />
-            <controlpoint xx="2" yy="2" zz="2" />
-            <controlpoint xx="1" yy="1" zz="2" />
-            <controlpoint xx="1" yy="0" zz="1" />
+            <controlpoint xx="2" yy="3" zz="3"/>
+            <controlpoint xx="2" yy="2" zz="2"/>
+            <controlpoint xx="1" yy="1" zz="2"/>
+            <controlpoint xx="1" yy="0" zz="1"/>
         </animation>
 
         <animation id="2" span="1" type="linear">
-            <controlpoint xx="1" yy="0" zz="1" />
-            <controlpoint xx="1" yy="1" zz="2" />
-            <controlpoint xx="2" yy="2" zz="2" />
-            <controlpoint xx="2" yy="3" zz="3" />
+            <controlpoint xx="1" yy="0" zz="1"/>
+            <controlpoint xx="1" yy="1" zz="2"/>
+            <controlpoint xx="2" yy="2" zz="2"/>
+            <controlpoint xx="2" yy="3" zz="3"/>
         </animation>
-        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="0" rotang="0" />
+        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="0" rotang="0"/>
     </animations>
 
     <primitives>
@@ -202,78 +203,86 @@
         </primitive>
 
         <primitive id="cone">
-          <cylinder base="1" top="1" height="2" slices="26" stacks="4"/>
+            <cylinder base="1" top="1" height="2" slices="26" stacks="4"/>
         </primitive>
 
         <primitive id="plane">
-           <plane dimX="4" dimY="4" partsX="20" partsY="20"/>
+            <plane dimX="4" dimY="4" partsX="20" partsY="20"/>
         </primitive>
 
         <primitive id="test">
-           <vehicle/>
+            <vehicle/>
         </primitive>
 
         <primitive id="patch">
-          <patch orderU="2" orderV="3" partsU="20" partsV="20" >
-              <controlpoint x="-1.5" y="-1.5" z="0" />
-              <controlpoint x="-2.0" y="-2.0" z="2" />
-              <controlpoint x="-2.0" y="2.0" z="2" />
-              <controlpoint x="-1.5" y="1.5" z="0" />
-              <controlpoint x="0" y="0" z="3" />
-              <controlpoint x="0" y="-2.0" z="3" />
-              <controlpoint x="0" y="2.0" z="3" />
-              <controlpoint x="0" y="0" z="3" />
-              <controlpoint x="1.5" y="-1.5" z="0" />
-              <controlpoint x="2" y="-2.0" z="2" />
-              <controlpoint x="2" y="2.0" z="2" />
-              <controlpoint x="1.5" y="1.5" z="0" />
-          </patch>
+            <patch orderU="2" orderV="3" partsU="20" partsV="20">
+                <controlpoint x="-1.5" y="-1.5" z="0"/>
+                <controlpoint x="-2.0" y="-2.0" z="2"/>
+                <controlpoint x="-2.0" y="2.0" z="2"/>
+                <controlpoint x="-1.5" y="1.5" z="0"/>
+                <controlpoint x="0" y="0" z="3"/>
+                <controlpoint x="0" y="-2.0" z="3"/>
+                <controlpoint x="0" y="2.0" z="3"/>
+                <controlpoint x="0" y="0" z="3"/>
+                <controlpoint x="1.5" y="-1.5" z="0"/>
+                <controlpoint x="2" y="-2.0" z="2"/>
+                <controlpoint x="2" y="2.0" z="2"/>
+                <controlpoint x="1.5" y="1.5" z="0"/>
+            </patch>
+        </primitive>
+
+        <primitive id="chessboard">
+            <chessboard du="10" dv="10" textureref="textura" su="2" sv="2">
+                <c1 r="1" g="1" b="1" a="1"/>
+                <c2 r="2" g="2" b="2" a="2"/>
+                <cs r="3" g="3" b="3" a="3"/>
+            </chessboard>
         </primitive>
 
     </primitives>
 
-    <components>
+<components>
 
-        <component id="1">
+<component id="1">
 
-            <!-- bloco "transformation" obrigatorio -->
-          <transformation>
-            <!--<rotate axis="x" angle="90"/>-->
-          </transformation>
+    <!-- bloco "transformation" obrigatorio -->
+    <transformation>
+        <!--<rotate axis="x" angle="90"/>-->
+    </transformation>
 
-          <animation>
-            <animationref id="1" />
-          </animation>
+    <animation>
+        <animationref id="1"/>
+    </animation>
 
-            <!-- declaracao obrigatoria de pelo menos um material; -->
-            <!-- o material id="inherit", mantem (herda) material do "pai" -->
-            <!-- se varios materiais declarados, o default e' o -->
-            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
-            <!-- o material muda para o proximo material da lista; do -->
-            <!-- ultimo material da lista volta ao primeiro -->
-            <materials>
-                <material id="white"/>
-            </materials>
+    <!-- declaracao obrigatoria de pelo menos um material; -->
+    <!-- o material id="inherit", mantem (herda) material do "pai" -->
+    <!-- se varios materiais declarados, o default e' o -->
+    <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+    <!-- o material muda para o proximo material da lista; do -->
+    <!-- ultimo material da lista volta ao primeiro -->
+    <materials>
+        <material id="white"/>
+    </materials>
 
-            <!-- declaracao obrigatoria de texture -->
-              <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
-            <!-- id="none" remove a textura recebida do pai -->
-            <!-- a textura declarada sobrepoe a textura recebida do -->
-            <!-- objecto "pai" -->
-            <texture id="car"/>
+    <!-- declaracao obrigatoria de texture -->
+    <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+    <!-- id="none" remove a textura recebida do pai -->
+    <!-- a textura declarada sobrepoe a textura recebida do -->
+    <!-- objecto "pai" -->
+    <texture id="car"/>
 
-            <!-- bloco "children" obrigatorio num "component" -->
-            <children>
+    <!-- bloco "children" obrigatorio num "component" -->
+    <children>
 
-                <!-- deve existir uma ou mais tags "componentref" e/ou -->
-                <!-- "primitiveref", identificando outros -->
-                <!-- componentes ou primitivas -->
-                <!--  <componentref id="ss" />-->
-                <!--<componentref id="bag"/>-->
-                <!--    <componentref id="torus"/> -->
-                <primitiveref id="test"/>
-            </children>
+        <!-- deve existir uma ou mais tags "componentref" e/ou -->
+        <!-- "primitiveref", identificando outros -->
+        <!-- componentes ou primitivas -->
+        <!--  <componentref id="ss" />-->
+        <!--<componentref id="bag"/>-->
+        <!--    <componentref id="torus"/> -->
+        <primitiveref id="test"/>
+    </children>
 
-        </component>
+</component>
 
 </dsx>

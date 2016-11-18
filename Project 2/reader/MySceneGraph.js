@@ -41,7 +41,7 @@ function MySceneGraph(filename, scene) {
 /**
  * Callback to be executed after successful reading
  */
-MySceneGraph.prototype.onXMLReady = function() {
+MySceneGraph.prototype.onXMLReady = function () {
     console.log("XML Loading finished.");
     var rootElement = this.reader.xmlDoc.documentElement;
 
@@ -62,7 +62,7 @@ MySceneGraph.prototype.onXMLReady = function() {
  * Callback to be executed on any read error
  * @param message to be displayed
  */
-MySceneGraph.prototype.onXMLError = function(message) {
+MySceneGraph.prototype.onXMLError = function (message) {
     console.error("XML Loading Error: " + message);
     this.loadedOk = false;
 };
@@ -71,7 +71,7 @@ MySceneGraph.prototype.onXMLError = function(message) {
  * Start to read Scene Tags by a specific order
  * @param rootElement elements to be proccessed
  */
-MySceneGraph.prototype.parseTags = function(rootElement) {
+MySceneGraph.prototype.parseTags = function (rootElement) {
     this.parseRoot(rootElement.getElementsByTagName('scene'));
     this.parseViews(rootElement.getElementsByTagName('views'));
     this.parseIllumination(rootElement.getElementsByTagName('illumination'));
@@ -88,7 +88,7 @@ MySceneGraph.prototype.parseTags = function(rootElement) {
  * Start to read Scene Blocks by a specific order
  * @param sceneElements scene elements to be proccessed
  */
-MySceneGraph.prototype.parseRoot = function(sceneElements) {
+MySceneGraph.prototype.parseRoot = function (sceneElements) {
     this.rootId = this.reader.getString(sceneElements[0], 'root');
     this.axisLength = this.reader.getFloat(sceneElements[0], 'axis_length');
     if (isNaN(this.axisLength))
@@ -101,7 +101,7 @@ MySceneGraph.prototype.parseRoot = function(sceneElements) {
  * Parses the Primitives block
  * @param primitivesElems primitives block to be read
  */
-MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
+MySceneGraph.prototype.parsePrimitives = function (primitivesElems) {
     if (primitivesElems.length == 0) {
         this.onXMLError("primitives:: primitives element is missing.");
     }
@@ -128,7 +128,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 this.readingRetangle(newElement, idPrimitive);
                 break;
             case 'triangle':
-                this.readingTriangle(newElement, idPrimitive)
+                this.readingTriangle(newElement, idPrimitive);
                 break;
             case 'cylinder':
                 this.readingCylinder(newElement, idPrimitive);
@@ -139,7 +139,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'torus':
                 this.readingTorus(newElement, idPrimitive);
                 break;
-            case 'plane':  
+            case 'plane':
                 this.readingPlane(newElement, idPrimitive);
                 break;
             case 'patch':
@@ -147,6 +147,9 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 break;
             case 'vehicle':
                 this.readingVehicle(newElement, idPrimitive);
+                break;
+            case 'chessboard':
+                this.readingChessboard(newElement, idPrimitive);
                 break;
         }
     }
@@ -156,7 +159,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
  * Parses the Lights block
  * @param lightsElems lights block to be read
  */
-MySceneGraph.prototype.parseLights = function(lightsElems) {
+MySceneGraph.prototype.parseLights = function (lightsElems) {
 
     if (lightsElems.length == 0) {
         this.onXMLError("Lights:: lights element is missing.");
@@ -197,7 +200,7 @@ MySceneGraph.prototype.parseLights = function(lightsElems) {
  * Parses the Materials block
  * @param materialsElems materials block to be read
  */
-MySceneGraph.prototype.parseMaterials = function(materialsElems) {
+MySceneGraph.prototype.parseMaterials = function (materialsElems) {
 
     if (materialsElems.length == 0) {
         this.onXMLError("Materials:: materials element is missing.");
@@ -226,7 +229,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsElems) {
  * Parses the Transformations block
  * @param transformationsElems transformations block to be read
  */
-MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
+MySceneGraph.prototype.parseTransformations = function (transformationsElems) {
     if (transformationsElems.length == 0) {
         this.onXMLError("transformations:: element is missing.")
     }
@@ -256,7 +259,7 @@ MySceneGraph.prototype.parseTransformations = function(transformationsElems) {
  * Parses the Animation block
  * @param animationElems animation block to be read
  */
-MySceneGraph.prototype.parseAnimations = function(animationElems) {
+MySceneGraph.prototype.parseAnimations = function (animationElems) {
     if (animationElems.length == 0) {
         this.onXMLError("animations:: element is missing.")
     }
@@ -308,7 +311,7 @@ MySceneGraph.prototype.parseAnimations = function(animationElems) {
  * Parses the Ilumination block
  * @param illuminationElems illumination block to be read
  */
-MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
+MySceneGraph.prototype.parseIllumination = function (illuminationElems) {
 
     if (illuminationElems.length == 0) {
         this.onXMLError("illumination:: element is missing.")
@@ -328,7 +331,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationElems) {
  * Parses the Textures block
  * @param texturesElems textures block to be read
  */
-MySceneGraph.prototype.parseTextures = function(texturesElems) {
+MySceneGraph.prototype.parseTextures = function (texturesElems) {
 
     if (texturesElems.length == 0) {
         this.onXMLError("textures:: element is missing.")
@@ -369,7 +372,7 @@ MySceneGraph.prototype.parseTextures = function(texturesElems) {
  * Parses the Views block
  * @param viewsElems views block to be read
  */
-MySceneGraph.prototype.parseViews = function(viewsElems) {
+MySceneGraph.prototype.parseViews = function (viewsElems) {
     if (viewsElems.length == 0) {
         this.onXMLError("views:: element is missing.")
     }
@@ -412,7 +415,7 @@ MySceneGraph.prototype.parseViews = function(viewsElems) {
  * Checks if there is a view with one specific id
  * @param idPerspective perspective id
  */
-MySceneGraph.prototype.thereIsAViewWithThatId = function(idPerspective) {
+MySceneGraph.prototype.thereIsAViewWithThatId = function (idPerspective) {
     for (let id of this.perspectivesIds) {
         if (id == idPerspective)
             return true;
@@ -425,7 +428,7 @@ MySceneGraph.prototype.thereIsAViewWithThatId = function(idPerspective) {
  * Parses the Components block
  * @param componentElems components block to be read
  */
-MySceneGraph.prototype.parseComponents = function(componentElems) {
+MySceneGraph.prototype.parseComponents = function (componentElems) {
 
     for (let component of componentElems[0].children) {
         let id = this.reader.getString(component, 'id');
@@ -444,7 +447,7 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
  * Returns an array with x, y and z coordinates
  * @param elem elem to be read
  */
-MySceneGraph.prototype.getCoordinates = function(elem) {
+MySceneGraph.prototype.getCoordinates = function (elem) {
     var myArray = [];
 
     var xCoord = this.reader.getFloat(elem, 'x');
@@ -470,7 +473,7 @@ MySceneGraph.prototype.getCoordinates = function(elem) {
  * Returns an array with r, g , b and a components
  * @param elem elem to be read
  */
-MySceneGraph.prototype.getRGBA = function(elem) {
+MySceneGraph.prototype.getRGBA = function (elem) {
     var rgbaArray = [];
 
     var rElem = this.reader.getFloat(elem, 'r');
@@ -500,7 +503,7 @@ MySceneGraph.prototype.getRGBA = function(elem) {
  * Creates a CGF material
  * @param newElement elem to be read
  */
-MySceneGraph.prototype.createMaterial = function(newElement) {
+MySceneGraph.prototype.createMaterial = function (newElement) {
 
     var emission = this.getRGBA(newElement.getElementsByTagName('emission')[0]);
     var ambient = this.getRGBA(newElement.getElementsByTagName('ambient')[0]);
@@ -524,7 +527,7 @@ MySceneGraph.prototype.createMaterial = function(newElement) {
  * Creates a CGF texture
  * @param newElement elem to be read
  */
-MySceneGraph.prototype.createTexture = function(newElement) {
+MySceneGraph.prototype.createTexture = function (newElement) {
 
     var fileElem = this.reader.getString(newElement, 'file');
     var length_sElem = this.reader.getFloat(newElement, 'length_s');
@@ -542,7 +545,7 @@ MySceneGraph.prototype.createTexture = function(newElement) {
  * Creates a CGF camera
  * @param newElement element to be read
  */
-MySceneGraph.prototype.createCamera = function(newElement) {
+MySceneGraph.prototype.createCamera = function (newElement) {
     var nearElem = this.reader.getFloat(newElement, 'near');
     if (isNaN(nearElem))
         this.onXMLError('Views Block expected a float number on near.');
@@ -563,7 +566,7 @@ MySceneGraph.prototype.createCamera = function(newElement) {
  * Reads cylinder primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingCylinder = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingCylinder = function (newElement, idPrimitive) {
     let baseRadius = this.reader.getFloat(newElement, 'base');
     let topRadius = this.reader.getFloat(newElement, 'top');
     let height = this.reader.getFloat(newElement, 'height');
@@ -577,7 +580,7 @@ MySceneGraph.prototype.readingCylinder = function(newElement, idPrimitive) {
  * Reads retangle primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingRetangle = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingRetangle = function (newElement, idPrimitive) {
     let x1 = this.reader.getFloat(newElement, 'x1');
     let x2 = this.reader.getFloat(newElement, 'x2');
     let y1 = this.reader.getFloat(newElement, 'y1');
@@ -590,7 +593,7 @@ MySceneGraph.prototype.readingRetangle = function(newElement, idPrimitive) {
  * Reads triangle primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingTriangle = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingTriangle = function (newElement, idPrimitive) {
     let values = {};
 
     values['x1'] = this.reader.getFloat(newElement, 'x1');
@@ -610,7 +613,7 @@ MySceneGraph.prototype.readingTriangle = function(newElement, idPrimitive) {
  * Reads sphere primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingSphere = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingSphere = function (newElement, idPrimitive) {
     let slices = this.reader.getInteger(newElement, 'slices');
     let stacks = this.reader.getInteger(newElement, 'stacks');
     let radius = this.reader.getFloat(newElement, 'radius');
@@ -622,7 +625,7 @@ MySceneGraph.prototype.readingSphere = function(newElement, idPrimitive) {
  * Reads torus primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingTorus = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingTorus = function (newElement, idPrimitive) {
     let inner = this.reader.getFloat(newElement, 'inner');
     let outer = this.reader.getFloat(newElement, 'outer');
     let slices = this.reader.getInteger(newElement, 'slices');
@@ -635,7 +638,7 @@ MySceneGraph.prototype.readingTorus = function(newElement, idPrimitive) {
  * Reads plane primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingPlane = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingPlane = function (newElement, idPrimitive) {
     let dimX = this.reader.getFloat(newElement, 'dimX');
     let dimY = this.reader.getFloat(newElement, 'dimY');
     let partsX = this.reader.getFloat(newElement, 'partsX');
@@ -648,7 +651,7 @@ MySceneGraph.prototype.readingPlane = function(newElement, idPrimitive) {
  * Reads patch primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingPatch = function (newElement, idPrimitive) {
     let orderU = this.reader.getFloat(newElement, 'orderU');
     let orderV = this.reader.getFloat(newElement, 'orderV');
     let partsU = this.reader.getFloat(newElement, 'partsU');
@@ -671,6 +674,53 @@ MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
  * Reads vehicle primitives
  * @param newElement element to be read
  */
-MySceneGraph.prototype.readingVehicle = function(newElement, idPrimitive) {
+MySceneGraph.prototype.readingVehicle = function (newElement, idPrimitive) {
     this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
+}
+
+/**
+ * Reads chessboard primitives
+ * @param newElement element to be read
+ */
+MySceneGraph.prototype.readingChessboard = function (newElement, idPrimitive) {
+    let du = this.reader.getInteger(newElement, 'du');
+    let dv = this.reader.getInteger(newElement, 'dv');
+    let textureId = this.reader.getString(newElement, 'textureref');
+    let su = this.reader.getInteger(newElement, 'su');
+    let sv = this.reader.getInteger(newElement, 'sv');
+
+    /*let c1Element = newElement.getElementsByTagName("c1");
+     let c2Element = newElement.getElementsByTagName("c2");*/
+    //  let c3Element = newElement.getElementsByTagName('c3');
+
+    /* let c1 = this.readingChessboardColor(c1Element);
+     let c2 = this.readingChessboardColor(c2Element);
+     let c3 = this.readingChessboardColor(c3Element);*/
+
+    console.log(du);
+    console.log(dv);
+    console.log(textureId);
+    console.log(su);
+    console.log(sv);
+    /* console.log(c1);
+     console.log(c2);
+     console.log(c3);*/
+
+}
+
+MySceneGraph.prototype.readingChessboardColor = function (colorElement) {
+
+    let r = this.reader.getFloat(colorElement, 'r');
+    let g = this.reader.getFloat(colorElement, 'g');
+    let b = this.reader.getFloat(colorElement, 'b');
+    let a = this.reader.getFloat(colorElement, 'a');
+
+    console.log(r);
+    console.log(g);
+    console.log(b);
+    console.log(a);
+
+    //let color = [r,g,b,a];
+
+    //return color;
 }
