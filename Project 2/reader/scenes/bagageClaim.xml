@@ -104,6 +104,10 @@
         <texture id="signal" file="img/signal.jpg" length_s="1" length_t="1"/>
         <texture id="cone" file="img/conePattern.png" length_s="1" length_t="1"/>
         <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
+        <texture id="Ofloor" file="img/outfloor.jpg" length_s="1" length_t="1"/>
+        <texture id="car" file="img/car.jpg" length_s="1" length_t="1"/>
+
+
 
     </textures>
 
@@ -224,7 +228,49 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="0" rotang="0" />
+
+        <animation id="4" span="4" type="linear">
+            <controlpoint xx="0" yy="0" zz="0" />
+            <controlpoint xx="0" yy="0" zz="5" />
+            <controlpoint xx="0" yy="0" zz="0" />
+        </animation>
+
+        <animation id="6" span="12" type="linear">
+            <controlpoint xx="0" yy="0" zz="0" />
+            <controlpoint xx="0" yy="0" zz="-3.2" />
+            <controlpoint xx="-2.2" yy="0" zz="-3.2" />
+            <controlpoint xx="-2.2" yy="0" zz="0.4" />
+            <controlpoint xx="0" yy="0" zz="0.4" />
+            <controlpoint xx="0" yy="0" zz="0" />
+        </animation>
+
+        <animation id="7" span="12" type="linear">
+            <controlpoint xx="0" yy="0" zz="0" />
+            <controlpoint xx="0" yy="0" zz="-1.5" />
+            <controlpoint xx="-2.2" yy="0" zz="-1.5" />
+            <controlpoint xx="-2.2" yy="0" zz="2" />
+            <controlpoint xx="0" yy="0" zz="1.8" />
+            <controlpoint xx="0" yy="0" zz="0" />
+        </animation>
+
+        <animation id="8" span="12" type="linear">
+            <controlpoint xx="0" yy="0" zz="0" />
+            <controlpoint xx="1.6" yy="0" zz="0" />
+            <controlpoint xx="1.6" yy="0" zz="-3" />
+            <controlpoint xx="-0.4" yy="0" zz="-3" />
+            <controlpoint xx="-0.4" yy="0" zz="0.1" />
+            <controlpoint xx="0" yy="0" zz="0" />
+
+        </animation>
+
+        <animation id="9" span="2" type="linear">   <!--z:y-->
+            <controlpoint xx="0" yy="0" zz="0" />
+            <controlpoint xx="1" yy="1" zz="0" />
+            <controlpoint xx="1" yy="1" zz="0" />
+            <controlpoint xx="0" yy="1" zz="0" />
+        </animation>
+
+        <animation id="1" span="10" type="circular" center="0 0 0" radius="10" startang="20" rotang="360" />
     </animations>
 
 
@@ -261,6 +307,10 @@
           <cylinder base="0" top="0.2" height="0.8" slices="26" stacks="4"/>
         </primitive>
 
+        <primitive id="vehicle">
+           <car/>
+        </primitive>
+
     </primitives>
 
     <components>
@@ -292,6 +342,112 @@
                 <componentref id="signalWarning"/>
                 <componentref id="Trafficcone"/>
                 <componentref id="wetFloorSign"/>
+                <componentref id="vehicle"/>
+            </children>
+        </component>
+
+        <component id="vehicle">
+            <transformation>
+                <translate x="9.5" y="0.2" z="5"/>
+            </transformation>
+
+            <animation>
+              <animationref id="1" />
+            </animation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="none"/>
+
+            <children>
+                <componentref id="car"/>
+                <componentref id="CarHelpbottom"/>
+                <componentref id="carBags1"/>
+                <componentref id="carBags2"/>
+                <componentref id="carBags3"/>
+            </children>
+        </component>
+
+        <component id="car">
+            <transformation>
+                  <scale x="0.35" y="0.35" z="0.35"/>
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="car"/>
+            <children>
+                  <primitiveref id="vehicle"/>
+            </children>
+        </component>
+
+        <component id="carBags1">
+            <transformation>
+                <translate x="0" y="0.6" z="-2.5"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="bag1"/>
+
+            <children>
+                <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+        <component id="carBags2">
+            <transformation>
+                <translate x="0" y="0.6" z="-3.2"/>
+                <rotate axis="y" angle="45"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="bag3"/>
+
+            <children>
+                <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+        <component id="carBags3">
+            <transformation>
+                <translate x="0.3" y="0.6" z="-2.8"/>
+                <rotate axis="y" angle="20"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="bag4"/>
+
+            <children>
+                <componentref id="RectangleBag"/>
+            </children>
+        </component>
+
+
+        <component id="CarHelpbottom">
+            <transformation>
+                <translate x="0" y="0.15" z="-3"/>
+                <scale x="1" y="0.15" z="1.9"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="metal"/>
+
+            <children>
+                <componentref id="cubo"/>
             </children>
         </component>
 
@@ -918,7 +1074,7 @@
 
         <component id="floor">
             <transformation>
-                <scale x="8" y="5" z="8"/>
+                <scale x="11" y="5" z="11"/>
                 <rotate axis="x" angle="90"/>
                 <translate x="0.5" y="0.5" z="0"/>
             </transformation>
@@ -947,7 +1103,7 @@
 
         <component id="wall1">
             <transformation>
-                <scale x="8" y="5" z="8"/>
+                <scale x="11" y="5" z="11"/>
                 <translate x="0.5" y="0.5" z="0"/>
                 <rotate axis="y" angle="180"/>
             </transformation>
@@ -962,7 +1118,7 @@
 
         <component id="wall2">
             <transformation>
-                <scale x="8" y="5" z="8"/>
+                <scale x="11" y="5" z="11"/>
                 <rotate axis="y" angle="-90"/>
                 <translate x="0.5" y="0.5" z="0"/>
             </transformation>
@@ -979,6 +1135,9 @@
             <transformation>
                 <translate x="1.2" y="0.5" z="1.5"/>
             </transformation>
+            <animation>
+              <animationref id="6" />
+            </animation>
             <materials>
                 <material id="1"/>
             </materials>
@@ -990,10 +1149,13 @@
 
         <component id="Bag3onCarpet">
             <transformation>
-                <translate x="1.2" y="0.3" z="0"/>
-                <rotate axis="x" angle="-90"/>
-                <rotate axis="z" angle="45"/>
+                <translate x="1.2" y="0.5" z="0"/>
+              <!--  <rotate axis="x" angle="-90"/>
+                <rotate axis="z" angle="45"/>-->
             </transformation>
+            <animation>
+              <animationref id="7" />
+            </animation>
             <materials>
                 <material id="1"/>
             </materials>
@@ -1007,6 +1169,9 @@
             <transformation>
                 <translate x="-0.6" y="0.35" z="1.7"/>
             </transformation>
+            <animation>
+              <animationref id="8" />
+            </animation>
             <materials>
                 <material id="1"/>
             </materials>

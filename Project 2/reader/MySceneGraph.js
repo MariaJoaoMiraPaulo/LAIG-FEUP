@@ -151,6 +151,9 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'chessboard':
                 this.readingChessboard(newElement, idPrimitive);
                 break;
+            case 'car':
+                this.readingCar(newElement, idPrimitive);
+                break;
         }
     }
 };
@@ -291,9 +294,11 @@ MySceneGraph.prototype.parseAnimations = function(animationElems) {
                 if (isNaN(circularAnimationRadius))
                     this.onXMLError('Animation Block expected a float number on radius.');
                 var circularAnimationStartAng = this.reader.getFloat(elem, 'startang');
+                circularAnimationStartAng = (circularAnimationStartAng * Math.PI) / 180;
                 if (isNaN(circularAnimationStartAng))
                     this.onXMLError('Animation Block expected a float number on startang.');
                 var circularAnimationRotAng = this.reader.getFloat(elem, 'rotang');
+                circularAnimationRotAng = (circularAnimationRotAng * Math.PI) / 180;
                 if (isNaN(circularAnimationRotAng))
                     this.onXMLError('Animation Block expected a float number on rotang.');
                 var center = this.reader.getString(elem, 'center');
@@ -685,46 +690,46 @@ MySceneGraph.prototype.readingVehicle = function(newElement, idPrimitive) {
  */
 MySceneGraph.prototype.readingChessboard = function(newElement, idPrimitive) {
     let du = this.reader.getInteger(newElement, 'du');
-    if(du == null){
-      this.onXMLError("du element is need");
+    if (du == null) {
+        this.onXMLError("du element is need");
     }
 
     let dv = this.reader.getInteger(newElement, 'dv');
-    if(dv == null){
-      this.onXMLError("dv element is need");
+    if (dv == null) {
+        this.onXMLError("dv element is need");
     }
 
     let textureId = this.reader.getString(newElement, 'textureref');
-    if(textureId == null){
-      this.onXMLError("textureref element is need");
+    if (textureId == null) {
+        this.onXMLError("textureref element is need");
     }
 
     let su = this.reader.getInteger(newElement, 'su');
-    if(su == null){
-      this.onXMLError("su element is need");
+    if (su == null) {
+        this.onXMLError("su element is need");
     }
 
     let sv = this.reader.getInteger(newElement, 'sv');
-    if(sv == null){
-      this.onXMLError("sv element is need");
+    if (sv == null) {
+        this.onXMLError("sv element is need");
     }
 
     let c1Element = newElement.getElementsByTagName("c1");
     let c2Element = newElement.getElementsByTagName("c2");
     let csElement = newElement.getElementsByTagName("cs");
 
-    if(c1Element.length != 1){
-      this.onXMLError("There can only be one c1 element");
+    if (c1Element.length != 1) {
+        this.onXMLError("There can only be one c1 element");
     }
     let c1 = this.readingChessboardColor(c1Element[0]);
 
-    if(c2Element.length != 1){
-      this.onXMLError("There can only be one c2 element");
+    if (c2Element.length != 1) {
+        this.onXMLError("There can only be one c2 element");
     }
     let c2 = this.readingChessboardColor(c2Element[0]);
 
-    if(csElement.length != 1){
-      this.onXMLError("There can only be one cs element");
+    if (csElement.length != 1) {
+        this.onXMLError("There can only be one cs element");
     }
     let cs = this.readingChessboardColor(csElement[0]);
 
@@ -740,4 +745,8 @@ MySceneGraph.prototype.readingChessboardColor = function(colorElement) {
     let color = [r, g, b, a];
 
     return color;
+}
+
+MySceneGraph.prototype.readingCar = function(newElement, idPrimitive) {
+    this.primitives[idPrimitive] = new Car(this.scene, this.reader);
 }
