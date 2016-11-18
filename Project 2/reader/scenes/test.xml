@@ -167,7 +167,7 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="3" type="circular" center="-2 0 0" radius="2" startang="20" rotang="180" />
+        <animation id="1" span="3" type="circular" center="2 0 0" radius="5" startang="0" rotang="180" />
     </animations>
 
     <primitives>
@@ -202,7 +202,7 @@
         </primitive>
 
         <primitive id="cone">
-          <cylinder base="1" top="1" height="2" slices="26" stacks="4"/>
+          <cylinder base="1" top="0" height="2" slices="26" stacks="4"/>
         </primitive>
 
         <primitive id="plane">
@@ -242,7 +242,7 @@
 
             <!-- bloco "transformation" obrigatorio -->
           <transformation>
-
+              <translate x="4" y="4" z="4"/>
           </transformation>
 
           <animation>

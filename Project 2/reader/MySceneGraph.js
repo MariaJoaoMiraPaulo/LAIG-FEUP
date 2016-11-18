@@ -291,9 +291,11 @@ MySceneGraph.prototype.parseAnimations = function(animationElems) {
                 if (isNaN(circularAnimationRadius))
                     this.onXMLError('Animation Block expected a float number on radius.');
                 var circularAnimationStartAng = this.reader.getFloat(elem, 'startang');
+                circularAnimationStartAng = (circularAnimationStartAng*Math.PI)/180;
                 if (isNaN(circularAnimationStartAng))
                     this.onXMLError('Animation Block expected a float number on startang.');
                 var circularAnimationRotAng = this.reader.getFloat(elem, 'rotang');
+                circularAnimationRotAng = (circularAnimationRotAng*Math.PI)/180;
                 if (isNaN(circularAnimationRotAng))
                     this.onXMLError('Animation Block expected a float number on rotang.');
                 var center = this.reader.getString(elem, 'center');
