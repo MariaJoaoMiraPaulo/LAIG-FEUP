@@ -224,7 +224,7 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="3" type="circular" center="2 0 2" radius="3" startang="0" rotang="0" />
+        <animation id="1" span="10" type="circular" center="0 0 0" radius="10" startang="20" rotang="0" />
     </animations>
 
 
@@ -261,6 +261,10 @@
           <cylinder base="0" top="0.2" height="0.8" slices="26" stacks="4"/>
         </primitive>
 
+        <primitive id="vehicle">
+           <vehicle/>
+        </primitive>
+
     </primitives>
 
     <components>
@@ -292,6 +296,102 @@
                 <componentref id="signalWarning"/>
                 <componentref id="Trafficcone"/>
                 <componentref id="wetFloorSign"/>
+                <componentref id="car"/>
+            </children>
+        </component>
+
+        <component id="car">
+            <transformation>
+              <scale x="0.5" y="0.5" z="0.5"/>
+              <translate x="4" y="0.3" z="20"/>
+              <rotate axis="y" angle="90"/>
+            </transformation>
+            <animation>
+              <animationref id="1" />
+            </animation>
+            <materials>
+                <material id="1"/>
+            </materials>
+            <texture id="metal"/>
+            <children>
+              <componentref id="CarHelpback"/>
+              <componentref id="CarHelpbottom"/>
+              <componentref id="CarHelpleft"/>
+              <componentref id="CarHelpright"/>
+              <primitiveref id="vehicle"/>
+            </children>
+        </component>
+
+        <component id="CarHelpright">
+            <transformation>
+                <translate x="0" y="1" z="-15"/>
+                <rotate axis="y" angle="90"/>
+                <rotate axis="z" angle="90"/>
+                <scale x="0.9" y="0.35" z="4"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="metal"/>
+
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="CarHelpleft">
+            <transformation>
+                <translate x="0" y="1" z="-9"/>
+                <rotate axis="y" angle="90"/>
+                <rotate axis="z" angle="90"/>
+                <scale x="0.9" y="0.35" z="4"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="metal"/>
+
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="CarHelpback">
+            <transformation>
+                <translate x="-2" y="1" z="-12"/>
+                <rotate axis="z" angle="90"/>
+                <scale x="1" y="0.35" z="6"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="metal"/>
+
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="CarHelpbottom">
+            <transformation>
+                <scale x="4" y="0.35" z="6"/>
+                <translate x="0" y="1.5" z="-2"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="metal"/>
+
+            <children>
+                <componentref id="cubo"/>
             </children>
         </component>
 

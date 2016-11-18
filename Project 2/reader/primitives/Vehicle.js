@@ -50,6 +50,10 @@ function Vehicle(scene, reader) {
 		this.quad = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
 
 
+	this.wheelApp = new CGFappearance(this.scene);
+	this.wheelApp.loadTexture("img/wheel.jpg");
+
+
 };
 
 Vehicle.prototype = Object.create(CGFobject.prototype);
@@ -96,20 +100,8 @@ Vehicle.prototype.display = function () {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(1.5, 0.2, -1.25);
-    this.scene.rotate(Math.PI / 2, 0, 1, 0);
-    this.wheel.display();
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
     this.scene.translate(0,0,-2.5);
     this.whellTop.display();
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
-    this.scene.translate(1.5, 0.2, -4);
-    this.scene.rotate(Math.PI / 2, 0, 1, 0);
-    this.wheel.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
@@ -119,21 +111,9 @@ Vehicle.prototype.display = function () {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(-1.5, 0.2, -4);
-    this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
-    this.wheel.display();
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
     this.scene.translate(0, 0, -2.75);
     this.scene.rotate(Math.PI, 0, 1, 0);
     this.whellTop.display();
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
-    this.scene.translate(-1.5, 0.2, -1.25);
-    this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
-    this.wheel.display();
     this.scene.popMatrix();
 
 		this.scene.pushMatrix();
@@ -141,7 +121,54 @@ Vehicle.prototype.display = function () {
 		this.cable.display();
 		this.scene.popMatrix();
 
+		this.wheelApp.apply();
+		this.scene.pushMatrix();
+		this.scene.translate(-1.5, 0.2, -4);
+		this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
+		this.wheel.display();
+		this.scene.popMatrix();
 
+    this.scene.pushMatrix();
+    this.scene.translate(-1.5, 0.2, -10);
+    this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
+    this.wheel.display();
+    this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.translate(-1.5, 0.2, -1.25);
+		this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
+		this.wheel.display();
+		this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+		this.scene.translate(-1.5, 0.2, -14.25);
+		this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
+		this.wheel.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+    this.scene.translate(1.5, 0.2, -4);
+    this.scene.rotate(Math.PI / 2, 0, 1, 0);
+    this.wheel.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.translate(1.5, 0.2, -10);
+    this.scene.rotate(Math.PI / 2, 0, 1, 0);
+    this.wheel.display();
+    this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.translate(1.5, 0.2, -1.25);
+		this.scene.rotate(Math.PI / 2, 0, 1, 0);
+		this.wheel.display();
+		this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+		this.scene.translate(1.5, 0.2, -14.25);
+		this.scene.rotate(Math.PI / 2, 0, 1, 0);
+		this.wheel.display();
+		this.scene.popMatrix();
 
 
 }
