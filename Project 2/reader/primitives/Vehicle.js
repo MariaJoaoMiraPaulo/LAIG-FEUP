@@ -50,6 +50,7 @@ function Vehicle(scene, reader) {
 		this.quad = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
 
 
+
 	this.wheelApp = new CGFappearance(this.scene);
 	this.wheelApp.loadTexture("img/wheel.jpg");
 
@@ -169,7 +170,6 @@ Vehicle.prototype.display = function () {
 		this.scene.rotate(Math.PI / 2, 0, 1, 0);
 		this.wheel.display();
 		this.scene.popMatrix();
-
 
 }
 
