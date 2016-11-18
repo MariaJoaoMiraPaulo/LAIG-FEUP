@@ -129,7 +129,7 @@ Vehicle.prototype.display = function () {
 		this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(-1.5, 0.2, -10);
+    this.scene.translate(-1.5, 0.2, -7.5);
     this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
     this.wheel.display();
     this.scene.popMatrix();
@@ -141,7 +141,7 @@ Vehicle.prototype.display = function () {
 		this.scene.popMatrix();
 
     this.scene.pushMatrix();
-		this.scene.translate(-1.5, 0.2, -14.25);
+		this.scene.translate(-1.5, 0.2, -10.25);
 		this.scene.rotate(3*Math.PI / 2, 0, 1, 0);
 		this.wheel.display();
 		this.scene.popMatrix();
@@ -153,7 +153,7 @@ Vehicle.prototype.display = function () {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(1.5, 0.2, -10);
+    this.scene.translate(1.5, 0.2, -7.5);
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
     this.wheel.display();
     this.scene.popMatrix();
@@ -165,7 +165,7 @@ Vehicle.prototype.display = function () {
 		this.scene.popMatrix();
 
     this.scene.pushMatrix();
-		this.scene.translate(1.5, 0.2, -14.25);
+		this.scene.translate(1.5, 0.2, -10.25);
 		this.scene.rotate(Math.PI / 2, 0, 1, 0);
 		this.wheel.display();
 		this.scene.popMatrix();
