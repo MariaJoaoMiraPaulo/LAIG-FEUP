@@ -139,7 +139,7 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'torus':
                 this.readingTorus(newElement, idPrimitive);
                 break;
-            case 'plane':  
+            case 'plane':
                 this.readingPlane(newElement, idPrimitive);
                 break;
             case 'patch':
@@ -147,6 +147,9 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
                 break;
             case 'vehicle':
                 this.readingVehicle(newElement, idPrimitive);
+                break;
+            case 'car':
+                this.readingCar(newElement, idPrimitive);
                 break;
         }
     }
@@ -673,4 +676,8 @@ MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
  */
 MySceneGraph.prototype.readingVehicle = function(newElement, idPrimitive) {
     this.primitives[idPrimitive] = new Vehicle(this.scene, this.reader);
+}
+
+MySceneGraph.prototype.readingCar = function(newElement, idPrimitive) {
+    this.primitives[idPrimitive] = new Car(this.scene, this.reader);
 }

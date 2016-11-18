@@ -308,7 +308,7 @@
         </primitive>
 
         <primitive id="vehicle">
-           <vehicle/>
+           <car/>
         </primitive>
 
     </primitives>
