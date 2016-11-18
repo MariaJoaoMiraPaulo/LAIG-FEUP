@@ -270,7 +270,7 @@
             <controlpoint xx="0" yy="1" zz="0" />
         </animation>
 
-        <animation id="1" span="10" type="circular" center="0 0 0" radius="10" startang="20" rotang="0" />
+        <animation id="1" span="10" type="circular" center="0 0 0" radius="10" startang="20" rotang="360" />
     </animations>
 
 
@@ -352,7 +352,7 @@
             </transformation>
 
             <animation>
-              <animationref id="4" />
+              <animationref id="1" />
             </animation>
 
             <materials>

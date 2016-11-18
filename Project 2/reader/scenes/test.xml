@@ -167,7 +167,7 @@
             <controlpoint xx="2" yy="2" zz="2" />
             <controlpoint xx="2" yy="3" zz="3" />
         </animation>
-        <animation id="1" span="3" type="circular" center="0 0 0" radius="3" startang="0" rotang="0" />
+        <animation id="1" span="3" type="circular" center="-2 0 0" radius="2" startang="20" rotang="180" />
     </animations>
 
     <primitives>
@@ -210,7 +210,7 @@
         </primitive>
 
         <primitive id="test">
-           <vehicle/>
+           <car/>
         </primitive>
 
         <primitive id="roolerBag">
@@ -242,7 +242,7 @@
 
             <!-- bloco "transformation" obrigatorio -->
           <transformation>
-            <!--<rotate axis="x" angle="90"/>-->
+
           </transformation>
 
           <animation>
@@ -273,7 +273,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <primitiveref id="test"/>
+                <primitiveref id="cone"/>
             </children>
 
         </component>
