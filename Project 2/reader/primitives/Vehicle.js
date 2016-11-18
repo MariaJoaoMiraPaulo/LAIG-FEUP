@@ -54,6 +54,9 @@ function Vehicle(scene, reader) {
 	this.wheelApp = new CGFappearance(this.scene);
 	this.wheelApp.loadTexture("img/wheel.jpg");
 
+  this.glass = new CGFappearance(this.scene);
+	this.glass.loadTexture("img/glass.jpg");
+
 
 };
 
@@ -170,6 +173,15 @@ Vehicle.prototype.display = function () {
 		this.scene.rotate(Math.PI / 2, 0, 1, 0);
 		this.wheel.display();
 		this.scene.popMatrix();
+
+    this.glass.apply();
+
+    this.scene.pushMatrix();
+    this.scene.translate(0, 2.2, -0.7);
+    this.scene.rotate(Math.PI, 0, 1, 0);
+    this.scene.scale(2.5,3,2);
+    this.quad.display();
+    this.scene.popMatrix();
 
 }
 
