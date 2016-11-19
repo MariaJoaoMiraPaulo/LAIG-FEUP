@@ -13,8 +13,9 @@ class LinearAnimation extends Animation {
         vec3.sub(this.direction, this.controlPoints[1], this.controlPoints[0]);
         this.directionXZ = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
         this.directionXZ[1] = 0;
-        console.log(this.directionXZ);
-        console.log(this.direction);
+        this.directionY = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
+        this.directionY[0] = 0;
+        this.directionY[2] = 0;
 
         this.zAxis = vec3.fromValues(0,0,1);
 

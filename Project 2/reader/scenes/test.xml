@@ -260,10 +260,6 @@
 
             </transformation>
 
-            <animation>
-                <animationref id="2"/>
-            </animation>
-
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
             <!-- se varios materiais declarados, o default e' o -->
@@ -288,7 +284,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <primitiveref id="cone"/>
+                <primitiveref id="vehicle"/>
             </children>
 
         </component>
