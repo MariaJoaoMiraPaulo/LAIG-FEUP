@@ -667,6 +667,9 @@ MySceneGraph.prototype.readingPatch = function(newElement, idPrimitive) {
     if (points.length != (orderV + 1) * (orderU + 1)) {
         this.onXMLError("Patch can't be created because the number of controlPoints must be (orderV+1)*(orderU+1)");
     }
+    if(points.length < 2){
+        this.onXMLError("It must have at least 2 control points");
+    }
     for (let point of points) {
         let x = this.reader.getFloat(point, 'x');
         let y = this.reader.getFloat(point, 'y');
