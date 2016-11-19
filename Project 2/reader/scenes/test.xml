@@ -163,11 +163,11 @@
             <controlpoint xx="1" yy="0" zz="1"/>
         </animation>
 
-        <animation id="2" span="1" type="linear">
-            <controlpoint xx="1" yy="0" zz="1"/>
-            <controlpoint xx="1" yy="1" zz="2"/>
-            <controlpoint xx="2" yy="2" zz="2"/>
-            <controlpoint xx="2" yy="3" zz="3"/>
+        <animation id="2" span="2" type="linear">
+            <controlpoint xx="2" yy="0" zz="0"/>
+            <controlpoint xx="4" yy="2" zz="2"/>
+            <controlpoint xx="4" yy="0" zz="2"/>
+            <controlpoint xx="4" yy="0" zz="4"/>
         </animation>
 
         <animation id="1" span="3" type="circular" center="2 0 0" radius="5" startang="0" rotang="180"/>
@@ -245,6 +245,10 @@
             </chessboard>
         </primitive>
 
+        <primitive id="vehicle">
+          <vehicle/>
+        </primitive>
+
     </primitives>
 
     <components>
@@ -253,13 +257,12 @@
 
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
-              <rotate axis="x" angle="-90"/>
-              <scale x="8" y="8" z="8"/>
+
             </transformation>
 
-          <!--  <animation>
-                <animationref id="1"/>
-            </animation>-->
+            <animation>
+                <animationref id="2"/>
+            </animation>
 
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -276,7 +279,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="none"/>
+            <texture id="car"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
@@ -285,7 +288,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <primitiveref id="chessboard"/>
+                <primitiveref id="cone"/>
             </children>
 
         </component>
