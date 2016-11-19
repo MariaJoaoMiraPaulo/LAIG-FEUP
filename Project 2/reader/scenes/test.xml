@@ -237,7 +237,7 @@
         </primitive>
 
         <primitive id="chessboard">
-            <chessboard du="10" dv="10" textureref="textura" su="2" sv="2">
+            <chessboard du="10" dv="10" textureref="bag" su="2" sv="2">
                 <c1 r="1" g="1" b="1" a="1"/>
                 <c2 r="2" g="2" b="2" a="2"/>
                 <cs r="3" g="3" b="3" a="3"/>
@@ -255,9 +255,9 @@
                 <translate x="4" y="4" z="4"/>
             </transformation>
 
-            <animation>
+          <!--  <animation>
                 <animationref id="1"/>
-            </animation>
+            </animation>-->
 
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -283,7 +283,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <primitiveref id="cone"/>
+                <primitiveref id="chessboard"/>
             </children>
 
         </component>

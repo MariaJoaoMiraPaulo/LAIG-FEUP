@@ -704,6 +704,11 @@ MySceneGraph.prototype.readingChessboard = function(newElement, idPrimitive) {
         this.onXMLError("textureref element is need");
     }
 
+    let texture = this.textures[textureId];
+    if(typeof texture == 'undefined'){
+      this.onXMLError("Doesnt exists any texture with that id");
+    }
+
     let su = this.reader.getInteger(newElement, 'su');
     if (su == null) {
         this.onXMLError("su element is need");
@@ -733,6 +738,7 @@ MySceneGraph.prototype.readingChessboard = function(newElement, idPrimitive) {
     }
     let cs = this.readingChessboardColor(csElement[0]);
 
+    this.primitives[idPrimitive] = new Chessboard(this.scene, du, dv, texture, su, sv, c1, c2, cs);
 }
 
 MySceneGraph.prototype.readingChessboardColor = function(colorElement) {
