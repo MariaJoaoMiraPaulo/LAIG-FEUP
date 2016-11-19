@@ -39,6 +39,12 @@ function Chessboard(scene, du, dv, texture, su, sv, c1, c2, cs) {
         dv: this.dv
     });
     this.shader.setUniformsValues({
+        su: this.su
+    });
+    this.shader.setUniformsValues({
+        sv: this.sv
+    });
+    this.shader.setUniformsValues({
         r1: this.c1[0]
     });
     this.shader.setUniformsValues({
@@ -81,7 +87,7 @@ function Chessboard(scene, du, dv, texture, su, sv, c1, c2, cs) {
         as: this.cs[3]
     });
     this.shader.setUniformsValues({
-      uSampler: 2
+      uSampler: 1
     })
 
 
@@ -97,11 +103,10 @@ Chessboard.prototype.display = function() {
 
     this.material.apply();
     this.scene.setActiveShader(this.shader);
-    this.texture.bind(2);
+    this.texture.bind(1);
     this.board.display();
     this.texture.unbind();
     this.scene.setActiveShader(this.scene.defaultShader);
-    console.log(this.scene.defaultShader);
 
 }
 
