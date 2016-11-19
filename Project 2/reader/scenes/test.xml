@@ -82,6 +82,7 @@
         <texture id="terminal" file="img/terminal.png" length_s="1" length_t="1"/>
         <texture id="bag" file="img/bag1.jpg" length_s="1" length_t="1"/>
         <texture id="car" file="img/metal.jpeg" length_s="1" length_t="1"/>
+        <texture id="woodChess" file="img/chess.jpg" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -237,10 +238,10 @@
         </primitive>
 
         <primitive id="chessboard">
-            <chessboard du="10" dv="10" textureref="bag" su="2" sv="2">
-                <c1 r="1" g="1" b="1" a="1"/>
-                <c2 r="2" g="2" b="2" a="2"/>
-                <cs r="3" g="3" b="3" a="3"/>
+            <chessboard du="8" dv="8" textureref="woodChess" su="2" sv="2">
+                <c1 r="0.9" g="0.6" b="0.2" a="1"/>
+                <c2 r="1" g="1" b="1" a="1"/>
+                <cs r="1" g="0" b="0" a="1"/>
             </chessboard>
         </primitive>
 
@@ -274,7 +275,7 @@
             <!-- id="none" remove a textura recebida do pai -->
             <!-- a textura declarada sobrepoe a textura recebida do -->
             <!-- objecto "pai" -->
-            <texture id="car"/>
+            <texture id="none"/>
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>

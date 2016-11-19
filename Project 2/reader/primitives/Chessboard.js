@@ -21,14 +21,14 @@ function Chessboard(scene, du, dv, texture, su, sv, c1, c2, cs) {
 
     this.board = new Plane(this.scene, 1, 1, du, dv);
 
-    this.appearance = new CGFappearance(this.scene);
-    this.appearance.setAmbient(1.0, 1.0, 1.0, 1.0);
-    this.appearance.setDiffuse(1.0, 1.0, 1.0, 1.0);
-    this.appearance.setSpecular(1.0, 1.0, 1.0, 1.0);
-    this.appearance.setShininess(100);
+    this.material = new CGFappearance(this.scene);
+    this.material.setAmbient(1.0, 1.0, 1.0, 1.0);
+    this.material.setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.material.setSpecular(1.0, 1.0, 1.0, 1.0);
+    this.material.setShininess(100);
 
-    this.appearance.setTexture(this.texture);
-    this.appearance.setTextureWrap('REPEAT','REPEAT');
+    this.material.setTexture(this.texture);
+    this.material.setTextureWrap('REPEAT','REPEAT');
 
     this.shader = new CGFshader(this.scene.gl, 'shaders/Chessboard.vert', 'shaders/Chessboard.frag');
 
@@ -38,16 +38,52 @@ function Chessboard(scene, du, dv, texture, su, sv, c1, c2, cs) {
     this.shader.setUniformsValues({
         dv: this.dv
     });
+    this.shader.setUniformsValues({
+        r1: this.c1[0]
+    });
+    this.shader.setUniformsValues({
+        g1: this.c1[1]
+    });
+    this.shader.setUniformsValues({
+        b1: this.c1[2]
+    });
+    this.shader.setUniformsValues({
+        a1: this.c1[3]
+    });
+    this.shader.setUniformsValues({
+        r2: this.c2[0]
+    });
 
     this.shader.setUniformsValues({
-        color1: this.c1
+        g2: this.c2[1]
+    });
+
+    this.shader.setUniformsValues({
+        b2: this.c2[2]
+    });
+
+    this.shader.setUniformsValues({
+        a2: this.c2[3]
     });
     this.shader.setUniformsValues({
-        color2: this.c2
+        rs: this.cs[0]
+    });
+
+    this.shader.setUniformsValues({
+        gs: this.cs[1]
+    });
+
+    this.shader.setUniformsValues({
+        bs: this.cs[2]
+    });
+
+    this.shader.setUniformsValues({
+        as: this.cs[3]
     });
     this.shader.setUniformsValues({
-        colorS: this.cs
-    });
+      uSampler: 2
+    })
+
 
 };
 
@@ -59,12 +95,13 @@ Chessboard.prototype.constructor = Chessboard;
  */
 Chessboard.prototype.display = function() {
 
-/*    this.appearance.apply();
+    this.material.apply();
     this.scene.setActiveShader(this.shader);
-    this.texture.bind(1);*/
+    this.texture.bind(2);
     this.board.display();
-  /*  this.texture.unbind();
-    this.scene.setActiveShader(this.scene.defaultShader);*/
+    this.texture.unbind();
+    this.scene.setActiveShader(this.scene.defaultShader);
+    console.log(this.scene.defaultShader);
 
 }
 
