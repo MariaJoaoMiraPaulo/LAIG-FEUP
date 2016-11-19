@@ -708,7 +708,7 @@ MySceneGraph.prototype.readingChessboard = function(newElement, idPrimitive) {
     }
 
     let texture = this.textures[textureId][0].texture;
-    console.log(texture);
+      
     if(typeof texture == 'undefined'){
       this.onXMLError("Doesnt exists any texture with that id");
     }

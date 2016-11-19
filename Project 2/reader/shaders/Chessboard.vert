@@ -34,10 +34,8 @@ void main() {
 
 	float scale;
 
-  if(pos.x >= su && pos.x <= su+1.0){
-		if(pos.y >= sv && pos.y <= sv+1.0){
-			scale = normScale;
-		}
+	if(pos.x == su && pos.y == sv){
+		scale = normScale;
 	}
 	else {
 		scale = 0.0;

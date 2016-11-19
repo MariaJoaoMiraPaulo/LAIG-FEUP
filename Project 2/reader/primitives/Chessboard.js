@@ -19,7 +19,7 @@ function Chessboard(scene, du, dv, texture, su, sv, c1, c2, cs) {
     this.c2 = c2;
     this.cs = cs;
 
-    this.board = new Plane(this.scene, 1, 1, du, dv);
+    this.board = new Plane(this.scene, 1, 1, 100, 100);
 
     this.material = new CGFappearance(this.scene);
     this.material.setAmbient(1.0, 1.0, 1.0, 1.0);

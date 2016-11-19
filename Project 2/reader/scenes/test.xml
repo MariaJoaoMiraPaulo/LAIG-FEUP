@@ -253,7 +253,8 @@
 
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
-              
+              <rotate axis="x" angle="-90"/>
+              <scale x="8" y="8" z="8"/>
             </transformation>
 
           <!--  <animation>
