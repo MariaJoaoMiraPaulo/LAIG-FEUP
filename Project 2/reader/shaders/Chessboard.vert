@@ -12,6 +12,8 @@ uniform float dv;
 uniform float su;
 uniform float sv;
 
+uniform float normScale;
+
 varying float divU;
 varying float divV;
 
@@ -26,6 +28,20 @@ void main() {
 	divV = dv;
 	posUs = su;
 	posVs = sv;
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 	vTextureCoord = aTextureCoord;
+
+	vec2 pos = floor(vec2( du * vTextureCoord.x, dv * vTextureCoord.y));
+
+	float scale;
+
+  if(pos.x >= su && pos.x <= su+1.0){
+		if(pos.y >= sv && pos.y <= sv+1.0){
+			scale = normScale;
+		}
+	}
+	else {
+		scale = 0.0;
+	}
+
+	  gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+aVertexNormal*scale*0.1, 1.0);
 }

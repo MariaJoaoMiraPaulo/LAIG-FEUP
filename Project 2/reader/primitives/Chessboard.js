@@ -89,6 +89,9 @@ function Chessboard(scene, du, dv, texture, su, sv, c1, c2, cs) {
     this.shader.setUniformsValues({
       uSampler: 1
     })
+    this.shader.setUniformsValues({
+      normScale: 0.5
+    })
 
 
 };
