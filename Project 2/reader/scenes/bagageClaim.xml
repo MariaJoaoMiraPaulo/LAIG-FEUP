@@ -307,8 +307,12 @@
             <controlpoint xx="0" yy="5" zz="30" />
         </animation>
 
+        <animation id="car" span="1" type="linear">
+            <controlpoint xx="0" yy="0" zz="0" />
+            <controlpoint xx="0" yy="0" zz="1" />
+        </animation>
 
-        <animation id="1" span="10" type="circular" center="0 0 0" radius="10" startang="20" rotang="360" />
+        <animation id="1" span="3" type="circular" center="0 0 0" radius="2" startang="0" rotang="180" />
     </animations>
 
 
@@ -755,11 +759,11 @@
 
         <component id="carBags">
             <transformation>
-                <translate x="9.5" y="0.2" z="5"/>
+                <translate x="10.5" y="0.2" z="5"/>
             </transformation>
 
             <animation>
-            <!--  <animationref id="1" />-->
+              <animationref id="1" />
             </animation>
 
             <materials>
@@ -1481,7 +1485,7 @@
 
         <component id="floor">
             <transformation>
-                <scale x="11" y="5" z="11"/>
+                <scale x="15" y="5" z="11"/>
                 <rotate axis="x" angle="90"/>
                 <translate x="0.5" y="0.5" z="0"/>
             </transformation>
@@ -1510,7 +1514,7 @@
 
         <component id="wall1">
             <transformation>
-                <scale x="11" y="5" z="11"/>
+                <scale x="15" y="5" z="11"/>
                 <translate x="0.5" y="0.5" z="0"/>
                 <rotate axis="y" angle="180"/>
             </transformation>
