@@ -196,16 +196,13 @@ Vehicle.prototype.display = function() {
     this.wing1.display();
     this.scene.popMatrix();
 
-
     this.scene.pushMatrix();
     this.scene.translate(0, 0, 4);
     this.scene.scale(4.8, 9, 7);
     this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
-  //  this.scene.rotate((-20 * Math.PI / 180), 1, 1, 0);
     this.wing2.display();
     this.scene.popMatrix();
 
-    //back
     this.scene.pushMatrix();
     this.scene.translate(0, 1, -1);
     this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
@@ -213,10 +210,6 @@ Vehicle.prototype.display = function() {
     this.scene.scale(6, 9, 9);
     this.backWing.display();
     this.scene.popMatrix();
-
-
-
-
 }
 
 Vehicle.prototype.updateTexCoords = function(s, t) {
