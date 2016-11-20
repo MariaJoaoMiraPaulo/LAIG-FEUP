@@ -158,6 +158,8 @@ function Vehicle(scene, reader) {
 
     this.body = new Cylinder(this.scene, 1.5, 1.5, 7, 50, 50);
     this.body2 = new Cylinder(this.scene, 1.5, 0, 2, 50, 50);
+    this.leg = new Cylinder(this.scene, 0.15, 0.15, 2, 50, 50);
+    this.roda = new Cylinder(this.scene, 0.5, 0.5, 0.2, 50, 50);
     this.face = new Patch(this.scene, 5, 5, 20, 20, front);
     this.wing1 = new Patch(this.scene, 3, 3, 20, 20, wingPoints1);
     this.wing2 = new Patch(this.scene, 3, 3, 20, 20, wingPoints2);
@@ -174,6 +176,30 @@ Vehicle.prototype.constructor = Vehicle;
  * Adds the base and the top of the Vehicle. Updates Vehicle's height
  */
 Vehicle.prototype.display = function() {
+
+  this.scene.pushMatrix();
+  this.scene.translate(0.6, -2.5, 6);
+  this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
+  this.roda.display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.translate(-0.6, -2.5, 6);
+  this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
+  this.roda.display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
+  this.scene.translate(-0.6, 6, 0.5);
+  this.leg.display();
+  this.scene.popMatrix();
+
+  this.scene.pushMatrix();
+  this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
+  this.scene.translate(0.6, 6, 0.5);
+  this.leg.display();
+  this.scene.popMatrix();
 
     this.scene.pushMatrix();
     this.scene.translate(0, 0.9, -1.9);
