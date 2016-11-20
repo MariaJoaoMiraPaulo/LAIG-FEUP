@@ -378,31 +378,122 @@
                 <componentref id="field1"/>
                 <componentref id="field2"/>
                 <componentref id="chessboard"/>
-                <componentref id="table2"/>
+                <componentref id="smallTable"/>
             </children>
         </component>
 
-        <component id="table2">
+        <component id="smallTable">
             <transformation>
-              <translate x="0" y="0" z="-2"/>
-              <scale x="3" y="3" z="3"/>
+             <translate x="1.4" y="0.7" z="9"/>
+             <scale x="0.5" y="0.5" z="0.5"/>
+
+           </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <componentref id="base"/>
+                <componentref id="leg1"/>
+                <componentref id="leg2"/>
+                <componentref id="leg3"/>
+                <componentref id="leg4"/>
+            </children>
+        </component>
+
+        <component id="base">
+            <transformation>
+              <scale x="2" y="0.3" z="2"/>
             </transformation>
 
             <materials>
-                <material id="white"/>
+                <material id="inherit"/>
             </materials>
 
-            <texture id="none"/>
+            <texture id="inherit"/>
 
             <children>
-                <componentref id="table"/>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="leg1">
+            <transformation>
+              <translate x="0.6" y="-0.65" z="-0.6"/>
+              <scale x="0.25" y="1.5" z="0.25"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="leg2">
+            <transformation>
+              <translate x="0.6" y="-0.65" z="0.4"/>
+              <scale x="0.25" y="1.5" z="0.25"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+
+        <component id="leg3">
+            <transformation>
+              <translate x="-0.8" y="-0.65" z="0.4"/>
+              <scale x="0.25" y="1.5" z="0.25"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <componentref id="cubo"/>
+            </children>
+        </component>
+
+        <component id="leg4">
+            <transformation>
+              <translate x="-0.8" y="-0.65" z="-0.6"/>
+              <scale x="0.25" y="1.5" z="0.25"/>
+            </transformation>
+
+            <materials>
+                <material id="inherit"/>
+            </materials>
+
+            <texture id="inherit"/>
+
+            <children>
+                <componentref id="cubo"/>
             </children>
         </component>
 
         <component id="chessboard">
             <transformation>
-              <translate x="1.5" y="1.5" z="9.25"/>
+              <translate x="1.4" y="0.8" z="9"/>
               <rotate axis="x" angle="-90"/>
+              <scale x="0.7" y="0.7" z="0.7"/>
             </transformation>
 
             <materials>
