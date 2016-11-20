@@ -126,6 +126,13 @@
             <specular r="1" g="1" b="0" a="1"/>
             <shininess value="1"/>
         </material>
+        <material id="transparent">
+            <emission r="1" g="1" b="1" a="0.3"/>
+            <ambient r="1" g="1" b="1" a="0.3"/>
+            <diffuse r="1" g="1" b="1" a="0.3"/>
+            <specular r="1" g="1" b="1" a="0.3"/>
+            <shininess value="0"/>
+        </material>
 
     </materials>
 
@@ -273,7 +280,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="white"/>
+                <material id="transparent"/>
             </materials>
 
             <!-- declaracao obrigatoria de texture -->
@@ -290,7 +297,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <!--  <componentref id="ss" />-->
-                <primitiveref id="vehicle"/>
+                <primitiveref id="1"/>
             </children>
 
         </component>

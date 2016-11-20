@@ -167,10 +167,10 @@ function Vehicle(scene, reader) {
     this.BackFace = new Patch(this.scene, 5, 5, 20, 20, backFacePoints);
 
     this.body = new CGFappearance(this.scene);
-    //this.body.loadTexture("img/tap.jpg");
+    this.body.loadTexture("img/tap.jpg");
 
     this.windows = new CGFappearance(this.scene);
-  //  this.windows.loadTexture("img/planeWindow.jpg");
+    this.windows.loadTexture("img/planeWindow.jpg");
 
 
 };
