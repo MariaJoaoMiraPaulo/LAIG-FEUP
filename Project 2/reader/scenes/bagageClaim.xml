@@ -323,6 +323,14 @@
            <vehicle/>
         </primitive>
 
+        <primitive id="chessboard">
+            <chessboard du="8" dv="8" textureref="woodChess" su="2" sv="2">
+                <c1 r="0.9" g="0.6" b="0.2" a="1"/>
+                <c2 r="1" g="1" b="1" a="1"/>
+                <cs r="1" g="0" b="0" a="1"/>
+            </chessboard>
+        </primitive>
+
     </primitives>
 
     <components>
@@ -359,12 +367,31 @@
                 <componentref id="launchpad"/>
                 <componentref id="field1"/>
                 <componentref id="field2"/>
+                <componentref id="chessboard"/>
+            </children>
+        </component>
+
+        <component id="chessboard">
+            <transformation>
+              <translate x="0" y="3" z="8"/>
+              <rotate axis="y" angle="90"/>
+              <scale x="2" y="2" z="1"/>
+            </transformation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="none"/>
+
+            <children>
+                <primitiveref id="chessboard"/>
             </children>
         </component>
 
         <component id="launchpad">
             <transformation>
-            <translate x="-5" y="0" z="-8"/>
+              <translate x="-5" y="0" z="-8"/>
               <scale x="50" y="10" z="10"/>
               <rotate axis="x" angle="90"/>
             </transformation>
