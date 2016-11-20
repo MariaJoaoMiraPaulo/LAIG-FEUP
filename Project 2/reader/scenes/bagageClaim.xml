@@ -368,14 +368,31 @@
                 <componentref id="field1"/>
                 <componentref id="field2"/>
                 <componentref id="chessboard"/>
+                <componentref id="table2"/>
+            </children>
+        </component>
+
+        <component id="table2">
+            <transformation>
+              <translate x="0" y="0" z="-2"/>
+              <scale x="3" y="3" z="3"/>
+            </transformation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="none"/>
+
+            <children>
+                <componentref id="table"/>
             </children>
         </component>
 
         <component id="chessboard">
             <transformation>
-              <translate x="0" y="3" z="8"/>
-              <rotate axis="y" angle="90"/>
-              <scale x="2" y="2" z="1"/>
+              <translate x="1.5" y="1.5" z="9.25"/>
+              <rotate axis="x" angle="-90"/>
             </transformation>
 
             <materials>
