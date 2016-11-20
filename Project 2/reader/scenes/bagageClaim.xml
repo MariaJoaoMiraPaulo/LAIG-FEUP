@@ -107,6 +107,7 @@
         <texture id="Ofloor" file="img/outfloor.jpg" length_s="1" length_t="1"/>
         <texture id="car" file="img/car.jpg" length_s="1" length_t="1"/>
         <texture id="woodChess" file="img/chess.jpg" length_s="1" length_t="1"/>
+        <texture id="plane" file="img/plane.jpg" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -306,8 +307,12 @@
           <cylinder base="0" top="0.2" height="0.8" slices="26" stacks="4"/>
         </primitive>
 
-        <primitive id="vehicle">
+        <primitive id="car">
            <car/>
+        </primitive>
+
+        <primitive id="vehicle">
+           <vehicle/>
         </primitive>
 
     </primitives>
@@ -341,17 +346,36 @@
                 <componentref id="signalWarning"/>
                 <componentref id="Trafficcone"/>
                 <componentref id="wetFloorSign"/>
-                <componentref id="vehicle"/>
+                <componentref id="carBags"/>
+                <componentref id="airplane"/>
             </children>
         </component>
 
-        <component id="vehicle">
+        <component id="airplane">
+            <transformation>
+                <translate x="16" y="0" z="-6"/>
+                <scale x="0.5" y="0.5" z="0.5"/>
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="plane"/>
+
+            <children>
+                <primitiveref id="vehicle"/>
+            </children>
+        </component>
+
+        <component id="carBags">
             <transformation>
                 <translate x="9.5" y="0.2" z="5"/>
             </transformation>
 
             <animation>
-              <animationref id="1" />
+            <!--  <animationref id="1" />-->
             </animation>
 
             <materials>
@@ -378,7 +402,7 @@
             </materials>
             <texture id="car"/>
             <children>
-                  <primitiveref id="vehicle"/>
+                  <primitiveref id="car"/>
             </children>
         </component>
 
