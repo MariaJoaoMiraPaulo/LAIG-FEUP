@@ -107,7 +107,8 @@
         <texture id="Ofloor" file="img/outfloor.jpg" length_s="1" length_t="1"/>
         <texture id="car" file="img/car.jpg" length_s="1" length_t="1"/>
         <texture id="woodChess" file="img/chess.jpg" length_s="1" length_t="1"/>
-
+        <texture id="runaway" file="img/runaway.png" length_s="1" length_t="1"/>
+        <texture id="field" file="img/field.jpg" length_s="1" length_t="1"/>
 
     </textures>
 
@@ -270,6 +271,13 @@
             <controlpoint xx="0" yy="1" zz="0" />
         </animation>
 
+        <animation id="10" span="5" type="linear">
+            <controlpoint xx="0" yy="0" zz="0" />
+            <controlpoint xx="0" yy="0" zz="20" />
+            <controlpoint xx="0" yy="5" zz="30" />
+        </animation>
+
+
         <animation id="1" span="10" type="circular" center="0 0 0" radius="10" startang="20" rotang="360" />
     </animations>
 
@@ -348,15 +356,77 @@
                 <componentref id="wetFloorSign"/>
                 <componentref id="carBags"/>
                 <componentref id="airplane"/>
+                <componentref id="launchpad"/>
+                <componentref id="field1"/>
+                <componentref id="field2"/>
             </children>
         </component>
 
+        <component id="launchpad">
+            <transformation>
+            <translate x="-5" y="0" z="-8"/>
+              <scale x="50" y="10" z="10"/>
+              <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="runaway"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="field1">
+            <transformation>
+            <translate x="-5" y="0" z="-1.5"/>
+              <scale x="50" y="10" z="3"/>
+              <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="field"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+        <component id="field2">
+            <transformation>
+            <translate x="-5" y="0" z="-14.5"/>
+              <scale x="50" y="10" z="3"/>
+              <rotate axis="x" angle="90"/>
+            </transformation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="field"/>
+
+            <children>
+                <primitiveref id="1"/>
+            </children>
+        </component>
+
+
         <component id="airplane">
             <transformation>
-                <translate x="16" y="0" z="-8"/>
+                <translate x="16" y="2" z="-8"/>
                 <scale x="0.65" y="0.65" z="0.65"/>
                 <rotate axis="y" angle="-90"/>
             </transformation>
+
+            <animation>
+                <animationref id="10"/>
+            </animation>
 
             <materials>
                 <material id="white"/>

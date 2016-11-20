@@ -11,17 +11,10 @@ class LinearAnimation extends Animation {
 
         this.direction = vec3.create();
         vec3.sub(this.direction, this.controlPoints[1], this.controlPoints[0]);
-        this.directionXZ = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
-        this.directionXZ[1] = 0;
-        this.directionY = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
-        this.directionY[0] = 0;
-        this.directionY[2] = 0;
 
         this.zAxis = vec3.fromValues(0,0,1);
 
-        this.angle = this.calcAngle(this.zAxis, this.directionXZ);
-
-        console.log(this.angle);
+        this.settingAngles();
 
         this.atualPosition = vec3.create();
 
@@ -60,11 +53,7 @@ class LinearAnimation extends Animation {
         vec3.sub(this.direction, this.controlPoints[this.atualPointIdArray], this.controlPoints[this.atualPointIdArray - 1]);
         this.pointsDistance = vec3.length(this.direction);
 
-        this.directionXZ = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
-        this.directionXZ[1] = 0;
-
-        this.angle = this.calcAngle(this.zAxis,this.directionXZ);
-
+        this.settingAngles();
     }
 
     update(deltaTime) {
@@ -88,12 +77,46 @@ class LinearAnimation extends Animation {
       let z = this.controlPoints[this.atualPointIdArray-1][2];
       this.scene.translate(x,y,z);
       this.scene.translate(this.atualPosition[0],this.atualPosition[1],this.atualPosition[2]);
-      this.scene.rotate(this.angle, 0, 1, 0);
+      this.scene.rotate(this.horizontalAngle, 0, 1, 0);
+      this.scene.rotate(-this.verticalAngle, 1, 0, 0);
     }
 
     clone(){
       var copy = new LinearAnimation(this.scene,this.id,this.animationTime,this.controlPoints);
       return copy;
+    }
+
+    settingAngles(){
+      this.directionXZ = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
+      this.directionXZ[1] = 0;
+
+      this.directionYZ = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
+      if(this.directionYZ[2] == 0){
+        this.directionYZ[2] = this.directionYZ[0];
+      }
+      this.directionYZ[0] = 0;
+
+
+      if(this.directionYZ[2] < 0){
+        this.directionYZ[2] = -this.directionYZ[2];
+      }
+
+      this.horizontalAngle = this.calcAngle(this.zAxis,this.directionXZ);
+
+      if(this.directionYZ[1] == 0){
+        this.verticalAngle = 0;
+      }
+      else{
+        this.verticalAngle = this.calcAngle(this.zAxis, this.directionYZ);
+      }
+
+      if((this.directionXZ[0] <= 0 && this.directionXZ[2] <=0) || (this.directionXZ[0] <= 0 && this.directionXZ[2] >= 0)){
+        this.horizontalAngle = -this.horizontalAngle;
+      }
+
+      if(this.directionYZ[1] <= 0 && this.directionYZ[2] >= 0){
+        this.verticalAngle = -this.verticalAngle;
+      }
     }
 
     calcAngle(a,b){

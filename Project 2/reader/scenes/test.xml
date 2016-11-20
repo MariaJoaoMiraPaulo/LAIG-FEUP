@@ -157,7 +157,7 @@
         <!-- o valor "linear" ou "circular"; na animacao circular -->
         <!-- os angulos sao expressos em graus  -->
 
-        <animation id="3" span="1" type="linear">
+        <animation id="3" span="2" type="linear">
             <controlpoint xx="2" yy="3" zz="3"/>
             <controlpoint xx="2" yy="2" zz="2"/>
             <controlpoint xx="1" yy="1" zz="2"/>
@@ -167,8 +167,13 @@
         <animation id="2" span="2" type="linear">
             <controlpoint xx="2" yy="0" zz="0"/>
             <controlpoint xx="4" yy="2" zz="2"/>
-            <controlpoint xx="4" yy="0" zz="2"/>
-            <controlpoint xx="4" yy="0" zz="4"/>
+            <controlpoint xx="6" yy="0" zz="2"/>
+            <controlpoint xx="6" yy="2" zz="4"/>
+        </animation>
+
+        <animation id="4" span="1" type="linear">
+            <controlpoint xx="0" yy="2" zz="0"/>
+            <controlpoint xx="-2" yy="0" zz="0"/>
         </animation>
 
         <animation id="1" span="3" type="circular" center="2 0 0" radius="5" startang="0" rotang="180"/>
