@@ -69,25 +69,25 @@ function Vehicle(scene, reader) {
     ];
 
     var wingPoints2 = [
-        [-0.006,0.112,0.0, 1],
-        [0.000,0.200,0.05, 1],
-        [0.000,0.400,0.1, 1],
-        [0.000,0.500,0.05, 1],
+        [-0.006, 0.112, 0.0, 1],
+        [0.000, 0.200, -0.05, 1],
+        [0.000, 0.400, -0.1, 1],
+        [0.000, 0.500, -0.05, 1],
 
-        [-0.500,0.000,0.0, 1],
-        [-0.500,0.200,0.05, 1],
-        [-0.500,0.300,0.1, 1],
-        [-0.500,0.400,0.05, 1],
+        [-0.500, 0.000, 0.0, 1],
+        [-0.500, 0.200, -0.05, 1],
+        [-0.500, 0.300, -0.1, 1],
+        [-0.500, 0.400, -0.05, 1],
 
-        [-1.000,0.000,0.0, 1],
-        [-1.000,0.100,0.05, 1],
-        [-1.000,0.200,0.1, 1],
-        [-1.000,0.300,0.05, 1],
+        [-1.000, 0.000, 0.0, 1],
+        [-1.000, 0.100, -0.05, 1],
+        [-1.000, 0.200, -0.1, 1],
+        [-1.000, 0.300, -0.05, 1],
 
-        [-1.276,0.020,0.0, 1],
-        [-1.500,0.050,0.05, 1],
-        [-1.500,0.100,0.1, 1],
-        [-1.500,0.200,0.05, 1]
+        [-1.276, 0.020, 0.0, 1],
+        [-1.500, 0.050, -0.05, 1],
+        [-1.500, 0.100, -0.1, 1],
+        [-1.500, 0.200, -0.05, 1]
     ];
 
     var backPoints = [
@@ -113,47 +113,47 @@ function Vehicle(scene, reader) {
     ];
 
     var backFacePoints = [
-        [0.319,-0.400,-0.216, 1],
-        [0.307,-0.402,-0.166, 1],
-        [0.348,-0.401,-0.166, 1],
-        [0.330,-0.408,-0.177, 1],
-        [0.353,-0.399,-0.166, 1],
-        [0.344,-0.402,-0.179, 1],
+        [0.319, -0.400, -0.216, 1],
+        [0.307, -0.402, -0.166, 1],
+        [0.348, -0.401, -0.166, 1],
+        [0.330, -0.408, -0.177, 1],
+        [0.353, -0.399, -0.166, 1],
+        [0.344, -0.402, -0.179, 1],
 
-        [0.000,-1.000,0.400, 1],
-        [-0.275,-0.980,0.427, 1],
-        [-0.301,1.018,0.443, 1],
-        [0.815,0.998,0.410, 1],
-        [0.841,-1.002,0.400, 1],
-        [0.000,-1.000,0.400, 1],
+        [0.000, -1.000, 0.400, 1],
+        [-0.275, -0.980, 0.427, 1],
+        [-0.301, 1.018, 0.443, 1],
+        [0.815, 0.998, 0.410, 1],
+        [0.841, -1.002, 0.400, 1],
+        [0.000, -1.000, 0.400, 1],
 
-        [0.000,-1.000,0.800, 1],
-        [-0.735,-0.990,0.784, 1],
-        [-0.772,1.009,0.795, 1],
-        [1.000,1.000,0.800, 1],
-        [1.000,-1.000,0.800, 1],
-        [0.000,-1.000,0.800, 1],
+        [0.000, -1.000, 0.800, 1],
+        [-0.735, -0.990, 0.784, 1],
+        [-0.772, 1.009, 0.795, 1],
+        [1.000, 1.000, 0.800, 1],
+        [1.000, -1.000, 0.800, 1],
+        [0.000, -1.000, 0.800, 1],
 
-        [0.000,-1.000,1.200, 1],
-        [-0.889,-0.996,1.195, 1],
-        [-0.926,1.003,1.200, 1],
-        [1.000,1.000,1.200, 1],
-        [1.000,-1.000,1.200, 1],
-        [0.000,-1.000,1.200, 1],
+        [0.000, -1.000, 1.200, 1],
+        [-0.889, -0.996, 1.195, 1],
+        [-0.926, 1.003, 1.200, 1],
+        [1.000, 1.000, 1.200, 1],
+        [1.000, -1.000, 1.200, 1],
+        [0.000, -1.000, 1.200, 1],
 
-        [0.000,-1.000,1.600, 1],
-        [-0.979,-0.999,1.600, 1],
-        [-1.000,1.000,1.600, 1],
-        [1.000,1.000,1.600, 1],
-        [1.000,-1.000,1.600, 1],
-        [0.000,-1.000,1.600, 1],
+        [0.000, -1.000, 1.600, 1],
+        [-0.979, -0.999, 1.600, 1],
+        [-1.000, 1.000, 1.600, 1],
+        [1.000, 1.000, 1.600, 1],
+        [1.000, -1.000, 1.600, 1],
+        [0.000, -1.000, 1.600, 1],
 
-        [0.000,-1.000,2.000, 1],
-        [-1.000,-1.000,2.000, 1],
-        [-1.000,1.000,2.000, 1],
-        [1.000,1.000,2.000, 1],
-        [1.000,-1.000,2.000, 1],
-        [0.000,-1.000,2.000, 1],
+        [0.000, -1.000, 2.000, 1],
+        [-1.000, -1.000, 2.000, 1],
+        [-1.000, 1.000, 2.000, 1],
+        [1.000, 1.000, 2.000, 1],
+        [1.000, -1.000, 2.000, 1],
+        [0.000, -1.000, 2.000, 1],
     ];
 
     this.body = new Cylinder(this.scene, 1.5, 1.5, 7, 50, 50);
@@ -183,48 +183,45 @@ Vehicle.prototype.constructor = Vehicle;
  */
 Vehicle.prototype.display = function() {
 
-  this.scene.pushMatrix();
-  this.scene.translate(0.6, -2.5, 6);
-  this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
-  this.roda.display();
-  this.scene.popMatrix();
+    this.scene.pushMatrix();
+    this.scene.translate(0.6, -2.5, 6);
+    this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
+    this.roda.display();
+    this.scene.popMatrix();
 
-  this.scene.pushMatrix();
-  this.scene.translate(-0.6, -2.5, 6);
-  this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
-  this.roda.display();
-  this.scene.popMatrix();
+    this.scene.pushMatrix();
+    this.scene.translate(-0.6, -2.5, 6);
+    this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
+    this.roda.display();
+    this.scene.popMatrix();
 
-  this.scene.pushMatrix();
-  this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
-  this.scene.translate(-0.6, 6, 0.5);
-  this.leg.display();
-  this.scene.popMatrix();
+    this.scene.pushMatrix();
+    this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
+    this.scene.translate(-0.6, 6, 0.5);
+    this.leg.display();
+    this.scene.popMatrix();
 
-  this.scene.pushMatrix();
-  this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
-  this.scene.translate(0.6, 6, 0.5);
-  this.leg.display();
-  this.scene.popMatrix();
-
-
+    this.scene.pushMatrix();
+    this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
+    this.scene.translate(0.6, 6, 0.5);
+    this.leg.display();
+    this.scene.popMatrix();
 
     this.windows.apply();
 
+    this.scene.pushMatrix();
+    this.scene.translate(0, 0.9, -1.9);
+    this.scene.scale(2.5, 2.5, 2);
+    this.BackFace.display();
+    this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0.9, -1.9);
-        this.scene.scale(2.5, 2.5, 2);
-        this.BackFace.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(0, 1, -1);
-        this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
-        this.scene.rotate((90 * Math.PI / 180), 0, 0, 1);
-        this.scene.scale(6, 9, 9);
-        this.backWing.display();
-        this.scene.popMatrix();
+    this.scene.pushMatrix();
+    this.scene.translate(0, 1, -1);
+    this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
+    this.scene.rotate((90 * Math.PI / 180), 0, 0, 1);
+    this.scene.scale(6, 9, 9);
+    this.backWing.display();
+    this.scene.popMatrix();
 
     this.scene.pushMatrix();
     this.scene.rotate((180 * Math.PI / 180), 0, 1, 0);
@@ -244,8 +241,8 @@ Vehicle.prototype.display = function() {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(0, 0, 4);
-    this.scene.scale(4.8, 9, 7);
+    this.scene.translate(0, 0, 3.9);
+    this.scene.scale(5, 9, 7);
     this.scene.rotate((90 * Math.PI / 180), 1, 0, 0);
     this.wing2.display();
     this.scene.popMatrix();
