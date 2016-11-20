@@ -166,6 +166,12 @@ function Vehicle(scene, reader) {
     this.backWing = new Patch(this.scene, 3, 3, 20, 20, backPoints);
     this.BackFace = new Patch(this.scene, 5, 5, 20, 20, backFacePoints);
 
+    this.body = new CGFappearance(this.scene);
+    this.body.loadTexture("img/tap.jpg");
+
+    this.windows = new CGFappearance(this.scene);
+    this.windows.loadTexture("img/planeWindow.jpg");
+
 
 };
 
@@ -201,11 +207,24 @@ Vehicle.prototype.display = function() {
   this.leg.display();
   this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(0, 0.9, -1.9);
-    this.scene.scale(2.5, 2.5, 2);
-    this.BackFace.display();
-    this.scene.popMatrix();
+
+
+    this.windows.apply();
+
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0.9, -1.9);
+        this.scene.scale(2.5, 2.5, 2);
+        this.BackFace.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, 1, -1);
+        this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
+        this.scene.rotate((90 * Math.PI / 180), 0, 0, 1);
+        this.scene.scale(6, 9, 9);
+        this.backWing.display();
+        this.scene.popMatrix();
 
     this.scene.pushMatrix();
     this.scene.rotate((180 * Math.PI / 180), 0, 1, 0);
@@ -213,6 +232,8 @@ Vehicle.prototype.display = function() {
     this.scene.scale(2.5, 2.5, 2.5);
     this.face.display();
     this.scene.popMatrix();
+
+    this.body.apply();
 
     this.scene.pushMatrix();
     this.scene.translate(1, 0, 8.3);
@@ -229,13 +250,6 @@ Vehicle.prototype.display = function() {
     this.wing2.display();
     this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(0, 1, -1);
-    this.scene.rotate((90 * Math.PI / 180), 0, 1, 0);
-    this.scene.rotate((90 * Math.PI / 180), 0, 0, 1);
-    this.scene.scale(6, 9, 9);
-    this.backWing.display();
-    this.scene.popMatrix();
 }
 
 Vehicle.prototype.updateTexCoords = function(s, t) {
