@@ -307,11 +307,11 @@
         </animation>
 
         <animation id="car" span="1" type="linear">
-            <controlpoint xx="0" yy="0" zz="0" />
-            <controlpoint xx="0" yy="0" zz="1" />
+            <controlpoint xx="-1" yy="0" zz="0" />
+            <controlpoint xx="-1" yy="0" zz="1.9" />
         </animation>
 
-        <animation id="1" span="3" type="circular" center="0 0 0" radius="2" startang="0" rotang="180" />
+        <animation id="1" span="3" type="circular" center="-1 0 2" radius="3.5" startang="0" rotang="90" />
     </animations>
 
 
@@ -778,6 +778,7 @@
             </transformation>
 
             <animation>
+              <animationref id="car"/>
               <animationref id="1" />
             </animation>
 
