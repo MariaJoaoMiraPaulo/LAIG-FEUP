@@ -353,8 +353,8 @@
 
         <component id="airplane">
             <transformation>
-                <translate x="16" y="0" z="-6"/>
-                <scale x="0.5" y="0.5" z="0.5"/>
+                <translate x="16" y="0" z="-8"/>
+                <scale x="0.65" y="0.65" z="0.65"/>
                 <rotate axis="y" angle="-90"/>
             </transformation>
 
