@@ -40,6 +40,7 @@
 
     <lights>
 
+      <!-- 1 - True   0 - False -->
       <omni id="Light 0" enabled="1">
           <location x="2" y="3" z="3" w="1"/>
           <ambient r="0" g="0" b="0" a="0"/>
@@ -75,6 +76,7 @@
           <diffuse r="1" g="0" b="0" a="1"/>
           <specular r="1" g="0" b="0" a="1"/>
       </spot>
+
     </lights>
 
     <textures>
@@ -222,6 +224,10 @@
             <cube/>
         </primitive>
 
+        <primitive id="tab">
+            <board dimX="11" dimY="14"/>
+        </primitive>
+
         <primitive id="chessboard">
             <chessboard du="8" dv="8" textureref="woodChess" su="2" sv="2">
                 <c1 r="0.9" g="0.6" b="0.2" a="1"/>
@@ -269,7 +275,7 @@
             <texture id="none"/>
 
             <children>
-                 <primitiveref id="test" />
+                 <primitiveref id="tab" />
             </children>
 
         </component>

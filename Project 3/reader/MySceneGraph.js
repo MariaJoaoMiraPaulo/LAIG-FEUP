@@ -157,6 +157,9 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'cube':
                 this.readingCube(newElement, idPrimitive);
                 break;
+            case 'board':
+                this.readingBoard(newElement, idPrimitive);
+                break;
         }
     }
 };
@@ -766,4 +769,10 @@ MySceneGraph.prototype.readingCar = function(newElement, idPrimitive) {
 
 MySceneGraph.prototype.readingCube = function(newElement, idPrimitive) {
     this.primitives[idPrimitive] = new Cube(this.scene, this.reader);
+}
+
+MySceneGraph.prototype.readingBoard = function(newElement, idPrimitive) {
+    dimX = this.reader.getInteger(newElement,'dimX');
+    dimY = this.reader.getInteger(newElement,'dimY');
+    this.primitives[idPrimitive] = new Board(this.scene, this.reader,dimX,dimY);
 }
