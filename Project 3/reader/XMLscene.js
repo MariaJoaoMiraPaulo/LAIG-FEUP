@@ -108,6 +108,10 @@ XMLscene.prototype.display = function() {
 
         this.graph.components[this.graph.rootId].display();
     };
+
+    this.logPicking();
+    this.clearPickRegistration();
+
 };
 
 /**
@@ -160,4 +164,17 @@ XMLscene.prototype.update = function(currTime) {
     for (componentsId in this.graph.components) {
         this.graph.components[componentsId].update(deltaTime);
     }
+}
+
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false) {
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0];
+        console.log(obj);
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
 }
