@@ -218,6 +218,10 @@
             <rectangle x1="0.5" y1="0.5" x2="-0.5" y2="-0.5"/>
         </primitive>
 
+        <primitive id="test">
+            <cube/>
+        </primitive>
+
         <primitive id="chessboard">
             <chessboard du="8" dv="8" textureref="woodChess" su="2" sv="2">
                 <c1 r="0.9" g="0.6" b="0.2" a="1"/>
@@ -265,7 +269,7 @@
             <texture id="none"/>
 
             <children>
-                 <primitiveref id="chessboard" />
+                 <primitiveref id="test" />
             </children>
 
         </component>

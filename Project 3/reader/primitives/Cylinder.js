@@ -15,7 +15,6 @@ function Cylinder(scene, baseRadius, topRadius, height, slices, stacks) {
     this.slices = slices;
     this.stacks = stacks;
 
-
     this.cylinder = new CylinderWithNoCover(this.scene, this.slices, this.stacks, this.baseRadius, this.topRadius);
     this.top = new Circle(this.scene, this.slices);
     this.bottom = new Circle(this.scene, this.slices);
