@@ -53,8 +53,8 @@ var index = 1;
           else{
             this.scene.pushMatrix();
 
-            this.scene.translate(j*0.76,-0.25,i*0.76);
-            this.scene.scale(0.3, 0.3, 1);
+            this.scene.translate(j*0.76,-0.1,i*0.76);
+            this.scene.scale(0.3, 0.2, 1);
             this.scene.registerForPick(index, this.boardElements[i][j]);
             index++;
             this.boardElements[i][j].display();
@@ -65,8 +65,8 @@ var index = 1;
           if(j%2 == 0){
             this.scene.pushMatrix();
 
-            this.scene.translate(j*0.76,-0.25,i*0.76);
-            this.scene.scale(1, 0.3, 0.3);
+            this.scene.translate(j*0.76,-0.1,i*0.76);
+            this.scene.scale(1, 0.2, 0.3);
             this.scene.registerForPick(index, this.boardElements[i][j]);
             index++;
             this.boardElements[i][j].display();

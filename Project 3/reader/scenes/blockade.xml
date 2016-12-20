@@ -95,6 +95,7 @@
         <!-- quadricas (esfera, ciclindro...) -->
 
         <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
+        <texture id="board" file="img/board.jpg" length_s="1" length_t="1"/>
         <texture id="cone" file="img/conePattern.png" length_s="2" length_t="2"/>
         <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
         <texture id="terminal" file="img/terminal.png" length_s="1" length_t="1"/>
@@ -272,7 +273,7 @@
                 <material id="white"/>
             </materials>
 
-            <texture id="none"/>
+            <texture id="board"/>
 
             <children>
                  <primitiveref id="tab" />
