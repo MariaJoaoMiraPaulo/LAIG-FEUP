@@ -35,6 +35,8 @@ XMLscene.prototype.init = function(application) {
 
     this.plane = new Plane(this,3,2,10,7);
 
+    this.setPickEnabled(true);
+
 };
 
 XMLscene.prototype.initCameras = function() {

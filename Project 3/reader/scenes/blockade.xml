@@ -225,7 +225,7 @@
         </primitive>
 
         <primitive id="tab">
-            <board dimX="11" dimY="14"/>
+            <board dimX="7" dimY="10"/>
         </primitive>
 
         <primitive id="chessboard">
