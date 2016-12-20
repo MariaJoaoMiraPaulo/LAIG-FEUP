@@ -21,11 +21,11 @@ for(var i = 0; i < this.dimX-1; i++){
     this.boardElements[i] = new Array(dimY);
   for(var j=0;j< this.dimY-1;j++){
     if(i % 2 == 0){
-      this.boardElements[i][j] = new Cube(this.scene,this.reader);
+      this.boardElements[i][j] = new Cube(this.scene,this.reader,i,j);
     }
     else{
       if(j%2 == 0){
-        this.boardElements[i][j] = new Cube(this.scene,this.reader);
+        this.boardElements[i][j] = new Cube(this.scene,this.reader,i,j);
       }
       else this.boardElements[i][j] = " ";
     }

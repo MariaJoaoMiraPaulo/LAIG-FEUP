@@ -1,6 +1,8 @@
-function Cube(scene, reader) {
+function Cube(scene, reader, posX, posY) {
     CGFobject.call(this, scene);
     this.scene = scene;
+    this.posX = posX;
+    this.posY = posY;
 
     this.quad1 = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
     this.quad2 = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
@@ -25,7 +27,6 @@ Cube.prototype.display = function () {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    //this.scene.rotate(Math.PI,1,0,0);
     this.scene.translate(0,0.5,-0.5);
     this.quad2.display();
     this.scene.popMatrix();
@@ -53,6 +54,14 @@ Cube.prototype.display = function () {
     this.quad6.display();
     this.scene.popMatrix();
 
+}
+
+Cube.prototype.getPosX = function () {
+  return this.posX;
+}
+
+Cube.prototype.getPosY = function () {
+  return this.posY;
 }
 
 Cube.prototype.updateTexCoords = function (s, t) {
