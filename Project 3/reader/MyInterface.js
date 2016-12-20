@@ -23,8 +23,11 @@ MyInterface.prototype.init = function(application) {
 
 	this.gui = new dat.GUI();
   this.group = this.gui.addFolder('Lights');
-  this.group.open();
-
+  this.group.close();
+	this.options = this.gui.addFolder('Options');
+	this.options.open();
+	// this.options.add(this,'StartGame').name('Start Game');
+	// this.options.add(this,'Exit').name('Exit');
 	return true;
 };
 

@@ -97,6 +97,13 @@ XMLscene.prototype.display = function() {
 
     this.setDefaultAppearance();
 
+  //  var pawn1 = new Pawn(this,this.graph.reader,2);
+
+    //pawn1.display();
+
+    var wall1 = new Wall(this,this.graph.reader,1);
+    wall1.display();
+
     // ---- END Background, camera and axis setup
 
     // it is important that things depending on the proper loading of the graph
