@@ -44,13 +44,13 @@ class Player {
     }
 
     movePawnToStartPosition(){
-      if(player==1){
-        this.graph.components[this.pawn1].transformationMatrix=this.graph.getTransformationMatrix([["translate",3,0,3]]);
-        this.graph.components[this.pawn2].transformationMatrix=this.graph.getTransformationMatrix([["translate",8,0,3]]);
+      if(this.player==1){
+        this.graph.components[this.pawn1].transformationMatrix=this.graph.getTransformationMatrix([["translate",3,0.5,3]]);
+        this.graph.components[this.pawn2].transformationMatrix=this.graph.getTransformationMatrix([["translate",8,0.5,3]]);
       }
-      else {
-        this.graph.components[this.pawn1].transformationMatrix=this.graph.getTransformationMatrix([["translate",3,0,7]]);;
-        this.graph.components[this.pawn2].transformationMatrix=this.graph.getTransformationMatrix([["translate",8,0,7]]);;
+      else if(this.player==2) {
+        this.graph.components[this.pawn1].transformationMatrix=this.graph.getTransformationMatrix([["translate",3,0.5,4]]);;
+        this.graph.components[this.pawn2].transformationMatrix=this.graph.getTransformationMatrix([["translate",8,0.5,4]]);;
       }
     }
 }
