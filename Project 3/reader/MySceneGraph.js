@@ -160,6 +160,9 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'board':
                 this.readingBoard(newElement, idPrimitive);
                 break;
+            case 'pawn':
+                this.readingPawn(newElement, idPrimitive);
+                break;
         }
     }
 };
@@ -444,7 +447,7 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
     for (let component of componentElems[0].children) {
         let id = this.reader.getString(component, 'id');
 
-        this.components[id] = new Component(this.scene, this.reader, component, this);
+        this.components[id] = new Component(this.scene, this.reader, component, this,id);
 
     }
 
@@ -775,4 +778,9 @@ MySceneGraph.prototype.readingBoard = function(newElement, idPrimitive) {
     dimX = this.reader.getInteger(newElement,'dimX');
     dimY = this.reader.getInteger(newElement,'dimY');
     this.primitives[idPrimitive] = new Board(this.scene, this.reader,dimX,dimY);
+}
+
+MySceneGraph.prototype.readingPawn = function(newElement, idPrimitive) {
+    player = this.reader.getInteger(newElement,'player');
+    this.primitives[idPrimitive] = new Pawn(this.scene, this.reader,player);
 }
