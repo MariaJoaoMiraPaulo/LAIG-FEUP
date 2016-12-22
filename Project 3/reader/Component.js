@@ -7,11 +7,12 @@
   * @constructor
   */
  class Component {
-     constructor(scene, reader, element, graph) {
+     constructor(scene, reader, element, graph,id) {
          this.scene = scene;
          this.reader = reader;
          this.element = element;
          this.graph = graph;
+         this.id = id;
 
          this.transformationMatrix;
 
