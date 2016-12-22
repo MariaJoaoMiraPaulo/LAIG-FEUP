@@ -94,29 +94,7 @@
     </lights>
 
     <textures>
-
-        <!-- Deve existir um ou mais blocos "texture" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <!-- length_s e length_t sao fatores de escala de textura:-->
-        <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
-        <!-- comprimento, deve cobrir um comprimento igual -->
-        <!-- a 3 unidades;  -->
-        <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
-        <!-- largura, deve cobrir uma largura igual a 0.4 unidades.  -->
-        <!-- Transf. Geometr. do tipo escalamento sobre os -->
-        <!-- objetos respetivos podem a violar esta regra.         -->
-        <!-- Nao necessario aplicar fatores de escala em  -->
-        <!-- quadricas (esfera, ciclindro...) -->
-
-        <texture id="foodmachine" file="img/food.jpg" length_s="1" length_t="1"/>
         <texture id="board" file="img/board.jpg" length_s="1" length_t="1"/>
-        <texture id="cone" file="img/conePattern.png" length_s="2" length_t="2"/>
-        <texture id="caution" file="img/caution.png" length_s="1" length_t="1"/>
-        <texture id="terminal" file="img/terminal.png" length_s="1" length_t="1"/>
-        <texture id="bag" file="img/bag1.jpg" length_s="1" length_t="1"/>
-        <texture id="car" file="img/metal.jpeg" length_s="1" length_t="1"/>
-        <texture id="woodChess" file="img/chess.jpg" length_s="1" length_t="1"/>
-
     </textures>
 
     <materials>

@@ -10,14 +10,16 @@ function Board(scene, reader, dimX , dimY) {
     this.boardElements = new Array(dimX);
     this.base = new Cube(this.scene,this.reader,null,null);
 
-    // this.woodBase = new CGFappearance(this.scene);
-    // this.woodBase.loadTexture("img/woodBase.jpg");
-
-  /*  this.cell = new CGFappearance(this.scene);
-    this.cell.loadTexture("img/board.jpg");
-
-    this.bottom = new CGFappearance(this.scene);
-    this.bottom.loadTexture("img/board2.jpg");*/
+    var x = Math.floor(this.dimX/3);
+    var x1 = this.dimX-(x+1);
+    var y = 0.4;
+    var z = Math.floor(this.dimY/3);
+    var z1 = this.dimY-(z+1);
+    
+    this.startPos11=[x,y,z];
+    this.startPos12=[x1,y,z1];
+    this.startPos21=[x,y,z1];
+    this.startPos22=[x1,y,z];
 
     this.createBoard();
 };
@@ -58,8 +60,8 @@ var index = 1;
             this.scene.scale(1, 0.3, 1);
             this.scene.registerForPick(index, this.boardElements[i][j]);
             index++;
-          //  this.cell.apply();
             this.boardElements[i][j].display();
+
             this.scene.popMatrix();
           }
           else{
@@ -69,8 +71,8 @@ var index = 1;
             this.scene.scale(0.3, 0.2, 1);
             this.scene.registerForPick(index, this.boardElements[i][j]);
             index++;
-          //  this.bottom.apply();
             this.boardElements[i][j].display();
+
             this.scene.popMatrix();
           }
         }
@@ -82,21 +84,13 @@ var index = 1;
             this.scene.scale(1, 0.2, 0.3);
             this.scene.registerForPick(index, this.boardElements[i][j]);
             index++;
-            //this.bottom.apply();
             this.boardElements[i][j].display();
+
             this.scene.popMatrix();
           }
         }
       }
   }
-
-//   this.scene.pushMatrix();
-//   //this.scene.translate(this.dimX/2-1,-0.8,this.dimY/4-1);
-//   this.scene.scale(this.dimX,0.5,this.dimY/2);
-// //  this.woodBase.apply();
-//   this.base.display();
-//   this.scene.popMatrix();
-
 }
 
 Board.prototype.updateTexCoords = function (s, t) {
