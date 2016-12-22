@@ -114,7 +114,11 @@ XMLscene.prototype.display = function() {
         this.updateLights();
 
         this.graph.components[this.graph.rootId].display();
+
+        this.verifyGameStart();
     };
+
+
 
     this.logPicking();
     this.clearPickRegistration();
@@ -171,6 +175,25 @@ XMLscene.prototype.update = function(currTime) {
     for (componentsId in this.graph.components) {
         this.graph.components[componentsId].update(deltaTime);
     }
+}
+
+XMLscene.prototype.verifyGameStart = function(){
+
+  var count = 0;
+
+  for (component in this.graph.components) {
+      if (this.graph.components[component].id == 'board' ||
+          this.graph.components[component].id == 'p11' ||
+          this.graph.components[component].id == 'p12' ||
+          this.graph.components[component].id == 'p21' ||
+          this.graph.components[component].id == 'p22')
+        count++;
+  }
+
+  if(count==5)
+    console.log("You are ready to play!!");
+  else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");
+
 }
 
 XMLscene.prototype.logPicking = function ()

@@ -3,6 +3,8 @@ function Pawn(scene, reader, player) {
   this.scene = scene;
   this.player = player;
 
+  console.log("Peao");
+
   this.orangeMaterial = new CGFappearance(this.scene);
   this.orangeMaterial.setAmbient(1.0,0.5,0,1);
   this.orangeMaterial.setDiffuse(1.0,0.5,0,1);
