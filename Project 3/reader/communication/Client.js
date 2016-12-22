@@ -17,17 +17,9 @@ Client.prototype.getPrologRequest = function(requestString, onSuccess, onError){
     request.send();
 }
 
-Client.prototype.makeRequest = function(){
-    // Get Parameter Values
-    var requestString = document.querySelector("#query_field").value;
-
-    // Make Request
-    getPrologRequest(requestString, handleReply);
-}
-
 //Handle the Reply
 Client.prototype.handleReply = function(data){
-    document.querySelector("#query_result").innerHTML=data.target.response;
+    return data.target.response;
 }
 
 Client.prototype.setPort = function(newPort){
