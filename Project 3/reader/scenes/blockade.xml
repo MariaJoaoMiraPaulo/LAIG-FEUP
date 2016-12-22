@@ -250,8 +250,11 @@
             <texture id="none"/>
 
             <children>
-
                  <componentref id="board" />
+                 <componentref id="p11" />
+                 <componentref id="p12" />
+                 <componentref id="p21" />
+                 <componentref id="p22" />
             </children>
 
         </component>
@@ -279,9 +282,7 @@
         <component id="p11">
 
             <transformation>
-              <animation>
-                <rotate axis="x" angle="-90"/>
-              </animation>
+
             </transformation>
 
             <materials>
@@ -299,9 +300,7 @@
         <component id="p12">
 
             <transformation>
-              <animation>
-                <rotate axis="x" angle="-90"/>
-              </animation>
+
             </transformation>
 
             <materials>
@@ -319,9 +318,7 @@
         <component id="p21">
 
             <transformation>
-              <animation>
-                <rotate axis="x" angle="-90"/>
-              </animation>
+
             </transformation>
 
             <materials>
@@ -339,9 +336,7 @@
         <component id="p22">
 
             <transformation>
-              <animation>
-                <rotate axis="x" angle="-90"/>
-              </animation>
+
             </transformation>
 
             <materials>

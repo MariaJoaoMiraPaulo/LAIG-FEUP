@@ -784,3 +784,43 @@ MySceneGraph.prototype.readingPawn = function(newElement, idPrimitive) {
     player = this.reader.getInteger(newElement,'player');
     this.primitives[idPrimitive] = new Pawn(this.scene, this.reader,player);
 }
+
+MySceneGraph.prototype.getTransformationMatrix = function(transformations){
+  this.scene.pushMatrix();
+  this.scene.loadIdentity();
+
+  var numberTransformations = transformations.length;
+
+  var i=0;
+  for(i; i<numberTransformations; i++){
+    switch (transformations[i][0]) {
+        case 'translate':
+            var x = transformations[i][1];
+            var y = transformations[i][2];
+            var z = transformations[i][3];
+            this.scene.translate(x,y,z);
+            break;
+        case 'rotate':
+            var angulo = transformations[i][1];
+            var x = transformations[i][2];
+            var y = transformations[i][3];
+            var z = transformations[i][4];
+            this.scene.rotate(angulo,x,y,z);
+            break;
+        case 'scale':
+            var x = transformations[i][1];
+            var y = transformations[i][2];
+            var z = transformations[i][3];
+            this.scene.scale(x,y,z);
+            break;
+        default:
+
+    }
+
+  }
+
+  matrix = this.scene.getMatrix();
+  this.scene.popMatrix();
+
+  return matrix;
+}
