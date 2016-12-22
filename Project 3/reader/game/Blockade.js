@@ -1,8 +1,8 @@
 class Blockade {
-    constructor() {
-      this.player1 = new Player(1);
-      this.player2 = new Player(2);
-      this.board = new BlockadeBoard();
+    constructor(graph) {
+      this.graph = graph;
+      this.player1 = new Player(1,this.graph);
+      this.player2 = new Player(2,this.graph);
     }
 
     getPlayer1(){

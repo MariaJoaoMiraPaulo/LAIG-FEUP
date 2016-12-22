@@ -116,6 +116,10 @@ XMLscene.prototype.display = function() {
         this.graph.components[this.graph.rootId].display();
 
         this.verifyGameStart();
+
+        this.game = new Blockade(this.graph);
+        this.game.getPlayer1().movePawnToStartPosition();
+        this.game.getPlayer2().movePawnToStartPosition();
     };
 
 
