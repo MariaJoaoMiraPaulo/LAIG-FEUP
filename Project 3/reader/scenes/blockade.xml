@@ -199,7 +199,11 @@
 
     <primitives>
         <primitive id="gameBoard">
-            <board dimX="7" dimY="10"/>
+            <board dimX="8" dimZ="10"/>
+        </primitive>
+
+        <primitive id="cube">
+            <cube/>
         </primitive>
 
         <primitive id="pawn1">
@@ -207,7 +211,7 @@
         </primitive>
 
         <primitive id="pawn2">
-            <pawn player="1"/>
+            <pawn player="2"/>
         </primitive>
 
     </primitives>
@@ -217,8 +221,7 @@
         <component id="1">
 
             <transformation>
-              <animation>
-              </animation>
+
             </transformation>
 
             <materials>
@@ -228,7 +231,7 @@
             <texture id="none"/>
 
             <children>
-                 <componentref id="board" />
+                <componentref id="board" />
                  <componentref id="p11" />
                  <componentref id="p12" />
                  <componentref id="p21" />
