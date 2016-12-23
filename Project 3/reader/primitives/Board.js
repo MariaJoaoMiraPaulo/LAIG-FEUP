@@ -35,12 +35,12 @@ function Board(scene, reader, dimX , dimZ) {
   var z = this.convertPositionOnBoard(startZ);
   var z1 =  this.convertPositionOnBoard(startZ1);
 
-  var y = 0.2;
+  var y = 1.3;
 
-  this.startPos11=[-4,y,z];
-  this.startPos12=[-5,y,z1];
-  this.startPos21=[-5,y,z];
-  this.startPos22=[-4,y,z1];
+  this.startPos11=[x,y,z];
+  this.startPos12=[x,y,z1];
+  this.startPos21=[x1,y,z];
+  this.startPos22=[x1,y,z1];
 
   this.createBoard();
 };

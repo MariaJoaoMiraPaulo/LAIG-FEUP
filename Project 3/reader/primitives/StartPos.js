@@ -26,7 +26,7 @@ function StartPos(scene, reader, player) {
 
   }
 
-  this.StartPos = new Cylinder(this.scene, 0.25, 0.25, 0.01, 20, 20);
+  this.StartPos = new Cylinder(this.scene, 0.25, 0.25, 0.025, 20, 20);
 
 
 };

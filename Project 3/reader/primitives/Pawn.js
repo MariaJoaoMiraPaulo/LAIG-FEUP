@@ -1,8 +1,10 @@
-function Pawn(scene, reader, player,id) {
+function Pawn(scene, reader, player) {
   CGFobject.call(this, scene);
   this.scene = scene;
   this.player = player;
-  this.id = id;
+  this.xPos=0;
+  this.zPos=0;
+  this.yPos=2;
 
   this.orangeMaterial = new CGFappearance(this.scene);
   this.orangeMaterial.setAmbient(1.0,0.5,0,1);
@@ -36,14 +38,28 @@ Pawn.prototype.constructor = Pawn;
 
 Pawn.prototype.display = function () {
 
+console.log("peao");
+console.log(this.xPos);
+console.log(this.zPos);
   this.scene.pushMatrix();
-  this.scene.translate(0,1,0);
+  this.scene.translate(this.xPos,this.yPos,this.zPos);
   this.scene.rotate(Math.PI/2,1,0,0);
   this.material.apply();
-  this.scene.registerForPick(this.id,this);
   this.pawn.display();
   this.scene.popMatrix();
 
+}
+
+Pawn.prototype.setPawnXCoord = function (x) {
+  this.xPos = x;
+}
+
+Pawn.prototype.setPawnZCoord = function (z) {
+  this.zPos = z;
+}
+
+Pawn.prototype.setPawnYCoord = function (y) {
+  this.yPos = y;
 }
 
 Pawn.prototype.updateTexCoords = function (s, t) {

@@ -37,6 +37,8 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
 
+
+
 };
 
 XMLscene.prototype.initCameras = function() {
@@ -108,11 +110,9 @@ XMLscene.prototype.display = function() {
 
         this.graph.components[this.graph.rootId].display();
 
-        this.verifyGameStart();
-
-        this.game = new Blockade(this.graph);
-        this.game.getPlayer1().movePawnToStartPosition();
-        this.game.getPlayer2().movePawnToStartPosition();
+        // this.verifyGameStart();
+        this.game = new Blockade(this,this.graph);
+        this.game.display();
     };
 
 
@@ -174,24 +174,24 @@ XMLscene.prototype.update = function(currTime) {
     }
 }
 
-XMLscene.prototype.verifyGameStart = function(){
-
-  var count = 0;
-
-  for (component in this.graph.components) {
-      if (this.graph.components[component].id == 'board' ||
-          this.graph.components[component].id == 'p11' ||
-          this.graph.components[component].id == 'p12' ||
-          this.graph.components[component].id == 'p21' ||
-          this.graph.components[component].id == 'p22')
-        count++;
-  }
-
-  if(count==5)
-    console.log("You are ready to play!!");
-  else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");
-
-}
+// XMLscene.prototype.verifyGameStart = function(){
+//
+//   var count = 0;
+//
+//   for (component in this.graph.components) {
+//       if (this.graph.components[component].id == 'board' ||
+//           this.graph.components[component].id == 'p11' ||
+//           this.graph.components[component].id == 'p12' ||
+//           this.graph.components[component].id == 'p21' ||
+//           this.graph.components[component].id == 'p22')
+//         count++;
+//   }
+//
+//   if(count==5)
+//     console.log("You are ready to play!!");
+//   else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");
+//
+// }
 
 XMLscene.prototype.logPicking = function ()
 {

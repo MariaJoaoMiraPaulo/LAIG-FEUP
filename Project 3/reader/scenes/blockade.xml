@@ -207,22 +207,6 @@
             <cube/>
         </primitive>
 
-        <primitive id="pawn11">
-            <pawn player="1"/>
-        </primitive>
-
-        <primitive id="pawn12">
-            <pawn player="1"/>
-        </primitive>
-
-        <primitive id="pawn21">
-            <pawn player="2"/>
-        </primitive>
-
-        <primitive id="pawn22">
-            <pawn player="2"/>
-        </primitive>
-
         <primitive id="rectangle">
             <rectangle x1="0.5" y1="0.5" x2="-0.5" y2="-0.5"/>
         </primitive>
@@ -245,10 +229,6 @@
 
             <children>
                   <componentref id="board" />
-                 <componentref id="p11" />
-                 <componentref id="p12" />
-                 <componentref id="p21" />
-                 <componentref id="p22" />
                  <componentref id="Player1Base" />
                   <componentref id="Player2Base" />
             </children>
@@ -313,78 +293,4 @@
             </children>
 
         </component>
-
-
-        <component id="p11">
-
-            <transformation>
-
-            </transformation>
-
-            <materials>
-                <material id="white"/>
-            </materials>
-
-            <texture id="none"/>
-
-            <children>
-                 <primitiveref id="pawn11" />
-            </children>
-
-        </component>
-
-        <component id="p12">
-
-            <transformation>
-
-            </transformation>
-
-            <materials>
-                <material id="white"/>
-            </materials>
-
-            <texture id="none"/>
-
-            <children>
-                 <primitiveref id="pawn12" />
-            </children>
-
-        </component>
-
-        <component id="p21">
-
-            <transformation>
-
-            </transformation>
-
-            <materials>
-                <material id="white"/>
-            </materials>
-
-            <texture id="none"/>
-
-            <children>
-                 <primitiveref id="pawn21" />
-            </children>
-
-        </component>
-
-        <component id="p22">
-
-            <transformation>
-
-            </transformation>
-
-            <materials>
-                <material id="white"/>
-            </materials>
-
-            <texture id="none"/>
-
-            <children>
-                 <primitiveref id="pawn22" />
-            </children>
-
-        </component>
-
 </dsx>
