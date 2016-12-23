@@ -1,7 +1,8 @@
-function Pawn(scene, reader, player) {
+function Pawn(scene, reader, player,id) {
   CGFobject.call(this, scene);
   this.scene = scene;
   this.player = player;
+  this.id = id;
 
   this.orangeMaterial = new CGFappearance(this.scene);
   this.orangeMaterial.setAmbient(1.0,0.5,0,1);
@@ -28,7 +29,6 @@ function Pawn(scene, reader, player) {
 
   this.pawn = new Cylinder(this.scene, 0.23, 0.23, 1, 20, 20);
 
-
 };
 
 Pawn.prototype = Object.create(CGFobject.prototype);
@@ -40,8 +40,10 @@ Pawn.prototype.display = function () {
   this.scene.translate(0,1,0);
   this.scene.rotate(Math.PI/2,1,0,0);
   this.material.apply();
+  this.scene.registerForPick(this.id,this);
   this.pawn.display();
   this.scene.popMatrix();
+
 }
 
 Pawn.prototype.updateTexCoords = function (s, t) {

@@ -20,7 +20,6 @@ function Board(scene, reader, dimX , dimZ) {
   this.StartPos21Circle = new StartPos(this.scene,this.reader,2);
   this.StartPos22Circle = new StartPos(this.scene,this.reader,1);
 
-
   var xTab = this.dimX * this.cubeSize  + (this.dimX-1)*this.floorSize;
   var zTab = this.dimZ * this.cubeSize  + (this.dimZ-1)*this.floorSize;
 
@@ -38,10 +37,10 @@ function Board(scene, reader, dimX , dimZ) {
 
   var y = 0.2;
 
-  this.startPos11=[x,y,z];
-  this.startPos12=[x,y,z1];
-  this.startPos21=[x1,y,z];
-  this.startPos22=[x1,y,z1];
+  this.startPos11=[-4,y,z];
+  this.startPos12=[-5,y,z1];
+  this.startPos21=[-5,y,z];
+  this.startPos22=[-4,y,z1];
 
   this.createBoard();
 };
@@ -96,7 +95,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenFloor*x+0.5,0,this.distanceBetweenFloor*z+1.2);
       this.scene.scale(1, 0.2, 0.3);
-      this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
+    this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
       index++;
       this.boardElements[z*2+1][x*2].display();
 
@@ -119,24 +118,26 @@ Board.prototype.display = function () {
   }
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos11[0],0.31,this.startPos11[2]);
+    this.scene.translate(this.startPos11[0],0.30,this.startPos11[2]);
     this.StartPos11Circle.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos12[0],0.31,this.startPos12[2]);
+    this.scene.translate(this.startPos12[0],0.30,this.startPos12[2]);
     this.StartPos11Circle.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos21[0],0.31,this.startPos21[2]);
+    this.scene.translate(this.startPos21[0],0.30,this.startPos21[2]);
     this.StartPos21Circle.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos22[0],0.31,this.startPos22[2]);
+    this.scene.translate(this.startPos22[0],0.30,this.startPos22[2]);
     this.StartPos22Circle.display();
     this.scene.popMatrix();
+
+    this.scene.clearPickRegistration();
 
 }
 

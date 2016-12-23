@@ -782,7 +782,7 @@ MySceneGraph.prototype.readingBoard = function(newElement, idPrimitive) {
 
 MySceneGraph.prototype.readingPawn = function(newElement, idPrimitive) {
     player = this.reader.getInteger(newElement,'player');
-    this.primitives[idPrimitive] = new Pawn(this.scene, this.reader,player);
+    this.primitives[idPrimitive] = new Pawn(this.scene, this.reader,player,idPrimitive);
 }
 
 MySceneGraph.prototype.getTransformationMatrix = function(transformations){
