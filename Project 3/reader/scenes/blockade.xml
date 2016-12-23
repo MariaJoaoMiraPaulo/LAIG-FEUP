@@ -199,7 +199,7 @@
 
     <primitives>
         <primitive id="gameBoard">
-            <board dimX="8" dimZ="10"/>
+            <board dimX="10" dimZ="7"/>
         </primitive>
 
         <primitive id="cube">

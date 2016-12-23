@@ -18,24 +18,28 @@ function Board(scene, reader, dimX , dimZ) {
 
   this.boardElements = new Array(this.doubleDimZ-2);
   this.base = new Cube(this.scene,this.reader,null,null);
-  
+
   var xTab = this.dimX * this.cubeSize  + (this.dimX-1)*this.floorSize;
   var zTab = this.dimZ * this.cubeSize  + (this.dimZ-1)*this.floorSize;
 
+  var startX = Math.floor((this.dimX)/3)-1;
+  var startX1 = this.dimX - startX -1;
 
+  var startZ= Math.floor((this.dimZ)/3)-1;
+  var startZ1 = this.dimZ - startZ -1;
 
-  var x=0.34*dimX;
-  var x1 = 1.21*dimX;
-  var y = 0.4;
-  var z=0.27*dimZ;
-  var z1 =0.67*dimZ;
-  //
-  this.startPos11=[xTab,0.4,0];
-  this.startPos21=[0,0.4,zTab];
-  //  this.startPos11=[x,y,z];
-  //this.startPos21=[x1,y,z1];
-  this.startPos12=[0,0,0];
-  this.startPos22=[0,0,0];
+  var x = this.convertPositionOnBoard(startX);
+  var x1 = this.convertPositionOnBoard(startX1);
+
+  var z = this.convertPositionOnBoard(startZ);
+  var z1 =  this.convertPositionOnBoard(startZ1);
+
+  var y = 0.2;
+
+  this.startPos11=[x,y,z];
+  this.startPos12=[x,y,z1];
+  this.startPos21=[x1,y,z];
+  this.startPos22=[x1,y,z1];
 
   this.createBoard();
 };
@@ -112,6 +116,10 @@ Board.prototype.display = function () {
     }
   }
 
+}
+
+Board.prototype.convertPositionOnBoard = function (pos) {
+  return pos*this.distanceBetweenCubes+0.5;
 }
 
 
