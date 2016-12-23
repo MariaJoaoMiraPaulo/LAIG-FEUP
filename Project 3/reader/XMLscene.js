@@ -206,10 +206,18 @@ XMLscene.prototype.logPicking = function ()
 
             var client = new Client();
             client.getPrologRequest('board',function(data) {
-                console.log(JSON.parse(data.target.response)[0]);
-                var array = ["boas","boas","boas","boas","boas","boas","boas"];
-                console.log(JSON.stringify(array));
+                console.log(JSON.parse(data.target.response));
+              /*  var array = ["boas","boas","boas","boas","boas","boas","boas"];
+                console.log(JSON.stringify(array));*/
             });
+        /*    var client = new Client();
+            var array = ["boas","boas","boas","boas","boas","boas","boas"];
+              console.log(JSON.stringify(array));
+            client.getPrologRequest("test("+JSON.stringify(array)+",Reply)",function(data) {
+                console.log(JSON.parse(data.target.response));
+              /*  var array = ["boas","boas","boas","boas","boas","boas","boas"];
+                console.log(JSON.stringify(array));*/
+          /*  });*/
       }
 			}
 			this.pickResults.splice(0,this.pickResults.length);

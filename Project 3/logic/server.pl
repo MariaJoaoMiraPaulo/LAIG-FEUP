@@ -9,8 +9,7 @@
 :- ensure_loaded('menus.pl').
 :- ensure_loaded('userInput.pl').
 :- ensure_loaded('utilitiesBoard.pl').
-:- ensure_loaded('prologToJson.pl').
-:- ensure_loaded('jsonToProlog.pl').
+:- ensure_loaded('prologAndJson.pl').
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,6 +144,13 @@ parse_input(board, BoardJson):-
 				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
 				 [nW, n, nW, n, nW, n, nW, n, nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
 				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]],BoardJson).
+/*
+parse_input(test(Board,Reply),Reply).*/
+
+test(Board,Reply):-
+	matrix_to_json(R,Board),
+	write(R),
+	matrix_to_json(R,Reply).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
