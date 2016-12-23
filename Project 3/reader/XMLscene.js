@@ -186,10 +186,10 @@ XMLscene.prototype.verifyGameStart = function(){
           this.graph.components[component].id == 'p22')
         count++;
   }
-
+/*
   if(count==5)
     console.log("You are ready to play!!");
-  else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");
+  else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");*/
 
 }
 
@@ -200,9 +200,16 @@ XMLscene.prototype.logPicking = function ()
 			for (var i=0; i< this.pickResults.length; i++) {
 				var obj = this.pickResults[i][0];
         if(obj){
-          console.log(obj);
-        console.log("X: "+ obj.getPosX());
-        console.log("Y: "+ obj.getPosY());
+            console.log(obj);
+            console.log("X: "+ obj.getPosX());
+            console.log("Y: "+ obj.getPosY());
+
+            var client = new Client();
+            client.getPrologRequest('board',function(data) {
+                console.log(JSON.parse(data.target.response)[0]);
+                var array = ["boas","boas","boas","boas","boas","boas","boas"];
+                console.log(JSON.stringify(array));
+            });
       }
 			}
 			this.pickResults.splice(0,this.pickResults.length);

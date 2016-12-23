@@ -21,7 +21,7 @@ class Player {
       break;
     }
 
-    console.log(this.startPositionPawn1 +" e "+this.startPositionPawn2);
+  //  console.log(this.startPositionPawn1 +" e "+this.startPositionPawn2);
   }
 
   getNumberWalls(){
