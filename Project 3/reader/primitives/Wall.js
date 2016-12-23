@@ -4,6 +4,10 @@ function Wall(scene, reader, player) {
   this.player = player;
   this.reader=reader;
 
+  this.xPos=0;
+  this.yPos=0;
+  this.zPos=0;
+
   this.greenMaterial = new CGFappearance(this.scene);
   this.greenMaterial.setAmbient(0,1,0,1);
   this.greenMaterial.setDiffuse(0,1,0,1);
@@ -38,11 +42,23 @@ Wall.prototype.constructor = Wall;
 Wall.prototype.display = function () {
 
   this.scene.pushMatrix();
-  this.scene.translate(0,0.1,0.7);
+  this.scene.translate(this.xPos,this.yPos,this.zPos);
   this.scene.scale(1,0.5,0.1);
   this.material.apply();
   this.wall.display();
   this.scene.popMatrix();
+}
+
+Wall.prototype.setWallXCoord = function (x) {
+  this.xPos = x;
+}
+
+Wall.prototype.setWallZCoord = function (z) {
+  this.zPos = z;
+}
+
+Wall.prototype.setWallYCoord = function (y) {
+  this.yPos = y;
 }
 
 Wall.prototype.updateTexCoords = function (s, t) {

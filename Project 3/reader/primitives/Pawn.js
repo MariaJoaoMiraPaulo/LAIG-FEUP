@@ -38,9 +38,6 @@ Pawn.prototype.constructor = Pawn;
 
 Pawn.prototype.display = function () {
 
-console.log("peao");
-console.log(this.xPos);
-console.log(this.zPos);
   this.scene.pushMatrix();
   this.scene.translate(this.xPos,this.yPos,this.zPos);
   this.scene.rotate(Math.PI/2,1,0,0);

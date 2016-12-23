@@ -36,6 +36,7 @@ XMLscene.prototype.init = function(application) {
     this.plane = new Plane(this,3,2,10,7);
 
     this.setPickEnabled(true);
+    this.game;
 
 
 
@@ -111,6 +112,7 @@ XMLscene.prototype.display = function() {
         this.graph.components[this.graph.rootId].display();
 
         // this.verifyGameStart();
+        //TODO:BLOCKADE HERE??
         this.game = new Blockade(this,this.graph);
         this.game.display();
     };

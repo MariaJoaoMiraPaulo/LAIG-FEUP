@@ -13,6 +13,8 @@ function Board(scene, reader, dimX , dimZ) {
   this.floorSize = 0.3;
   this.floorHeigth = -0.1;
 
+  this.selectable = false;
+
   this.boardElements = new Array(this.doubleDimZ-2);
 
   this.StartPos11Circle = new StartPos(this.scene,this.reader,1);
@@ -71,6 +73,12 @@ Board.prototype.createBoard = function () {
 
 
 Board.prototype.display = function () {
+
+//TODO: not working Game WHY???
+  // if(this.scene.game.currentState==this.scene.game.STATE.SELECTING_CELL){
+  //   this.selectable = true;
+  // }
+  // else this.selectable = false;
 
   var index = 1;
   for(var z=0;z<this.dimZ;z++){
