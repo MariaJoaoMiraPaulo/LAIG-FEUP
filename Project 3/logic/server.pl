@@ -10,6 +10,7 @@
 :- ensure_loaded('userInput.pl').
 :- ensure_loaded('utilitiesBoard.pl').
 :- ensure_loaded('prologAndJson.pl').
+:- ensure_loaded('jsonToProlog.pl').
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,41 +117,18 @@ print_header_line(_).
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
-parse_input(board, BoardJson):-
-	matrix_to_json([[e,nVw,e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e],
-				 [nW,n, nW,n, nW, n, nW, n,  nW, n,  nW,n,  nW, n, nW, n, nW, n, nW,n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw,e,nVw, e,nVw, e],
-				 [nW,n, nW,n, nW, n, nW,n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW,n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e, nVw,e, nVw,e, nVw,p11, nVw,e,nVw, e, nVw,e,nVw, p12,nVw, e,nVw, e, nVw,e],
-				 [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW,n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW, n, nW, n, nW, n, nW, n,  nW,  n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW],
-				 [e, nVw,e, nVw,e, nVw,p21, nVw,e,nVw, e, nVw,e,nVw, p22,nVw, e,nVw, e, nVw,e],
-				 [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW,e,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
-				 [nW, n, nW, n, nW, n, nW, n, nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
-				 [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]],BoardJson).
-/*
-parse_input(test(Board,Reply),Reply).*/
+parse_input(board, Numbers):-
+	finalBoard(B),boardToNumbers(B,Numbers).
 
-test(Board,Reply):-
-	matrix_to_json(R,Board),
-	write(R),
-	matrix_to_json(R,Reply).
+parse_input(pintou(Board),'"pintou"').
+
+parse_input(initial_board,Board):-
+	emptyBoard(TempBoard),
+	boardToNumbers(TempBoard,Board).
+
+pintou(Board):-
+	write(Board).
+
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

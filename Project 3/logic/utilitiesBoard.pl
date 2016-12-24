@@ -55,29 +55,29 @@ setTabLine([L1|LS],Xelement,Yelement,X,Y,Element,[N1|NS]):-
 setElementValue(Xelement,Yelement,X,Y):-
   Xelement=X,
   Yelement=Y.
-/*
-  boardToJson([], []).
-  boardToJson([List | R], [JsonList | Json]):-
-    boardToJsonLine(List, JsonList),
-    boardToJson(R, Json).
 
-  boardToJsonLine([], []).
-  boardToJsonLine([Element | Rest], [JsonElem | JsonRest]):-
-    atomString(Element,JsonElem),
-    boardToJsonLine(Rest, JsonRest).
+  boardToNumbers([], []).
+  boardToNumbers([List | R], [NumberList | Numbers]):-
+    boardToNumbersLine(List, NumberList),
+    boardToNumbers(R, Numbers).
+
+  boardToNumbersLine([], []).
+  boardToNumbersLine([Element | Rest], [Number | NumberRest]):-
+    atomString(Element,Number),
+    boardToNumbersLine(Rest, NumberRest).
 
 
-atomString(empty, '"empty"').
-atomString(noVerticalWall, '"noVerticalWall"').
-atomString(noWall, '"noWall"').
-atomString(wall, '"wall"').
-atomString(verticalwall, '"verticalwall"').
-atomString(player11, "player11").
-atomString(player12, "player12").
-atomString(player21, "player21").
-atomString(player22, "player22").
-atomString(null, "null").
-atomString(startPlayer1, "startPlayer1").
-atomString(startPlayer2, "startPlayer2").
-atomString(winnerplayer2, "winnerplayer2").
-atomString(winnerplayer1, "winnerplayer1").*/
+atomString(empty, 0).
+atomString(noVerticalWall, 1).
+atomString(noWall, 2).
+atomString(wall, 3).
+atomString(verticalwall, 4).
+atomString(player11, 5).
+atomString(player12, 6).
+atomString(player21, 7).
+atomString(player22, 8).
+atomString(null, 9).
+atomString(startPlayer1, 10).
+atomString(startPlayer2, 11).
+atomString(winnerplayer2, 12).
+atomString(winnerplayer1, 13).

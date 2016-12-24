@@ -33,7 +33,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(20);
 
-    this.plane = new Plane(this,3,2,10,7);
+    this.plane = new Plane(this, 3, 2, 10, 7);
 
     this.setPickEnabled(true);
 
@@ -174,53 +174,60 @@ XMLscene.prototype.update = function(currTime) {
     }
 }
 
-XMLscene.prototype.verifyGameStart = function(){
+XMLscene.prototype.verifyGameStart = function() {
 
-  var count = 0;
+    var count = 0;
 
-  for (component in this.graph.components) {
-      if (this.graph.components[component].id == 'board' ||
-          this.graph.components[component].id == 'p11' ||
-          this.graph.components[component].id == 'p12' ||
-          this.graph.components[component].id == 'p21' ||
-          this.graph.components[component].id == 'p22')
-        count++;
-  }
-/*
-  if(count==5)
-    console.log("You are ready to play!!");
-  else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");*/
+    for (component in this.graph.components) {
+        if (this.graph.components[component].id == 'board' ||
+            this.graph.components[component].id == 'p11' ||
+            this.graph.components[component].id == 'p12' ||
+            this.graph.components[component].id == 'p21' ||
+            this.graph.components[component].id == 'p22')
+            count++;
+    }
+    /*
+      if(count==5)
+        console.log("You are ready to play!!");
+      else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");*/
 
 }
 
-XMLscene.prototype.logPicking = function ()
-{
-	if (this.pickMode == false) {
-		if (this.pickResults != null && this.pickResults.length > 0) {
-			for (var i=0; i< this.pickResults.length; i++) {
-				var obj = this.pickResults[i][0];
-        if(obj){
-            console.log(obj);
-            console.log("X: "+ obj.getPosX());
-            console.log("Y: "+ obj.getPosY());
+XMLscene.prototype.logPicking = function() {
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+            for (var i = 0; i < this.pickResults.length; i++) {
+                var obj = this.pickResults[i][0];
+                if (obj) {
+                    console.log(obj);
+                    console.log("X: " + obj.getPosX());
+                    console.log("Y: " + obj.getPosY());
 
-            var client = new Client();
-            client.getPrologRequest('board',function(data) {
-                console.log(JSON.parse(data.target.response));
-              /*  var array = ["boas","boas","boas","boas","boas","boas","boas"];
-                console.log(JSON.stringify(array));*/
-            });
-        /*    var client = new Client();
-            var array = ["boas","boas","boas","boas","boas","boas","boas"];
-              console.log(JSON.stringify(array));
-            client.getPrologRequest("test("+JSON.stringify(array)+",Reply)",function(data) {
-                console.log(JSON.parse(data.target.response));
-              /*  var array = ["boas","boas","boas","boas","boas","boas","boas"];
-                console.log(JSON.stringify(array));*/
-          /*  });*/
-      }
-			}
-			this.pickResults.splice(0,this.pickResults.length);
-		}
-	}
+                    var client = new Client();
+                    if (obj.getPosX() == 0 && obj.getPosY() == 0) {
+                    client.getPrologRequest('quit', function(data) {
+                      console.log('boas');
+                    });
+                } else {
+                     var a = [[1,2,0]];
+                  //  client.getPrologRequest("send_initial_board("+JSON.stringify(a)+")", function(data) {
+                    client.getPrologRequest('initial_board', function(data) {
+                      console.log(JSON.parse(data.target.response));
+                        /*      var array = ["boas","boas","boas","boas","boas","boas","boas"];
+                              console.log(JSON.stringify(array));*/
+                    });
+                }
+                /*    var client = new Client();
+                    var array = ["boas","boas","boas","boas","boas","boas","boas"];
+                      console.log(JSON.stringify(array));
+                    client.getPrologRequest("test("+JSON.stringify(array)+",Reply)",function(data) {
+                        console.log(JSON.parse(data.target.response));
+                      /*  var array = ["boas","boas","boas","boas","boas","boas","boas"];
+                        console.log(JSON.stringify(array));*/
+                /*  });*/
+            }
+        }
+        this.pickResults.splice(0, this.pickResults.length);
+    }
+}
 }
