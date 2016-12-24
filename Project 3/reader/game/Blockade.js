@@ -6,8 +6,8 @@ class Blockade {
       this.player1.movePawnToStartPosition();
       this.player2 = new Player(2,this.graph,this.scene);
       this.player2.movePawnToStartPosition();
-      this.player1.moveWallToStartPosition();
-      this.player2.moveWallToStartPosition();
+      this.player1.moveWallsToStartPosition();
+      this.player2.moveWallsToStartPosition();
 
       var state = {
         SELECTING_PAWN:1,
@@ -42,12 +42,10 @@ class Blockade {
     }
 
     display(){
-      //TODO: Melhorar
-      this.player1.pawn1.display();
-      this.player1.pawn2.display();
-      this.player2.pawn1.display();
-      this.player2.pawn2.display();
-      this.player1.wall1.display();
-      this.player2.wall1.display();
+      this.player1.displayPawns();
+      this.player1.displayWalls();
+
+      this.player2.displayPawns();
+      this.player2.displayWalls();
     }
 }
