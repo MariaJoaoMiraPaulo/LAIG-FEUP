@@ -55,3 +55,29 @@ setTabLine([L1|LS],Xelement,Yelement,X,Y,Element,[N1|NS]):-
 setElementValue(Xelement,Yelement,X,Y):-
   Xelement=X,
   Yelement=Y.
+
+  boardToNumbers([], []).
+  boardToNumbers([List | R], [NumberList | Numbers]):-
+    boardToNumbersLine(List, NumberList),
+    boardToNumbers(R, Numbers).
+
+  boardToNumbersLine([], []).
+  boardToNumbersLine([Element | Rest], [Number | NumberRest]):-
+    atomString(Element,Number),
+    boardToNumbersLine(Rest, NumberRest).
+
+
+atomString(empty, 0).
+atomString(noVerticalWall, 1).
+atomString(noWall, 2).
+atomString(wall, 3).
+atomString(verticalwall, 4).
+atomString(player11, 5).
+atomString(player12, 6).
+atomString(player21, 7).
+atomString(player22, 8).
+atomString(null, 9).
+atomString(startPlayer1, 10).
+atomString(startPlayer2, 11).
+atomString(winnerplayer2, 12).
+atomString(winnerplayer1, 13).

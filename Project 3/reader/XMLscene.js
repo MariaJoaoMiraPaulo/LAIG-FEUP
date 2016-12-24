@@ -33,7 +33,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setUpdatePeriod(20);
 
-    this.plane = new Plane(this,3,2,10,7);
+    this.plane = new Plane(this, 3, 2, 10, 7);
 
     this.setPickEnabled(true);
     this.game;
@@ -113,7 +113,7 @@ XMLscene.prototype.display = function() {
 
         // this.verifyGameStart();
         //TODO:BLOCKADE HERE??
-        this.game = new Blockade(this,this.graph);
+        this.game = new Blockade(this, this.graph);
         this.game.display();
     };
 
@@ -195,21 +195,31 @@ XMLscene.prototype.update = function(currTime) {
 //
 // }
 
-XMLscene.prototype.logPicking = function ()
-{
+XMLscene.prototype.logPicking = function() {
 
-	if (this.pickMode == false) {
-		if (this.pickResults != null && this.pickResults.length > 0) {
-			for (var i=0; i< this.pickResults.length; i++) {
-				var obj = this.pickResults[i][0];
-        console.log(this.pickResults[i][0]);
-        if(obj){
-          console.log(obj);
-        console.log("X: "+ obj.getPosX());
-        console.log("Y: "+ obj.getPosY());
-      }
-			}
-			this.pickResults.splice(0,this.pickResults.length);
-		}
-	}
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+            for (var i = 0; i < this.pickResults.length; i++) {
+                var obj = this.pickResults[i][0];
+                if (obj) {
+                    console.log(obj);
+                    console.log("X: " + obj.getPosX());
+                    console.log("Y: " + obj.getPosY());
+
+                    var client = new Client();
+                    if (obj.getPosX() == 0 && obj.getPosY() == 0) {
+                        client.getPrologRequest('quit', function(data) {
+                            console.log('boas');
+                        });
+                    } else {
+                        //  client.getPrologRequest("send_initial_board("+JSON.stringify(a)+")", function(data) {
+                        client.getPrologRequest('initial_board', function(data) {
+                            console.log(JSON.parse(data.target.response));
+                        });
+                    }
+                }
+            }
+            this.pickResults.splice(0, this.pickResults.length);
+        }
+    }
 }

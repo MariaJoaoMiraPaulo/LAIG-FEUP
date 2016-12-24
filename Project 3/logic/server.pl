@@ -1,14 +1,16 @@
 :-use_module(library(sockets)).
 :-use_module(library(lists)).
 :-use_module(library(codesio)).
-:-use_module(library(blockade.pl)).
-:-use_module(library(bot.pl)).
-:-use_module(library(displayBoard.pl)).
-:-use_module(library(gameLogic.pl)).
-:-use_module(library(gameLoops.pl)).
-:-use_module(library(menus.pl)).
-:-use_module(library(userInput.pl)).
-:-use_module(library(utilititesBoard.pl)).
+:- ensure_loaded('blockade.pl').
+:- ensure_loaded('bot.pl').
+:- ensure_loaded('displayBoard.pl').
+:- ensure_loaded('gameLogic.pl').
+:- ensure_loaded('gameLoops.pl').
+:- ensure_loaded('menus.pl').
+:- ensure_loaded('userInput.pl').
+:- ensure_loaded('utilitiesBoard.pl').
+:- ensure_loaded('prologAndJson.pl').
+:- ensure_loaded('jsonToProlog.pl').
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -115,6 +117,18 @@ print_header_line(_).
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
+parse_input(board, Numbers):-
+	finalBoard(B),boardToNumbers(B,Numbers).
+
+parse_input(pintou(Board),'"pintou"').
+
+parse_input(initial_board,Board):-
+	emptyBoard(TempBoard),
+	boardToNumbers(TempBoard,Board).
+
+pintou(Board):-
+	write(Board).
+
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

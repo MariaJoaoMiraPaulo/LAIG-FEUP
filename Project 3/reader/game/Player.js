@@ -28,7 +28,6 @@ class Player {
       this.startPositionWall1 = [16,0.3,3];
       break;
     }
-
   }
 
   getNumbernumberWalls(){
