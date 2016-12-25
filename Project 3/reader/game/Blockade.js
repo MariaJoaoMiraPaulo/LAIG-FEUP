@@ -3,26 +3,26 @@ class Blockade {
         this.graph = graph;
         this.scene = scene;
         this.player1 = new Player(1, this.graph, this.scene);
-        //this.player1.movePawnToStartPosition();
         this.player2 = new Player(2, this.graph, this.scene);
-        //    this.player2.movePawnToStartPosition();
         this.player1.moveWallsToStartPosition();
         this.player2.moveWallsToStartPosition();
         this.board = [];
         this.getInitialBoard();
 
         this.state = {
-            SELECTING_PAWN: 1,
-            SELECTING_CELL: 2,
-            SELECTING_WALL: 3,
-            SELECTING_WALL_POSITION: 4,
-            PLAYING: 5,
-            GAME_OVER: 6,
-            PLAYER1_PLAYING: 7,
-            PLAYER2_PLAYING: 8,
-            WAITING_FOR_START: 9,
-            START_GAME: 10,
-            INITIALIZE_BOARD: 11
+                WAITING_FOR_START: 1,
+                START_GAME: 2,
+                INITIALIZE_BOARD: 3,
+                PLAYER1_PLAYING: 4,
+                PLAYER2_PLAYING: 5,
+                PLAYING: 6,
+                GAME_OVER: 7,
+                SELECTING_PAWN_PLAYER1: 8,
+                SELECTING_PAWN_PLAYER2: 9,
+                SELECTING_WALL_PLAYER1: 10,
+                SELECTING_WALL_PLAYER2: 11,
+                SELECTING_WALL_POSITION: 12,
+                SELECTING_CELL: 13
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -83,11 +83,11 @@ class Blockade {
                 }
             }
         }
-    
+
         this.player1.movePawnToStartPosition(positionPlayer1);
         this.player2.movePawnToStartPosition(positionPlayer2);
 
-        this.currentState = this.state.SELECTING_PAWN;
+        this.currentState = this.state.SELECTING_CELL;
     }
 
     display() {

@@ -205,19 +205,19 @@ XMLscene.prototype.logPicking = function() {
                 var obj = this.pickResults[i][0];
                 if (obj) {
                     console.log(obj);
-                    console.log("X: " + obj.getPosX());
-                    console.log("Y: " + obj.getPosY());
+                    // console.log("X: " + obj.getPosX());
+                    // console.log("Y: " + obj.getPosY());
 
-                    if (obj.getPosX() == 0 && obj.getPosY() == 0) {
-                        this.client.getPrologRequest('quit', function(data) {
-                            console.log('boas');
-                        });
-                    } else {
-                        //  client.getPrologRequest("send_initial_board("+JSON.stringify(a)+")", function(data) {
-                        this.client.getPrologRequest('initial_board', function(data) {
-                            console.log(JSON.parse(data.target.response));
-                        });
-                    }
+                    // if (obj.getPosX() == 0 && obj.getPosY() == 0) {
+                    //     this.client.getPrologRequest('quit', function(data) {
+                    //         console.log('boas');
+                    //     });
+                    // } else {
+                    //     //  client.getPrologRequest("send_initial_board("+JSON.stringify(a)+")", function(data) {
+                    //     this.client.getPrologRequest('initial_board', function(data) {
+                    //         console.log(JSON.parse(data.target.response));
+                    //     });
+                    // }
                 }
             }
             this.pickResults.splice(0, this.pickResults.length);
