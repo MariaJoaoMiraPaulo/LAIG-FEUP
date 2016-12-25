@@ -174,18 +174,20 @@ class Blockade {
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
                 console.log("X: " + obj.getPosX());
                 console.log("Z: " + obj.getPosZ());
+                console.log(Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ()));
+                var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
-                this.getNewBoard(obj.getPosZ(),obj.getPosX(), 1);
+                this.getNewBoard(obj.getPosZ(),obj.getPosX(),direction,1);
                 break;
             default:
                 console.log('default');
         }
     }
 
-    getNewBoard(x, y, player) {
+    getNewBoard(x, y, direction,player) {
         var this_t = this;
 
-        this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + ",b1," + player + "," + this.chosenPawn + ")", function(data) {
+        this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + ","+direction+"," + player + "," + this.chosenPawn + ")", function(data) {
             console.log(JSON.parse(data.target.response));
             //  console.log(data.target.response);
             this_t.board = JSON.parse(data.target.response);

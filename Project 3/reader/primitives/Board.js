@@ -214,6 +214,85 @@ Board.prototype.possibleMove = function(arrayPos){
   return false;
 }
 
+Board.prototype.getPawnDiretion = function (x,z) {
+  console.log(this.currentPawnOnGamePosition);
+
+  var arrayPos = [z,x];
+
+  var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
+  if(this.arraysAreIdentical(arrayPos,r1)){
+    var direction="r1";
+    return direction;
+  }
+
+  var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
+  if(this.arraysAreIdentical(arrayPos,r2)){
+    var direction="r2";
+    return direction;
+  }
+
+  var l1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-2];
+  if(this.arraysAreIdentical(arrayPos,l1)){
+    var direction="l1";
+    return direction;
+  }
+
+  var l2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-4];
+  if(this.arraysAreIdentical(arrayPos,l2)){
+    var direction="l2";
+    return direction;
+  }
+
+  var t1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]];
+  if(this.arraysAreIdentical(arrayPos,t1)){
+    var direction="t1";
+    return direction;
+  }
+
+  var t2 = [this.currentPawnOnGamePosition[0]-4,this.currentPawnOnGamePosition[1]];
+  if(this.arraysAreIdentical(arrayPos,t2)){
+    var direction="t2";
+    return direction;
+  }
+
+  var b1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
+  if(this.arraysAreIdentical(arrayPos,b1)){
+    var direction="b1";
+    return direction;
+  }
+
+  var b2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
+  if(this.arraysAreIdentical(arrayPos,b2)){
+    var direction="b2";
+    return direction;
+  }
+
+  var dtr = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-2];
+  if(this.arraysAreIdentical(arrayPos,dtr)){
+    var direction="dtr";
+    return direction;
+  }
+
+  var dtl = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]-2];
+  if(this.arraysAreIdentical(arrayPos,dtl)){
+    var direction="dtl";
+    return direction;
+  }
+
+  var dbr = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]+2];
+  if(this.arraysAreIdentical(arrayPos,dbr)){
+    var direction="dbr";
+    return direction;
+  }
+
+  var dbl = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]+2];
+  if(this.arraysAreIdentical(arrayPos,dbl)){
+    var direction="dbl";
+    return direction;
+  }
+  return false;
+}
+
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;
 }
