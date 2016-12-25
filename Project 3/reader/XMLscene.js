@@ -37,7 +37,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
     this.game;
-
+    this.client = new Client();
 
 
 };
@@ -113,7 +113,9 @@ XMLscene.prototype.display = function() {
 
         // this.verifyGameStart();
         //TODO:BLOCKADE HERE??
-        this.game = new Blockade(this, this.graph);
+        if(typeof this.game == "undefined"){
+            this.game = new Blockade(this, this.graph);
+        }
         this.game.display();
     };
 
@@ -206,14 +208,13 @@ XMLscene.prototype.logPicking = function() {
                     console.log("X: " + obj.getPosX());
                     console.log("Y: " + obj.getPosY());
 
-                    var client = new Client();
                     if (obj.getPosX() == 0 && obj.getPosY() == 0) {
-                        client.getPrologRequest('quit', function(data) {
+                        this.client.getPrologRequest('quit', function(data) {
                             console.log('boas');
                         });
                     } else {
                         //  client.getPrologRequest("send_initial_board("+JSON.stringify(a)+")", function(data) {
-                        client.getPrologRequest('initial_board', function(data) {
+                        this.client.getPrologRequest('initial_board', function(data) {
                             console.log(JSON.parse(data.target.response));
                         });
                     }

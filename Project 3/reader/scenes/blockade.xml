@@ -229,7 +229,7 @@
 
             <children>
                   <componentref id="board" />
-                 <componentref id="Player1Base" />
+                  <componentref id="Player1Base" />
                   <componentref id="Player2Base" />
             </children>
 
