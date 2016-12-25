@@ -165,7 +165,7 @@ Board.prototype.display = function () {
 }
 
 Board.prototype.convertPositionOnBoard = function (pos) {
-  return pos*Board.distanceBetweenCubes+0.5;
+  return pos/2*Board.distanceBetweenCubes+0.5;
 }
 
 

@@ -33,7 +33,7 @@ class Blockade {
 
         this.scene.client.getPrologRequest('initial_board', function(data) {
             this_t.board = JSON.parse(data.target.response);
-            console.log(JSON.parse(data.target.response));
+
             this_t.currentState = this_t.state.INITIALIZE_BOARD;
         });
     }
@@ -55,7 +55,7 @@ class Blockade {
     }
 
     checkCurrentState() {
-        console.log(this.currentState);
+      
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
                 this.getPawnsPositions();
@@ -64,23 +64,23 @@ class Blockade {
     }
 
     getPawnsPositions() {
-        var positionPlayer1 = {}
+        var positionPlayer1 = {};
         var positionPlayer2 = {};
 
         for (let i = 0; i < this.board.length; i++) {
             for (let j = 0; j < this.board[i].length; j++) {
                 if (this.board[i][j] == 5) {
-                    positionPlayer1['x1'] = Board.prototype.convertPositionOnBoard(i);
-                    positionPlayer1['y1'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer1['x1'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer1['y1'] = Board.prototype.convertPositionOnBoard(i);
                 } else if (this.board[i][j] == 6) {
-                    positionPlayer1['x2'] = Board.prototype.convertPositionOnBoard(i);
-                    positionPlayer1['y2'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer1['x2'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer1['y2'] = Board.prototype.convertPositionOnBoard(i);
                 } else if (this.board[i][j] == 7) {
-                    positionPlayer2['x1'] = Board.prototype.convertPositionOnBoard(i);
-                    positionPlayer2['y1'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer2['x1'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer2['y1'] = Board.prototype.convertPositionOnBoard(i);
                 } else if (this.board[i][j] == 8) {
-                    positionPlayer2['x2'] = Board.prototype.convertPositionOnBoard(i);
-                    positionPlayer2['y2'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer2['x2'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer2['y2'] = Board.prototype.convertPositionOnBoard(i);
                 }
             }
         }

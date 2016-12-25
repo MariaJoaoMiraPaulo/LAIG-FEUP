@@ -120,8 +120,6 @@ parse_input(quit, goodbye).
 parse_input(board, Numbers):-
 	finalBoard(B),boardToNumbers(B,Numbers).
 
-parse_input(pintou(Board),'"pintou"').
-
 parse_input(initial_board,Board):-
 	emptyBoardBlockade(TempBoard),
 	boardToNumbers(TempBoard,Board).
