@@ -69,9 +69,9 @@ Board.prototype.createBoard = function () {
   }
 }
 
-
-
 Board.prototype.display = function () {
+
+  this.scene.clearPickRegistration();
 
   if(typeof this.scene.game != "undefined"){
       if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL){
@@ -93,12 +93,17 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenCubes*x+0.5,0,this.distanceBetweenCubes*z+0.5);
       this.scene.scale(1, 0.3, 1);
-      if(this.selectableCells && this.possibleMove([x,z])){
-          console.log(index);
+      // if(this.selectableCells && this.possibleMove([x,z])){
+      if(this.selectableCells){
           this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
           index++;
+          this.boardElements[z*2][x*2].display();
       }
-      this.boardElements[z*2][x*2].display();
+      else{
+        this.scene.clearPickRegistration();
+        this.boardElements[z*2][x*2].display();
+      }
+
 
       this.scene.popMatrix();
 
@@ -114,8 +119,13 @@ Board.prototype.display = function () {
       if(this.selectableWallPosition){
         this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
         index++;
+        this.boardElements[z*2+1][x*2].display();
       }
-      this.boardElements[z*2+1][x*2].display();
+      else{
+        this.scene.clearPickRegistration();
+        this.boardElements[z*2+1][x*2].display();
+      }
+
 
       this.scene.popMatrix();
     }
@@ -130,12 +140,19 @@ Board.prototype.display = function () {
       if(this.selectableWallPosition){
         this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
         index++;
+        this.boardElements[z*2][x*2+1].display();
       }
-      this.boardElements[z*2][x*2+1].display();
+      else{
+        this.scene.clearPickRegistration();
+        this.boardElements[z*2][x*2+1].display();
+      }
+
 
       this.scene.popMatrix();
     }
   }
+
+    this.scene.clearPickRegistration();
 
     this.scene.pushMatrix();
     this.scene.translate(this.startPos11[0],0.30,this.startPos11[2]);
@@ -144,6 +161,7 @@ Board.prototype.display = function () {
 
     this.scene.pushMatrix();
     this.scene.translate(this.startPos12[0],0.30,this.startPos12[2]);
+
     this.StartPos11Circle.display();
     this.scene.popMatrix();
 
@@ -156,8 +174,6 @@ Board.prototype.display = function () {
     this.scene.translate(this.startPos22[0],0.30,this.startPos22[2]);
     this.StartPos22Circle.display();
     this.scene.popMatrix();
-
-    this.scene.clearPickRegistration();
 
 }
 
