@@ -124,9 +124,21 @@ parse_input(initial_board,Board):-
 	emptyBoardBlockade(TempBoard),
 	boardToNumbers(TempBoard,Board).
 
-pintou(Board):-
-	write(Board).
+parse_input(move_player(NumberBoard,Direction,Player,Pawn),NewBoardNumbers):-
+	boardToNumbers(TempBoard,NumberBoard),
+	transformToCoordinates(TempBoard,Player,Pawn,Direction,Xi,Yi,Xf,Yf,PawnName),
+	setListElement(TempBoard,Xf,Yf,1,1,PawnName,NewBoard),
+	isAStartHouse(Xi,Yi,OldPawnName),
+	setListElement(NewBoard,Xi,Yi,1,1,OldPawnName,NewBoard2),
+	boardToNumbers(NewBoard2,NewBoardNumbers).
 
+move_player(NumberBoard,Direction,Player,Pawn):-
+	write('entrei'),
+	boardToNumbers(TempBoard,NumberBoard),
+	transformToCoordinates(TempBoard,Player,Pawn,Direction,Xi,Yi,Xf,Yf,PawnName),
+	setListElement(TempBoard,Xf,Yf,1,1,PawnName,NewBoard),
+	isAStartHouse(Xi,Yi,OldPawnName),
+	setListElement(NewBoard,Xi,Yi,1,1,OldPawnName,NewBoard2).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

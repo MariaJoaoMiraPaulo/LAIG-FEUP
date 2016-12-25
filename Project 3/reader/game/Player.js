@@ -9,8 +9,8 @@ class Player {
     this.selectablePawn = false;
     this.selectableWall = false;
 
-    this.pawn1 = new Pawn(this.scene, this.reader, this.player);
-    this.pawn2 = new Pawn(this.scene, this.reader, this.player);
+    this.pawn1 = new Pawn(this.scene, this.reader, this.player,1);
+    this.pawn2 = new Pawn(this.scene, this.reader, this.player,2);
 
     this.numberWalls = 7;
     this.walls = new Array(this.numberWalls-1);
@@ -54,7 +54,7 @@ class Player {
   }
 
   movePawnToStartPosition(startPositions){
-    
+
     this.pawn1.setPawnXCoord(startPositions['x1']);
     this.pawn1.setPawnYCoord(1.3);
     this.pawn1.setPawnZCoord(startPositions['y1']);
@@ -116,7 +116,7 @@ class Player {
     this.pawn1.display();
 
     if(this.selectablePawn){
-      this.scene.registerForPick(13,this.pawn1);
+      this.scene.registerForPick(13,this.pawn2);
     }
 
     this.pawn2.display();

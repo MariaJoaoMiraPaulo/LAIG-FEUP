@@ -1,4 +1,5 @@
 class Blockade {
+
     constructor(scene, graph) {
         this.graph = graph;
         this.scene = scene;
@@ -8,6 +9,8 @@ class Blockade {
         this.player2.moveWallsToStartPosition();
         this.board = [];
         this.getInitialBoard();
+
+        console.log(this.player1);
 
         this.state = {
                 WAITING_FOR_START: 1,
@@ -22,7 +25,10 @@ class Blockade {
                 SELECTING_WALL_PLAYER1: 10,
                 SELECTING_WALL_PLAYER2: 11,
                 SELECTING_WALL_POSITION: 12,
-                SELECTING_CELL: 13
+                SELECTING_PAWN_NEXT_POSITION_PLAYER1: 13,
+                WAITING_FOR_SERVER_PLAYER1_BOARD:14,
+                SELECTING_CELL: 15,
+                UPDATE_BOARD_FROM_PLAYER1: 16
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -55,7 +61,7 @@ class Blockade {
     }
 
     checkCurrentState() {
-      
+
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
                 this.getPawnsPositions();
@@ -89,6 +95,40 @@ class Blockade {
         this.player2.movePawnToStartPosition(positionPlayer2);
 
         this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+    }
+
+    pickingHandler(obj){
+      console.log('boas');
+      console.log(obj);
+      switch (this.currentState) {
+        case this.state.SELECTING_PAWN_PLAYER1:
+          this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1;
+          this.chosenPawn = obj.pawnNumber;
+          console.log(this.chosenPawn);
+          break;
+        case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
+          console.log("X: " + obj.getPosX());
+          console.log("Y: " + obj.getPosY());
+          this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
+          this.getNewBoard(obj.getPosX(),obj.getPosY(),1);
+          break;
+        case this.state.UPDATE_BOARD_FROM_PLAYER1:
+          
+          break;
+        default:
+        console.log('default');
+      }
+    }
+
+    getNewBoard(x,y,player){
+      var this_t = this;
+
+      this.scene.client.getPrologRequest("move_player("+JSON.stringify(this.board)+",b1,"+player+","+this.chosenPawn+")", function(data) {
+          console.log(JSON.parse(data.target.response));
+        //  console.log(data.target.response);
+          this_t.board = JSON.parse(data.target.response);
+          this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1;
+      });
     }
 
     display() {

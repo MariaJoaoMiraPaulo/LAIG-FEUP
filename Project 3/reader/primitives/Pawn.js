@@ -1,10 +1,11 @@
-function Pawn(scene, reader, player) {
+function Pawn(scene, reader, player,pawnNumber) {
   CGFobject.call(this, scene);
   this.scene = scene;
   this.player = player;
   this.xPos=0;
   this.zPos=0;
   this.yPos=2;
+  this.pawnNumber = pawnNumber;
 
   this.orangeMaterial = new CGFappearance(this.scene);
   this.orangeMaterial.setAmbient(1.0,0.5,0,1);
