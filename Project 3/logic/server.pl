@@ -123,7 +123,7 @@ parse_input(board, Numbers):-
 parse_input(pintou(Board),'"pintou"').
 
 parse_input(initial_board,Board):-
-	emptyBoard(TempBoard),
+	emptyBoardBlockade(TempBoard),
 	boardToNumbers(TempBoard,Board).
 
 pintou(Board):-

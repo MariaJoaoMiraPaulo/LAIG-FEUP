@@ -33,6 +33,7 @@ class Blockade {
 
         this.scene.client.getPrologRequest('initial_board', function(data) {
             this_t.board = JSON.parse(data.target.response);
+            console.log(JSON.parse(data.target.response));
             this_t.currentState = this_t.state.INITIALIZE_BOARD;
         });
     }
