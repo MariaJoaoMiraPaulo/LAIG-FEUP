@@ -42,7 +42,7 @@ function Board(scene, reader, dimX , dimZ) {
   this.startPos21=[x1,y,z];
   this.startPos22=[x1,y,z1];
 
-  this.currentPawnOnGamePosition = [0,0];
+  this.currentPawnOnGamePosition;
 
   this.createBoard();
 };
@@ -93,8 +93,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenCubes*x+0.5,0,this.distanceBetweenCubes*z+0.5);
       this.scene.scale(1, 0.3, 1);
-      // if(this.selectableCells && this.possibleMove([x,z])){
-      if(this.selectableCells){
+      if(this.selectableCells && this.possibleMove([z*2,x*2])){
           this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
           index++;
           this.boardElements[z*2][x*2].display();
@@ -178,17 +177,10 @@ Board.prototype.display = function () {
 }
 
 Board.prototype.validatePosition = function(arrayPos){
-
-  this.currentPawnOnGamePosition=arrayPos;
-  console.log(this.currentPawnOnGamePosition);
-
+  this.currentPawnOnGamePosition = arrayPos.slice(0);
 }
 
 Board.prototype.possibleMove = function(arrayPos){
-
-
-  this.currentPawnOnGamePosition=[4,4];
-
 
   var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
   var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
