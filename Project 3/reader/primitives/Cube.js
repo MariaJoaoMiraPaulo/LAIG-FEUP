@@ -61,8 +61,8 @@ Cube.prototype.getPosX = function () {
   return this.posX;
 }
 
-Cube.prototype.getPosY = function () {
-  return this.posY;
+Cube.prototype.getPosZ = function () {
+  return this.posZ;
 }
 
 Cube.prototype.updateTexCoords = function (s, t) {

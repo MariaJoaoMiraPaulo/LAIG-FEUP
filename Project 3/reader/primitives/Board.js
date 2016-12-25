@@ -74,7 +74,7 @@ Board.prototype.display = function () {
   this.scene.clearPickRegistration();
 
   if(typeof this.scene.game != "undefined"){
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL){
+      if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL  || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1){
         this.selectableCells = true;
       }
       else this.selectableCells = false;

@@ -204,7 +204,8 @@ XMLscene.prototype.logPicking = function() {
             for (var i = 0; i < this.pickResults.length; i++) {
                 var obj = this.pickResults[i][0];
                 if (obj) {
-                    console.log(obj);
+                    //console.log(obj);
+                    obj.scene.game.pickingHandler(obj);
                     // console.log("X: " + obj.getPosX());
                     // console.log("Y: " + obj.getPosY());
 
