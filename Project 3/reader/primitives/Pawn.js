@@ -1,7 +1,8 @@
-function Pawn(scene, reader, player) {
+function Pawn(scene, reader, player,id) {
   CGFobject.call(this, scene);
   this.scene = scene;
   this.player = player;
+  this.id = id;
   this.xPos=0;
   this.zPos=0;
   this.yPos=2;

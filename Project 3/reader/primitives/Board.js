@@ -42,6 +42,8 @@ function Board(scene, reader, dimX , dimZ) {
   this.startPos21=[x1,y,z];
   this.startPos22=[x1,y,z1];
 
+  this.currentPawnOnGamePosition = [0,0];
+
   this.createBoard();
 };
 
@@ -91,9 +93,10 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenCubes*x+0.5,0,this.distanceBetweenCubes*z+0.5);
       this.scene.scale(1, 0.3, 1);
-      if(this.selectableCells){
-        this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
-        index++;
+      if(this.selectableCells && this.possibleMove([x,z])){
+          console.log(index);
+          this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
+          index++;
       }
       this.boardElements[z*2][x*2].display();
 
@@ -158,8 +161,61 @@ Board.prototype.display = function () {
 
 }
 
+Board.prototype.validatePosition = function(arrayPos){
+
+  this.currentPawnOnGamePosition=arrayPos;
+  console.log(this.currentPawnOnGamePosition);
+
+}
+
+Board.prototype.possibleMove = function(arrayPos){
+
+
+  this.currentPawnOnGamePosition=[4,4];
+
+
+  var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
+  var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
+
+  var l1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-2];
+  var l2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-4];
+
+  var t1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]];
+  var t2 = [this.currentPawnOnGamePosition[0]-4,this.currentPawnOnGamePosition[1]];
+
+  var b1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
+  var b2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
+
+  var dtr = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-2];
+
+  var dtl = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]-2];
+
+  var dbr = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]+2];
+
+  var dbl = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]+2];
+
+  if(this.arraysAreIdentical(arrayPos,r1)  ||  this.arraysAreIdentical(arrayPos,r2) ||  this.arraysAreIdentical(arrayPos,l1) || this.arraysAreIdentical(arrayPos,l2) ||
+      this.arraysAreIdentical(arrayPos,t1) ||  this.arraysAreIdentical(arrayPos,t2) ||  this.arraysAreIdentical(arrayPos,b1) || this.arraysAreIdentical(arrayPos,b2) ||
+      this.arraysAreIdentical(arrayPos,dtr)|| this.arraysAreIdentical(arrayPos,dtl) || this.arraysAreIdentical(arrayPos,dbr) || this.arraysAreIdentical(arrayPos,dbl))
+  {
+    return true;
+  }
+
+  return false;
+}
+
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;
+}
+
+Board.prototype.arraysAreIdentical = function(arr1, arr2){
+    if (arr1.length !== arr2.length) return false;
+    for (var i = 0, len = arr1.length; i < len; i++){
+        if (arr1[i] !== arr2[i]){
+            return false;
+        }
+    }
+    return true;
 }
 
 

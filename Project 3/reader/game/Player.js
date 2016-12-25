@@ -9,8 +9,8 @@ class Player {
     this.selectablePawn = false;
     this.selectableWall = false;
 
-    this.pawn1 = new Pawn(this.scene, this.reader, this.player);
-    this.pawn2 = new Pawn(this.scene, this.reader, this.player);
+    this.pawn1 = new Pawn(this.scene, this.reader, this.player, 1);
+    this.pawn2 = new Pawn(this.scene, this.reader, this.player, 2);
 
     this.numberWalls = 7;
     this.walls = new Array(this.numberWalls-1);
@@ -94,6 +94,27 @@ class Player {
 
     this.scene.clearPickRegistration();
 
+  }
+
+  validPawnPosition(id){
+
+    var x;
+    var z;
+
+    var string = "player" + this.player + id;
+
+    var index = this.scene.game.returnPrologBoardAtom(string);
+
+    for (let i = 0; i < this.scene.game.board.length; i++) {
+        for (let j = 0; j < this.scene.game.board[i].length; j++) {
+            if (this.scene.game.board[i][j] == index) {
+                z = i;
+                x = j;
+            }
+        }
+    }
+
+    return [x,z];
   }
 
   displayPawns(){
