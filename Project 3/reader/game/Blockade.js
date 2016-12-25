@@ -64,9 +64,9 @@ class Blockade {
                 this.getPawnsPositions();
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1:
-
+                this.getPawnsPositions();
                 break;
-          
+
         }
     }
 
@@ -76,16 +76,16 @@ class Blockade {
 
         for (let i = 0; i < this.board.length; i++) {
             for (let j = 0; j < this.board[i].length; j++) {
-                if (this.board[i][j] == 5) {
+                if (this.board[i][j] == this.returnPrologBoardAtom("player11")) {
                     positionPlayer1['x1'] = Board.prototype.convertPositionOnBoard(j);
                     positionPlayer1['y1'] = Board.prototype.convertPositionOnBoard(i);
-                } else if (this.board[i][j] == 6) {
+                } else if (this.board[i][j] == this.returnPrologBoardAtom("player12")) {
                     positionPlayer1['x2'] = Board.prototype.convertPositionOnBoard(j);
                     positionPlayer1['y2'] = Board.prototype.convertPositionOnBoard(i);
-                } else if (this.board[i][j] == 7) {
+                } else if (this.board[i][j] == this.returnPrologBoardAtom("player21")) {
                     positionPlayer2['x1'] = Board.prototype.convertPositionOnBoard(j);
                     positionPlayer2['y1'] = Board.prototype.convertPositionOnBoard(i);
-                } else if (this.board[i][j] == 8) {
+                } else if (this.board[i][j] == this.returnPrologBoardAtom("player22")) {
                     positionPlayer2['x2'] = Board.prototype.convertPositionOnBoard(j);
                     positionPlayer2['y2'] = Board.prototype.convertPositionOnBoard(i);
                 }
@@ -95,7 +95,17 @@ class Blockade {
         this.player1.movePawnToStartPosition(positionPlayer1);
         this.player2.movePawnToStartPosition(positionPlayer2);
 
-        this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+        switch (this.currentState) {
+          case this.state.INITIALIZE_BOARD:
+            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            break;
+          case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
+            this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+            break;
+          default:
+
+        }
+
     }
 
 
@@ -165,7 +175,7 @@ class Blockade {
                 console.log("X: " + obj.getPosX());
                 console.log("Z: " + obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
-                this.getNewBoard(obj.getPosX(), obj.getPosZ(), 1);
+                this.getNewBoard(obj.getPosZ(),obj.getPosX(), 1);
                 break;
             default:
                 console.log('default');
