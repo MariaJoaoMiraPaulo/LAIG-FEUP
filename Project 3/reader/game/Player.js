@@ -97,19 +97,14 @@ class Player {
   }
 
   validPawnPosition(id){
-
-    var x;
-    var z;
-
     var string = "player" + this.player + id;
-
     var index = this.scene.game.returnPrologBoardAtom(string);
 
     for (let i = 0; i < this.scene.game.board.length; i++) {
         for (let j = 0; j < this.scene.game.board[i].length; j++) {
             if (this.scene.game.board[i][j] == index) {
-                z = i;
-                x = j;
+                var z = i;
+                var x = j;
             }
         }
     }

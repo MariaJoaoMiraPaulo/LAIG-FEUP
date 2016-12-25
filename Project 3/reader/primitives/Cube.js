@@ -1,8 +1,8 @@
-function Cube(scene, reader, posX, posY) {
+function Cube(scene, reader, posZ, posX) {
     CGFobject.call(this, scene);
     this.scene = scene;
+    this.posZ = posZ;
     this.posX = posX;
-    this.posY = posY;
 
     this.quad1 = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
     this.quad2 = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);

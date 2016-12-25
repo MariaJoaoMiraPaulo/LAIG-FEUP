@@ -93,7 +93,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenCubes*x+0.5,0,this.distanceBetweenCubes*z+0.5);
       this.scene.scale(1, 0.3, 1);
-      if(this.selectableCells && this.possibleMove([z*2,x*2])){
+      if(this.selectableCells && this.possibleMove([x*2,z*2])){
           this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
           index++;
           this.boardElements[z*2][x*2].display();
@@ -181,6 +181,8 @@ Board.prototype.validatePosition = function(arrayPos){
 }
 
 Board.prototype.possibleMove = function(arrayPos){
+
+  //array pos z,x
 
   var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
   var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
