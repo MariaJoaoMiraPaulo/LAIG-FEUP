@@ -54,7 +54,7 @@ class Player {
   }
 
   movePawnToStartPosition(startPositions){
-    
+
     this.pawn1.setPawnXCoord(startPositions['x1']);
     this.pawn1.setPawnYCoord(1.3);
     this.pawn1.setPawnZCoord(startPositions['y1']);

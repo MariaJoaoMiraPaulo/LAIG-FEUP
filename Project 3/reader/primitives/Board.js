@@ -29,17 +29,11 @@ function Board(scene, reader, dimX , dimZ) {
   var xTab = this.dimX * this.cubeSize  + (this.dimX-1)*this.floorSize;
   var zTab = this.dimZ * this.cubeSize  + (this.dimZ-1)*this.floorSize;
 
-  var startX = Math.floor((this.dimX)/3)-1;
-  var startX1 = this.dimX - startX -1;
+  var x = this.convertPositionOnBoard(4);
+  var x1 = this.convertPositionOnBoard(14);
 
-  var startZ= Math.floor((this.dimZ)/3)-1;
-  var startZ1 = this.dimZ - startZ -1;
-
-  var x = this.convertPositionOnBoard(startX);
-  var x1 = this.convertPositionOnBoard(startX1);
-
-  var z = this.convertPositionOnBoard(startZ);
-  var z1 =  this.convertPositionOnBoard(startZ1);
+  var z = this.convertPositionOnBoard(4);
+  var z1 = this.convertPositionOnBoard(12);
 
   var y = 1.3;
 

@@ -55,7 +55,7 @@ class Blockade {
     }
 
     checkCurrentState() {
-      
+
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
                 this.getPawnsPositions();
