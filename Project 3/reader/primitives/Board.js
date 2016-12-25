@@ -1,3 +1,6 @@
+Board.distanceBetweenCubes = 1.3;
+Board.distanceBetweenFloor= 1.3;
+
 function Board(scene, reader, dimX , dimZ) {
   CGFobject.call(this, scene);
   this.scene = scene;
@@ -163,7 +166,7 @@ Board.prototype.display = function () {
 }
 
 Board.prototype.convertPositionOnBoard = function (pos) {
-  return pos*this.distanceBetweenCubes+0.5;
+  return pos*Board.distanceBetweenCubes+0.5;
 }
 
 

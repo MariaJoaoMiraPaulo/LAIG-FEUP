@@ -18,13 +18,13 @@ class Player {
 
     switch (player) {
       case 1:
-      this.startPositionPawn1=this.graph.components["board"].childrens[0].startPos11;
-      this.startPositionPawn2=this.graph.components["board"].childrens[0].startPos12;
+    /*  this.startPositionPawn1=this.graph.components["board"].childrens[0].startPos11;
+      this.startPositionPawn2=this.graph.components["board"].childrens[0].startPos12;*/
       this.startPositionWall1 = [-2,0.3,3];
       break;
       case 2:
-      this.startPositionPawn1=this.graph.components["board"].childrens[0].startPos21;
-      this.startPositionPawn2=this.graph.components["board"].childrens[0].startPos22;
+    /*  this.startPositionPawn1=this.graph.components["board"].childrens[0].startPos21;
+      this.startPositionPawn2=this.graph.components["board"].childrens[0].startPos22;*/
       this.startPositionWall1 = [16,0.3,3];
       break;
     }
@@ -54,14 +54,15 @@ class Player {
     return pawn2;
   }
 
-  movePawnToStartPosition(){
-    this.pawn1.setPawnXCoord(this.startPositionPawn1[0]);
-    this.pawn1.setPawnYCoord(this.startPositionPawn1[1]);
-    this.pawn1.setPawnZCoord(this.startPositionPawn1[2]);
+  movePawnToStartPosition(startPositions){
+    console.log(startPositions);
+    this.pawn1.setPawnXCoord(startPositions['x1']);
+    this.pawn1.setPawnYCoord(1.3);
+    this.pawn1.setPawnZCoord(startPositions['y1']);
 
-    this.pawn2.setPawnXCoord(this.startPositionPawn2[0]);
-    this.pawn2.setPawnYCoord(this.startPositionPawn2[1]);
-    this.pawn2.setPawnZCoord(this.startPositionPawn2[2]);
+    this.pawn2.setPawnXCoord(startPositions['x2']);
+    this.pawn2.setPawnYCoord(1.3);
+    this.pawn2.setPawnZCoord(startPositions['y2']);
   }
 
   moveWallsToStartPosition(){

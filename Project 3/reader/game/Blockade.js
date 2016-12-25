@@ -1,61 +1,101 @@
 class Blockade {
-    constructor(scene,graph) {
-      this.graph = graph;
-      this.scene = scene;
-      this.player1 = new Player(1,this.graph,this.scene);
-      this.player1.movePawnToStartPosition();
-      this.player2 = new Player(2,this.graph,this.scene);
-      this.player2.movePawnToStartPosition();
-      this.player1.moveWallsToStartPosition();
-      this.player2.moveWallsToStartPosition();
-      this.board = [];
-      this.getInitialBoard();
+    constructor(scene, graph) {
+        this.graph = graph;
+        this.scene = scene;
+        this.player1 = new Player(1, this.graph, this.scene);
+        //this.player1.movePawnToStartPosition();
+        this.player2 = new Player(2, this.graph, this.scene);
+        //    this.player2.movePawnToStartPosition();
+        this.player1.moveWallsToStartPosition();
+        this.player2.moveWallsToStartPosition();
+        this.board = [];
+        this.getInitialBoard();
 
-      this.state = {
-        SELECTING_PAWN:1,
-        SELECTING_CELL:2,
-        SELECTING_WALL:3,
-        SELECTING_WALL_POSITION:4,
-        PLAYING:5,
-        GAME_OVER:6,
-        PLAYER1_PLAYING:7,
-        PLAYER2_PLAYING:8,
-        WAITING_FOR_START:9,
-        START_GAME:10
-      };
-      this.currentState = this.state.WAITING_FOR_START;
+        this.state = {
+            SELECTING_PAWN: 1,
+            SELECTING_CELL: 2,
+            SELECTING_WALL: 3,
+            SELECTING_WALL_POSITION: 4,
+            PLAYING: 5,
+            GAME_OVER: 6,
+            PLAYER1_PLAYING: 7,
+            PLAYER2_PLAYING: 8,
+            WAITING_FOR_START: 9,
+            START_GAME: 10,
+            INITIALIZE_BOARD: 11
+        };
+        this.currentState = this.state.WAITING_FOR_START;
 
     }
 
-    getInitialBoard(){
-      var this_t = this;
+    getInitialBoard() {
+        var this_t = this;
 
-      this.scene.client.getPrologRequest('initial_board', function(data){
-          this_t.board = JSON.parse(data.target.response);
-      });
+        this.scene.client.getPrologRequest('initial_board', function(data) {
+            this_t.board = JSON.parse(data.target.response);
+            this_t.currentState = this_t.state.INITIALIZE_BOARD;
+        });
     }
 
-    getCurrentState(){
-      return this.currentState;
+    getCurrentState() {
+        return this.currentState;
     }
 
-    getPlayer1(){
-      return this.player1;
+    getPlayer1() {
+        return this.player1;
     }
 
-    getPlayer2(){
-      return this.player2;
+    getPlayer2() {
+        return this.player2;
     }
 
-    getBoard(){
-      return this.board;
+    getBoard() {
+        return this.board;
     }
 
-    display(){
-      this.player1.displayPawns();
-      this.player1.displayWalls();
+    checkCurrentState() {
+        console.log(this.currentState);
+        switch (this.currentState) {
+            case this.state.INITIALIZE_BOARD:
+                this.getPawnsPositions();
+                break;
+        }
+    }
 
-      this.player2.displayPawns();
-      this.player2.displayWalls();
+    getPawnsPositions() {
+        var positionPlayer1 = {}
+        var positionPlayer2 = {};
+
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.board[i][j] == 5) {
+                    positionPlayer1['x1'] = Board.prototype.convertPositionOnBoard(i);
+                    positionPlayer1['y1'] = Board.prototype.convertPositionOnBoard(j);
+                } else if (this.board[i][j] == 6) {
+                    positionPlayer1['x2'] = Board.prototype.convertPositionOnBoard(i);
+                    positionPlayer1['y2'] = Board.prototype.convertPositionOnBoard(j);
+                } else if (this.board[i][j] == 7) {
+                    positionPlayer2['x1'] = Board.prototype.convertPositionOnBoard(i);
+                    positionPlayer2['y1'] = Board.prototype.convertPositionOnBoard(j);
+                } else if (this.board[i][j] == 8) {
+                    positionPlayer2['x2'] = Board.prototype.convertPositionOnBoard(i);
+                    positionPlayer2['y2'] = Board.prototype.convertPositionOnBoard(j);
+                }
+            }
+        }
+    
+        this.player1.movePawnToStartPosition(positionPlayer1);
+        this.player2.movePawnToStartPosition(positionPlayer2);
+
+        this.currentState = this.state.SELECTING_PAWN;
+    }
+
+    display() {
+        this.checkCurrentState();
+        this.player1.displayPawns();
+        this.player1.displayWalls();
+
+        this.player2.displayPawns();
+        this.player2.displayWalls();
     }
 }
