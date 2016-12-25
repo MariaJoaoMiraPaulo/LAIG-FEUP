@@ -24,7 +24,7 @@ function Board(scene, reader, dimX , dimZ) {
   this.StartPos11Circle = new StartPos(this.scene,this.reader,1);
   this.StartPos12Circle = new StartPos(this.scene,this.reader,1);
   this.StartPos21Circle = new StartPos(this.scene,this.reader,2);
-  this.StartPos22Circle = new StartPos(this.scene,this.reader,1);
+  this.StartPos22Circle = new StartPos(this.scene,this.reader,2);
 
   var xTab = this.dimX * this.cubeSize  + (this.dimX-1)*this.floorSize;
   var zTab = this.dimZ * this.cubeSize  + (this.dimZ-1)*this.floorSize;
@@ -215,53 +215,54 @@ Board.prototype.possibleMove = function(arrayPos){
 }
 
 Board.prototype.getPawnDiretion = function (x,z) {
-  console.log(this.currentPawnOnGamePosition);
+  console.log("entrei");
+  console.log(this.currentPawnOnGamePosition); //x z
+  var arrayPos = [x,z];
+  console.log(arrayPos);
 
-  var arrayPos = [z,x];
-
-  var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
+  var r1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,r1)){
     var direction="r1";
     return direction;
   }
 
-  var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
+  var r2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,r2)){
     var direction="r2";
     return direction;
   }
 
-  var l1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-2];
+  var l1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,l1)){
     var direction="l1";
     return direction;
   }
 
-  var l2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-4];
+  var l2 = [this.currentPawnOnGamePosition[0]-4,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,l2)){
     var direction="l2";
     return direction;
   }
 
-  var t1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]];
+  var t1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-2];
   if(this.arraysAreIdentical(arrayPos,t1)){
     var direction="t1";
     return direction;
   }
 
-  var t2 = [this.currentPawnOnGamePosition[0]-4,this.currentPawnOnGamePosition[1]];
+  var t2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-4];
   if(this.arraysAreIdentical(arrayPos,t2)){
     var direction="t2";
     return direction;
   }
 
-  var b1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
+  var b1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+2];
   if(this.arraysAreIdentical(arrayPos,b1)){
     var direction="b1";
     return direction;
   }
 
-  var b2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
+  var b2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+4];
   if(this.arraysAreIdentical(arrayPos,b2)){
     var direction="b2";
     return direction;

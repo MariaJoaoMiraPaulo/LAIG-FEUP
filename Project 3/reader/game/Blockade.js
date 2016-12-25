@@ -177,7 +177,7 @@ class Blockade {
                 console.log(Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ()));
                 var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
-                this.getNewBoard(obj.getPosZ(),obj.getPosX(),direction,1);
+                this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,1);
                 break;
             default:
                 console.log('default');
