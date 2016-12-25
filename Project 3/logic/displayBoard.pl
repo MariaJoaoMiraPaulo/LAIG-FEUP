@@ -28,6 +28,26 @@ Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty
         [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty]].
 
 
+        emptyBoardBlockade(Board):-
+        Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
+                [noWall,null, noWall,null, noWall, null, noWall, null,  noWall, null,  noWall,null,  noWall, null, noWall, null, noWall, null, noWall],
+                [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, empty],
+                [noWall,null, noWall,null, noWall, null, noWall,null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall],
+                [empty,noVerticalWall, empty,noVerticalWall, player11,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, player21,noVerticalWall, empty, noVerticalWall, empty],
+                [noWall,null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall],
+                [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
+                [noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall],
+                [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty],
+                [noWall,null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall],
+                [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty],
+                [noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall],
+                [empty,noVerticalWall, empty,noVerticalWall, player12,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, player22,noVerticalWall, empty, noVerticalWall, empty],
+                [noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
+                [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty],
+                [noWall, null, noWall, null, noWall, null, noWall, null,  noWall,  null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall],
+                [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty]].
+
+
  normalBoard(Board):-
    Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
            [noWall,null, noWall,null, noWall, null, noWall, null,  noWall, null,  noWall,null,  noWall, null, noWall, null, noWall, null, noWall,null, noWall],

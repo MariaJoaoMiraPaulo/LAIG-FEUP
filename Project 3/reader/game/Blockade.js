@@ -87,7 +87,7 @@ class Blockade {
         this.player1.movePawnToStartPosition(positionPlayer1);
         this.player2.movePawnToStartPosition(positionPlayer2);
 
-        this.currentState = this.state.SELECTING_CELL;
+        this.currentState = this.state.SELECTING_PAWN_PLAYER1;
     }
 
     display() {
