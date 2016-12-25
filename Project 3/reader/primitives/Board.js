@@ -67,18 +67,19 @@ Board.prototype.createBoard = function () {
       }
     }
   }
-
 }
 
 
 
 Board.prototype.display = function () {
 
-//TODO: not working Game WHY???
-  // if(this.scene.game.currentState==this.scene.game.STATE.SELECTING_CELL){
-  //   this.selectable = true;
-  // }
-  // else this.selectable = false;
+  //TODO: not working Game WHY???
+  if(typeof this.scene.game != "undefined"){
+      if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL){
+        this.selectable = true;
+      }
+      else this.selectable = false;
+  }
 
   var index = 1;
   for(var z=0;z<this.dimZ;z++){
@@ -88,8 +89,12 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenCubes*x+0.5,0,this.distanceBetweenCubes*z+0.5);
       this.scene.scale(1, 0.3, 1);
+      if(this.selectable){
+        this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
+        index++;
+      }/*
       this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
-      index++;
+      index++;*/
       this.boardElements[z*2][x*2].display();
 
       this.scene.popMatrix();
@@ -103,8 +108,12 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenFloor*x+0.5,0,this.distanceBetweenFloor*z+1.2);
       this.scene.scale(1, 0.2, 0.3);
-    this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
-      index++;
+      if(this.selectable){
+        this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
+        index++;
+      }
+    /*  this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
+      index++;*/
       this.boardElements[z*2+1][x*2].display();
 
       this.scene.popMatrix();
@@ -117,8 +126,12 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenFloor*x+1.2,0,this.distanceBetweenFloor*z+0.5);
       this.scene.scale(0.3, 0.2, 1);
-      this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
-      index++;
+      if(this.selectable){
+        this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
+        index++;
+      }
+/*      this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
+      index++;*/
       this.boardElements[z*2][x*2+1].display();
 
       this.scene.popMatrix();

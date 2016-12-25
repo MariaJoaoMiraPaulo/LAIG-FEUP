@@ -8,8 +8,10 @@ class Blockade {
       this.player2.movePawnToStartPosition();
       this.player1.moveWallsToStartPosition();
       this.player2.moveWallsToStartPosition();
+      this.board = [];
+      this.getInitialBoard();
 
-      var state = {
+      this.state = {
         SELECTING_PAWN:1,
         SELECTING_CELL:2,
         SELECTING_WALL:3,
@@ -21,8 +23,16 @@ class Blockade {
         WAITING_FOR_START:9,
         START_GAME:10
       };
-      this.currentState = state.WAITING_FOR_START;
+      this.currentState = this.state.WAITING_FOR_START;
 
+    }
+
+    getInitialBoard(){
+      var this_t = this;
+
+      this.scene.client.getPrologRequest('initial_board', function(data){
+          this_t.board = JSON.parse(data.target.response);
+      });
     }
 
     getCurrentState(){
