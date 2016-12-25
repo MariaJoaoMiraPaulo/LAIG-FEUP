@@ -8,16 +8,18 @@ function Pawn(scene, reader, player,pawnNumber) {
   this.pawnNumber = pawnNumber;
 
   this.orangeMaterial = new CGFappearance(this.scene);
-  this.orangeMaterial.setAmbient(1.0,0.5,0,1);
-  this.orangeMaterial.setDiffuse(1.0,0.5,0,1);
-  this.orangeMaterial.setSpecular(1.0,0.5,0,1);
+  this.orangeMaterial.setAmbient(1.0,1,1,1);
+  this.orangeMaterial.setDiffuse(1.0,1,1,1);
+  this.orangeMaterial.setSpecular(1.0,1,1,1);
   this.orangeMaterial.setShininess(0);
+  this.orangeMaterial.loadTexture("img/1.jpg");
 
   this.yellowMaterial = new CGFappearance(this.scene);
-  this.yellowMaterial.setAmbient(1,1.0,0.0,1);
-  this.yellowMaterial.setDiffuse(1.0,1.0,0.0,1);
-  this.yellowMaterial.setSpecular(1.0,1.0,0.0,1);
+  this.yellowMaterial.setAmbient(1.0,1,1,1);
+  this.yellowMaterial.setDiffuse(1.0,1,1,1);
+  this.yellowMaterial.setSpecular(1.0,1,1,1);
   this.yellowMaterial.setShininess(0);
+  this.yellowMaterial.loadTexture("img/2.jpg");
 
   switch (player) {
     case 1:
