@@ -39,6 +39,8 @@ class Blockade {
             SELECTING_WALL_POSITION2_PLAYER2: 22,
             WAITING_FOR_SERVER_PLAYER1_WALL_BOARD: 23,
             WAITING_FOR_SERVER_PLAYER2_WALL_BOARD: 24,
+            UPDATE_BOARD_FROM_PLAYER1_WALLS: 25,
+            UPDATE_BOARD_FROM_PLAYER2_WALLS: 26,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -100,13 +102,29 @@ class Blockade {
                 this.updatePawnsPositions();
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1:
-                this.updatePawnsPositions();
-                break;
             case this.state.UPDATE_BOARD_FROM_PLAYER2:
                 this.updatePawnsPositions();
                 break;
+            case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
+            case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
+                this.getAllBoardWalls();
+                this.updateWallPositions();
+                break;
 
         }
+    }
+
+    updateWallPositions(){
+      switch (this.currentState) {
+        case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
+          this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+          break;
+        case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
+          this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+          break;
+        default:
+
+      }
     }
 
     updatePawnsPositions() {
@@ -142,7 +160,7 @@ class Blockade {
             this.currentState = this.state.SELECTING_WALL_PLAYER1;
             break;
           case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
-            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            this.currentState = this.state.SELECTING_WALL_PLAYER2;
             break;
           default:
 
@@ -241,7 +259,13 @@ class Blockade {
                 this.secondWallz = obj.getPosZ();
                 var orientation = Board.prototype.getWallOrientation(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
                 console.log(orientation);
-                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
+                if(!orientation){
+                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
+                }
+                else {
+                  this.getBoardWithNewWalls(orientation);
+                  this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
+                }
                 break;
             case this.state.SELECTING_PAWN_PLAYER2:
                 console.log("entrei pawn2");
@@ -257,6 +281,35 @@ class Blockade {
                 var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
                 this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,2);
+                break;
+            case this.state.SELECTING_WALL_PLAYER2:
+                console.log("select wall 1");
+                console.log("Wall Number: " + obj.getWallNumber());
+                this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                break;
+            case this.state.SELECTING_WALL_POSITION1_PLAYER2:
+                console.log("X: " + obj.getPosX());
+                console.log("Z: " + obj.getPosZ());
+                this.firstWallx = obj.getPosX();
+                this.firstWallz = obj.getPosZ();
+                Board.prototype.currentWallPositionX = this.firstWallx;
+                Board.prototype.currentWallPositionZ = this.firstWallz;
+                this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER2;
+                break;
+            case this.state.SELECTING_WALL_POSITION2_PLAYER2:
+                console.log("X: " + obj.getPosX());
+                console.log("Z: " + obj.getPosZ());
+                this.secondWallx = obj.getPosX();
+                this.secondWallz = obj.getPosZ();
+                var orientation = Board.prototype.getWallOrientation(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                console.log(orientation);
+                if(!orientation){
+                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                }
+                else {
+                  this.getBoardWithNewWalls(orientation);
+                  this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD;
+                }
                 break;
             default:
                 console.log('default');
@@ -284,6 +337,31 @@ class Blockade {
         });
     }
 
+    getBoardWithNewWalls(orientation){
+      var this_t = this;
+
+      this.firstWallx += 1;
+      this.firstWallz += 1;
+      this.secondWallx += 1;
+      this.secondWallz += 1;
+
+      this.scene.client.getPrologRequest("put_wall("+JSON.stringify(this.board)+","+orientation+","+this.firstWallx+","+
+      this.firstWallz+","+this.secondWallx+","+this.secondWallz+")", function(data){
+        console.log(JSON.parse(data.target.response));
+        this_t.board = JSON.parse(data.target.response);
+
+        switch (this_t.currentState) {
+          case this_t.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD:
+            this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1_WALLS;
+            break;
+          case this_t.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD:
+            this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER2_WALLS;
+             break;
+          default:
+
+        }
+      });
+    }
 
     display() {
         this.checkCurrentState();
@@ -292,6 +370,6 @@ class Blockade {
 
         this.player2.displayPawns();
         this.player2.displayWalls();
-        //this.getAllBoardWalls();
+
     }
 }
