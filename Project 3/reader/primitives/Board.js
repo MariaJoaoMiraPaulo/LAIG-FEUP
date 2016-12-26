@@ -314,6 +314,14 @@ Board.prototype.getPawnDiretion = function (x,z) {
   return false;
 }
 
+Board.prototype.getWallDiretion = function (firstWallz,firstWallx,secondWallz,secondWallx) {
+
+    console.log(firstWallz);
+    console.log(firstWallx);
+    console.log(secondWallz);
+    console.log(secondWallx);
+}
+
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;
 }

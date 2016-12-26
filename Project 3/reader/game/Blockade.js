@@ -9,6 +9,11 @@ class Blockade {
         this.board = [];
         this.getInitialBoard();
 
+        this.firstWallx;
+        this.firstWallz;
+        this.secondWallx;
+        this.secondWallz;
+
         this.state = {
             WAITING_FOR_START: 1,
             START_GAME: 2,
@@ -223,11 +228,16 @@ class Blockade {
             case this.state.SELECTING_WALL_POSITION1_PLAYER1:
                 console.log("X: " + obj.getPosX());
                 console.log("Z: " + obj.getPosZ());
+                this.firstWallx = obj.getPosX();
+                this.firstWallz = obj.getPosZ();
                 this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER1;
                 break;
             case this.state.SELECTING_WALL_POSITION2_PLAYER1:
                 console.log("X: " + obj.getPosX());
                 console.log("Z: " + obj.getPosZ());
+                this.secondWallx = obj.getPosX();
+                this.secondWallz = obj.getPosZ();
+                var direction = Board.prototype.getWallDiretion(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
                 break;
             case this.state.SELECTING_PAWN_PLAYER2:
