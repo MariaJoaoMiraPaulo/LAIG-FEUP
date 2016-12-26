@@ -247,9 +247,11 @@ class Blockade {
                 break;
             case this.state.SELECTING_WALL_PLAYER1:
                 console.log("select wall 1");
+                if(obj instanceof Wall){
                 console.log("Wall Number: " + obj.getWallNumber());
                 this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
+              }
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER1:
                 console.log("X: " + obj.getPosX());
@@ -297,9 +299,11 @@ class Blockade {
                 break;
             case this.state.SELECTING_WALL_PLAYER2:
                 console.log("select wall 1");
-                console.log("Wall Number: " + obj.getWallNumber());
-                this.selectWallId = obj.getWallNumber();
-                this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                if(obj instanceof Wall){
+                  console.log("Wall Number: " + obj.getWallNumber());
+                  this.selectWallId = obj.getWallNumber();
+                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                }
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER2:
                 console.log("X: " + obj.getPosX());
