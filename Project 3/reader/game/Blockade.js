@@ -241,7 +241,8 @@ class Blockade {
                 console.log("Z: " + obj.getPosZ());
                 this.secondWallx = obj.getPosX();
                 this.secondWallz = obj.getPosZ();
-                var orientation = Board.prototype.getWallDiretion(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                var orientation = Board.prototype.getWallOrientation(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                console.log(orientation);
                 this.getBoardWithNewWalls(orientation);
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
                 break;
