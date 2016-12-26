@@ -39,6 +39,8 @@ class Blockade {
             SELECTING_WALL_POSITION2_PLAYER2: 22,
             WAITING_FOR_SERVER_PLAYER1_WALL_BOARD: 23,
             WAITING_FOR_SERVER_PLAYER2_WALL_BOARD: 24,
+            UPDATE_BOARD_FROM_PLAYER1_WALLS: 25,
+            UPDATE_BOARD_FROM_PLAYER2_WALLS: 26,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -100,10 +102,12 @@ class Blockade {
                 this.updatePawnsPositions();
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1:
-                this.updatePawnsPositions();
-                break;
             case this.state.UPDATE_BOARD_FROM_PLAYER2:
                 this.updatePawnsPositions();
+                break;
+            case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
+            case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
+                this.getAllBoardWalls();
                 break;
 
         }
@@ -237,7 +241,8 @@ class Blockade {
                 console.log("Z: " + obj.getPosZ());
                 this.secondWallx = obj.getPosX();
                 this.secondWallz = obj.getPosZ();
-                var direction = Board.prototype.getWallDiretion(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                var orientation = Board.prototype.getWallDiretion(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                this.getBoardWithNewWalls(orientation);
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
                 break;
             case this.state.SELECTING_PAWN_PLAYER2:
@@ -281,6 +286,26 @@ class Blockade {
         });
     }
 
+    getBoardWithNewWalls(orientation){
+      var this_t = this;
+
+      this.scene.client.getPrologRequest("put_wall("+JSON.stringify(this.board)+","+orientation+","+this.firstWallx+","+
+      this.firstWallz+","+this.secondWallx+","+this.secondWallz+")", function(data){
+        console.log(JSON.parse(data.target.response));
+        this_t.board = JSON.parse(data.target.response);
+
+        switch (this_t.currentState) {
+          case this_t.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD:
+            this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1_WALLS;
+            break;
+          case this_t.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD:
+            this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER2_WALLS;
+             break;
+          default:
+
+        }
+      });
+    }
 
     display() {
         this.checkCurrentState();
@@ -289,6 +314,6 @@ class Blockade {
 
         this.player2.displayPawns();
         this.player2.displayWalls();
-        //this.getAllBoardWalls();
+
     }
 }
