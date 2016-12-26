@@ -1,5 +1,6 @@
 Board.distanceBetweenCubes = 1.4;
 Board.distanceBetweenFloor= 1.4;
+Board.currentWalls = [];
 
 function Board(scene, reader, dimX , dimZ) {
   CGFobject.call(this, scene);
@@ -33,7 +34,7 @@ function Board(scene, reader, dimX , dimZ) {
   this.highlight.setShininess(0);
   this.highlight.loadTexture("img/boardHighLight.jpg");
 
-  this.currentWalls;
+
   this.boardElements = new Array(this.doubleDimZ-2);
 
   this.StartPos11Circle = new StartPos(this.scene,this.reader,1);
@@ -243,11 +244,10 @@ Board.prototype.possibleMove = function(arrayPos){
 }
 
 Board.prototype.possibleWall = function(arrayPos){
-  var walls = [[0,3]];
-  //array pos z,x
 
-  for(var i=0;i<walls.length;i++){
-    if(this.arraysAreIdentical(walls[i],arrayPos)){
+  for(var i=0;i<this.scene.game.currentWalls.length;i++){
+    console.log(this.scene.game.currentWalls + " board " + arrayPos);
+    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){
       return false;
     }
   }

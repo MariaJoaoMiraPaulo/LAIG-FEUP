@@ -14,6 +14,8 @@ class Blockade {
         this.secondWallx;
         this.secondWallz;
 
+        this.currentWalls =[];
+
         this.state = {
             WAITING_FOR_START: 1,
             START_GAME: 2,
@@ -57,26 +59,19 @@ class Blockade {
     }
 
     getAllBoardWalls(){
-      var walls = [];
 
       for (let i = 0; i < this.board.length; i++) {
           for (let j = 0; j < this.board[i].length; j++) {
-              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall")) {
-                  console.log(this.returnPrologBoardAtom("wall"));
+              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
                   var z = i;
                   var x = j;
                   var tempArray = [z,x];
-                  walls.push(tempArray);
+                  this.currentWalls.push(tempArray);
               }
           }
       }
 
-      //TODO: nao tem paredes Atualmente
-      walls=[[3,0]];
-
-      Board.prototype.currentWalls = walls;
-
-      return walls;
+      return true;
     }
 
     getCurrentState() {
@@ -107,8 +102,8 @@ class Blockade {
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
             case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
-                this.getAllBoardWalls();
                 this.updateWallPositions();
+                this.getAllBoardWalls();
                 break;
 
         }
