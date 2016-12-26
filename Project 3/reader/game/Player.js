@@ -24,7 +24,7 @@ class Player {
       this.startPositionWall1 = [-2,0.3,3];
       break;
       case 2:
-      this.startPositionWall1 = [16,0.3,3];
+      this.startPositionWall1 = [15.5,0.3,3];
       break;
     }
   }
@@ -53,15 +53,15 @@ class Player {
     return pawn2;
   }
 
-  movePawnToStartPosition(startPositions){
+  movePawn(position){
 
-    this.pawn1.setPawnXCoord(startPositions['x1']);
+    this.pawn1.setPawnXCoord(position['x1']);
     this.pawn1.setPawnYCoord(1.3);
-    this.pawn1.setPawnZCoord(startPositions['y1']);
+    this.pawn1.setPawnZCoord(position['y1']);
 
-    this.pawn2.setPawnXCoord(startPositions['x2']);
+    this.pawn2.setPawnXCoord(position['x2']);
     this.pawn2.setPawnYCoord(1.3);
-    this.pawn2.setPawnZCoord(startPositions['y2']);
+    this.pawn2.setPawnZCoord(position['y2']);
   }
 
   moveWallsToStartPosition(){

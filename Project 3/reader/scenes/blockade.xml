@@ -96,6 +96,7 @@
     <textures>
         <texture id="board" file="img/board.jpg" length_s="1" length_t="1"/>
         <texture id="base" file="img/base.jpg" length_s="1" length_t="1"/>
+        <texture id="table" file="img/table.png" length_s="1" length_t="1"/>
     </textures>
 
     <materials>
@@ -231,6 +232,7 @@
                   <componentref id="board" />
                   <componentref id="Player1Base" />
                   <componentref id="Player2Base" />
+                  <componentref id="table" />
             </children>
 
         </component>
@@ -278,7 +280,7 @@
         <component id="Player2Base">
 
             <transformation>
-              <translate x="16" y="0" z="4.5"/>
+              <translate x="15.5" y="0" z="4.5"/>
                   <scale x="4" y="0.2" z="5"/>
             </transformation>
 
@@ -292,5 +294,20 @@
                  <primitiveref id="cube" />
             </children>
 
+        </component>
+
+        <component id="table">
+            <transformation>
+                <scale x="25" y="5" z="20"/>
+                <rotate axis="x" angle="90"/>
+                <translate x="0.25" y="0.3" z="0"/>
+            </transformation>
+            <materials>
+                <material id="white"/>
+            </materials>
+            <texture id="table"/>
+            <children>
+                <primitiveref id="rectangle"/>
+            </children>
         </component>
 </dsx>

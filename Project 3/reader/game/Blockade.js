@@ -21,11 +21,13 @@ class Blockade {
             SELECTING_PAWN_PLAYER2: 9,
             SELECTING_WALL_PLAYER1: 10,
             SELECTING_WALL_PLAYER2: 11,
-            SELECTING_WALL_POSITION: 12,
-            SELECTING_PAWN_NEXT_POSITION_PLAYER1: 13,
+            SELECTING_PAWN_NEXT_POSITION_PLAYER1: 12,
+            SELECTING_PAWN_NEXT_POSITION_PLAYER2:13,
             WAITING_FOR_SERVER_PLAYER1_BOARD: 14,
-            SELECTING_CELL: 15,
-            UPDATE_BOARD_FROM_PLAYER1: 16
+            WAITING_FOR_SERVER_PLAYER2_BOARD: 15,
+            SELECTING_CELL: 16,
+            UPDATE_BOARD_FROM_PLAYER1: 17,
+            UPDATE_BOARD_FROM_PLAYER2: 18
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -39,6 +41,23 @@ class Blockade {
 
             this_t.currentState = this_t.state.INITIALIZE_BOARD;
         });
+    }
+
+    getAllBoardWalls(){
+
+      // var walls;
+      //
+      // for (let i = 0; i < this.board.length; i++) {
+      //     for (let j = 0; j < this.board[i].length; j++) {
+      //         if (this.scene.game.board[i][j] == returnPrologBoardAtom("wall")) {
+      //             var z = i;
+      //             var x = j;
+      //             var tempArray = [x,z];
+      //
+      //
+      //         }
+      //     }
+      // }
     }
 
     getCurrentState() {
@@ -61,16 +80,19 @@ class Blockade {
 
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
-                this.getPawnsPositions();
+                this.updatePawnsPositions();
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1:
-                this.getPawnsPositions();
+                this.updatePawnsPositions();
+                break;
+            case this.state.UPDATE_BOARD_FROM_PLAYER2:
+                this.updatePawnsPositions();
                 break;
 
         }
     }
 
-    getPawnsPositions() {
+    updatePawnsPositions() {
         var positionPlayer1 = {};
         var positionPlayer2 = {};
 
@@ -92,8 +114,8 @@ class Blockade {
             }
         }
 
-        this.player1.movePawnToStartPosition(positionPlayer1);
-        this.player2.movePawnToStartPosition(positionPlayer2);
+        this.player1.movePawn(positionPlayer1);
+        this.player2.movePawn(positionPlayer2);
 
         switch (this.currentState) {
           case this.state.INITIALIZE_BOARD:
@@ -102,15 +124,16 @@ class Blockade {
           case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
             this.currentState = this.state.SELECTING_PAWN_PLAYER2;
             break;
+          case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
+            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            break;
           default:
+
 
         }
 
     }
 
-
-    //  this.currentState = this.state.SELECTING_CELL;
-    //  Board.prototype.validatePosition(this.player1.validPawnPosition(1));
     returnPrologBoardAtom(string) {
         switch (string) {
             case "empty":
@@ -164,6 +187,7 @@ class Blockade {
     pickingHandler(obj) {
         console.log('boas');
         console.log(obj);
+        console.log(this.currentState);
         switch (this.currentState) {
             case this.state.SELECTING_PAWN_PLAYER1:
                 this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1;
@@ -179,6 +203,21 @@ class Blockade {
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
                 this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,1);
                 break;
+            case this.state.SELECTING_PAWN_PLAYER2:
+                console.log("entrei pawn2");
+                this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2;
+                this.chosenPawn = obj.pawnNumber;
+                Board.prototype.validatePosition(this.player2.validPawnPosition(this.chosenPawn));
+                console.log(this.chosenPawn);
+                break;
+            case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
+                console.log("X: " + obj.getPosX());
+                console.log("Z: " + obj.getPosZ());
+                console.log(Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ()));
+                var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
+                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
+                this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,2);
+                break;
             default:
                 console.log('default');
         }
@@ -191,7 +230,17 @@ class Blockade {
             console.log(JSON.parse(data.target.response));
             //  console.log(data.target.response);
             this_t.board = JSON.parse(data.target.response);
-            this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1;
+            switch (this_t.currentState) {
+              case this_t.state.WAITING_FOR_SERVER_PLAYER1_BOARD:
+                this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1;
+                break;
+              case this_t.state.WAITING_FOR_SERVER_PLAYER2_BOARD:
+                this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER2;
+                 break;
+              default:
+
+            }
+
         });
     }
 

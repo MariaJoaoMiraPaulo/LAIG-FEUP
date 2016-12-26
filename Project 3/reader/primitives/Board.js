@@ -38,8 +38,8 @@ function Board(scene, reader, dimX , dimZ) {
   var y = 1.3;
 
   this.startPos11=[x,y,z];
-  this.startPos12=[x,y,z1];
-  this.startPos21=[x1,y,z];
+  this.startPos12=[x1,y,z];
+  this.startPos21=[x,y,z1];
   this.startPos22=[x1,y,z1];
 
   this.currentPawnOnGamePosition;
@@ -71,15 +71,16 @@ Board.prototype.createBoard = function () {
 
 Board.prototype.display = function () {
 
+  console.log("Board display");
   this.scene.clearPickRegistration();
 
   if(typeof this.scene.game != "undefined"){
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL  || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1){
+      if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL  || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2 ){
         this.selectableCells = true;
       }
       else this.selectableCells = false;
 
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION){
+      if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_PLAYER2 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_PLAYER1 ){
         this.selectableWallPosition = true;
       }
       else this.selectableWallPosition = false;
@@ -154,23 +155,23 @@ Board.prototype.display = function () {
     this.scene.clearPickRegistration();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos11[0],0.30,this.startPos11[2]);
+    this.scene.translate(this.startPos11[0],0.35,this.startPos11[2]);
     this.StartPos11Circle.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos12[0],0.30,this.startPos12[2]);
+    this.scene.translate(this.startPos12[0],0.35,this.startPos12[2]);
 
     this.StartPos11Circle.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos21[0],0.30,this.startPos21[2]);
+    this.scene.translate(this.startPos21[0],0.35,this.startPos21[2]);
     this.StartPos21Circle.display();
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.startPos22[0],0.30,this.startPos22[2]);
+    this.scene.translate(this.startPos22[0],0.35,this.startPos22[2]);
     this.StartPos22Circle.display();
     this.scene.popMatrix();
 
@@ -178,11 +179,15 @@ Board.prototype.display = function () {
 
 Board.prototype.validatePosition = function(arrayPos){
   this.currentPawnOnGamePosition = arrayPos.slice(0);
+  console.log(this.currentPawnOnGamePosition);
 }
 
 Board.prototype.possibleMove = function(arrayPos){
 
   //array pos z,x
+
+  console.log(this.currentPawnOnGamePosition);
+  console.log("entrei");
 
   var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
   var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
