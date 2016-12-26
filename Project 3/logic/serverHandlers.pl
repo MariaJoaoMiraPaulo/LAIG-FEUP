@@ -24,7 +24,17 @@ parse_input(move_player(NumberBoard,Direction,Player,Pawn),NewBoardNumbers):-
 
 parse_input(put_wall(Board,WallOri,FirstX,FirstY,SecondX,SecondY),NewBoard):-
   boardToNumbers(TempBoard,Board),
-  writeWallOnBoard(TempBoard,WallOri,FirstX,FirstY,SecondX,SecondY,NewBoard).
+  writeWallOnBoard(TempBoard,WallOri,FirstX,FirstY,SecondX,SecondY,TempBoard2),
+	boardToNumbers(TempBoard2,NewBoard).
+
+parse_input(valid_position(Board,Direction,Player,Pawn),Response):-
+	boardToNumbers(TempBoard,Board),
+	transformToCoordinates(TempBoard,Player,Pawn,Direction,Xi,Yi,_,_,_),
+	(
+		hasNoWall(TempBoard,Direction,Xi,Yi) ->
+			Response = 1;
+			Response = 0
+	).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
