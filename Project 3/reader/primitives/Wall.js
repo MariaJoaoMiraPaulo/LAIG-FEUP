@@ -47,10 +47,26 @@ Wall.prototype.constructor = Wall;
 
 Wall.prototype.display = function () {
 
+  let ratio;
+
   this.scene.pushMatrix();
-  this.scene.translate(this.xPos,this.yPos,this.zPos);
   if(typeof this.wallOrientation != null && this.wallOrientation == 'v'){
+    ratio = this.zPos - this.secondWallz;
+    if(ratio < 0){
+        this.scene.translate(this.xPos,this.yPos,this.zPos+0.7);
+    }
+    else this.scene.translate(this.xPos,this.yPos,this.zPos-0.7);
     this.scene.rotate(Math.PI/2,0,1,0);
+  }
+  else if(typeof this.wallOrientation != null && this.wallOrientation == 'h'){
+    ratio = this.xPos - this.secondWallx;
+    if(ratio < 0){
+        this.scene.translate(this.xPos+0.7,this.yPos,this.zPos);
+    }
+    else this.scene.translate(this.xPos-0.7,this.yPos,this.zPos);
+  }
+  else {
+    this.scene.translate(this.xPos,this.yPos,this.zPos);
   }
   this.scene.scale(2.3,0.5,0.1);
   this.material.apply();
