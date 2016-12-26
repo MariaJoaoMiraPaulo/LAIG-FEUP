@@ -230,6 +230,8 @@ class Blockade {
                 console.log("Z: " + obj.getPosZ());
                 this.firstWallx = obj.getPosX();
                 this.firstWallz = obj.getPosZ();
+                Board.prototype.currentWallPositionX = this.firstWallx;
+                Board.prototype.currentWallPositionZ = this.firstWallz;
                 this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER1;
                 break;
             case this.state.SELECTING_WALL_POSITION2_PLAYER1:
