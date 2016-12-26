@@ -187,9 +187,6 @@ Board.prototype.possibleMove = function(arrayPos){
 
   //array pos z,x
 
-  console.log(this.currentPawnOnGamePosition);
-  console.log("entrei");
-
   var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
   var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
 
@@ -235,10 +232,8 @@ Board.prototype.possibleWall = function(arrayPos){
 
 
 Board.prototype.getPawnDiretion = function (x,z) {
-  console.log("entrei");
-  console.log(this.currentPawnOnGamePosition); //x z
+
   var arrayPos = [x,z];
-  console.log(arrayPos);
 
   var r1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,r1)){
@@ -314,12 +309,57 @@ Board.prototype.getPawnDiretion = function (x,z) {
   return false;
 }
 
-Board.prototype.getWallDiretion = function (firstWallz,firstWallx,secondWallz,secondWallx) {
+Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz,secondWallx) {
 
     console.log(firstWallz);
     console.log(firstWallx);
     console.log(secondWallz);
     console.log(secondWallx);
+
+    var orientation;
+
+    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz,secondWallx+2])){
+      orientation='h';
+      return orientation;
+    }
+
+    if(this.arraysAreIdentical([firstWallz,firstWallx+2],[secondWallz,secondWallx])){
+      orientation='h';
+      return orientation;
+    }
+
+    if(this.arraysAreIdentical([firstWallz,firstWallx-2],[secondWallz,secondWallx])){
+      orientation='h';
+      return orientation;
+    }
+
+    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz,secondWallx-2])){
+      orientation='h';
+      return orientation;
+    }
+
+    if(this.arraysAreIdentical([firstWallz-2,firstWallx],[secondWallz,secondWallx])){
+      orientation='v';
+      return orientation;
+    }
+
+    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz-2,secondWallx])){
+      orientation='v';
+      return orientation;
+    }
+
+    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz+2,secondWallx])){
+      orientation='v';
+      return orientation;
+    }
+
+    if(this.arraysAreIdentical([firstWallz+2,firstWallx],[secondWallz,secondWallx])){
+      orientation='v';
+      return orientation;
+    }
+
+    return false;
+
 }
 
 Board.prototype.convertPositionOnBoard = function (pos) {
