@@ -9,6 +9,7 @@ class Blockade {
         this.board = [];
         this.getInitialBoard();
 
+        this.selectWallId;
         this.firstWallx;
         this.firstWallz;
         this.secondWallx;
@@ -27,7 +28,7 @@ class Blockade {
             SELECTING_WALL_PLAYER1: 10,
             SELECTING_WALL_PLAYER2: 11,
             SELECTING_PAWN_NEXT_POSITION_PLAYER1: 12,
-            SELECTING_PAWN_NEXT_POSITION_PLAYER2:13,
+            SELECTING_PAWN_NEXT_POSITION_PLAYER2: 13,
             WAITING_FOR_SERVER_PLAYER1_BOARD: 14,
             WAITING_FOR_SERVER_PLAYER2_BOARD: 15,
             SELECTING_CELL: 16,
@@ -56,27 +57,29 @@ class Blockade {
         });
     }
 
-    getAllBoardWalls(){
-      var walls = [];
+    getAllBoardWalls() {
+        var walls = [];
 
-      for (let i = 0; i < this.board.length; i++) {
-          for (let j = 0; j < this.board[i].length; j++) {
-              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall")) {
-                  console.log(this.returnPrologBoardAtom("wall"));
-                  var z = i;
-                  var x = j;
-                  var tempArray = [z,x];
-                  walls.push(tempArray);
-              }
-          }
-      }
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall")) {
+                    console.log(this.returnPrologBoardAtom("wall"));
+                    var z = i;
+                    var x = j;
+                    var tempArray = [z, x];
+                    walls.push(tempArray);
+                }
+            }
+        }
 
-      //TODO: nao tem paredes Atualmente
-      walls=[[3,0]];
+        //TODO: nao tem paredes Atualmente
+        walls = [
+            [3, 0]
+        ];
 
-      Board.prototype.currentWalls = walls;
+        Board.prototype.currentWalls = walls;
 
-      return walls;
+        return walls;
     }
 
     getCurrentState() {
@@ -114,17 +117,28 @@ class Blockade {
         }
     }
 
-    updateWallPositions(){
-      switch (this.currentState) {
-        case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
-          this.currentState = this.state.SELECTING_PAWN_PLAYER2;
-          break;
-        case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
-          this.currentState = this.state.SELECTING_PAWN_PLAYER1;
-          break;
-        default:
+    updateWallPositions() {
 
-      }
+      /*  for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+              if (this.board[i][j] == this.returnPrologBoardAtom("wall")){
+
+              } else if (this.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
+
+              }
+            }
+        }*/
+
+        switch (this.currentState) {
+            case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
+                this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+                break;
+            case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
+                this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+                break;
+            default:
+
+        }
     }
 
     updatePawnsPositions() {
@@ -153,16 +167,16 @@ class Blockade {
         this.player2.movePawn(positionPlayer2);
 
         switch (this.currentState) {
-          case this.state.INITIALIZE_BOARD:
-            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
-            break;
-          case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
-            this.currentState = this.state.SELECTING_WALL_PLAYER1;
-            break;
-          case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
-            this.currentState = this.state.SELECTING_WALL_PLAYER2;
-            break;
-          default:
+            case this.state.INITIALIZE_BOARD:
+                this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+                break;
+            case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
+                this.currentState = this.state.SELECTING_WALL_PLAYER1;
+                break;
+            case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
+                this.currentState = this.state.SELECTING_WALL_PLAYER2;
+                break;
+            default:
 
 
         }
@@ -233,14 +247,15 @@ class Blockade {
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
                 console.log("X: " + obj.getPosX());
                 console.log("Z: " + obj.getPosZ());
-                console.log(Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ()));
-                var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
+                console.log(Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ()));
+                var direction = Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
-                this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,1);
+                this.getNewBoard(obj.getPosX(), obj.getPosZ(), direction, 1);
                 break;
             case this.state.SELECTING_WALL_PLAYER1:
                 console.log("select wall 1");
                 console.log("Wall Number: " + obj.getWallNumber());
+                this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER1:
@@ -257,14 +272,19 @@ class Blockade {
                 console.log("Z: " + obj.getPosZ());
                 this.secondWallx = obj.getPosX();
                 this.secondWallz = obj.getPosZ();
-                var orientation = Board.prototype.getWallOrientation(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
                 console.log(orientation);
-                if(!orientation){
-                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
-                }
-                else {
-                  this.getBoardWithNewWalls(orientation);
-                  this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
+                if (!orientation) {
+                    this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
+                } else {
+                    var wall=this.player1.getWallNumber(this.selectWallId);
+                    wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
+                    wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
+                    wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
+                    wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+                    wall.setWallOrientation(orientation);
+                    this.getBoardWithNewWalls(orientation);
+                    this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
                 }
                 break;
             case this.state.SELECTING_PAWN_PLAYER2:
@@ -277,10 +297,10 @@ class Blockade {
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
                 console.log("X: " + obj.getPosX());
                 console.log("Z: " + obj.getPosZ());
-                console.log(Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ()));
-                var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
+                console.log(Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ()));
+                var direction = Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
-                this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,2);
+                this.getNewBoard(obj.getPosX(), obj.getPosZ(), direction, 2);
                 break;
             case this.state.SELECTING_WALL_PLAYER2:
                 console.log("select wall 1");
@@ -301,14 +321,19 @@ class Blockade {
                 console.log("Z: " + obj.getPosZ());
                 this.secondWallx = obj.getPosX();
                 this.secondWallz = obj.getPosZ();
-                var orientation = Board.prototype.getWallOrientation(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
                 console.log(orientation);
-                if(!orientation){
-                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
-                }
-                else {
-                  this.getBoardWithNewWalls(orientation);
-                  this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD;
+                if (!orientation) {
+                    this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                } else {
+                    var wall=this.player2.getWallNumber(this.selectWallId);
+                    wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
+                    wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
+                    wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
+                    wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+                    wall.setWallOrientation(orientation);
+                    this.getBoardWithNewWalls(orientation);
+                    this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD;
                 }
                 break;
             default:
@@ -316,51 +341,52 @@ class Blockade {
         }
     }
 
-    getNewBoard(x, y, direction,player) {
+    getNewBoard(x, y, direction, player) {
         var this_t = this;
 
-        this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + ","+direction+"," + player + "," + this.chosenPawn + ")", function(data) {
+        this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + "," + direction + "," + player + "," + this.chosenPawn + ")", function(data) {
             console.log(JSON.parse(data.target.response));
             //  console.log(data.target.response);
             this_t.board = JSON.parse(data.target.response);
             switch (this_t.currentState) {
-              case this_t.state.WAITING_FOR_SERVER_PLAYER1_BOARD:
-                this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1;
-                break;
-              case this_t.state.WAITING_FOR_SERVER_PLAYER2_BOARD:
-                this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER2;
-                 break;
-              default:
+                case this_t.state.WAITING_FOR_SERVER_PLAYER1_BOARD:
+                    this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1;
+                    break;
+                case this_t.state.WAITING_FOR_SERVER_PLAYER2_BOARD:
+                    this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER2;
+                    break;
+                default:
 
             }
 
         });
     }
 
-    getBoardWithNewWalls(orientation){
-      var this_t = this;
+    getBoardWithNewWalls(orientation) {
+        var this_t = this;
 
-      this.firstWallx += 1;
-      this.firstWallz += 1;
-      this.secondWallx += 1;
-      this.secondWallz += 1;
+        var firstx = this.firstWallx + 1;
+        var firstz = this.firstWallz + 1;
+        var secondx = this.secondWallx + 1;
+        var secondz = this.secondWallz + 1;
 
-      this.scene.client.getPrologRequest("put_wall("+JSON.stringify(this.board)+","+orientation+","+this.firstWallx+","+
-      this.firstWallz+","+this.secondWallx+","+this.secondWallz+")", function(data){
-        console.log(JSON.parse(data.target.response));
-        this_t.board = JSON.parse(data.target.response);
+        this.scene.client.getPrologRequest("put_wall(" + JSON.stringify(this.board) + "," + orientation + "," + firstx + "," +
+            firstz + "," + secondx + "," + secondz + ")",
+            function(data) {
+                console.log(JSON.parse(data.target.response));
+                this_t.board = JSON.parse(data.target.response);
 
-        switch (this_t.currentState) {
-          case this_t.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD:
-            this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1_WALLS;
-            break;
-          case this_t.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD:
-            this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER2_WALLS;
-             break;
-          default:
+                switch (this_t.currentState) {
+                    case this_t.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD:
+                        this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1_WALLS;
+                        break;
+                    case this_t.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD:
+                        this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER2_WALLS;
+                        break;
+                    default:
 
-        }
-      });
+                }
+            });
     }
 
     display() {

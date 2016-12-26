@@ -9,6 +9,11 @@ function Wall(scene, reader, player, wallNumber) {
   this.yPos=0;
   this.zPos=0;
 
+  this.secondWallx = 0;
+  this.secondWallz = 0;
+
+  this.wallOrientation = null;
+
   this.greenMaterial = new CGFappearance(this.scene);
   this.greenMaterial.setAmbient(0,1,0,1);
   this.greenMaterial.setDiffuse(0,1,0,1);
@@ -44,7 +49,10 @@ Wall.prototype.display = function () {
 
   this.scene.pushMatrix();
   this.scene.translate(this.xPos,this.yPos,this.zPos);
-  this.scene.scale(1,0.5,0.1);
+  if(typeof this.wallOrientation != null && this.wallOrientation == 'v'){
+    this.scene.rotate(Math.PI/2,0,1,0);
+  }
+  this.scene.scale(2.3,0.5,0.1);
   this.material.apply();
   this.wall.display();
   this.scene.popMatrix();
@@ -64,6 +72,18 @@ Wall.prototype.setWallZCoord = function (z) {
 
 Wall.prototype.setWallYCoord = function (y) {
   this.yPos = y;
+}
+
+Wall.prototype.setSecondWallXCoord = function (x) {
+  this.secondWallx = x;
+}
+
+Wall.prototype.setSecondWallZCoord = function (z) {
+  this.secondWallz = z;
+}
+
+Wall.prototype.setWallOrientation = function(ori) {
+  this.wallOrientation = ori;
 }
 
 Wall.prototype.updateTexCoords = function (s, t) {

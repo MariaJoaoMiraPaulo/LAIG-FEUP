@@ -29,6 +29,10 @@ class Player {
     }
   }
 
+  getWallNumber(number){
+    return this.walls[number];
+  }
+
   getNumbernumberWalls(){
     return this.numberWalls();
   }
