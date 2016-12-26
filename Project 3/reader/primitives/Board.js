@@ -45,6 +45,9 @@ function Board(scene, reader, dimX , dimZ) {
 
   this.currentPawnOnGamePosition;
 
+  this.currentWallPositionX;
+  this.currentWallPositionZ;
+
   this.createBoard();
 };
 
@@ -72,7 +75,7 @@ Board.prototype.createBoard = function () {
 
 Board.prototype.display = function () {
 
-  console.log("Board display");
+
   this.scene.clearPickRegistration();
 
   if(typeof this.scene.game != "undefined"){
@@ -86,6 +89,8 @@ Board.prototype.display = function () {
       }
       else this.selectableWallPosition = false;
   }
+
+// console.log("Board display");
 
   var index = 1;
   for(var z=0;z<this.dimZ;z++){
@@ -117,7 +122,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenFloor*x+0.5,0,this.distanceBetweenFloor*z+1.2);
       this.scene.scale(1, 0.2, 0.3);
-      if(this.selectableWallPosition && this.possibleWall([z*2+1,x*2])){
+      if(this.selectableWallPosition && this.possibleWall([z*2+1,x*2]) && this.secondWallPossibility([z*2+1,x*2])){
         this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
         index++;
         this.boardElements[z*2+1][x*2].display();
@@ -138,7 +143,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenFloor*x+1.2,0,this.distanceBetweenFloor*z+0.5);
       this.scene.scale(0.3, 0.2, 1);
-      if(this.selectableWallPosition && this.possibleWall([z*2,x*2+1])){
+      if(this.selectableWallPosition && this.possibleWall([z*2,x*2+1]) && this.secondWallPossibility([z*2,x*2+1])){
         this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
         index++;
         this.boardElements[z*2][x*2+1].display();
@@ -361,6 +366,29 @@ Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz
     return false;
 
 }
+
+
+Board.prototype.secondWallPossibility = function (pos) {
+
+  if(this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER1 || this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER2 ){
+      if(this.currentWallPositionZ % 2 == 0){
+          if(this.arraysAreIdentical([this.currentWallPositionZ+2,this.currentWallPositionX],pos))
+              return true;
+          else if(this.arraysAreIdentical([this.currentWallPositionZ-2,this.currentWallPositionX],pos))
+              return true;
+          else return false;
+            }
+      else {
+        if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
+            return true;
+        else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX-2],pos))
+            return true;
+        else return false;
+      }
+  }
+  else return true;
+}
+
 
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;
