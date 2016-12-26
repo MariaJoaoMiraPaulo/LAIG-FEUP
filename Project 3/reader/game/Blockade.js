@@ -15,6 +15,8 @@ class Blockade {
         this.secondWallx;
         this.secondWallz;
 
+        this.currentWalls =[];
+
         this.state = {
             WAITING_FOR_START: 1,
             START_GAME: 2,
@@ -57,29 +59,20 @@ class Blockade {
         });
     }
 
-    getAllBoardWalls() {
-        var walls = [];
+    getAllBoardWalls(){
 
-        for (let i = 0; i < this.board.length; i++) {
-            for (let j = 0; j < this.board[i].length; j++) {
-                if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall")) {
-                    console.log(this.returnPrologBoardAtom("wall"));
-                    var z = i;
-                    var x = j;
-                    var tempArray = [z, x];
-                    walls.push(tempArray);
-                }
-            }
-        }
+      for (let i = 0; i < this.board.length; i++) {
+          for (let j = 0; j < this.board[i].length; j++) {
+              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
+                  var z = i;
+                  var x = j;
+                  var tempArray = [z,x];
+                  this.currentWalls.push(tempArray);
+              }
+          }
+      }
 
-        //TODO: nao tem paredes Atualmente
-        walls = [
-            [3, 0]
-        ];
-
-        Board.prototype.currentWalls = walls;
-
-        return walls;
+      return true;
     }
 
     getCurrentState() {
@@ -110,8 +103,8 @@ class Blockade {
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
             case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
-                this.getAllBoardWalls();
                 this.updateWallPositions();
+                this.getAllBoardWalls();
                 break;
 
         }
@@ -305,6 +298,7 @@ class Blockade {
             case this.state.SELECTING_WALL_PLAYER2:
                 console.log("select wall 1");
                 console.log("Wall Number: " + obj.getWallNumber());
+                this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER2:
@@ -345,8 +339,6 @@ class Blockade {
         var this_t = this;
 
         this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + "," + direction + "," + player + "," + this.chosenPawn + ")", function(data) {
-            console.log(JSON.parse(data.target.response));
-            //  console.log(data.target.response);
             this_t.board = JSON.parse(data.target.response);
             switch (this_t.currentState) {
                 case this_t.state.WAITING_FOR_SERVER_PLAYER1_BOARD:
@@ -373,7 +365,6 @@ class Blockade {
         this.scene.client.getPrologRequest("put_wall(" + JSON.stringify(this.board) + "," + orientation + "," + firstx + "," +
             firstz + "," + secondx + "," + secondz + ")",
             function(data) {
-                console.log(JSON.parse(data.target.response));
                 this_t.board = JSON.parse(data.target.response);
 
                 switch (this_t.currentState) {

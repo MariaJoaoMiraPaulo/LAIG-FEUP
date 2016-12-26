@@ -249,7 +249,7 @@
                 <material id="white"/>
             </materials>
 
-            <texture id="board"/>
+            <texture id="none"/>
 
             <children>
                  <primitiveref id="gameBoard" />

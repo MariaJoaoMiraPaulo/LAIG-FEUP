@@ -1,5 +1,6 @@
 Board.distanceBetweenCubes = 1.4;
 Board.distanceBetweenFloor= 1.4;
+Board.currentWalls = [];
 
 function Board(scene, reader, dimX , dimZ) {
   CGFobject.call(this, scene);
@@ -19,7 +20,21 @@ function Board(scene, reader, dimX , dimZ) {
   this.selectableCells = false;
   this.selectableWallPosition = false;
 
-  this.currentWalls;
+  this.normal = new CGFappearance(this.scene);
+  this.normal.setAmbient(1.0,1,1,1);
+  this.normal.setDiffuse(1.0,1,1,1);
+  this.normal.setSpecular(1.0,1,1,1);
+  this.normal.setShininess(0);
+  this.normal.loadTexture("img/board.jpg");
+
+  this.highlight = new CGFappearance(this.scene);
+  this.highlight.setAmbient(1.0,1,1,1);
+  this.highlight.setDiffuse(1.0,1,1,1);
+  this.highlight.setSpecular(1.0,1,1,1);
+  this.highlight.setShininess(0);
+  this.highlight.loadTexture("img/boardHighLight.jpg");
+
+
   this.boardElements = new Array(this.doubleDimZ-2);
 
   this.StartPos11Circle = new StartPos(this.scene,this.reader,1);
@@ -103,10 +118,12 @@ Board.prototype.display = function () {
       if(this.selectableCells && this.possibleMove([x*2,z*2])){
           this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
           index++;
+          this.highlight.apply();
           this.boardElements[z*2][x*2].display();
       }
       else{
         this.scene.clearPickRegistration();
+        this.normal.apply();
         this.boardElements[z*2][x*2].display();
       }
 
@@ -125,10 +142,12 @@ Board.prototype.display = function () {
       if(this.selectableWallPosition && this.possibleWall([z*2+1,x*2]) && this.secondWallPossibility([z*2+1,x*2])){
         this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
         index++;
+        this.highlight.apply();
         this.boardElements[z*2+1][x*2].display();
       }
       else{
         this.scene.clearPickRegistration();
+        this.normal.apply();
         this.boardElements[z*2+1][x*2].display();
       }
 
@@ -146,10 +165,12 @@ Board.prototype.display = function () {
       if(this.selectableWallPosition && this.possibleWall([z*2,x*2+1]) && this.secondWallPossibility([z*2,x*2+1])){
         this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
         index++;
+        this.highlight.apply();
         this.boardElements[z*2][x*2+1].display();
       }
       else{
         this.scene.clearPickRegistration();
+        this.normal.apply();
         this.boardElements[z*2][x*2+1].display();
       }
 
@@ -223,11 +244,9 @@ Board.prototype.possibleMove = function(arrayPos){
 }
 
 Board.prototype.possibleWall = function(arrayPos){
-  var walls = [[0,3]];
-  //array pos z,x
 
-  for(var i=0;i<walls.length;i++){
-    if(this.arraysAreIdentical(walls[i],arrayPos)){
+  for(var i=0;i<this.scene.game.currentWalls.length;i++){
+    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){
       return false;
     }
   }
