@@ -1,8 +1,9 @@
-function Wall(scene, reader, player) {
+function Wall(scene, reader, player, wallNumber) {
   CGFobject.call(this, scene);
   this.scene = scene;
   this.player = player;
   this.reader=reader;
+  this.wallNumber = wallNumber;
 
   this.xPos=0;
   this.yPos=0;
@@ -47,6 +48,10 @@ Wall.prototype.display = function () {
   this.material.apply();
   this.wall.display();
   this.scene.popMatrix();
+}
+
+Wall.prototype.getWallNumber = function () {
+  return this.wallNumber;
 }
 
 Wall.prototype.setWallXCoord = function (x) {

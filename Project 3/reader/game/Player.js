@@ -16,7 +16,7 @@ class Player {
     this.walls = new Array(this.numberWalls-1);
 
     for(var i=0;i<this.numberWalls;i++)
-    this.walls[i]=new Wall(this.scene, this.reader, this.player);
+      this.walls[i]=new Wall(this.scene, this.reader, this.player,i);
 
 
     switch (player) {

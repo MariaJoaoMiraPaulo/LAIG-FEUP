@@ -81,7 +81,7 @@ Board.prototype.display = function () {
       }
       else this.selectableCells = false;
 
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_PLAYER2 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_PLAYER1 ){
+      if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER2 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER2 ){
         this.selectableWallPosition = true;
       }
       else this.selectableWallPosition = false;

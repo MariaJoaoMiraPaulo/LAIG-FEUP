@@ -27,7 +27,13 @@ class Blockade {
             WAITING_FOR_SERVER_PLAYER2_BOARD: 15,
             SELECTING_CELL: 16,
             UPDATE_BOARD_FROM_PLAYER1: 17,
-            UPDATE_BOARD_FROM_PLAYER2: 18
+            UPDATE_BOARD_FROM_PLAYER2: 18,
+            SELECTING_WALL_POSITION1_PLAYER1: 19,
+            SELECTING_WALL_POSITION2_PLAYER1: 20,
+            SELECTING_WALL_POSITION1_PLAYER2: 21,
+            SELECTING_WALL_POSITION2_PLAYER2: 22,
+            WAITING_FOR_SERVER_PLAYER1_WALL_BOARD: 23,
+            WAITING_FOR_SERVER_PLAYER2_WALL_BOARD: 24,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -125,15 +131,15 @@ class Blockade {
 
         switch (this.currentState) {
           case this.state.INITIALIZE_BOARD:
+            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            break;
+          case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
             this.currentState = this.state.SELECTING_WALL_PLAYER1;
             break;
-          // case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
-          //   this.currentState = this.state.SELECTING_PAWN_PLAYER2;
-          //   break;
-          // case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
-          //   this.currentState = this.state.SELECTING_PAWN_PLAYER1;
-          //   break;
-          // default:
+          case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
+            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            break;
+          default:
 
 
         }
@@ -208,6 +214,21 @@ class Blockade {
                 var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
                 this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,1);
+                break;
+            case this.state.SELECTING_WALL_PLAYER1:
+                console.log("select wall 1");
+                console.log("Wall Number: " + obj.getWallNumber());
+                this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
+                break;
+            case this.state.SELECTING_WALL_POSITION1_PLAYER1:
+                console.log("X: " + obj.getPosX());
+                console.log("Z: " + obj.getPosZ());
+                this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER1;
+                break;
+            case this.state.SELECTING_WALL_POSITION2_PLAYER1:
+                console.log("X: " + obj.getPosX());
+                console.log("Z: " + obj.getPosZ());
+                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
                 break;
             case this.state.SELECTING_PAWN_PLAYER2:
                 console.log("entrei pawn2");
