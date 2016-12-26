@@ -44,20 +44,26 @@ class Blockade {
     }
 
     getAllBoardWalls(){
+      var walls = [];
 
-      // var walls;
-      //
-      // for (let i = 0; i < this.board.length; i++) {
-      //     for (let j = 0; j < this.board[i].length; j++) {
-      //         if (this.scene.game.board[i][j] == returnPrologBoardAtom("wall")) {
-      //             var z = i;
-      //             var x = j;
-      //             var tempArray = [x,z];
-      //
-      //
-      //         }
-      //     }
-      // }
+      for (let i = 0; i < this.board.length; i++) {
+          for (let j = 0; j < this.board[i].length; j++) {
+              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall")) {
+                  console.log(this.returnPrologBoardAtom("wall"));
+                  var z = i;
+                  var x = j;
+                  var tempArray = [z,x];
+                  walls.push(tempArray);
+              }
+          }
+      }
+
+      //TODO: nao tem paredes Atualmente
+      walls=[[3,0]];
+
+      Board.prototype.currentWalls = walls;
+
+      return walls;
     }
 
     getCurrentState() {
@@ -119,15 +125,15 @@ class Blockade {
 
         switch (this.currentState) {
           case this.state.INITIALIZE_BOARD:
-            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            this.currentState = this.state.SELECTING_WALL_PLAYER1;
             break;
-          case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
-            this.currentState = this.state.SELECTING_PAWN_PLAYER2;
-            break;
-          case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
-            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
-            break;
-          default:
+          // case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
+          //   this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+          //   break;
+          // case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
+          //   this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+          //   break;
+          // default:
 
 
         }
@@ -252,5 +258,6 @@ class Blockade {
 
         this.player2.displayPawns();
         this.player2.displayWalls();
+        //this.getAllBoardWalls();
     }
 }

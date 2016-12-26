@@ -19,6 +19,7 @@ function Board(scene, reader, dimX , dimZ) {
   this.selectableCells = false;
   this.selectableWallPosition = false;
 
+  this.currentWalls;
   this.boardElements = new Array(this.doubleDimZ-2);
 
   this.StartPos11Circle = new StartPos(this.scene,this.reader,1);
@@ -116,7 +117,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenFloor*x+0.5,0,this.distanceBetweenFloor*z+1.2);
       this.scene.scale(1, 0.2, 0.3);
-      if(this.selectableWallPosition){
+      if(this.selectableWallPosition && this.possibleWall([z*2+1,x*2])){
         this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
         index++;
         this.boardElements[z*2+1][x*2].display();
@@ -137,7 +138,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenFloor*x+1.2,0,this.distanceBetweenFloor*z+0.5);
       this.scene.scale(0.3, 0.2, 1);
-      if(this.selectableWallPosition){
+      if(this.selectableWallPosition && this.possibleWall([z*2,x*2+1])){
         this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
         index++;
         this.boardElements[z*2][x*2+1].display();
@@ -218,6 +219,20 @@ Board.prototype.possibleMove = function(arrayPos){
 
   return false;
 }
+
+Board.prototype.possibleWall = function(arrayPos){
+  var walls = [[0,3]];
+  //array pos z,x
+
+  for(var i=0;i<walls.length;i++){
+    if(this.arraysAreIdentical(walls[i],arrayPos)){
+      return false;
+    }
+  }
+
+  return true;
+}
+
 
 Board.prototype.getPawnDiretion = function (x,z) {
   console.log("entrei");
