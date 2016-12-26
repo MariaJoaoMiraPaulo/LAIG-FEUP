@@ -19,6 +19,20 @@ function Board(scene, reader, dimX , dimZ) {
   this.selectableCells = false;
   this.selectableWallPosition = false;
 
+  this.normal = new CGFappearance(this.scene);
+  this.normal.setAmbient(1.0,1,1,1);
+  this.normal.setDiffuse(1.0,1,1,1);
+  this.normal.setSpecular(1.0,1,1,1);
+  this.normal.setShininess(0);
+  this.normal.loadTexture("img/board.jpg");
+
+  this.highlight = new CGFappearance(this.scene);
+  this.highlight.setAmbient(1.0,1,1,1);
+  this.highlight.setDiffuse(1.0,1,1,1);
+  this.highlight.setSpecular(1.0,1,1,1);
+  this.highlight.setShininess(0);
+  this.highlight.loadTexture("img/boardHighLight.jpg");
+
   this.currentWalls;
   this.boardElements = new Array(this.doubleDimZ-2);
 
@@ -103,10 +117,12 @@ Board.prototype.display = function () {
       if(this.selectableCells && this.possibleMove([x*2,z*2])){
           this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
           index++;
+          this.highlight.apply();
           this.boardElements[z*2][x*2].display();
       }
       else{
         this.scene.clearPickRegistration();
+        this.normal.apply();
         this.boardElements[z*2][x*2].display();
       }
 
@@ -125,10 +141,12 @@ Board.prototype.display = function () {
       if(this.selectableWallPosition && this.possibleWall([z*2+1,x*2]) && this.secondWallPossibility([z*2+1,x*2])){
         this.scene.registerForPick(index, this.boardElements[z*2+1][x*2]);
         index++;
+        this.highlight.apply();
         this.boardElements[z*2+1][x*2].display();
       }
       else{
         this.scene.clearPickRegistration();
+        this.normal.apply();
         this.boardElements[z*2+1][x*2].display();
       }
 
@@ -146,10 +164,12 @@ Board.prototype.display = function () {
       if(this.selectableWallPosition && this.possibleWall([z*2,x*2+1]) && this.secondWallPossibility([z*2,x*2+1])){
         this.scene.registerForPick(index, this.boardElements[z*2][x*2+1]);
         index++;
+        this.highlight.apply();
         this.boardElements[z*2][x*2+1].display();
       }
       else{
         this.scene.clearPickRegistration();
+        this.normal.apply();
         this.boardElements[z*2][x*2+1].display();
       }
 
