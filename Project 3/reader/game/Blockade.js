@@ -160,7 +160,7 @@ class Blockade {
             this.currentState = this.state.SELECTING_WALL_PLAYER1;
             break;
           case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
-            this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            this.currentState = this.state.SELECTING_WALL_PLAYER2;
             break;
           default:
 
@@ -281,6 +281,35 @@ class Blockade {
                 var direction = Board.prototype.getPawnDiretion(obj.getPosX(),obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
                 this.getNewBoard(obj.getPosX(),obj.getPosZ(),direction,2);
+                break;
+            case this.state.SELECTING_WALL_PLAYER2:
+                console.log("select wall 1");
+                console.log("Wall Number: " + obj.getWallNumber());
+                this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                break;
+            case this.state.SELECTING_WALL_POSITION1_PLAYER2:
+                console.log("X: " + obj.getPosX());
+                console.log("Z: " + obj.getPosZ());
+                this.firstWallx = obj.getPosX();
+                this.firstWallz = obj.getPosZ();
+                Board.prototype.currentWallPositionX = this.firstWallx;
+                Board.prototype.currentWallPositionZ = this.firstWallz;
+                this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER2;
+                break;
+            case this.state.SELECTING_WALL_POSITION2_PLAYER2:
+                console.log("X: " + obj.getPosX());
+                console.log("Z: " + obj.getPosZ());
+                this.secondWallx = obj.getPosX();
+                this.secondWallz = obj.getPosZ();
+                var orientation = Board.prototype.getWallOrientation(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
+                console.log(orientation);
+                if(!orientation){
+                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                }
+                else {
+                  this.getBoardWithNewWalls(orientation);
+                  this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD;
+                }
                 break;
             default:
                 console.log('default');
