@@ -11,6 +11,7 @@
 :- ensure_loaded('utilitiesBoard.pl').
 :- ensure_loaded('prologAndJson.pl').
 :- ensure_loaded('jsonToProlog.pl').
+:- ensure_loaded('serverHandlers.pl').
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,38 +108,3 @@ check_end_of_header(_).
 % Function to Output Request Lines (uncomment the line bellow to see more information on received HTTP Requests)
 % print_header_line(LineCodes) :- catch((atom_codes(Line,LineCodes),write(Line),nl),_,fail), !.
 print_header_line(_).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%                                       Commands                                                  %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Require your Prolog Files here
-
-parse_input(handshake, handshake).
-parse_input(test(C,N), Res) :- test(C,Res,N).
-parse_input(quit, goodbye).
-parse_input(board, Numbers):-
-	finalBoard(B),boardToNumbers(B,Numbers).
-
-parse_input(initial_board,Board):-
-	emptyBoardBlockade(TempBoard),
-	boardToNumbers(TempBoard,Board).
-
-parse_input(move_player(NumberBoard,Direction,Player,Pawn),NewBoardNumbers):-
-	boardToNumbers(TempBoard,NumberBoard),
-	transformToCoordinates(TempBoard,Player,Pawn,Direction,Xi,Yi,Xf,Yf,PawnName),
-	setListElement(TempBoard,Xf,Yf,1,1,PawnName,NewBoard),
-	isAStartHouse(Xi,Yi,OldPawnName),
-	setListElement(NewBoard,Xi,Yi,1,1,OldPawnName,NewBoard2),
-	boardToNumbers(NewBoard2,NewBoardNumbers).
-
-move_player(NumberBoard,Direction,Player,Pawn):-
-	write('entrei'),
-	boardToNumbers(TempBoard,NumberBoard),
-	transformToCoordinates(TempBoard,Player,Pawn,Direction,Xi,Yi,Xf,Yf,PawnName),
-	setListElement(TempBoard,Xf,Yf,1,1,PawnName,NewBoard),
-	isAStartHouse(Xi,Yi,OldPawnName),
-	setListElement(NewBoard,Xi,Yi,1,1,OldPawnName,NewBoard2).
-
-test(_,[],N) :- N =< 0.
-test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
