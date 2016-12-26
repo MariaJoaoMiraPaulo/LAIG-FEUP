@@ -25,8 +25,6 @@ parse_input(move_player(NumberBoard,Direction,Player,Pawn),NewBoardNumbers):-
 parse_input(put_wall(Board,WallOri,FirstX,FirstY,SecondX,SecondY),NewBoard):-
   boardToNumbers(TempBoard,Board),
   writeWallOnBoard(TempBoard,WallOri,FirstX,FirstY,SecondX,SecondY,TempBoard2),
-	board_display(TempBoard),nl,nl,
-	board_display(TempBoard2),
 	boardToNumbers(TempBoard2,NewBoard).
 
 parse_input(valid_position(Board,Direction,Player,Pawn),Response):-

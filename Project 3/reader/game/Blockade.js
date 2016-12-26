@@ -108,9 +108,23 @@ class Blockade {
             case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
             case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
                 this.getAllBoardWalls();
+                this.updateWallPositions();
                 break;
 
         }
+    }
+
+    updateWallPositions(){
+      switch (this.currentState) {
+        case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
+          this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+          break;
+        case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
+          this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+          break;
+        default:
+
+      }
     }
 
     updatePawnsPositions() {
@@ -243,8 +257,13 @@ class Blockade {
                 this.secondWallz = obj.getPosZ();
                 var orientation = Board.prototype.getWallOrientation(this.firstWallz,this.firstWallx,this.secondWallz,this.secondWallx);
                 console.log(orientation);
-                this.getBoardWithNewWalls(orientation);
-                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
+                if(!orientation){
+                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
+                }
+                else {
+                  this.getBoardWithNewWalls(orientation);
+                  this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
+                }
                 break;
             case this.state.SELECTING_PAWN_PLAYER2:
                 console.log("entrei pawn2");
@@ -289,6 +308,11 @@ class Blockade {
 
     getBoardWithNewWalls(orientation){
       var this_t = this;
+
+      this.firstWallx += 1;
+      this.firstWallz += 1;
+      this.secondWallx += 1;
+      this.secondWallz += 1;
 
       this.scene.client.getPrologRequest("put_wall("+JSON.stringify(this.board)+","+orientation+","+this.firstWallx+","+
       this.firstWallz+","+this.secondWallx+","+this.secondWallz+")", function(data){
