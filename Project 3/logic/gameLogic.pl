@@ -1,8 +1,8 @@
 isAStartHouse(X,Y,Name):-
-  (X = 7, Y = 7)-> Name = startPlayer1;
-  (X = 15, Y = 7)-> Name = startPlayer1;
-  (X = 7, Y = 21)-> Name = startPlayer2;
-  (X = 15, Y = 21)-> Name = startPlayer2;
+  (X = 5, Y = 5)-> Name = startPlayer1;
+  (X = 15, Y = 5)-> Name = startPlayer1;
+  (X = 5, Y = 13)-> Name = startPlayer2;
+  (X = 15, Y = 13)-> Name = startPlayer2;
   Name = empty.
 
 isAwinner([L1|LS],PlayerNumber,Xf,Yf):-

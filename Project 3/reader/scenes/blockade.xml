@@ -95,6 +95,8 @@
 
     <textures>
         <texture id="board" file="img/board.jpg" length_s="1" length_t="1"/>
+        <texture id="base" file="img/base.jpg" length_s="1" length_t="1"/>
+        <texture id="table" file="img/table.png" length_s="1" length_t="1"/>
     </textures>
 
     <materials>
@@ -199,15 +201,15 @@
 
     <primitives>
         <primitive id="gameBoard">
-            <board dimX="7" dimY="10"/>
+            <board dimX="10" dimZ="9"/>
         </primitive>
 
-        <primitive id="pawn1">
-            <pawn player="1"/>
+        <primitive id="cube">
+            <cube/>
         </primitive>
 
-        <primitive id="pawn2">
-            <pawn player="1"/>
+        <primitive id="rectangle">
+            <rectangle x1="0.5" y1="0.5" x2="-0.5" y2="-0.5"/>
         </primitive>
 
     </primitives>
@@ -217,8 +219,7 @@
         <component id="1">
 
             <transformation>
-              <animation>
-              </animation>
+
             </transformation>
 
             <materials>
@@ -228,11 +229,10 @@
             <texture id="none"/>
 
             <children>
-                 <componentref id="board" />
-                 <componentref id="p11" />
-                 <componentref id="p12" />
-                 <componentref id="p21" />
-                 <componentref id="p22" />
+                  <componentref id="board" />
+                  <componentref id="Player1Base" />
+                  <componentref id="Player2Base" />
+                  <componentref id="table" />
             </children>
 
         </component>
@@ -249,7 +249,7 @@
                 <material id="white"/>
             </materials>
 
-            <texture id="board"/>
+            <texture id="none"/>
 
             <children>
                  <primitiveref id="gameBoard" />
@@ -257,9 +257,11 @@
 
         </component>
 
-        <component id="p11">
+        <component id="Player1Base">
 
             <transformation>
+                  <translate x="-2" y="0" z="4.5"/>
+                  <scale x="4" y="0.2" z="5"/>
 
             </transformation>
 
@@ -267,66 +269,45 @@
                 <material id="white"/>
             </materials>
 
-            <texture id="none"/>
+            <texture id="base"/>
 
             <children>
-                 <primitiveref id="pawn1" />
+                 <primitiveref id="cube" />
             </children>
 
         </component>
 
-        <component id="p12">
+        <component id="Player2Base">
 
             <transformation>
-
+              <translate x="15.5" y="0" z="4.5"/>
+                  <scale x="4" y="0.2" z="5"/>
             </transformation>
 
             <materials>
                 <material id="white"/>
             </materials>
 
-            <texture id="none"/>
+            <texture id="base"/>
 
             <children>
-                 <primitiveref id="pawn1" />
+                 <primitiveref id="cube" />
             </children>
 
         </component>
 
-        <component id="p21">
-
+        <component id="table">
             <transformation>
-
+                <scale x="25" y="5" z="20"/>
+                <rotate axis="x" angle="90"/>
+                <translate x="0.25" y="0.3" z="0"/>
             </transformation>
-
             <materials>
                 <material id="white"/>
             </materials>
-
-            <texture id="none"/>
-
+            <texture id="table"/>
             <children>
-                 <primitiveref id="pawn2" />
+                <primitiveref id="rectangle"/>
             </children>
-
         </component>
-
-        <component id="p22">
-
-            <transformation>
-
-            </transformation>
-
-            <materials>
-                <material id="white"/>
-            </materials>
-
-            <texture id="none"/>
-
-            <children>
-                 <primitiveref id="pawn2" />
-            </children>
-
-        </component>
-
 </dsx>

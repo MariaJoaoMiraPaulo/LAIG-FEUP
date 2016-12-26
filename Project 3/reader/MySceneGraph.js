@@ -776,8 +776,8 @@ MySceneGraph.prototype.readingCube = function(newElement, idPrimitive) {
 
 MySceneGraph.prototype.readingBoard = function(newElement, idPrimitive) {
     dimX = this.reader.getInteger(newElement,'dimX');
-    dimY = this.reader.getInteger(newElement,'dimY');
-    this.primitives[idPrimitive] = new Board(this.scene, this.reader,dimX,dimY);
+    dimZ = this.reader.getInteger(newElement,'dimZ');
+    this.primitives[idPrimitive] = new Board(this.scene, this.reader,dimX,dimZ);
 }
 
 MySceneGraph.prototype.readingPawn = function(newElement, idPrimitive) {
