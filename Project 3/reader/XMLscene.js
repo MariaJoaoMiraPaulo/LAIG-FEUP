@@ -66,10 +66,7 @@ XMLscene.prototype.onGraphLoaded = function() {
 };
 
 XMLscene.prototype.startGame = function() {
-    console.log("entrei");
-    console.log(this);
   this.game = new Blockade(this, this.graph);
-
 };
 
 
@@ -124,6 +121,11 @@ XMLscene.prototype.display = function() {
         this.game.display();
     };
 
+    if (typeof this.game != "undefined") {
+        document.getElementById('information').innerText = this.game.getGameStateInstruction();
+        document.getElementById('player').innerText = 'Player ' + (this.game.player);
+        // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
+    }
 
 
     this.logPicking();

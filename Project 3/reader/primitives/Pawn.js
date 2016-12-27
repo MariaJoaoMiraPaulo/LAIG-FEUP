@@ -1,8 +1,5 @@
 function Pawn(scene, reader, player,pawnNumber) {
-console.log(scene);
-  console.log("00000");
   CGFobject.call(this, scene);
-    console.log("1111");
   this.scene = scene;
   this.player = player;
   this.xPos=0;

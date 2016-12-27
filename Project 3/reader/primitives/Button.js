@@ -58,24 +58,6 @@ function Button(scene, reader, player, type) {
   this.material.setSpecular(1.0,1,1,1);
   this.material.setShininess(0);
 
-  //
-  // this.yellowMaterial = new CGFappearance(this.scene);
-  // this.yellowMaterial.setAmbient(1.0,1,1,1);
-  // this.yellowMaterial.setDiffuse(1.0,1,1,1);
-  // this.yellowMaterial.setSpecular(1.0,1,1,1);
-  // this.yellowMaterial.setShininess(0);
-  // this.yellowMaterial.loadTexture("img/2.jpg");
-  //
-  // switch (player) {
-  //   case 1:
-  //     this.material = this.orangeMaterial;
-  //     break;
-  //   case 2:
-  //     this.material = this.yellowMaterial;
-  //   break;
-  //   default:
-  //
-  // }
 
   this.Button = new Cube(this.scene, this.scene.reader, null, null);
   this.rect = new Cube(this.scene, this.scene.reader, null, null);

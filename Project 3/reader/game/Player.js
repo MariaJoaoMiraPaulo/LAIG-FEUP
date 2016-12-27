@@ -9,7 +9,6 @@ class Player {
         this.selectablePawn = false;
         this.selectableWall = false;
 
-        console.log("aqui0000");
 
         this.pawn1 = new Pawn(this.scene, this.reader, this.player, 1);
         this.pawn2 = new Pawn(this.scene, this.reader, this.player, 2);
@@ -18,7 +17,7 @@ class Player {
         //type 1 -stepOver
         //type 2 - Back
         this.button = new Button(this.scene, this.reader, this.player, 1);
-      //  this.backButton = new Button(this.scene, this.reader, this.player, 2);
+        this.backButton = new Button(this.scene, this.reader, this.player, 2);
 
         this.numberWalls = 7;
         this.walls = new Array(this.numberWalls - 1);
@@ -65,7 +64,7 @@ class Player {
         return pawn2;
     }
 
-    displayButton() {
+    displayStepOverButton() {
         if (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL && this.player == this.scene.game.player && this.button.type == 1) {
             this.scene.registerForPick(100, this.button);
             this.button.display();
@@ -73,7 +72,18 @@ class Player {
             this.scene.clearPickRegistration();
             this.button.display();
         }
+          this.scene.clearPickRegistration();
+    }
 
+    displayBackButton() {
+
+        if (this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN_NEXT_POSITION && this.player == this.scene.game.player) {
+            this.scene.registerForPick(101, this.backButton);
+            this.backButton.display();
+        } else {
+            this.scene.clearPickRegistration();
+            this.backButton.display();
+        }
           this.scene.clearPickRegistration();
     }
 
