@@ -47,7 +47,7 @@ class Blockade {
             WAITING_FOR_SERVER_PLAYER2_WALL_BOARD: 24,
             UPDATE_BOARD_FROM_PLAYER1_WALLS: 25,
             UPDATE_BOARD_FROM_PLAYER2_WALLS: 26,
-            SELECTING_PAWN_PLAYER: 27,
+            SELECTING_PAWN: 27,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -137,17 +137,15 @@ class Blockade {
     updateWallPositions() {
         switch (this.currentState) {
             case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
-                //this.currentState = this.state.SELECTING_PAWN_PLAYER2;
                 this.player = 2;
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
-                //this.currentState = this.state.SELECTING_PAWN_PLAYER1;
                 this.player = 1;
                 break;
             default:
         }
 
-        this.currentState = this.state.SELECTING_PAWN_PLAYER;
+        this.currentState = this.state.SELECTING_PAWN;
     }
 
     updatePawnsPositions() {
@@ -177,7 +175,7 @@ class Blockade {
 
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
-                this.currentState = this.state.SELECTING_PAWN_PLAYER;
+                this.currentState = this.state.SELECTING_PAWN;
                 console.log('entrei'+this.currentState);
                 this.player = 1;
                 break;
@@ -247,11 +245,7 @@ class Blockade {
     pickingHandler(obj) {
 
         switch (this.currentState) {
-            /*  case this.state.SELECTING_PAWN_PLAYER1:
-                  this.player = 1;
-                  this.selectingPawn(obj.pawnNumber);
-                  break;*/
-            case this.state.SELECTING_PAWN_PLAYER:
+            case this.state.SELECTING_PAWN:
                 this.selectingPawn(obj.pawnNumber);
                 break;
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
@@ -266,10 +260,6 @@ class Blockade {
             case this.state.SELECTING_WALL_POSITION2_PLAYER1:
                 this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
                 break;
-                /*  case this.state.SELECTING_PAWN_PLAYER2:
-                      this.player = 2;
-                      this.selectingPawn(obj.pawnNumber);
-                      break;*/
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
                 this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
                 break;
@@ -319,7 +309,7 @@ class Blockade {
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
             } else if (obj instanceof Button) {
                 this.player = 2;
-                this.currentState = this.state.SELECTING_PAWN_PLAYER;
+                this.currentState = this.state.SELECTING_PAWN;
             }
         } else if (this.player == 2) {
             if (obj instanceof Wall) {
@@ -328,7 +318,7 @@ class Blockade {
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
             } else if (obj instanceof Button) {
                 this.player = 1;
-                this.currentState = this.state.SELECTING_PAWN_PLAYER;
+                this.currentState = this.state.SELECTING_PAWN;
             }
         }
     }
