@@ -12,6 +12,12 @@ class Player {
     this.pawn1 = new Pawn(this.scene, this.reader, this.player,1);
     this.pawn2 = new Pawn(this.scene, this.reader, this.player,2);
 
+
+    //type 1 -stepOver
+    //type 2 - Back
+    this.button = new Button(this.scene, this.reader, this.player,1);
+    this.backButton = new Button(this.scene, this.reader, this.player, 2);
+
     this.numberWalls = 7;
     this.walls = new Array(this.numberWalls-1);
 
@@ -56,6 +62,29 @@ class Player {
   getPawn2Id(){
     return pawn2;
   }
+
+  displayButton(){
+    if((this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER1 && this.player==1 && this.button.type==1) || (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER2 && this.player==2 && this.button.type==1)){
+      this.scene.registerForPick(2,this.button);
+      this.button.display();
+    }
+    else{
+      this.scene.clearPickRegistration();
+      this.button.display();
+    }
+
+    // if((this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER1 && this.player==1 && this.button.type==2) ||
+    //     (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER2 && this.player==2 && this.button.type==2)){
+    //   this.scene.registerForPick(3,this.button);
+    //   this.backButton.display();
+    // }
+    // else{
+    //   this.scene.clearPickRegistration();
+    //   this.backButton.display();
+    // }
+
+
+    }
 
   movePawn(position){
 
@@ -113,7 +142,7 @@ class Player {
         }
     }
 
-    return [x,z];
+    return [z,x];
   }
 
   displayPawns(){
@@ -142,5 +171,10 @@ class Player {
     this.pawn2.display();
 
     this.scene.clearPickRegistration();
+  }
+
+  update(currTime){
+    this.pawn1.update(currTime);
+    this.pawn2.update(currTime);
   }
 }

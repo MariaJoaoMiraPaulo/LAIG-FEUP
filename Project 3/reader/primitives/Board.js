@@ -115,7 +115,7 @@ Board.prototype.display = function () {
 
       this.scene.translate(this.distanceBetweenCubes*x+0.5,0,this.distanceBetweenCubes*z+0.5);
       this.scene.scale(1, 0.3, 1);
-      if(this.selectableCells && this.possibleMove([x*2,z*2])){
+      if(this.selectableCells && this.possibleMove([z*2,x*2])){
           this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
           index++;
           this.highlight.apply();
@@ -214,29 +214,53 @@ Board.prototype.possibleMove = function(arrayPos){
   //array pos z,x
 
   var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 2];
+  var wr1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 1];
+
   var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+ 4];
+  var wr2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+3];
 
   var l1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-2];
+  var wl1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-1];
+
   var l2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-4];
+  var wl2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-3];
 
   var t1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]];
+  var wt1 = [this.currentPawnOnGamePosition[0]-1,this.currentPawnOnGamePosition[1]];
+
   var t2 = [this.currentPawnOnGamePosition[0]-4,this.currentPawnOnGamePosition[1]];
+  var wt2 = [this.currentPawnOnGamePosition[0]-3,this.currentPawnOnGamePosition[1]];
 
   var b1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
-  var b2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
+  var wb1 = [this.currentPawnOnGamePosition[0]+1,this.currentPawnOnGamePosition[1]];
 
-  var dtr = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-2];
+  var b2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
+  var wb2 = [this.currentPawnOnGamePosition[0]+3,this.currentPawnOnGamePosition[1]];
+
+  var dtr = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]+2];
+  var wdtr1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]+1];
+  var wdtr2 = [this.currentPawnOnGamePosition[0]-1,this.currentPawnOnGamePosition[1]+2];
 
   var dtl = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]-2];
+  var wdtl1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]-1];
+  var wdtl2 = [this.currentPawnOnGamePosition[0]-1,this.currentPawnOnGamePosition[1]-2];
 
   var dbr = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]+2];
+  var wdbr1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]+1];
+  var wdbr2 = [this.currentPawnOnGamePosition[0]+1,this.currentPawnOnGamePosition[1]+2];
 
-  var dbl = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]+2];
+  var dbl = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-2];
+  var wdbl1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-1];
+  var wdbl2 = [this.currentPawnOnGamePosition[0]+1,this.currentPawnOnGamePosition[1]-2];
 
-  if(this.arraysAreIdentical(arrayPos,r1)  ||  this.arraysAreIdentical(arrayPos,r2) ||  this.arraysAreIdentical(arrayPos,l1) || this.arraysAreIdentical(arrayPos,l2) ||
-      this.arraysAreIdentical(arrayPos,t1) ||  this.arraysAreIdentical(arrayPos,t2) ||  this.arraysAreIdentical(arrayPos,b1) || this.arraysAreIdentical(arrayPos,b2) ||
-      this.arraysAreIdentical(arrayPos,dtr)|| this.arraysAreIdentical(arrayPos,dtl) || this.arraysAreIdentical(arrayPos,dbr) || this.arraysAreIdentical(arrayPos,dbl))
+  if((this.arraysAreIdentical(arrayPos,r1) && !this.hasAwallBetween(wr1))  ||  (this.arraysAreIdentical(arrayPos,r2) && !this.hasAwallBetween(wr2) && !this.hasAwallBetween(wr1)) ||  (this.arraysAreIdentical(arrayPos,l1) && !this.hasAwallBetween(wl1)) || (this.arraysAreIdentical(arrayPos,l2) && !this.hasAwallBetween(wl2) && !this.hasAwallBetween(wl1)) ||
+      (this.arraysAreIdentical(arrayPos,t1) && !this.hasAwallBetween(wt1)) ||  (this.arraysAreIdentical(arrayPos,t2) && !this.hasAwallBetween(wt2) && !this.hasAwallBetween(wt1)) ||  (this.arraysAreIdentical(arrayPos,b1) && !this.hasAwallBetween(wb1)) || (this.arraysAreIdentical(arrayPos,b2) && !this.hasAwallBetween(wb2) && !this.hasAwallBetween(wb1)) ||
+      (this.arraysAreIdentical(arrayPos,dtr) && !this.hasAwallBetween(wdtr1) && !this.hasAwallBetween(wdtr2) && !this.hasAwallBetween(wr1) && !this.hasAwallBetween(wt1))
+      || (this.arraysAreIdentical(arrayPos,dtl) && !this.hasAwallBetween(wdtl1) && !this.hasAwallBetween(wdtl2) && !this.hasAwallBetween(wl1) && !this.hasAwallBetween(wt1))
+      || (this.arraysAreIdentical(arrayPos,dbr) && !this.hasAwallBetween(wdbr1) && !this.hasAwallBetween(wdbr2) && !this.hasAwallBetween(wr1) && !this.hasAwallBetween(wb1))
+      || (this.arraysAreIdentical(arrayPos,dbl) && !this.hasAwallBetween(wdbl1) && !this.hasAwallBetween(wdbl2) && !this.hasAwallBetween(wb1) && !this.hasAwallBetween(wl1)))
   {
+
     return true;
   }
 
@@ -254,60 +278,71 @@ Board.prototype.possibleWall = function(arrayPos){
   return true;
 }
 
+Board.prototype.hasAwallBetween = function(arrayPos){
+
+  for(var i=0;i<this.scene.game.currentWalls.length;i++){
+    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){
+      return true;
+    }
+  }
+
+  return false;
+}
+
 
 Board.prototype.getPawnDiretion = function (x,z) {
 
-  var arrayPos = [x,z];
+  var arrayPos = [z,x];
 
-  var r1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
+  var r1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+2];
   if(this.arraysAreIdentical(arrayPos,r1)){
     var direction="r1";
     return direction;
   }
 
-  var r2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
+  var r2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+4];
   if(this.arraysAreIdentical(arrayPos,r2)){
     var direction="r2";
     return direction;
   }
 
-  var l1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]];
+  var l1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-2];
   if(this.arraysAreIdentical(arrayPos,l1)){
     var direction="l1";
     return direction;
   }
 
-  var l2 = [this.currentPawnOnGamePosition[0]-4,this.currentPawnOnGamePosition[1]];
+  var l2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-4];
   if(this.arraysAreIdentical(arrayPos,l2)){
     var direction="l2";
     return direction;
   }
 
-  var t1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-2];
+  var t1 = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,t1)){
     var direction="t1";
     return direction;
   }
 
-  var t2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]-4];
+  var t2 = [this.currentPawnOnGamePosition[0]-4,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,t2)){
     var direction="t2";
     return direction;
   }
 
-  var b1 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+2];
+  var b1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,b1)){
     var direction="b1";
     return direction;
   }
 
-  var b2 = [this.currentPawnOnGamePosition[0],this.currentPawnOnGamePosition[1]+4];
+  var b2 = [this.currentPawnOnGamePosition[0]+4,this.currentPawnOnGamePosition[1]];
   if(this.arraysAreIdentical(arrayPos,b2)){
     var direction="b2";
     return direction;
   }
 
-  var dtr = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-2];
+  var dtr = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]+2];
   if(this.arraysAreIdentical(arrayPos,dtr)){
     var direction="dtr";
     return direction;
@@ -325,7 +360,7 @@ Board.prototype.getPawnDiretion = function (x,z) {
     return direction;
   }
 
-  var dbl = [this.currentPawnOnGamePosition[0]-2,this.currentPawnOnGamePosition[1]+2];
+  var dbl = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-2];
   if(this.arraysAreIdentical(arrayPos,dbl)){
     var direction="dbl";
     return direction;
