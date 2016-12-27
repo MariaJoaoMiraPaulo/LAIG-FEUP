@@ -120,7 +120,7 @@ class Player {
 
     //TODO: id???
     for(var i=0; i< this.numberWalls;i++){
-      if(this.selectableWall)
+      if(this.selectableWall && !this.walls[i].used)
         this.scene.registerForPick(i+10,this.walls[i]);
       this.walls[i].display();
     }

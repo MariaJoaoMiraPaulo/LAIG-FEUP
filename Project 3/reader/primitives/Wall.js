@@ -5,6 +5,8 @@ function Wall(scene, reader, player, wallNumber) {
   this.reader=reader;
   this.wallNumber = wallNumber;
 
+  this.used = false;
+
   this.xPos=0;
   this.yPos=0;
   this.zPos=0;
