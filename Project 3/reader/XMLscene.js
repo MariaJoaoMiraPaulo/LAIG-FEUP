@@ -113,7 +113,7 @@ XMLscene.prototype.display = function() {
 
         // this.verifyGameStart();
         //TODO:BLOCKADE HERE??
-        if(typeof this.game == "undefined"){
+        if (typeof this.game == "undefined") {
             this.game = new Blockade(this, this.graph);
         }
         this.game.display();
@@ -175,6 +175,10 @@ XMLscene.prototype.update = function(currTime) {
 
     for (componentsId in this.graph.components) {
         this.graph.components[componentsId].update(deltaTime);
+    }
+
+    if (typeof this.game != "undefined") {
+        this.game.update(currTime);
     }
 }
 

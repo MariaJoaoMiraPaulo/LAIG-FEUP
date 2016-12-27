@@ -248,29 +248,21 @@ class Blockade {
     }
 
     pickingHandler(obj) {
-        console.log('boas');
-        console.log(obj);
-        console.log(this.currentState);
         switch (this.currentState) {
             case this.state.SELECTING_PAWN_PLAYER1:
                 this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1;
                 this.chosenPawn = obj.pawnNumber;
                 Board.prototype.validatePosition(this.player1.validPawnPosition(this.chosenPawn));
-                console.log(this.chosenPawn);
                 break;
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
-                console.log("X: " + obj.getPosX());
-                console.log("Z: " + obj.getPosZ());
-                console.log(Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ()));
                 var direction = Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
                 this.getNewBoard(obj.getPosX(), obj.getPosZ(), direction, 1);
                 break;
             case this.state.SELECTING_WALL_PLAYER1:
-                console.log("select wall 1");
-                if(obj instanceof Wall){
-                console.log("Wall Number: " + obj.getWallNumber());
+                if(obj instanceof Wall){  
                 obj.used = true;
+
                 this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
               }
@@ -279,8 +271,6 @@ class Blockade {
               }
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER1:
-                console.log("X: " + obj.getPosX());
-                console.log("Z: " + obj.getPosZ());
                 this.firstWallx = obj.getPosX();
                 this.firstWallz = obj.getPosZ();
                 Board.prototype.currentWallPositionX = this.firstWallx;
@@ -288,12 +278,9 @@ class Blockade {
                 this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER1;
                 break;
             case this.state.SELECTING_WALL_POSITION2_PLAYER1:
-                console.log("X: " + obj.getPosX());
-                console.log("Z: " + obj.getPosZ());
                 this.secondWallx = obj.getPosX();
                 this.secondWallz = obj.getPosZ();
                 var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
-                console.log(orientation);
                 if (!orientation) {
                     this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
                 } else {
@@ -308,24 +295,17 @@ class Blockade {
                 }
                 break;
             case this.state.SELECTING_PAWN_PLAYER2:
-                console.log("entrei pawn2");
                 this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2;
                 this.chosenPawn = obj.pawnNumber;
                 Board.prototype.validatePosition(this.player2.validPawnPosition(this.chosenPawn));
-                console.log(this.chosenPawn);
                 break;
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
-                console.log("X: " + obj.getPosX());
-                console.log("Z: " + obj.getPosZ());
-                console.log(Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ()));
                 var direction = Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ());
                 this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
                 this.getNewBoard(obj.getPosX(), obj.getPosZ(), direction, 2);
                 break;
             case this.state.SELECTING_WALL_PLAYER2:
-                console.log("select wall 1");
                 if(obj instanceof Wall){
-                  console.log("Wall Number: " + obj.getWallNumber());
                   this.selectWallId = obj.getWallNumber();
                   obj.used = true;
                   this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
@@ -335,8 +315,6 @@ class Blockade {
                 }
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER2:
-                console.log("X: " + obj.getPosX());
-                console.log("Z: " + obj.getPosZ());
                 this.firstWallx = obj.getPosX();
                 this.firstWallz = obj.getPosZ();
                 Board.prototype.currentWallPositionX = this.firstWallx;
@@ -344,12 +322,9 @@ class Blockade {
                 this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER2;
                 break;
             case this.state.SELECTING_WALL_POSITION2_PLAYER2:
-                console.log("X: " + obj.getPosX());
-                console.log("Z: " + obj.getPosZ());
                 this.secondWallx = obj.getPosX();
                 this.secondWallz = obj.getPosZ();
                 var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
-                console.log(orientation);
                 if (!orientation) {
                     this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
                 } else {
@@ -423,5 +398,10 @@ class Blockade {
         this.player2.displayWalls();
         this.player2.displayButton();
 
+    }
+
+    update(currTime){
+      this.player1.update(currTime);
+      this.player2.update(currTime);
     }
 }
