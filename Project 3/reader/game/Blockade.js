@@ -252,7 +252,7 @@ class Blockade {
       this.selectingWall(obj);
       break;
       case this.state.SELECTING_FIRST_WALL_POSITION:
-      this.selectingFirstWallPosition(obj.getPosX(), obj.getPosZ());
+      this.selectingFirstWallPosition(obj);
       break;
       case this.state.SELECTING_SECOND_WALL_POSITION:
       this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
@@ -305,13 +305,22 @@ class Blockade {
     }
   }
 
-  selectingFirstWallPosition(x, z) {
-    this.firstWallx = x;
-    this.firstWallz = z;
-    Board.prototype.currentWallPositionX = this.firstWallx;
-    Board.prototype.currentWallPositionZ = this.firstWallz;
+  selectingFirstWallPosition(obj) {
 
-    this.currentState = this.state.SELECTING_SECOND_WALL_POSITION;
+    if(obj instanceof Button){
+      this.currentState = this.state.SELECTING_WALL;
+    }
+    else{
+      var x = obj.getPosX();
+      var z = obj.getPosZ()
+      this.firstWallx = x;
+      this.firstWallz = z;
+      Board.prototype.currentWallPositionX = this.firstWallx;
+      Board.prototype.currentWallPositionZ = this.firstWallz;
+
+      this.currentState = this.state.SELECTING_SECOND_WALL_POSITION;
+    }
+
   }
 
   selectingSecondWallPosition(x, z) {
