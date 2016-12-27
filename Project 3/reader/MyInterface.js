@@ -32,6 +32,13 @@ let menu = {
 };
 
  	this.options.add(menu,'startGame').name('Start Game');
+
+	// this.options.add(menu, 'gameMode', {
+  //       'Human vs Human': 0,
+  //       'Human vs CPU': 1,
+  //       'CPU vs CPU': 2,
+  //   }).name('Game Mode');
+
 	// this.options.add(this,'Exit').name('Exit');
 	return true;
 };
