@@ -148,10 +148,7 @@ class Player {
   displayPawns(){
 
     if(typeof this.scene.game != "undefined"){
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_PLAYER1 && this.player == 1){
-        this.selectablePawn = true;
-      }
-      else if(this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_PLAYER2 && this.player == 2){
+      if(this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_PLAYER && this.player == this.scene.game.player){
         this.selectablePawn = true;
       }
       else this.selectablePawn = false;

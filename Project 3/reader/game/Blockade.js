@@ -47,6 +47,7 @@ class Blockade {
             WAITING_FOR_SERVER_PLAYER2_WALL_BOARD: 24,
             UPDATE_BOARD_FROM_PLAYER1_WALLS: 25,
             UPDATE_BOARD_FROM_PLAYER2_WALLS: 26,
+            SELECTING_PAWN_PLAYER: 27,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -134,27 +135,19 @@ class Blockade {
     }
 
     updateWallPositions() {
-
-        /*  for (let i = 0; i < this.board.length; i++) {
-              for (let j = 0; j < this.board[i].length; j++) {
-                if (this.board[i][j] == this.returnPrologBoardAtom("wall")){
-
-                } else if (this.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
-
-                }
-              }
-          }*/
-
         switch (this.currentState) {
             case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
-                this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+                //this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+                this.player = 2;
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
-                this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+                //this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+                this.player = 1;
                 break;
             default:
-
         }
+
+        this.currentState = this.state.SELECTING_PAWN_PLAYER;
     }
 
     updatePawnsPositions() {
@@ -184,7 +177,9 @@ class Blockade {
 
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
-                this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+                this.currentState = this.state.SELECTING_PAWN_PLAYER;
+                console.log('entrei'+this.currentState);
+                this.player = 1;
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
                 this.currentState = this.state.SELECTING_WALL_PLAYER1;
@@ -250,9 +245,13 @@ class Blockade {
     }
 
     pickingHandler(obj) {
+
         switch (this.currentState) {
-            case this.state.SELECTING_PAWN_PLAYER1:
-                this.player = 1;
+            /*  case this.state.SELECTING_PAWN_PLAYER1:
+                  this.player = 1;
+                  this.selectingPawn(obj.pawnNumber);
+                  break;*/
+            case this.state.SELECTING_PAWN_PLAYER:
                 this.selectingPawn(obj.pawnNumber);
                 break;
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
@@ -267,10 +266,10 @@ class Blockade {
             case this.state.SELECTING_WALL_POSITION2_PLAYER1:
                 this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
                 break;
-            case this.state.SELECTING_PAWN_PLAYER2:
-                this.player = 2;
-                this.selectingPawn(obj.pawnNumber);
-                break;
+                /*  case this.state.SELECTING_PAWN_PLAYER2:
+                      this.player = 2;
+                      this.selectingPawn(obj.pawnNumber);
+                      break;*/
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
                 this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
                 break;
@@ -316,11 +315,11 @@ class Blockade {
         if (this.player == 1) {
             if (obj instanceof Wall) {
                 obj.used = true;
-
                 this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
             } else if (obj instanceof Button) {
-                this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+                this.player = 2;
+                this.currentState = this.state.SELECTING_PAWN_PLAYER;
             }
         } else if (this.player == 2) {
             if (obj instanceof Wall) {
@@ -328,7 +327,8 @@ class Blockade {
                 obj.used = true;
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
             } else if (obj instanceof Button) {
-                this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+                this.player = 1;
+                this.currentState = this.state.SELECTING_PAWN_PLAYER;
             }
         }
     }
