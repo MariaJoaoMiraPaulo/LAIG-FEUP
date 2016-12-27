@@ -78,7 +78,8 @@ class Player {
     displayBackButton() {
 
         if ((this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN_NEXT_POSITION && this.player == this.scene.game.player)
-        || (this.scene.game.currentState == this.scene.game.state.SELECTING_FIRST_WALL_POSITION && this.player == this.scene.game.player)) {
+        || (this.scene.game.currentState == this.scene.game.state.SELECTING_FIRST_WALL_POSITION && this.player == this.scene.game.player)
+        || (this.scene.game.currentState == this.scene.game.state.SELECTING_SECOND_WALL_POSITION && this.player == this.scene.game.player)) {
             this.scene.registerForPick(101, this.backButton);
             this.backButton.display();
         } else {

@@ -255,7 +255,7 @@ class Blockade {
       this.selectingFirstWallPosition(obj);
       break;
       case this.state.SELECTING_SECOND_WALL_POSITION:
-      this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
+      this.selectingSecondWallPosition(obj);
       break;
       default:
       console.log('default');
@@ -323,31 +323,39 @@ class Blockade {
 
   }
 
-  selectingSecondWallPosition(x, z) {
+  selectingSecondWallPosition(obj) {
 
-    this.secondWallx = x;
-    this.secondWallz = z;
-
-    var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
-
-    if (!orientation) { //if it isn't a valid orientation
-    this.currentState = this.state.SELECTING_FIRST_WALL_POSITION;
-  } else {
-    if (this.player == 1) {
-      var wall = this.player1.getWallNumber(this.selectWallId);
-    } else if (this.player == 2) {
-      var wall = this.player2.getWallNumber(this.selectWallId);
+    if(obj instanceof Button){
+      this.currentState = this.state.SELECTING_FIRST_WALL_POSITION;
     }
+    else {
+      var x = obj.getPosX();
+      var z = obj.getPosZ();
 
-    wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
-    wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
-    wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
-    wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
-    wall.setWallOrientation(orientation);
-    this.getBoardWithNewWalls(orientation);
+      this.secondWallx = x;
+      this.secondWallz = z;
 
-    this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD_WALLS;
+      var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
 
+      if (!orientation) { //if it isn't a valid orientation
+      this.currentState = this.state.SELECTING_FIRST_WALL_POSITION;
+      }
+      else {
+      if (this.player == 1) {
+        var wall = this.player1.getWallNumber(this.selectWallId);
+      } else if (this.player == 2) {
+        var wall = this.player2.getWallNumber(this.selectWallId);
+      }
+
+      wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
+      wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
+      wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
+      wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+      wall.setWallOrientation(orientation);
+      this.getBoardWithNewWalls(orientation);
+
+      this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD_WALLS;
+    }
   }
 }
 
