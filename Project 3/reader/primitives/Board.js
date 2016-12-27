@@ -445,9 +445,9 @@ Board.prototype.secondWallPossibility = function (pos) {
       else return false;
     }
     else {
-      if(this.crossWallH())
-      return false;
-      else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
+      // if(this.crossWallH())
+      // return false;
+      if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
       return true;
       else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX-2],pos))
       return true;
