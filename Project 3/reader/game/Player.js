@@ -143,4 +143,9 @@ class Player {
 
     this.scene.clearPickRegistration();
   }
+
+  update(currTime){
+    this.pawn1.update(currTime);
+    this.pawn2.update(currTime);
+  }
 }

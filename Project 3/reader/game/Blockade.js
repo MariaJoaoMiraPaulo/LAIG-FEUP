@@ -393,4 +393,9 @@ class Blockade {
         this.player2.displayWalls();
 
     }
+
+    update(currTime){
+      this.player1.update(currTime);
+      this.player2.update(currTime);
+    }
 }
