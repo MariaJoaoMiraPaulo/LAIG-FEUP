@@ -277,10 +277,12 @@ Board.prototype.possibleWall = function(arrayPos){
 
   for(var i=0;i<this.scene.game.currentWalls.length;i++){
     if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){
+      console.log(this.scene.game.currentWalls[i]);
+      console.log(arrayPos);
+      console.log("existe parede");
       return false;
     }
   }
-
   return true;
 }
 
@@ -450,7 +452,9 @@ Board.prototype.secondWallPossibility = function (pos) {
       else return false;
     }
     else {
-      if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
+      if(this.crossWallH())
+      return false;
+      else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
       return true;
       else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX-2],pos))
       return true;
@@ -460,6 +464,27 @@ Board.prototype.secondWallPossibility = function (pos) {
   else return true;
 }
 
+Board.prototype.crossWallH = function(){
+
+  // if(!this.possibleWall([this.currentWallPositionZ-1,this.currentWallPositionX+1])){
+  // }
+  // else return false;
+  // if(!this.possibleWall([this.currentWallPositionZ+1,this.currentWallPositionX+1]))
+  // {
+  //   return true;
+  // }
+  //
+  // if(!this.possibleWall([this.currentWallPositionZ-1,this.currentWallPositionX-1])){
+  //   console.log(1);
+  // }
+  // else return false;
+  // if(!this.possibleWall([this.currentWallPositionZ+1,this.currentWallPositionX-1])){
+  //       console.log(2);
+  //   return true;
+  // }
+  //   console.log(3);
+  // return false;
+}
 
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;

@@ -260,9 +260,8 @@ class Blockade {
                 this.getNewBoard(obj.getPosX(), obj.getPosZ(), direction, 1);
                 break;
             case this.state.SELECTING_WALL_PLAYER1:
-                if(obj instanceof Wall){  
+                if(obj instanceof Wall){
                 obj.used = true;
-
                 this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
               }
