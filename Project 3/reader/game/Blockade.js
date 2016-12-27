@@ -10,13 +10,15 @@ class Blockade {
         this.getInitialBoard();
         this.pawns = [];
 
+        this.player;
+
         this.selectWallId;
         this.firstWallx;
         this.firstWallz;
         this.secondWallx;
         this.secondWallz;
 
-        this.currentWalls =[];
+        this.currentWalls = [];
 
         this.state = {
             WAITING_FOR_START: 1,
@@ -60,39 +62,39 @@ class Blockade {
         });
     }
 
-    getAllBoardWalls(){
+    getAllBoardWalls() {
 
-      for (let i = 0; i < this.board.length; i++) {
-          for (let j = 0; j < this.board[i].length; j++) {
-              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
-                  var z = i;
-                  var x = j;
-                  var tempArray = [z,x];
-                  this.currentWalls.push(tempArray);
-              }
-          }
-      }
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("wall") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
+                    var z = i;
+                    var x = j;
+                    var tempArray = [z, x];
+                    this.currentWalls.push(tempArray);
+                }
+            }
+        }
 
-      return true;
+        return true;
     }
 
-    getAllPawnPositions(){
+    getAllPawnPositions() {
 
-      this.pawns = [];
+        this.pawns = [];
 
-      for (let i = 0; i < this.board.length; i++) {
-          for (let j = 0; j < this.board[i].length; j++) {
-              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("player11") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("player12") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("player21") ||
-               this.scene.game.board[i][j] == this.returnPrologBoardAtom("player22")) {
-                  var z = i;
-                  var x = j;
-                  var tempArray = [z,x];
-                  this.pawns.push(tempArray);
-              }
-          }
-      }
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("player11") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("player12") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("player21") ||
+                    this.scene.game.board[i][j] == this.returnPrologBoardAtom("player22")) {
+                    var z = i;
+                    var x = j;
+                    var tempArray = [z, x];
+                    this.pawns.push(tempArray);
+                }
+            }
+        }
 
-      return true;
+        return true;
     }
 
     getCurrentState() {
@@ -133,15 +135,15 @@ class Blockade {
 
     updateWallPositions() {
 
-      /*  for (let i = 0; i < this.board.length; i++) {
-            for (let j = 0; j < this.board[i].length; j++) {
-              if (this.board[i][j] == this.returnPrologBoardAtom("wall")){
+        /*  for (let i = 0; i < this.board.length; i++) {
+              for (let j = 0; j < this.board[i].length; j++) {
+                if (this.board[i][j] == this.returnPrologBoardAtom("wall")){
 
-              } else if (this.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
+                } else if (this.board[i][j] == this.returnPrologBoardAtom("verticalwall")) {
 
+                }
               }
-            }
-        }*/
+          }*/
 
         switch (this.currentState) {
             case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
@@ -250,96 +252,132 @@ class Blockade {
     pickingHandler(obj) {
         switch (this.currentState) {
             case this.state.SELECTING_PAWN_PLAYER1:
-                this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1;
-                this.chosenPawn = obj.pawnNumber;
-                Board.prototype.validatePosition(this.player1.validPawnPosition(this.chosenPawn));
+                this.player = 1;
+                this.selectingPawn(obj.pawnNumber);
                 break;
             case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
-                var direction = Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ());
-                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
-                this.getNewBoard(obj.getPosX(), obj.getPosZ(), direction, 1);
+                this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
                 break;
             case this.state.SELECTING_WALL_PLAYER1:
-                if(obj instanceof Wall){  
+                this.selectingWall(obj);
+                break;
+            case this.state.SELECTING_WALL_POSITION1_PLAYER1:
+                this.selectingFirstWallPosition(obj.getPosX(), obj.getPosZ());
+                break;
+            case this.state.SELECTING_WALL_POSITION2_PLAYER1:
+                this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
+                break;
+            case this.state.SELECTING_PAWN_PLAYER2:
+                this.player = 2;
+                this.selectingPawn(obj.pawnNumber);
+                break;
+            case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
+                this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
+                break;
+            case this.state.SELECTING_WALL_PLAYER2:
+                this.selectingWall(obj);
+                break;
+            case this.state.SELECTING_WALL_POSITION1_PLAYER2:
+                this.selectingFirstWallPosition(obj.getPosX(), obj.getPosZ());
+                break;
+            case this.state.SELECTING_WALL_POSITION2_PLAYER2:
+                this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
+                break;
+            default:
+                console.log('default');
+        }
+    }
+
+    selectingPawn(PawnNumber) {
+        this.chosenPawn = PawnNumber;
+
+        if (this.player == 1) {
+            this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1;
+            Board.prototype.validatePosition(this.player1.validPawnPosition(this.chosenPawn));
+        } else if (this.player == 2) {
+            this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2;
+            Board.prototype.validatePosition(this.player2.validPawnPosition(this.chosenPawn));
+        }
+    }
+
+    selectingPawnNextPosition(x, z) {
+        var direction = Board.prototype.getPawnDiretion(x, z);
+
+        if (this.player == 1) {
+            this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
+        } else if (this.player == 2) {
+            this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
+        }
+
+        this.getNewBoard(x, z, direction, this.player);
+    }
+
+    selectingWall(obj) {
+        if (this.player == 1) {
+            if (obj instanceof Wall) {
                 obj.used = true;
 
                 this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
-              }
-              else if(obj instanceof Button){
-                  this.currentState = this.state.SELECTING_PAWN_PLAYER2;
-              }
-                break;
-            case this.state.SELECTING_WALL_POSITION1_PLAYER1:
-                this.firstWallx = obj.getPosX();
-                this.firstWallz = obj.getPosZ();
-                Board.prototype.currentWallPositionX = this.firstWallx;
-                Board.prototype.currentWallPositionZ = this.firstWallz;
-                this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER1;
-                break;
-            case this.state.SELECTING_WALL_POSITION2_PLAYER1:
-                this.secondWallx = obj.getPosX();
-                this.secondWallz = obj.getPosZ();
-                var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
-                if (!orientation) {
-                    this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
-                } else {
-                    var wall=this.player1.getWallNumber(this.selectWallId);
-                    wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
-                    wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
-                    wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
-                    wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
-                    wall.setWallOrientation(orientation);
-                    this.getBoardWithNewWalls(orientation);
-                    this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
-                }
-                break;
-            case this.state.SELECTING_PAWN_PLAYER2:
-                this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2;
-                this.chosenPawn = obj.pawnNumber;
-                Board.prototype.validatePosition(this.player2.validPawnPosition(this.chosenPawn));
-                break;
-            case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
-                var direction = Board.prototype.getPawnDiretion(obj.getPosX(), obj.getPosZ());
-                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
-                this.getNewBoard(obj.getPosX(), obj.getPosZ(), direction, 2);
-                break;
-            case this.state.SELECTING_WALL_PLAYER2:
-                if(obj instanceof Wall){
-                  this.selectWallId = obj.getWallNumber();
-                  obj.used = true;
-                  this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
-                }
-                else if(obj instanceof Button){
-                    this.currentState = this.state.SELECTING_PAWN_PLAYER1;
-                }
-                break;
-            case this.state.SELECTING_WALL_POSITION1_PLAYER2:
-                this.firstWallx = obj.getPosX();
-                this.firstWallz = obj.getPosZ();
-                Board.prototype.currentWallPositionX = this.firstWallx;
-                Board.prototype.currentWallPositionZ = this.firstWallz;
-                this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER2;
-                break;
-            case this.state.SELECTING_WALL_POSITION2_PLAYER2:
-                this.secondWallx = obj.getPosX();
-                this.secondWallz = obj.getPosZ();
-                var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
-                if (!orientation) {
-                    this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
-                } else {
-                    var wall=this.player2.getWallNumber(this.selectWallId);
-                    wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
-                    wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
-                    wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
-                    wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
-                    wall.setWallOrientation(orientation);
-                    this.getBoardWithNewWalls(orientation);
-                    this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD;
-                }
-                break;
-            default:
-                console.log('default');
+            } else if (obj instanceof Button) {
+                this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+            }
+        } else if (this.player == 2) {
+            if (obj instanceof Wall) {
+                this.selectWallId = obj.getWallNumber();
+                obj.used = true;
+                this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+            } else if (obj instanceof Button) {
+                this.currentState = this.state.SELECTING_PAWN_PLAYER1;
+            }
+        }
+    }
+
+    selectingFirstWallPosition(x, z) {
+        this.firstWallx = x;
+        this.firstWallz = z;
+        Board.prototype.currentWallPositionX = this.firstWallx;
+        Board.prototype.currentWallPositionZ = this.firstWallz;
+
+        if (this.player == 1) {
+            this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER1;
+        } else if (this.player == 2) {
+            this.currentState = this.state.SELECTING_WALL_POSITION2_PLAYER2;
+        }
+    }
+
+    selectingSecondWallPosition(x, z) {
+
+        this.secondWallx = x;
+        this.secondWallz = z;
+
+        var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
+
+        if (!orientation) { //if it isn't a valid orientation
+            if (this.player == 1) {
+                this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
+            } else if (this.player == 2) {
+                this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+            }
+        } else {
+            if (this.player == 1) {
+                var wall = this.player1.getWallNumber(this.selectWallId);
+            } else if (this.player == 2) {
+                var wall = this.player2.getWallNumber(this.selectWallId);
+            }
+
+            wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
+            wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
+            wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
+            wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+            wall.setWallOrientation(orientation);
+            this.getBoardWithNewWalls(orientation);
+
+            if (this.player == 1) {
+                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_WALL_BOARD;
+            } else if (this.player == 2) {
+                this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_WALL_BOARD;
+            }
         }
     }
 
@@ -400,8 +438,8 @@ class Blockade {
 
     }
 
-    update(currTime){
-      this.player1.update(currTime);
-      this.player2.update(currTime);
+    update(currTime) {
+        this.player1.update(currTime);
+        this.player2.update(currTime);
     }
 }
