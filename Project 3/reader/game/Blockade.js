@@ -252,6 +252,9 @@ class Blockade {
                 this.selectWallId = obj.getWallNumber();
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
               }
+              else if(obj instanceof Button){
+                  this.currentState = this.state.SELECTING_PAWN_PLAYER2;
+              }
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER1:
                 console.log("X: " + obj.getPosX());
@@ -303,6 +306,9 @@ class Blockade {
                   console.log("Wall Number: " + obj.getWallNumber());
                   this.selectWallId = obj.getWallNumber();
                   this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
+                }
+                else if(obj instanceof Button){
+                    this.currentState = this.state.SELECTING_PAWN_PLAYER1;
                 }
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER2:
@@ -388,9 +394,11 @@ class Blockade {
         this.checkCurrentState();
         this.player1.displayPawns();
         this.player1.displayWalls();
+        this.player1.displayButton();
 
         this.player2.displayPawns();
         this.player2.displayWalls();
+        this.player2.displayButton();
 
     }
 }
