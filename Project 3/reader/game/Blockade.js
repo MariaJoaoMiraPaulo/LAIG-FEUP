@@ -48,6 +48,9 @@ class Blockade {
             UPDATE_BOARD_FROM_PLAYER1_WALLS: 25,
             UPDATE_BOARD_FROM_PLAYER2_WALLS: 26,
             SELECTING_PAWN: 27,
+            SELECTING_PAWN_NEXT_POSITION: 28,
+            WAITING_FOR_SERVER_NEW_BOARD: 29,
+            UPDATE_BOARD_WITH_SERVER_BOARD: 30,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -120,8 +123,9 @@ class Blockade {
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
                 break;
-            case this.state.UPDATE_BOARD_FROM_PLAYER1:
-            case this.state.UPDATE_BOARD_FROM_PLAYER2:
+          /*  case this.state.UPDATE_BOARD_FROM_PLAYER1:
+            case this.state.UPDATE_BOARD_FROM_PLAYER2:*/
+            case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
                 this.updatePawnsPositions();
                 this.getAllPawnPositions();
                 break;
@@ -176,15 +180,22 @@ class Blockade {
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
                 this.currentState = this.state.SELECTING_PAWN;
-                console.log('entrei'+this.currentState);
+                console.log('entrei' + this.currentState);
                 this.player = 1;
                 break;
-            case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
+          /*  case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
                 this.currentState = this.state.SELECTING_WALL_PLAYER1;
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
                 this.currentState = this.state.SELECTING_WALL_PLAYER2;
-                break;
+                break;*/
+            case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
+                if(this.player == 1){
+                  this.currentState = this.state.SELECTING_WALL_PLAYER1;
+                }
+                else if(this.player == 2){
+                  this.currentState = this.state.SELECTING_WALL_PLAYER2;
+                }
             default:
 
 
@@ -248,7 +259,7 @@ class Blockade {
             case this.state.SELECTING_PAWN:
                 this.selectingPawn(obj.pawnNumber);
                 break;
-            case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1:
+            case this.state.SELECTING_PAWN_NEXT_POSITION:
                 this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
                 break;
             case this.state.SELECTING_WALL_PLAYER1:
@@ -259,9 +270,6 @@ class Blockade {
                 break;
             case this.state.SELECTING_WALL_POSITION2_PLAYER1:
                 this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
-                break;
-            case this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2:
-                this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
                 break;
             case this.state.SELECTING_WALL_PLAYER2:
                 this.selectingWall(obj);
@@ -281,22 +289,18 @@ class Blockade {
         this.chosenPawn = PawnNumber;
 
         if (this.player == 1) {
-            this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1;
             Board.prototype.validatePosition(this.player1.validPawnPosition(this.chosenPawn));
         } else if (this.player == 2) {
-            this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2;
             Board.prototype.validatePosition(this.player2.validPawnPosition(this.chosenPawn));
         }
+
+        this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION;
     }
 
     selectingPawnNextPosition(x, z) {
         var direction = Board.prototype.getPawnDiretion(x, z);
 
-        if (this.player == 1) {
-            this.currentState = this.state.WAITING_FOR_SERVER_PLAYER1_BOARD;
-        } else if (this.player == 2) {
-            this.currentState = this.state.WAITING_FOR_SERVER_PLAYER2_BOARD;
-        }
+        this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD;
 
         this.getNewBoard(x, z, direction, this.player);
     }
@@ -376,7 +380,9 @@ class Blockade {
 
         this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + "," + direction + "," + player + "," + this.chosenPawn + ")", function(data) {
             this_t.board = JSON.parse(data.target.response);
-            switch (this_t.currentState) {
+
+
+            /*switch (this_t.currentState) {
                 case this_t.state.WAITING_FOR_SERVER_PLAYER1_BOARD:
                     this_t.currentState = this_t.state.UPDATE_BOARD_FROM_PLAYER1;
                     break;
@@ -385,7 +391,8 @@ class Blockade {
                     break;
                 default:
 
-            }
+            }*/
+            this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_BOARD;
 
         });
     }
