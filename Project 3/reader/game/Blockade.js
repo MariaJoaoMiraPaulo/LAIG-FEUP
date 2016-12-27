@@ -118,10 +118,9 @@ class Blockade {
 
     changeTurn() {
 
-        if(this.player == 1){
-          this.player = 2;
-        }
-        else this.player = 1;
+        if (this.player == 1) {
+            this.player = 2;
+        } else this.player = 1;
 
         this.currentState = this.state.SELECTING_PAWN;
     }
@@ -213,10 +212,10 @@ class Blockade {
     }
 
     pickingHandler(obj) {
-
+        
         switch (this.currentState) {
             case this.state.SELECTING_PAWN:
-                this.selectingPawn(obj.pawnNumber);
+                this.selectingPawn(obj);
                 break;
             case this.state.SELECTING_PAWN_NEXT_POSITION:
                 this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
@@ -235,16 +234,19 @@ class Blockade {
         }
     }
 
-    selectingPawn(PawnNumber) {
-        this.chosenPawn = PawnNumber;
+    selectingPawn(obj) {
+        this.chosenPawn = obj.pawnNumber;
 
-        if (this.player == 1) {
-            Board.prototype.validatePosition(this.player1.validPawnPosition(this.chosenPawn));
-        } else if (this.player == 2) {
-            Board.prototype.validatePosition(this.player2.validPawnPosition(this.chosenPawn));
+        if (obj instanceof Pawn) {
+
+            if (this.player == 1) {
+                Board.prototype.validatePosition(this.player1.validPawnPosition(this.chosenPawn));
+            } else if (this.player == 2) {
+                Board.prototype.validatePosition(this.player2.validPawnPosition(this.chosenPawn));
+            }
+
+            this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION;
         }
-
-        this.currentState = this.state.SELECTING_PAWN_NEXT_POSITION;
     }
 
     selectingPawnNextPosition(x, z) {
