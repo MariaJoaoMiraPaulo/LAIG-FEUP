@@ -94,18 +94,16 @@ Board.prototype.display = function () {
   this.scene.clearPickRegistration();
 
   if(typeof this.scene.game != "undefined"){
-    if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL  || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2 ){
+    if(this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION){
       this.selectableCells = true;
     }
     else this.selectableCells = false;
 
-    if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER2 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER2 ){
+  if(this.scene.game.currentState==this.scene.game.state.SELECTING_FIRST_WALL_POSITION || this.scene.game.currentState==this.scene.game.state.SELECTING_SECOND_WALL_POSITION){
       this.selectableWallPosition = true;
     }
     else this.selectableWallPosition = false;
   }
-
-  // console.log("Board display");
 
   var index = 1;
   for(var z=0;z<this.dimZ;z++){
@@ -389,11 +387,6 @@ Board.prototype.getPawnDiretion = function (x,z) {
 
 Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz,secondWallx) {
 
-  console.log(firstWallz);
-  console.log(firstWallx);
-  console.log(secondWallz);
-  console.log(secondWallx);
-
   var orientation;
 
   if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz,secondWallx+2])){
@@ -443,7 +436,7 @@ Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz
 
 Board.prototype.secondWallPossibility = function (pos) {
 
-  if(this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER1 || this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER2 ){
+  if(this.scene.game.currentState == this.scene.game.state.SELECTING_SECOND_WALL_POSITION){
     if(this.currentWallPositionZ % 2 == 0){
       if(this.arraysAreIdentical([this.currentWallPositionZ+2,this.currentWallPositionX],pos))
       return true;
