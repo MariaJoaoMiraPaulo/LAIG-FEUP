@@ -26,7 +26,12 @@ MyInterface.prototype.init = function(application) {
   this.group.close();
 	this.options = this.gui.addFolder('Options');
 	this.options.open();
-	// this.options.add(this,'StartGame').name('Start Game');
+
+let menu = {
+	startGame : this.scene.startGame.bind(this.scene)
+};
+
+ 	this.options.add(menu,'startGame').name('Start Game');
 	// this.options.add(this,'Exit').name('Exit');
 	return true;
 };

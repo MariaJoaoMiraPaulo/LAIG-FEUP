@@ -1,11 +1,15 @@
 function Pawn(scene, reader, player,pawnNumber) {
+console.log(scene);
+  console.log("00000");
   CGFobject.call(this, scene);
+    console.log("1111");
   this.scene = scene;
   this.player = player;
   this.xPos=0;
   this.zPos=0;
   this.yPos=2;
   this.pawnNumber = pawnNumber;
+
 
   this.orangeMaterial = new CGFappearance(this.scene);
   this.orangeMaterial.setAmbient(1.0,1,1,1);
@@ -31,6 +35,8 @@ function Pawn(scene, reader, player,pawnNumber) {
     default:
 
   }
+
+  console.log("aqui1111");
 
   this.pawn = new Cylinder(this.scene, 0.23, 0.23, 1, 20, 20);
 
@@ -67,5 +73,5 @@ Pawn.prototype.updateTexCoords = function (s, t) {
 }
 
 Pawn.prototype.update = function (currTime) {
-  
+
 }

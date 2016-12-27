@@ -2,11 +2,16 @@ class Blockade {
     constructor(scene, graph) {
         this.graph = graph;
         this.scene = scene;
+              console.log("22222");
         this.player1 = new Player(1, this.graph, this.scene);
+        console.log("33333");
         this.player2 = new Player(2, this.graph, this.scene);
+        console.log("44444");
         this.player1.moveWallsToStartPosition();
+        console.log("555555");
         this.player2.moveWallsToStartPosition();
         this.board = [];
+          console.log("66666");
         this.getInitialBoard();
         this.pawns = [];
 
@@ -212,7 +217,7 @@ class Blockade {
     }
 
     pickingHandler(obj) {
-        
+
         switch (this.currentState) {
             case this.state.SELECTING_PAWN:
                 this.selectingPawn(obj);

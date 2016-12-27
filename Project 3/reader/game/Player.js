@@ -9,6 +9,8 @@ class Player {
         this.selectablePawn = false;
         this.selectableWall = false;
 
+        console.log("aqui0000");
+
         this.pawn1 = new Pawn(this.scene, this.reader, this.player, 1);
         this.pawn2 = new Pawn(this.scene, this.reader, this.player, 2);
 

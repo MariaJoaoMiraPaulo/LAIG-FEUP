@@ -39,7 +39,6 @@ XMLscene.prototype.init = function(application) {
     this.game;
     this.client = new Client();
 
-
 };
 
 XMLscene.prototype.initCameras = function() {
@@ -65,6 +64,14 @@ XMLscene.prototype.onGraphLoaded = function() {
     this.nextPerspective = 0;
     this.interface.setActiveCamera(this.camera);
 };
+
+XMLscene.prototype.startGame = function() {
+    console.log("entrei");
+    console.log(this);
+  this.game = new Blockade(this, this.graph);
+
+};
+
 
 /**
  * Updates lights
@@ -111,8 +118,6 @@ XMLscene.prototype.display = function() {
 
         this.graph.components[this.graph.rootId].display();
 
-        // this.verifyGameStart();
-        //TODO:BLOCKADE HERE??
         if (typeof this.game == "undefined") {
             this.game = new Blockade(this, this.graph);
         }
