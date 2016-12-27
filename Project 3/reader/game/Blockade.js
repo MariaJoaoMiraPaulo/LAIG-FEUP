@@ -1,7 +1,8 @@
 class Blockade {
-  constructor(scene, graph) {
+  constructor(scene, graph,gameMode) {
     this.graph = graph;
     this.scene = scene;
+    this.gameMode = gameMode;
 
     this.player1 = new Player(1, this.graph, this.scene);
     this.player2 = new Player(2, this.graph, this.scene);

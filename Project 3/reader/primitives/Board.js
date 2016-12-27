@@ -274,10 +274,7 @@ Board.prototype.possibleMove = function(arrayPos){
 Board.prototype.possibleWall = function(arrayPos){
 
   for(var i=0;i<this.scene.game.currentWalls.length;i++){
-    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){
-      console.log(this.scene.game.currentWalls[i]);
-      console.log(arrayPos);
-      console.log("existe parede");
+    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){ 
       return false;
     }
   }

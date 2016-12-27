@@ -33,8 +33,6 @@ function Pawn(scene, reader, player,pawnNumber) {
 
   }
 
-  console.log("aqui1111");
-
   this.pawn = new Cylinder(this.scene, 0.23, 0.23, 1, 20, 20);
 
 };
