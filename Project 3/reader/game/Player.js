@@ -64,7 +64,8 @@ class Player {
   }
 
   displayButton(){
-    if((this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER1 && this.player==1 && this.button.type==1) || (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER2 && this.player==2 && this.button.type==1)){
+    //if((this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER1 && this.player==1 && this.button.type==1) || (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_PLAYER2 && this.player==2 && this.button.type==1)){
+    if(this.scene.game.currentState == this.scene.game.state.SELECTING_WALL && this.player==this.scene.game.player && this.button.type==1){
       this.scene.registerForPick(2,this.button);
       this.button.display();
     }
@@ -109,10 +110,13 @@ class Player {
   displayWalls(){
 
     if(typeof this.scene.game != "undefined"){
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_PLAYER1 && this.player == 1){
+    /*  if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_PLAYER1 && this.player == 1){
         this.selectableWall = true;
       }
       else if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_PLAYER2 && this.player == 2){
+        this.selectableWall = true;
+      }*/
+      if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL && this.player == this.scene.game.player){
         this.selectableWall = true;
       }
       else this.selectableWall = false;

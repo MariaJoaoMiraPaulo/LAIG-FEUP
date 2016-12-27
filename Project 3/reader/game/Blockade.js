@@ -51,6 +51,7 @@ class Blockade {
             SELECTING_PAWN_NEXT_POSITION: 28,
             WAITING_FOR_SERVER_NEW_BOARD: 29,
             UPDATE_BOARD_WITH_SERVER_BOARD: 30,
+            SELECTING_WALL: 31,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -123,8 +124,8 @@ class Blockade {
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
                 break;
-          /*  case this.state.UPDATE_BOARD_FROM_PLAYER1:
-            case this.state.UPDATE_BOARD_FROM_PLAYER2:*/
+                /*  case this.state.UPDATE_BOARD_FROM_PLAYER1:
+                  case this.state.UPDATE_BOARD_FROM_PLAYER2:*/
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
                 this.updatePawnsPositions();
                 this.getAllPawnPositions();
@@ -183,19 +184,20 @@ class Blockade {
                 console.log('entrei' + this.currentState);
                 this.player = 1;
                 break;
-          /*  case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
-                this.currentState = this.state.SELECTING_WALL_PLAYER1;
-                break;
-            case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
-                this.currentState = this.state.SELECTING_WALL_PLAYER2;
-                break;*/
+                /*  case this.state.UPDATE_BOARD_FROM_PLAYER1: //TODO MUDAR PARA PAREDE
+                      this.currentState = this.state.SELECTING_WALL_PLAYER1;
+                      break;
+                  case this.state.UPDATE_BOARD_FROM_PLAYER2: //TODO MUDAR PARA PAREDE
+                      this.currentState = this.state.SELECTING_WALL_PLAYER2;
+                      break;*/
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
-                if(this.player == 1){
-                  this.currentState = this.state.SELECTING_WALL_PLAYER1;
-                }
-                else if(this.player == 2){
-                  this.currentState = this.state.SELECTING_WALL_PLAYER2;
-                }
+                /*  if(this.player == 1){
+                    this.currentState = this.state.SELECTING_WALL_PLAYER1;
+                  }
+                  else if(this.player == 2){
+                    this.currentState = this.state.SELECTING_WALL_PLAYER2;
+                  }*/
+                this.currentState = this.state.SELECTING_WALL;
             default:
 
 
@@ -262,7 +264,7 @@ class Blockade {
             case this.state.SELECTING_PAWN_NEXT_POSITION:
                 this.selectingPawnNextPosition(obj.getPosX(), obj.getPosZ());
                 break;
-            case this.state.SELECTING_WALL_PLAYER1:
+            case this.state.SELECTING_WALL:
                 this.selectingWall(obj);
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER1:
@@ -270,9 +272,6 @@ class Blockade {
                 break;
             case this.state.SELECTING_WALL_POSITION2_PLAYER1:
                 this.selectingSecondWallPosition(obj.getPosX(), obj.getPosZ());
-                break;
-            case this.state.SELECTING_WALL_PLAYER2:
-                this.selectingWall(obj);
                 break;
             case this.state.SELECTING_WALL_POSITION1_PLAYER2:
                 this.selectingFirstWallPosition(obj.getPosX(), obj.getPosZ());
@@ -306,24 +305,17 @@ class Blockade {
     }
 
     selectingWall(obj) {
-        if (this.player == 1) {
-            if (obj instanceof Wall) {
-                obj.used = true;
-                this.selectWallId = obj.getWallNumber();
+        if (obj instanceof Wall) {
+            obj.used = true;
+            this.selectWallId = obj.getWallNumber();
+            if (this.player == 1) {
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER1;
-            } else if (obj instanceof Button) {
-                this.player = 2;
-                this.currentState = this.state.SELECTING_PAWN;
-            }
-        } else if (this.player == 2) {
-            if (obj instanceof Wall) {
-                this.selectWallId = obj.getWallNumber();
-                obj.used = true;
+            } else if (this.player == 2) {
                 this.currentState = this.state.SELECTING_WALL_POSITION1_PLAYER2;
-            } else if (obj instanceof Button) {
-                this.player = 1;
-                this.currentState = this.state.SELECTING_PAWN;
             }
+        } else if (obj instanceof Button) {
+            this.player = 2;
+            this.currentState = this.state.SELECTING_PAWN;
         }
     }
 
