@@ -94,18 +94,18 @@ Board.prototype.display = function () {
   this.scene.clearPickRegistration();
 
   if(typeof this.scene.game != "undefined"){
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL  || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2 ){
-        this.selectableCells = true;
-      }
-      else this.selectableCells = false;
+    if(this.scene.game.currentState==this.scene.game.state.SELECTING_CELL  || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_PAWN_NEXT_POSITION_PLAYER2 ){
+      this.selectableCells = true;
+    }
+    else this.selectableCells = false;
 
-      if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER2 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER2 ){
-        this.selectableWallPosition = true;
-      }
-      else this.selectableWallPosition = false;
+    if(this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER1 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION1_PLAYER2 || this.scene.game.currentState==this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER2 ){
+      this.selectableWallPosition = true;
+    }
+    else this.selectableWallPosition = false;
   }
 
-// console.log("Board display");
+  // console.log("Board display");
 
   var index = 1;
   for(var z=0;z<this.dimZ;z++){
@@ -116,10 +116,10 @@ Board.prototype.display = function () {
       this.scene.translate(this.distanceBetweenCubes*x+0.5,0,this.distanceBetweenCubes*z+0.5);
       this.scene.scale(1, 0.3, 1);
       if(this.selectableCells && this.possibleMove([z*2,x*2])){
-          this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
-          index++;
-          this.highlight.apply();
-          this.boardElements[z*2][x*2].display();
+        this.scene.registerForPick(index, this.boardElements[z*2][x*2]);
+        index++;
+        this.highlight.apply();
+        this.boardElements[z*2][x*2].display();
       }
       else{
         this.scene.clearPickRegistration();
@@ -179,28 +179,28 @@ Board.prototype.display = function () {
     }
   }
 
-    this.scene.clearPickRegistration();
+  this.scene.clearPickRegistration();
 
-    this.scene.pushMatrix();
-    this.scene.translate(this.startPos11[0],0.35,this.startPos11[2]);
-    this.StartPos11Circle.display();
-    this.scene.popMatrix();
+  this.scene.pushMatrix();
+  this.scene.translate(this.startPos11[0],0.35,this.startPos11[2]);
+  this.StartPos11Circle.display();
+  this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(this.startPos12[0],0.35,this.startPos12[2]);
+  this.scene.pushMatrix();
+  this.scene.translate(this.startPos12[0],0.35,this.startPos12[2]);
 
-    this.StartPos11Circle.display();
-    this.scene.popMatrix();
+  this.StartPos11Circle.display();
+  this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(this.startPos21[0],0.35,this.startPos21[2]);
-    this.StartPos21Circle.display();
-    this.scene.popMatrix();
+  this.scene.pushMatrix();
+  this.scene.translate(this.startPos21[0],0.35,this.startPos21[2]);
+  this.StartPos21Circle.display();
+  this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(this.startPos22[0],0.35,this.startPos22[2]);
-    this.StartPos22Circle.display();
-    this.scene.popMatrix();
+  this.scene.pushMatrix();
+  this.scene.translate(this.startPos22[0],0.35,this.startPos22[2]);
+  this.StartPos22Circle.display();
+  this.scene.popMatrix();
 
 }
 
@@ -253,12 +253,18 @@ Board.prototype.possibleMove = function(arrayPos){
   var wdbl1 = [this.currentPawnOnGamePosition[0]+2,this.currentPawnOnGamePosition[1]-1];
   var wdbl2 = [this.currentPawnOnGamePosition[0]+1,this.currentPawnOnGamePosition[1]-2];
 
-  if((this.arraysAreIdentical(arrayPos,r1) && !this.hasAwallBetween(wr1))  ||  (this.arraysAreIdentical(arrayPos,r2) && !this.hasAwallBetween(wr2) && !this.hasAwallBetween(wr1)) ||  (this.arraysAreIdentical(arrayPos,l1) && !this.hasAwallBetween(wl1)) || (this.arraysAreIdentical(arrayPos,l2) && !this.hasAwallBetween(wl2) && !this.hasAwallBetween(wl1)) ||
-      (this.arraysAreIdentical(arrayPos,t1) && !this.hasAwallBetween(wt1)) ||  (this.arraysAreIdentical(arrayPos,t2) && !this.hasAwallBetween(wt2) && !this.hasAwallBetween(wt1)) ||  (this.arraysAreIdentical(arrayPos,b1) && !this.hasAwallBetween(wb1)) || (this.arraysAreIdentical(arrayPos,b2) && !this.hasAwallBetween(wb2) && !this.hasAwallBetween(wb1)) ||
-      (this.arraysAreIdentical(arrayPos,dtr) && !this.hasAwallBetween(wdtr1) && !this.hasAwallBetween(wdtr2) && !this.hasAwallBetween(wr1) && !this.hasAwallBetween(wt1))
-      || (this.arraysAreIdentical(arrayPos,dtl) && !this.hasAwallBetween(wdtl1) && !this.hasAwallBetween(wdtl2) && !this.hasAwallBetween(wl1) && !this.hasAwallBetween(wt1))
-      || (this.arraysAreIdentical(arrayPos,dbr) && !this.hasAwallBetween(wdbr1) && !this.hasAwallBetween(wdbr2) && !this.hasAwallBetween(wr1) && !this.hasAwallBetween(wb1))
-      || (this.arraysAreIdentical(arrayPos,dbl) && !this.hasAwallBetween(wdbl1) && !this.hasAwallBetween(wdbl2) && !this.hasAwallBetween(wb1) && !this.hasAwallBetween(wl1)))
+  if((this.arraysAreIdentical(arrayPos,r1) && !this.hasAwallBetween(wr1) && !this.pawnPosition(r1)) ||
+  (this.arraysAreIdentical(arrayPos,r2) && !this.hasAwallBetween(wr2) && !this.hasAwallBetween(wr1) && !this.pawnPosition(r2) && !this.pawnPosition(r1)) ||
+  (this.arraysAreIdentical(arrayPos,l1) && !this.hasAwallBetween(wl1) && !this.pawnPosition(l1))||
+  (this.arraysAreIdentical(arrayPos,l2) && !this.hasAwallBetween(wl2) && !this.hasAwallBetween(wl1) && !this.pawnPosition(l2) && !this.pawnPosition(l1)) ||
+  (this.arraysAreIdentical(arrayPos,t1) && !this.hasAwallBetween(wt1) && !this.pawnPosition(t1)) ||
+  (this.arraysAreIdentical(arrayPos,t2) && !this.hasAwallBetween(wt2) && !this.hasAwallBetween(wt1) && !this.pawnPosition(t2) && !this.pawnPosition(t1)) ||
+  (this.arraysAreIdentical(arrayPos,b1) && !this.hasAwallBetween(wb1) && !this.pawnPosition(b1)) ||
+  (this.arraysAreIdentical(arrayPos,b2) && !this.hasAwallBetween(wb2) && !this.hasAwallBetween(wb1) && !this.pawnPosition(b2) && !this.pawnPosition(b1)) ||
+  (this.arraysAreIdentical(arrayPos,dtr) && !this.hasAwallBetween(wdtr1) && !this.hasAwallBetween(wdtr2) && !this.hasAwallBetween(wr1) && !this.hasAwallBetween(wt1) && !this.pawnPosition(dtr)) ||
+  (this.arraysAreIdentical(arrayPos,dtl) && !this.hasAwallBetween(wdtl1) && !this.hasAwallBetween(wdtl2) && !this.hasAwallBetween(wl1) && !this.hasAwallBetween(wt1) && !this.pawnPosition(dtl))||
+  (this.arraysAreIdentical(arrayPos,dbr) && !this.hasAwallBetween(wdbr1) && !this.hasAwallBetween(wdbr2) && !this.hasAwallBetween(wr1) && !this.hasAwallBetween(wb1) && !this.pawnPosition(dbr))||
+  (this.arraysAreIdentical(arrayPos,dbl) && !this.hasAwallBetween(wdbl1) && !this.hasAwallBetween(wdbl2) && !this.hasAwallBetween(wb1) && !this.hasAwallBetween(wl1) && !this.pawnPosition(dbl)))
   {
 
     return true;
@@ -276,6 +282,17 @@ Board.prototype.possibleWall = function(arrayPos){
   }
 
   return true;
+}
+
+Board.prototype.pawnPosition = function(arrayPos){
+
+  for(var i=0;i<this.scene.game.pawns.length;i++){
+    if(this.arraysAreIdentical(this.scene.game.pawns[i],arrayPos)){
+      return true;
+    }
+  }
+
+  return false;
 }
 
 Board.prototype.hasAwallBetween = function(arrayPos){
@@ -370,54 +387,54 @@ Board.prototype.getPawnDiretion = function (x,z) {
 
 Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz,secondWallx) {
 
-    console.log(firstWallz);
-    console.log(firstWallx);
-    console.log(secondWallz);
-    console.log(secondWallx);
+  console.log(firstWallz);
+  console.log(firstWallx);
+  console.log(secondWallz);
+  console.log(secondWallx);
 
-    var orientation;
+  var orientation;
 
-    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz,secondWallx+2])){
-      orientation='h';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz,secondWallx+2])){
+    orientation='h';
+    return orientation;
+  }
 
-    if(this.arraysAreIdentical([firstWallz,firstWallx+2],[secondWallz,secondWallx])){
-      orientation='h';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz,firstWallx+2],[secondWallz,secondWallx])){
+    orientation='h';
+    return orientation;
+  }
 
-    if(this.arraysAreIdentical([firstWallz,firstWallx-2],[secondWallz,secondWallx])){
-      orientation='h';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz,firstWallx-2],[secondWallz,secondWallx])){
+    orientation='h';
+    return orientation;
+  }
 
-    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz,secondWallx-2])){
-      orientation='h';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz,secondWallx-2])){
+    orientation='h';
+    return orientation;
+  }
 
-    if(this.arraysAreIdentical([firstWallz-2,firstWallx],[secondWallz,secondWallx])){
-      orientation='v';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz-2,firstWallx],[secondWallz,secondWallx])){
+    orientation='v';
+    return orientation;
+  }
 
-    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz-2,secondWallx])){
-      orientation='v';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz-2,secondWallx])){
+    orientation='v';
+    return orientation;
+  }
 
-    if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz+2,secondWallx])){
-      orientation='v';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz,firstWallx],[secondWallz+2,secondWallx])){
+    orientation='v';
+    return orientation;
+  }
 
-    if(this.arraysAreIdentical([firstWallz+2,firstWallx],[secondWallz,secondWallx])){
-      orientation='v';
-      return orientation;
-    }
+  if(this.arraysAreIdentical([firstWallz+2,firstWallx],[secondWallz,secondWallx])){
+    orientation='v';
+    return orientation;
+  }
 
-    return false;
+  return false;
 
 }
 
@@ -425,20 +442,20 @@ Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz
 Board.prototype.secondWallPossibility = function (pos) {
 
   if(this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER1 || this.scene.game.currentState == this.scene.game.state.SELECTING_WALL_POSITION2_PLAYER2 ){
-      if(this.currentWallPositionZ % 2 == 0){
-          if(this.arraysAreIdentical([this.currentWallPositionZ+2,this.currentWallPositionX],pos))
-              return true;
-          else if(this.arraysAreIdentical([this.currentWallPositionZ-2,this.currentWallPositionX],pos))
-              return true;
-          else return false;
-            }
-      else {
-        if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
-            return true;
-        else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX-2],pos))
-            return true;
-        else return false;
-      }
+    if(this.currentWallPositionZ % 2 == 0){
+      if(this.arraysAreIdentical([this.currentWallPositionZ+2,this.currentWallPositionX],pos))
+      return true;
+      else if(this.arraysAreIdentical([this.currentWallPositionZ-2,this.currentWallPositionX],pos))
+      return true;
+      else return false;
+    }
+    else {
+      if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
+      return true;
+      else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX-2],pos))
+      return true;
+      else return false;
+    }
   }
   else return true;
 }
@@ -449,13 +466,13 @@ Board.prototype.convertPositionOnBoard = function (pos) {
 }
 
 Board.prototype.arraysAreIdentical = function(arr1, arr2){
-    if (arr1.length !== arr2.length) return false;
-    for (var i = 0, len = arr1.length; i < len; i++){
-        if (arr1[i] !== arr2[i]){
-            return false;
-        }
+  if (arr1.length !== arr2.length) return false;
+  for (var i = 0, len = arr1.length; i < len; i++){
+    if (arr1[i] !== arr2[i]){
+      return false;
     }
-    return true;
+  }
+  return true;
 }
 
 

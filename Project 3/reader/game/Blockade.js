@@ -8,6 +8,7 @@ class Blockade {
         this.player2.moveWallsToStartPosition();
         this.board = [];
         this.getInitialBoard();
+        this.pawns = [];
 
         this.selectWallId;
         this.firstWallx;
@@ -75,6 +76,26 @@ class Blockade {
       return true;
     }
 
+    getAllPawnPositions(){
+
+      this.pawns = [];
+
+      for (let i = 0; i < this.board.length; i++) {
+          for (let j = 0; j < this.board[i].length; j++) {
+              if (this.scene.game.board[i][j] == this.returnPrologBoardAtom("player11") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("player12") || this.scene.game.board[i][j] == this.returnPrologBoardAtom("player21") ||
+               this.scene.game.board[i][j] == this.returnPrologBoardAtom("player22")) {
+                  var z = i;
+                  var x = j;
+                  var tempArray = [z,x];
+                  this.pawns.push(tempArray);
+              }
+          }
+      }
+
+      console.log(this.pawns);
+      return true;
+    }
+
     getCurrentState() {
         return this.currentState;
     }
@@ -100,6 +121,7 @@ class Blockade {
             case this.state.UPDATE_BOARD_FROM_PLAYER1:
             case this.state.UPDATE_BOARD_FROM_PLAYER2:
                 this.updatePawnsPositions();
+                this.getAllPawnPositions();
                 break;
             case this.state.UPDATE_BOARD_FROM_PLAYER1_WALLS:
             case this.state.UPDATE_BOARD_FROM_PLAYER2_WALLS:
