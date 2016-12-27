@@ -67,5 +67,5 @@ Pawn.prototype.updateTexCoords = function (s, t) {
 }
 
 Pawn.prototype.update = function (currTime) {
-  console.log(currTime);
+  
 }
