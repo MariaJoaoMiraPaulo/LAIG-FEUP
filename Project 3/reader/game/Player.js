@@ -113,7 +113,7 @@ class Player {
         }
     }
 
-    return [x,z];
+    return [z,x];
   }
 
   displayPawns(){
