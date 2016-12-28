@@ -433,7 +433,7 @@ class Blockade {
         }
     }
 
-    // TODO retira o x e y
+    // TODO retirar o x e y
     getNewBoard(x, y, direction, player) {
         var this_t = this;
 
@@ -447,7 +447,20 @@ class Blockade {
             } else {
                 this_t.isAWinner = 0;
             }
-            ///this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_BOARD;
+
+            if (this_t.player == 1) {
+                if (this_t.chosenPawn == 1) {
+                    this_t.player1.pawn1.setFinalAnimation(direction);
+                } else {
+                    this_t.player1.pawn2.setFinalAnimation(direction);
+                }
+            } else if (this_t.player == 2) {
+                if (this_t.chosenPawn == 1) {
+                    this_t.player2.pawn1.setFinalAnimation(direction);
+                } else {
+                    this_t.player2.pawn2.setFinalAnimation(direction);
+                }
+            }
             this_t.currentState = this_t.state.PAWN_ANIMATION;
         });
     }
