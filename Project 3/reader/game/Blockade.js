@@ -12,6 +12,9 @@ class Blockade {
         this.board = [];
         this.getInitialBoard();
         this.pawns = [];
+        this.movieArray = [];
+
+        this.playNumber = 0;
 
         this.player = 1;
 
@@ -20,6 +23,8 @@ class Blockade {
         this.firstWallz;
         this.secondWallx;
         this.secondWallz;
+        this.currentPawndirection;
+        this.currentWallOrientation;
 
         this.lastUpdateTime;
         this.firstTime = -1;
@@ -49,6 +54,8 @@ class Blockade {
             WAITING_FOR_SERVER_WALL_RESPONSE: 16,
             BOT_GET_NEW_WALLS_BOARD: 17,
             WAITING_FOR_SERVER_BOARD_WALL: 18,
+            GET_MOVIE_PLAY_PAWN: 19,
+            GET_MOVIE_PLAY_WALL: 20
         };
         this.currentState = this.state.WAITING_FOR_START;
     }
@@ -179,12 +186,65 @@ class Blockade {
         }
     }
 
+    movieHandler() {
+        switch (this.currentState) {
+            case this.state.INITIALIZE_BOARD:
+                this.updatePawnsPositions();
+                break;
+            case this.state.GET_MOVIE_PLAY_PAWN:
+                this.getPawnByMovieArray();
+                break;
+            case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
+                this.updatePawnsPositions();
+                this.getAllPawnPositions();
+                break;
+            case this.state.GET_MOVIE_PLAY_WALL:
+                this.getWallByMoviePawn();
+                break;
+            case this.state.UPDATE_BOARD_WITH_SERVER_NEW_WALLS:
+                this.changeTurn();
+                this.getAllBoardWalls();
+                break;
+        }
+    }
+
+    getWallByMoviePawn(){
+
+      this.currentWallOrientation = this.movieArray[this.playNumber[1][0]];
+      this.firstWallx = this.movieArray[this.playNumber[1][1]];
+      this.chosenPawn = this.movieArray[this.playNumber[1][2]];
+
+      this.getBoardWithNewWalls();
+
+    }
+
+    getPawnByMovieArray(){
+
+      console.log(this.movieArray);
+      console.log(this.playerNumber);
+      this.player = this.movieArray[this.playNumber[0][0]];
+      this.currentPawndirection = this.movieArray[this.playNumber[0][1]];
+      this.chosenPawn = this.movieArray[this.playNumber[0][2]];
+
+      this.getNewBoard();
+    }
+
     changeTurn() {
         if (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 1) {
             this.currentState = this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
         } else {
             this.currentState = this.state.SELECTING_PAWN;
         }
+
+        this.pawnMovie = [this.player,this.currentPawndirection,this.chosenPawn];
+        this.wallMovie = [this.currentWallOrientation,this.firstWallx+1,this.firstWallz+1,this.secondWallx+1,this.secondWallz+1];
+        this.play = [this.pawnMovie,this.wallMovie];
+        this.movieArray.push(this.play);
+
+        console.log(this.movieArray);
+
+        if(this.gameMode == XMLscene.gameMode.MOVIE)
+          this.playNumber++;
 
         if (this.player == 1) {
             this.player = 2;
@@ -223,7 +283,9 @@ class Blockade {
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
                 if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
                     this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
-                } else {
+                } else if(this.gameMode == XMLscene.gameMode.BOT_VS_BOT){
+                    this.currentState = this.state.GET_MOVIE_PLAY_WALL;
+                }else {
                     this.currentState = this.state.SELECTING_WALL;
                 }
             default:
@@ -233,7 +295,9 @@ class Blockade {
     checkGameMode() {
         if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT) {
             this.currentState = this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
-        } else {
+        } else if(this.gameMode == XMLscene.gameMode.MOVIE){
+          this.currentState = this.state.GET_MOVIE_PLAY_PAWN;
+        }else {
             this.currentState = this.state.SELECTING_PAWN;
         }
         this.player = 1;
@@ -362,9 +426,9 @@ class Blockade {
         } else {
             var x = obj.getPosX();
             var z = obj.getPosZ();
-            var direction = Board.prototype.getPawnDiretion(x, z);
+            this.currentPawndirection = Board.prototype.getPawnDiretion(x, z);
             this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD;
-            this.getNewBoard(x, z, direction, this.player);
+            this.getNewBoard();
         }
 
     }
@@ -409,9 +473,9 @@ class Blockade {
             this.secondWallx = x;
             this.secondWallz = z;
 
-            var orientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
+            this.currentWallOrientation = Board.prototype.getWallOrientation(this.firstWallz, this.firstWallx, this.secondWallz, this.secondWallx);
 
-            if (!orientation) { //if it isn't a valid orientation
+            if (!this.currentWallOrientation) { //if it isn't a valid orientation
                 this.currentState = this.state.SELECTING_FIRST_WALL_POSITION;
             } else {
                 if (this.player == 1) {
@@ -428,8 +492,8 @@ class Blockade {
                     this.player1.setScore(this.getScore(this.firstWallx, this.firstWallz, this.secondWallx, this.secondWallz));
                 else if (this.player == 2)
                     this.player2.setScore(this.getScore(this.firstWallx, this.firstWallz, this.secondWallx, this.secondWallz));
-                wall.setWallOrientation(orientation);
-                this.getBoardWithNewWalls(orientation);
+                wall.setWallOrientation(this.currentWallOrientation);
+                this.getBoardWithNewWalls();
 
                 this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD_WALLS;
             }
@@ -437,17 +501,17 @@ class Blockade {
     }
 
     // TODO retira o x e y
-    getNewBoard(x, y, direction, player) {
+    getNewBoard() {
         var this_t = this;
 
-        this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + "," + direction + "," + player + "," + this.chosenPawn + ")", function(data) {
+        this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + "," + this.currentPawndirection + "," + this.player + "," + this.chosenPawn + ")", function(data) {
             this_t.board = JSON.parse(data.target.response);
 
             this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_BOARD;
         });
     }
 
-    getBoardWithNewWalls(orientation) {
+    getBoardWithNewWalls() {
         var this_t = this;
 
         var firstx = this.firstWallx + 1;
@@ -455,7 +519,7 @@ class Blockade {
         var secondx = this.secondWallx + 1;
         var secondz = this.secondWallz + 1;
 
-        this.scene.client.getPrologRequest("put_wall(" + JSON.stringify(this.board) + "," + orientation + "," + firstx + "," +
+        this.scene.client.getPrologRequest("put_wall(" + JSON.stringify(this.board) + "," + this.currentWallOrientation + "," + firstx + "," +
             firstz + "," + secondx + "," + secondz + ")",
             function(data) {
                 this_t.board = JSON.parse(data.target.response);
@@ -535,7 +599,10 @@ class Blockade {
     display() {
         if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
             this.botHandler();
-        } else {
+        }else if(this.gameMode == XMLscene.gameMode.MOVIE) {
+          this.movieHandler();
+        }
+        else {
             this.checkCurrentState();
         }
         this.player1.displayPawns();
@@ -581,9 +648,6 @@ class Blockade {
     }
 
     getScore(firstWallx, firstWallz, secondWallx, secondWallz) {
-        //Quanto mais perto da casa de partida mais pontos ganha
-
-        console.log("SCORE");
 
         var startPos11 = [4, 1.3, 4];
         var startPos12 = [14, 1.3, 4];
@@ -591,42 +655,26 @@ class Blockade {
         var startPos22 = [14, 1.3, 12];
 
         if (this.player == 1) {
-            console.log("player1");
-            if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 1 && firstWallx <= 7) {
-                    console.log(3);
-                    return 3;}
-           else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 1 && secondWallx <= 7) {
-                    console.log(3);
-                    return 3;  }
-          else if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 11 && firstWallx <= 17 ) {
-                    console.log(3);
-                    return 3;}
-          else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 11 && secondWallx <= 17 ) {
-                    console.log(3);
-                    return 3;}
-          else {
-                console.log(1);
-                return 1;
-          }
+            if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 1 && firstWallx <= 7)
+                    return 3;
+           else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 1 && secondWallx <= 7)
+                    return 3;
+          else if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 11 && firstWallx <= 17 )
+                    return 3;
+          else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 11 && secondWallx <= 17 )
+                    return 3;
+          else return 1;
         }
         else if (this.player == 2) {
-              console.log("player2");
-              if (firstWallz >= 12 && firstWallz <=15 && firstWallx >= 1 && firstWallx <= 7) {
-                      console.log(3);
-                      return 3;}
-             else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 1 && secondWallx <= 7) {
-                      console.log(3);
-                      return 3;  }
-            else if (firstWallz >= 12 && firstWallz <= 15 && firstWallx >= 11 && firstWallx <= 17 ) {
-                      console.log(3);
-                      return 3;}
-            else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 11 && secondWallx <= 17 ) {
-                      console.log(3);
-                      return 3;}
-            else {
-                  console.log(1);
-                  return 1;
-            }
+              if (firstWallz >= 12 && firstWallz <=15 && firstWallx >= 1 && firstWallx <= 7)
+                      return 3;
+             else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 1 && secondWallx <= 7)
+                      return 3;
+            else if (firstWallz >= 12 && firstWallz <= 15 && firstWallx >= 11 && firstWallx <= 17 )
+                      return 3;
+            else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 11 && secondWallx <= 17 )
+                      return 3;
+            else return 1;
           }
 
       return 1;

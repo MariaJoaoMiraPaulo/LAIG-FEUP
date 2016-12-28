@@ -12,7 +12,8 @@ XMLscene.prototype.constructor = XMLscene;
 XMLscene.gameMode = {
     PLAYER_VS_PLAYER: 0,
     PLAYER_VS_BOT: 1,
-    BOT_VS_BOT: 2
+    BOT_VS_BOT: 2,
+    MOVIE : 3
 };
 
 /**
@@ -88,6 +89,10 @@ XMLscene.prototype.setBotVsBot = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.BOT_VS_BOT);
 }
 
+XMLscene.prototype.setMovie = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
+}
+
 /**
  * Updates lights
  */
@@ -143,6 +148,8 @@ XMLscene.prototype.display = function() {
     if (typeof this.game != "undefined") {
         document.getElementById('information').innerText = this.game.getGameStateInstruction();
         document.getElementById('player').innerText = 'Player ' + (this.game.player);
+        document.getElementById('p1').innerText = 'Player 1:  ' + (this.game.player1.getScore());
+        document.getElementById('p2').innerText = 'Player 2:  ' + (this.game.player2.getScore());
         document.getElementById('time').innerText = (this.game.hours) + ' : ' + this.game.minutes + " : " + this.game.seconds;
         // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
     }
