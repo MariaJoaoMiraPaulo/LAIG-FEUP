@@ -229,3 +229,39 @@ generateDirectionNewDifficulty(4,3,Direction):-
 
 generateDirectionNewDifficulty(4,4,Direction):-
 	Direction=dbr.
+
+direction_to_string(l1,Direction):-
+	Direction='"l1"'.
+
+direction_to_string(r1,Direction):-
+	Direction='"r1"'.
+
+direction_to_string(t1,Direction):-
+	Direction='"t1"'.
+
+direction_to_string(b1,Direction):-
+	Direction='"b1"'.
+
+direction_to_string(l2,Direction):-
+	Direction='"l2"'.
+
+direction_to_string(r2,Direction):-
+	Direction='"r2"'.
+
+direction_to_string(t2,Direction):-
+	Direction='"t2"'.
+
+direction_to_string(b2,Direction):-
+	Direction='"b2"'.
+
+direction_to_string(dtr,Direction):-
+	Direction='"dtr"'.
+
+direction_to_string(dtl,Direction):-
+	Direction='"dtl"'.
+
+direction_to_string(dbr,Direction):-
+	Direction='"dbr"'.
+
+direction_to_string(dbl,Direction):-
+	Direction='"dbl"'.

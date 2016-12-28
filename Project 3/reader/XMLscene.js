@@ -122,7 +122,7 @@ XMLscene.prototype.display = function() {
         this.graph.components[this.graph.rootId].display();
 
         if (typeof this.game == "undefined") {
-            this.game = new Blockade(this, this.graph, XMLscene.gameMode.PLAYER_VS_PLAYER);
+            this.game = new Blockade(this, this.graph, XMLscene.gameMode.BOT_VS_BOT);
         }
         this.game.display();
     };
