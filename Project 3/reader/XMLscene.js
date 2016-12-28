@@ -39,6 +39,7 @@ XMLscene.prototype.init = function(application) {
     this.game;
     this.client = new Client();
 
+
 };
 
 XMLscene.prototype.initCameras = function() {
@@ -119,6 +120,7 @@ XMLscene.prototype.display = function() {
             this.game = new Blockade(this, this.graph);
         }
         this.game.display();
+        // this.luigi.display();
     };
 
     if (typeof this.game != "undefined") {

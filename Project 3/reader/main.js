@@ -18,6 +18,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'primitives/Re
 'primitives/Plane.js', 'primitives/Vehicle.js', 'primitives/Patch.js','primitives/Car.js', 'primitives/Chessboard.js',
 'primitives/Cube.js','primitives/Board.js','primitives/StartPos.js','primitives/Pawn.js','primitives/Wall.js','primitives/Wall.js',
 'game/Blockade.js','game/BlockadeBoard.js','game/Player.js', 'communication/Client.js', 'primitives/Button.js','primitives/Lamp.js',
+'object/Obj.js','object/Object.js',
 
 
 
