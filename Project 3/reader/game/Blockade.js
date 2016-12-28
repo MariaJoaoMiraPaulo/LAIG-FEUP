@@ -40,6 +40,8 @@ class Blockade {
             BOT_GET_NEW_BOARD: 38,
             BOT_ASK_SERVER_FOR_WALL: 39,
             WAITING_FOR_SERVER_WALL_RESPONSE: 40,
+            BOT_GET_NEW_WALLS_BOARD: 41,
+            WAITING_FOR_SERVER_BOARD_WALL: 42,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -301,6 +303,9 @@ class Blockade {
                 this.currentState = this.state.WAITING_FOR_SERVER_WALL_RESPONSE;
                 this.doesBotWantToPutWalls();
                 break;
+            case this.state.BOT_GET_NEW_WALLS_BOARD:
+                this.currentState = this.state.WAITING_FOR_SERVER_BOARD_WALL;
+                this.getBotNewWallsBoard();
             default:
 
         }
@@ -432,8 +437,44 @@ class Blockade {
 
       this.scene.client.getPrologRequest("want_walls", function(data) {
           var info = JSON.parse(data.target.response);
-          
-      //    this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
+
+          this_t.currentState = this_t.state.BOT_GET_NEW_WALLS_BOARD;
+
+      });
+    }
+
+    getBotNewWallsBoard(){
+      var this_t = this;
+
+      this.scene.client.getPrologRequest("bot_put_walls(" + JSON.stringify(this.board)+ ")", function(data) {
+          var info = JSON.parse(data.target.response);
+
+          this_t.board = info[0];
+          this_t.firstWallx = info[1]-1;
+          this_t.firstWallz = info[2]-1;
+          this_t.secondWallx = info[3]-1;
+          this_t.secondWallz = info[4]-1;
+          var orientation = info[5];
+
+          console.log("z: "+this_t.firstWallz);
+          console.log("x: "+this_t.firstWallx);
+
+          if(this_t.player == 1){
+            var wall = this_t.player1.getANonUsedWall();
+          }
+          else if(this_t.player == 2){
+            var wall = this_t.player2.getANonUsedWall();
+          }
+
+          wall.used = true;
+
+          wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this_t.firstWallx));
+          wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this_t.firstWallz));
+          wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this_t.secondWallx));
+          wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this_t.secondWallz));
+          wall.setWallOrientation(orientation);
+
+          //this_t.currentState = this_t.state.BOT_GET_NEW_WALLS_BOARD;
 
       });
     }

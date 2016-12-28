@@ -44,6 +44,25 @@ parse_input(bot_pawn_and_direction(Board,Player),[Pawn,Direction]):-
 parse_input(want_walls,Response):-
 	random(0,2,Response).
 
+parse_input(bot_put_walls(Board),[NewBoard,FirstX,FirstY,SecondX,SecondY,Orientation]):-
+	boardToNumbers(B,Board),
+	valid_wall_position(B,TempBoard,FirstX,FirstY,SecondX,SecondY,O),
+	orientationToString(O,Orientation),
+	boardToNumbers(TempBoard,NewBoard).
+
+valid_wall_position(Board,NewBoard,FirstX,FirstY,SecondX,SecondY,Orientation):-
+	randomWallPosition(19,17,WallX,WallY),
+	randomOrientation(Orientation),
+	randomPositionInside(Orientation,WallPositionInside),
+	wallCoordinates(Orientation,WallPositionInside,WallX,WallY,FirstX,FirstY,SecondX,SecondY),
+	validatePositions(Board,NewOrientation,19,17,FirstX,FirstY,SecondX,SecondY),
+	writeWallOnBoard(Board,NewOrientation,FirstX,FirstY,SecondX,SecondY,NewBoard).
+
+valid_wall_position(Board):-
+	valid_wall_position(Board).
+
+bot_put_walls(_,_).
+
 return_direction_and_pawn(Board,Player,Pawn,Direction):-
 	randomPawn(Pawn),
 	randomDirection(Direction),
@@ -67,3 +86,6 @@ move_player(NumberBoard,Direction,Player,Pawn):-
 	setListElement(TempBoard,Xf,Yf,1,1,PawnName,NewBoard),
 	isAStartHouse(Xi,Yi,OldPawnName),
 	setListElement(NewBoard,Xi,Yi,1,1,OldPawnName,_NewBoard2).
+
+orientationToString(v,'"v"').
+orientationToString(h,'"h"').

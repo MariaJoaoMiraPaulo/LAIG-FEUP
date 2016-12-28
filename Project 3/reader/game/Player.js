@@ -9,7 +9,6 @@ class Player {
         this.selectablePawn = false;
         this.selectableWall = false;
 
-
         this.pawn1 = new Pawn(this.scene, this.reader, this.player, 1);
         this.pawn2 = new Pawn(this.scene, this.reader, this.player, 2);
 
@@ -171,5 +170,15 @@ class Player {
     update(currTime) {
         this.pawn1.update(currTime);
         this.pawn2.update(currTime);
+    }
+
+    getANonUsedWall(){
+      for (var i = 0; i < this.walls.length; i++) {
+        if(!this.walls[i].used){
+          return this.walls[i];
+        }
+      }
+
+      return false;
     }
 }
