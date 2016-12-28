@@ -20,6 +20,13 @@ class Blockade {
     this.secondWallx;
     this.secondWallz;
 
+    this.lastUpdateTime;
+    this.firstTime = -1;
+    this.currentTime
+    this.hours;
+    this.minutes;
+    this.seconds;
+
     this.currentWalls = [];
 
     this.state = {
@@ -404,5 +411,32 @@ display() {
 update(currTime) {
   this.player1.update(currTime);
   this.player2.update(currTime);
+
+  if(this.firstTime==-1){
+    this.lastUpdateTime = currTime;
+    this.firstTime=1;
+  }
+  else this.currentTime = (currTime - this.lastUpdateTime) / 1000;
+
+  this.currentTime = Math.round(this.currentTime).toFixed(2);
+
+  this.getTime(this.currentTime);
+
+}
+
+getTime(secs){
+    secs = Math.round(secs);
+    var hours = Math.floor(secs / (60 * 60));
+
+    var divisor_for_minutes = secs % (60 * 60);
+    var minutes = Math.floor(divisor_for_minutes / 60);
+
+    var divisor_for_seconds = divisor_for_minutes % 60;
+    var seconds = Math.ceil(divisor_for_seconds);
+
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
+
 }
 }

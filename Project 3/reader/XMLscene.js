@@ -126,6 +126,7 @@ XMLscene.prototype.display = function() {
     if (typeof this.game != "undefined") {
         document.getElementById('information').innerText = this.game.getGameStateInstruction();
         document.getElementById('player').innerText = 'Player ' + (this.game.player);
+        document.getElementById('time').innerText = (this.game.hours) + ' : ' + this.game.minutes + " : " + this.game.seconds;
         // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
     }
 
