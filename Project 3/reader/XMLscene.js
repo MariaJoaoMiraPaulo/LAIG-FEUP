@@ -205,7 +205,7 @@ XMLscene.prototype.update = function(currTime) {
     }
 
     if (typeof this.game != "undefined") {
-        this.game.update(currTime);
+        this.game.update(deltaTime);
     }
 }
 
