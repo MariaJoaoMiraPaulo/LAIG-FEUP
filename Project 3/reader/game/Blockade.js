@@ -591,58 +591,44 @@ class Blockade {
         var startPos22 = [14, 1.3, 12];
 
         if (this.player == 1) {
-            console.log("entrei1");
-            if (firstWallz > startPos11[2] - 3 && firstWallz < startPos11[2] + 3) {
-                if (firstWallx < startPos11[0] + 3 && firstWallx > startPos11[0] - 3) {
+            console.log("player1");
+            if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 1 && firstWallx <= 7) {
                     console.log(3);
-                    return 3;
-                }
-            } else if (secondWallz > startPos11[2] - 3 && secondWallz < startPos11[2] + 3) {
-                if (secondWallx < startPos11[0] + 3 && secondWallx > startPos11[0] - 3) {
+                    return 3;}
+           else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 1 && secondWallx <= 7) {
                     console.log(3);
-                    return 3;
-                }
-            } else if (firstWallz > startPos12[2] - 3 && firstWallz < startPos12[2] + 3) {
-                if (firstWallx < startPos12[0] + 3 && firstWallx > startPos12[0] - 3) {
+                    return 3;  }
+          else if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 11 && firstWallx <= 17 ) {
                     console.log(3);
-                    return 3;
-                }
-            } else if (secondWallz > startPos12[2] - 3 && secondWallz < startPos12[2] + 3) {
-                if (secondWallx < startPos12[0] + 3 && secondWallx > startPos12[0] - 3) {
+                    return 3;}
+          else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 11 && secondWallx <= 17 ) {
                     console.log(3);
-                    return 3;
-                }
-            } else {
+                    return 3;}
+          else {
                 console.log(1);
                 return 1;
-            }
-        } else if (this.player == 2) {
-            console.log("entrei2");
-            if (firstWallz > startPos21[2] - 3 && firstWallz < startPos21[2] + 3) {
-                if (firstWallx < startPos21[0] + 3 && firstWallx > startPos21[0] - 3) {
-                    console.log(3);
-                    return 3;
-                }
-            } else if (secondWallz > startPos21[2] - 3 && secondWallz < startPos21[2] + 3) {
-                if (secondWallx < startPos21[0] + 3 && secondWallx > startPos21[0] - 3) {
-                    console.log(3);
-                    return 3;
-                }
-            } else if (firstWallz > startPos22[2] - 3 && firstWallz < startPos22[2] + 3) {
-                if (firstWallx < startPos22[0] + 3 && firstWallx > startPos22[0] - 3) {
-                    console.log(3);
-                    return 3;
-                }
-            } else if (secondWallz > startPos22[2] - 3 && secondWallz < startPos22[2] + 3) {
-                if (secondWallx < startPos22[0] + 3 && secondWallx > startPos22[0] - 3) {
-                    console.log(3);
-                    return 3;
-                }
-            } else {
-                console.log(1);
-                return 1;
-            }
+          }
         }
-        console.log("sai");
+        else if (this.player == 2) {
+              console.log("player2");
+              if (firstWallz >= 12 && firstWallz <=15 && firstWallx >= 1 && firstWallx <= 7) {
+                      console.log(3);
+                      return 3;}
+             else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 1 && secondWallx <= 7) {
+                      console.log(3);
+                      return 3;  }
+            else if (firstWallz >= 12 && firstWallz <= 15 && firstWallx >= 11 && firstWallx <= 17 ) {
+                      console.log(3);
+                      return 3;}
+            else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 11 && secondWallx <= 17 ) {
+                      console.log(3);
+                      return 3;}
+            else {
+                  console.log(1);
+                  return 1;
+            }
+          }
+
+      return 1;
     }
 }
