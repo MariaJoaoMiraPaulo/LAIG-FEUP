@@ -75,6 +75,17 @@ XMLscene.prototype.startGame = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
 };
 
+XMLscene.prototype.setPlayerVsPlayer = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+}
+
+XMLscene.prototype.setPlayerVsBot = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_BOT);
+}
+
+XMLscene.prototype.setBotVsBot = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.BOT_VS_BOT);
+}
 
 /**
  * Updates lights
