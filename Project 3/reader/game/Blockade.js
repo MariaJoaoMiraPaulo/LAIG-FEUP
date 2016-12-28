@@ -573,7 +573,9 @@ class Blockade {
         if (this.firstTime == -1) {
             this.lastUpdateTime = currTime;
             this.firstTime = 1;
-        } else this.currentTime = (currTime - this.lastUpdateTime) / 1000;
+        } else if(this.currentState != this.state.WINNER){
+            this.currentTime = (currTime - this.lastUpdateTime) / 1000;
+        }
 
         this.currentTime = Math.round(this.currentTime).toFixed(2);
 
