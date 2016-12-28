@@ -147,7 +147,6 @@ XMLscene.prototype.display = function() {
         // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
     }
 
-
     this.logPicking();
     this.clearPickRegistration();
 

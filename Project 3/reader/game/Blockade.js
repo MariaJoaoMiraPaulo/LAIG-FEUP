@@ -9,6 +9,8 @@ class Blockade {
 
         this.player1.moveWallsToStartPosition();
         this.player2.moveWallsToStartPosition();
+        console.log(this.player1.playerCamera);
+        console.log(this.player2.playerCamera);
         this.board = [];
         this.getInitialBoard();
         this.pawns = [];
@@ -159,6 +161,8 @@ class Blockade {
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
+                this.scene.camera = this.player1.playerCamera;
+                this.scene.interface.setActiveCamera(this.scene.camera);
                 break;
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
                 this.updatePawnsPositions();
@@ -182,6 +186,17 @@ class Blockade {
         if (this.player == 1) {
             this.player = 2;
         } else this.player = 1;
+
+        if(this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER){
+          if(this.player == 1){
+            this.scene.camera = this.player1.playerCamera;
+            this.scene.interface.setActiveCamera(this.scene.camera);
+          }
+          else if(this.player == 2){
+            this.scene.camera = this.player2.playerCamera;
+            this.scene.interface.setActiveCamera(this.scene.camera);
+          }
+        }
     }
 
     updatePawnsPositions() {
