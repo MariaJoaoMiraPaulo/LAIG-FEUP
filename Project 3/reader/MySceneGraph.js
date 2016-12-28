@@ -572,8 +572,9 @@ MySceneGraph.prototype.createCamera = function(newElement) {
     var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
     var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
 
-    var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x, coordsFrom[0].y, coordsFrom[0].z), vec3.fromValues(coordsTo[0].x, coordsTo[0].y, coordsTo[0].y));
-  
+    var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x, coordsFrom[0].y, coordsFrom[0].z), vec3.fromValues(coordsTo[0].x, coordsTo[0].y, coordsTo[0].z));
+    console.log('aaaaaaaa');
+    console.log(newCamera);
     return newCamera;
 }
 

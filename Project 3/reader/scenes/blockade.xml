@@ -26,7 +26,7 @@
         <!-- ultima vista da lista volta 'a primeira -->
         <perspective id="vista1" near="0.1" far="500" angle="0.4">
             <from x="30" y="30" z="30"/>
-            <to x="0" y="0" z="0"/>
+            <to x="9" y="0" z="9"/>
         </perspective>
 
     </views>
