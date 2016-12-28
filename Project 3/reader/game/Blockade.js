@@ -2,7 +2,7 @@ class Blockade {
     constructor(scene, graph, gameMode) {
         this.graph = graph;
         this.scene = scene;
-        this.gameMode = gameMode;
+        this.gameMode = gameMode; // player vs bot player1=player player2=bot
 
         this.player1 = new Player(1, this.graph, this.scene);
         this.player2 = new Player(2, this.graph, this.scene);
@@ -153,12 +153,15 @@ class Blockade {
     }
 
     changeTurn() {
+        if (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 1) {
+            this.currentState = this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
+        } else {
+            this.currentState = this.state.SELECTING_PAWN;
+        }
 
         if (this.player == 1) {
             this.player = 2;
         } else this.player = 1;
-
-        this.currentState = this.state.SELECTING_PAWN;
     }
 
     updatePawnsPositions() {
@@ -191,7 +194,7 @@ class Blockade {
                 this.checkGameMode();
                 break;
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
-                if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT) {
+                if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
                     this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
                 } else {
                     this.currentState = this.state.SELECTING_WALL;
@@ -348,7 +351,6 @@ class Blockade {
 
         } else if (obj instanceof Button) {
             this.changeTurn();
-            this.currentState = this.state.SELECTING_PAWN;
         }
     }
 
@@ -446,7 +448,7 @@ class Blockade {
         var this_t = this;
 
         this.scene.client.getPrologRequest("bot_put_walls(" + JSON.stringify(this.board) + ")", function(data) {
-            console.log(data.target.response);
+
             var info = JSON.parse(data.target.response);
 
             this_t.board = info[0];
@@ -475,7 +477,11 @@ class Blockade {
             }
 
             this_t.changeTurn();
-            this_t.currentState = this_t.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
+            if (this_t.gameMode == XMLscene.gameMode.BOT_VS_BOT) {
+                this_t.currentState = this_t.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
+            } else {
+                this_t.currentState = this_t.state.SELECTING_PAWN;
+            }
 
         }, function() {
             console.log('Erro!');
@@ -483,7 +489,7 @@ class Blockade {
     }
 
     display() {
-        if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT) {
+        if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
             this.botHandler();
         } else {
             this.checkCurrentState();
