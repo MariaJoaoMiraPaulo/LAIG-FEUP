@@ -49,6 +49,7 @@ class Blockade {
             WAITING_FOR_SERVER_WALL_RESPONSE: 16,
             BOT_GET_NEW_WALLS_BOARD: 17,
             WAITING_FOR_SERVER_BOARD_WALL: 18,
+            WINNER: 19,
         };
         this.currentState = this.state.WAITING_FOR_START;
     }
@@ -79,20 +80,23 @@ class Blockade {
             case this.state.WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION:
                 return "Putting pawns...";
                 break;
-          case this.state.BOT_GET_NEW_BOARD:
+            case this.state.BOT_GET_NEW_BOARD:
                 return "Loading Board...";
                 break;
-          case this.state.BOT_ASK_SERVER_FOR_WALL:
+            case this.state.BOT_ASK_SERVER_FOR_WALL:
                 return "Pc turn to choose wall and position";
                 break;
-          case this.state.WAITING_FOR_SERVER_WALL_RESPONSE:
+            case this.state.WAITING_FOR_SERVER_WALL_RESPONSE:
                 return "Loading Walls...";
                 break;
-          case this.state.BOT_GET_NEW_WALLS_BOARD:
+            case this.state.BOT_GET_NEW_WALLS_BOARD:
                 return "Loading Board...";
                 break;
-          case this.state.WAITING_FOR_SERVER_BOARD_WALL:
+            case this.state.WAITING_FOR_SERVER_BOARD_WALL:
                 return "Putting Walls...";
+                break;
+            case this.state.WINNER:
+                return "Player " + this.player + " is the winner!!";
                 break;
             default:
                 return "..."
@@ -221,10 +225,14 @@ class Blockade {
                 this.checkGameMode();
                 break;
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
-                if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
-                    this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
+                if (this.isAWinner) {
+                    this.currentState = this.state.WINNER;
                 } else {
-                    this.currentState = this.state.SELECTING_WALL;
+                    if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
+                        this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
+                    } else {
+                        this.currentState = this.state.SELECTING_WALL;
+                    }
                 }
             default:
         }
@@ -441,8 +449,16 @@ class Blockade {
         var this_t = this;
 
         this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + "," + direction + "," + player + "," + this.chosenPawn + ")", function(data) {
-            this_t.board = JSON.parse(data.target.response);
+            var info = JSON.parse(data.target.response);
 
+            this_t.board = info[0];
+
+            if (info[1]) {
+                this_t.isAWinner = 1;
+            }
+            else {
+              this_t.isAWinner = 0;
+            }
             this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_BOARD;
         });
     }
