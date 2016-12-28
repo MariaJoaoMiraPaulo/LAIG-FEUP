@@ -211,18 +211,29 @@ class Blockade {
 
     getWallByMoviePawn(){
 
+      console.log(1);
+
       this.currentWallOrientation = this.scene.movieArray[this.playNumber][1][0];
       this.firstWallx = this.scene.movieArray[this.playNumber][1][1];
       this.firstWallz = this.scene.movieArray[this.playNumber][1][2];
       this.secondWallx = this.scene.movieArray[this.playNumber][1][3];
       this.secondWallz = this.scene.movieArray[this.playNumber][1][4];
-      this.currentPickedWall = this.scene.movieArray[this.playNumber][1][5];
+      this.wall = this.scene.movieArray[this.playNumber][1][5];
 
-      this.currentPickedWall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
-      this.currentPickedWall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
-      this.currentPickedWall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
-      this.currentPickedWall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
-      this.currentPickedWall.setWallOrientation(this.currentWallOrientation);
+
+      this.wall.setWallOrientation(this.currentWallOrientation);
+
+      this.wall.used = true;
+
+      this.wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
+
+      this.wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
+
+      this.wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
+
+      this.wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+
+      console.log(this.wall);
 
       this.getBoardWithNewWalls();
 

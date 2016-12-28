@@ -53,7 +53,7 @@ Wall.prototype.display = function () {
 
   this.scene.pushMatrix();
   if(typeof this.wallOrientation != null && this.wallOrientation == 'v'){
-    ratio = this.zPos - this.secondWallz;
+  ratio = this.zPos - this.secondWallz;
     if(ratio < 0){
         this.scene.translate(this.xPos,this.yPos,this.zPos+0.7);
     }
@@ -61,6 +61,7 @@ Wall.prototype.display = function () {
     this.scene.rotate(Math.PI/2,0,1,0);
   }
   else if(typeof this.wallOrientation != null && this.wallOrientation == 'h'){
+
     ratio = this.xPos - this.secondWallx;
     if(ratio < 0){
         this.scene.translate(this.xPos+0.7,this.yPos,this.zPos);
@@ -102,6 +103,7 @@ Wall.prototype.setSecondWallZCoord = function (z) {
 
 Wall.prototype.setWallOrientation = function(ori) {
   this.wallOrientation = ori;
+    console.log("SET" + this.wallOrientation);
 }
 
 Wall.prototype.updateTexCoords = function (s, t) {
