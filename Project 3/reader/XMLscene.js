@@ -9,6 +9,12 @@ function XMLscene() {
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
+XMLscene.gameMode = {
+    PLAYER_VS_PLAYER: 0,
+    PLAYER_VS_BOT: 1,
+    BOT_VS_BOT: 2
+};
+
 /**
  * XMLScene init
  * @param {CGFapplication} application
@@ -67,9 +73,20 @@ XMLscene.prototype.onGraphLoaded = function() {
 };
 
 XMLscene.prototype.startGame = function() {
-  this.game = new Blockade(this, this.graph);
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
 };
 
+XMLscene.prototype.setPlayerVsPlayer = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+}
+
+XMLscene.prototype.setPlayerVsBot = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_BOT);
+}
+
+XMLscene.prototype.setBotVsBot = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.BOT_VS_BOT);
+}
 
 /**
  * Updates lights
@@ -117,7 +134,7 @@ XMLscene.prototype.display = function() {
         this.graph.components[this.graph.rootId].display();
 
         if (typeof this.game == "undefined") {
-            this.game = new Blockade(this, this.graph);
+            this.game = new Blockade(this, this.graph, XMLscene.gameMode.PLAYER_VS_PLAYER);
         }
         this.game.display();
         // this.luigi.display();
