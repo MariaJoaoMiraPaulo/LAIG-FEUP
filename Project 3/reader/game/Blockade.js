@@ -12,7 +12,6 @@ class Blockade {
         this.board = [];
         this.getInitialBoard();
         this.pawns = [];
-        this.movieArray = [];
 
         this.playNumber = 0;
 
@@ -25,6 +24,7 @@ class Blockade {
         this.secondWallz;
         this.currentPawndirection;
         this.currentWallOrientation;
+        this.currentPickedWall;
 
         this.lastUpdateTime;
         this.firstTime = -1;
@@ -55,7 +55,8 @@ class Blockade {
             BOT_GET_NEW_WALLS_BOARD: 17,
             WAITING_FOR_SERVER_BOARD_WALL: 18,
             GET_MOVIE_PLAY_PAWN: 19,
-            GET_MOVIE_PLAY_WALL: 20
+            GET_MOVIE_PLAY_WALL: 20,
+            END_MOVIE: 21
         };
         this.currentState = this.state.WAITING_FOR_START;
     }
@@ -210,9 +211,18 @@ class Blockade {
 
     getWallByMoviePawn(){
 
-      this.currentWallOrientation = this.movieArray[this.playNumber[1][0]];
-      this.firstWallx = this.movieArray[this.playNumber[1][1]];
-      this.chosenPawn = this.movieArray[this.playNumber[1][2]];
+      this.currentWallOrientation = this.scene.movieArray[this.playNumber][1][0];
+      this.firstWallx = this.scene.movieArray[this.playNumber][1][1];
+      this.firstWallz = this.scene.movieArray[this.playNumber][1][2];
+      this.secondWallx = this.scene.movieArray[this.playNumber][1][3];
+      this.secondWallz = this.scene.movieArray[this.playNumber][1][4];
+      this.currentPickedWall = this.scene.movieArray[this.playNumber][1][5];
+
+      this.currentPickedWall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
+      this.currentPickedWall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
+      this.currentPickedWall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
+      this.currentPickedWall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+      this.currentPickedWall.setWallOrientation(this.currentWallOrientation);
 
       this.getBoardWithNewWalls();
 
@@ -220,11 +230,11 @@ class Blockade {
 
     getPawnByMovieArray(){
 
-      console.log(this.movieArray);
-      console.log(this.playerNumber);
-      this.player = this.movieArray[this.playNumber[0][0]];
-      this.currentPawndirection = this.movieArray[this.playNumber[0][1]];
-      this.chosenPawn = this.movieArray[this.playNumber[0][2]];
+      console.log(this.scene.movieArray);
+      console.log(this.playNumber);
+      this.player = this.scene.movieArray[this.playNumber][0][0];
+      this.currentPawndirection = this.scene.movieArray[this.playNumber][0][1];
+      this.chosenPawn = this.scene.movieArray[this.playNumber][0][2];
 
       this.getNewBoard();
     }
@@ -232,19 +242,28 @@ class Blockade {
     changeTurn() {
         if (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 1) {
             this.currentState = this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
-        } else {
+        }
+        else if(this.gameMode == XMLscene.gameMode.MOVIE){
+          if(this.playNumber == this.scene.movieArray.length-1){
+            this.currentState = this.state.END_MOVIE;
+          }
+          else{
+            this.playNumber++;
+            this.currentState = this.state.GET_MOVIE_PLAY_PAWN;
+          }
+        }
+        else {
             this.currentState = this.state.SELECTING_PAWN;
         }
 
-        this.pawnMovie = [this.player,this.currentPawndirection,this.chosenPawn];
-        this.wallMovie = [this.currentWallOrientation,this.firstWallx+1,this.firstWallz+1,this.secondWallx+1,this.secondWallz+1];
-        this.play = [this.pawnMovie,this.wallMovie];
-        this.movieArray.push(this.play);
+        if(this.gameMode != XMLscene.gameMode.MOVIE){
+          this.pawnMovie = [this.player,this.currentPawndirection,this.chosenPawn];
+          this.wallMovie = [this.currentWallOrientation,this.firstWallx+1,this.firstWallz+1,this.secondWallx+1,this.secondWallz+1,this.currentPickedWall];
+          this.play = [this.pawnMovie,this.wallMovie];
+          this.scene.movieArray.push(this.play);
+          console.log(this.scene.movieArray);
+        }
 
-        console.log(this.movieArray);
-
-        if(this.gameMode == XMLscene.gameMode.MOVIE)
-          this.playNumber++;
 
         if (this.player == 1) {
             this.player = 2;
@@ -283,7 +302,7 @@ class Blockade {
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
                 if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
                     this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
-                } else if(this.gameMode == XMLscene.gameMode.BOT_VS_BOT){
+                } else if(this.gameMode == XMLscene.gameMode.MOVIE){
                     this.currentState = this.state.GET_MOVIE_PLAY_WALL;
                 }else {
                     this.currentState = this.state.SELECTING_WALL;
@@ -479,20 +498,20 @@ class Blockade {
                 this.currentState = this.state.SELECTING_FIRST_WALL_POSITION;
             } else {
                 if (this.player == 1) {
-                    var wall = this.player1.getWallNumber(this.selectWallId);
+                    this.currentPickedWall = this.player1.getWallNumber(this.selectWallId);
                 } else if (this.player == 2) {
-                    var wall = this.player2.getWallNumber(this.selectWallId);
+                      this.currentPickedWall = this.player2.getWallNumber(this.selectWallId);
                 }
 
-                wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
-                wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
-                wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
-                wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+                this.currentPickedWall.setWallXCoord(Board.prototype.convertPositionOnBoard(this.firstWallx));
+                this.currentPickedWall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
+                this.currentPickedWall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
+                this.currentPickedWall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
                 if (this.player == 1)
                     this.player1.setScore(this.getScore(this.firstWallx, this.firstWallz, this.secondWallx, this.secondWallz));
                 else if (this.player == 2)
                     this.player2.setScore(this.getScore(this.firstWallx, this.firstWallz, this.secondWallx, this.secondWallz));
-                wall.setWallOrientation(this.currentWallOrientation);
+                this.currentPickedWall.setWallOrientation(this.currentWallOrientation);
                 this.getBoardWithNewWalls();
 
                 this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD_WALLS;

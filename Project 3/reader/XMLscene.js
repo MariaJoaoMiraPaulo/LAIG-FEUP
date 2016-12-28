@@ -44,6 +44,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
     this.game;
+    this.movieArray;
     this.client = new Client();
 
 
@@ -140,6 +141,7 @@ XMLscene.prototype.display = function() {
 
         if (typeof this.game == "undefined") {
             this.game = new Blockade(this, this.graph, XMLscene.gameMode.PLAYER_VS_PLAYER);
+            this.movieArray = [];
         }
         this.game.display();
         // this.luigi.display();
