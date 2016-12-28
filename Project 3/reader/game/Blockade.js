@@ -50,6 +50,7 @@ class Blockade {
             BOT_GET_NEW_WALLS_BOARD: 17,
             WAITING_FOR_SERVER_BOARD_WALL: 18,
             WINNER: 19,
+            PAWN_ANIMATION: 20,
         };
         this.currentState = this.state.WAITING_FOR_START;
     }
@@ -80,7 +81,7 @@ class Blockade {
             case this.state.BOT_ASK_SERVER_FOR_WALL:
             case this.state.WAITING_FOR_SERVER_WALL_RESPONSE:
             case this.state.BOT_GET_NEW_WALLS_BOARD:
-            case this.state.WAITING_FOR_SERVER_BOARD_WALL: 
+            case this.state.WAITING_FOR_SERVER_BOARD_WALL:
                 return "Bot Playing...";
                 break;
             case this.state.WINNER:
@@ -446,7 +447,8 @@ class Blockade {
             } else {
                 this_t.isAWinner = 0;
             }
-            this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_BOARD;
+            ///this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_BOARD;
+            this_t.currentState = this_t.state.PAWN_ANIMATION;
         });
     }
 

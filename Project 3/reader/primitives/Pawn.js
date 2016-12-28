@@ -15,6 +15,14 @@ function Pawn(scene, reader, player, pawnNumber) {
 
     this.normalAnimation = new LinearAnimation(this.scene, normalAniId, normalAniTime, normalAniControlPoints);
 
+    point1 = vec3.fromValues(0, 0, 1);
+    point2 = vec3.fromValues(0, 0, 0.5);
+    normalAniTime = 0.7;
+    normalAniControlPoints = [point1, point2];
+    normalAniId = 10;
+
+    this.finalAnimation = new LinearAnimation(this.scene, normalAniId, normalAniTime, normalAniControlPoints);
+
     this.orangeMaterial = new CGFappearance(this.scene);
     this.orangeMaterial.setAmbient(1.0, 1, 1, 1);
     this.orangeMaterial.setDiffuse(1.0, 1, 1, 1);
@@ -55,6 +63,10 @@ Pawn.prototype.display = function() {
     if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
         this.normalAnimation.display();
     }
+    if (this.scene.game.player == this.player && this.scene.game.chosenPawn == this.pawnNumber &&
+        this.scene.game.currentState == this.scene.game.state.PAWN_ANIMATION) {
+          this.finalAnimation.display();
+        }
     this.material.apply();
     this.pawn.display();
     this.scene.popMatrix();
@@ -78,7 +90,17 @@ Pawn.prototype.updateTexCoords = function(s, t) {
 }
 
 Pawn.prototype.update = function(deltaTime) {
-    if (this.scene.game.player == this.player) {
+    if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
         this.normalAnimation.update(deltaTime);
     }
+
+    if (this.scene.game.player == this.player && this.scene.game.chosenPawn == this.pawnNumber &&
+        this.scene.game.currentState == this.scene.game.state.PAWN_ANIMATION) {
+        this.finalAnimation.update(deltaTime);
+        if (this.finalAnimation.over) {
+            this.scene.game.currentState = this.scene.game.state.UPDATE_BOARD_WITH_SERVER_BOARD;
+            this.finalAnimation.over = false;
+        }
+    }
+
 }
