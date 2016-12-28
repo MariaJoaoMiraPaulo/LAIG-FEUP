@@ -74,28 +74,28 @@ class Blockade {
                 return "Select wall's second position";
                 break;
             case this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION:
-                return "Pc turn to choose pawn and position";
+                return "Bot Playing...";
                 break;
             case this.state.WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION:
-                return "Putting pawns...";
+                return "Bot Playing...";
                 break;
           case this.state.BOT_GET_NEW_BOARD:
-                return "Loading Board...";
+                return "Bot Playing...";
                 break;
           case this.state.BOT_ASK_SERVER_FOR_WALL:
-                return "Pc turn to choose wall and position";
+                return "Bot Playing...";
                 break;
           case this.state.WAITING_FOR_SERVER_WALL_RESPONSE:
-                return "Loading Walls...";
+                return "Bot Playing...";
                 break;
           case this.state.BOT_GET_NEW_WALLS_BOARD:
-                return "Loading Board...";
+                return "Bot Playing...";
                 break;
           case this.state.WAITING_FOR_SERVER_BOARD_WALL:
-                return "Putting Walls...";
+                return "Bot Playing...";
                 break;
             default:
-                return "..."
+                return " "
                 break;
         }
     }
