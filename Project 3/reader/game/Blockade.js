@@ -25,23 +25,23 @@ class Blockade {
 
         this.state = {
             WAITING_FOR_START: 1,
-            INITIALIZE_BOARD: 3,
-            SELECTING_PAWN: 27,
-            SELECTING_PAWN_NEXT_POSITION: 28,
-            WAITING_FOR_SERVER_NEW_BOARD: 29,
-            UPDATE_BOARD_WITH_SERVER_BOARD: 30,
-            SELECTING_WALL: 31,
-            SELECTING_FIRST_WALL_POSITION: 32,
-            SELECTING_SECOND_WALL_POSITION: 33,
-            WAITING_FOR_SERVER_NEW_BOARD_WALLS: 34,
-            UPDATE_BOARD_WITH_SERVER_NEW_WALLS: 35,
-            BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION: 36,
-            WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION: 37,
-            BOT_GET_NEW_BOARD: 38,
-            BOT_ASK_SERVER_FOR_WALL: 39,
-            WAITING_FOR_SERVER_WALL_RESPONSE: 40,
-            BOT_GET_NEW_WALLS_BOARD: 41,
-            WAITING_FOR_SERVER_BOARD_WALL: 42,
+            INITIALIZE_BOARD: 2,
+            SELECTING_PAWN: 3,
+            SELECTING_PAWN_NEXT_POSITION: 4,
+            WAITING_FOR_SERVER_NEW_BOARD: 5,
+            UPDATE_BOARD_WITH_SERVER_BOARD: 6,
+            SELECTING_WALL: 7,
+            SELECTING_FIRST_WALL_POSITION: 8,
+            SELECTING_SECOND_WALL_POSITION: 9,
+            WAITING_FOR_SERVER_NEW_BOARD_WALLS: 10,
+            UPDATE_BOARD_WITH_SERVER_NEW_WALLS: 11,
+            BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION: 12,
+            WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION: 13,
+            BOT_GET_NEW_BOARD: 14,
+            BOT_ASK_SERVER_FOR_WALL: 15,
+            WAITING_FOR_SERVER_WALL_RESPONSE: 16,
+            BOT_GET_NEW_WALLS_BOARD: 17,
+            WAITING_FOR_SERVER_BOARD_WALL: 18,
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -67,8 +67,29 @@ class Blockade {
             case this.state.SELECTING_SECOND_WALL_POSITION:
                 return "Select wall's second position";
                 break;
+            case this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION:
+                return "Pc turn to choose pawn and position";
+                break;
+            case this.state.WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION:
+                return "Putting pawns...";
+                break;
+          case this.state.BOT_GET_NEW_BOARD:
+                return "Loading Board...";
+                break;
+          case this.state.BOT_ASK_SERVER_FOR_WALL:
+                return "Pc turn to choose wall and position";
+                break;
+          case this.state.WAITING_FOR_SERVER_WALL_RESPONSE:
+                return "Loading Walls...";
+                break;
+          case this.state.BOT_GET_NEW_WALLS_BOARD:
+                return "Loading Board...";
+                break;
+          case this.state.WAITING_FOR_SERVER_BOARD_WALL:
+                return "Putting Walls...";
+                break;
             default:
-                return "Nothing to see..."
+                return "..."
                 break;
         }
     }
