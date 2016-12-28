@@ -49,6 +49,7 @@ class Blockade {
             WAITING_FOR_SERVER_WALL_RESPONSE: 16,
             BOT_GET_NEW_WALLS_BOARD: 17,
             WAITING_FOR_SERVER_BOARD_WALL: 18,
+            WINNER: 19,
         };
         this.currentState = this.state.WAITING_FOR_START;
     }
@@ -74,25 +75,16 @@ class Blockade {
                 return "Select wall's second position";
                 break;
             case this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION:
-                return "Bot Playing...";
-                break;
             case this.state.WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION:
+            case this.state.BOT_GET_NEW_BOARD:
+            case this.state.BOT_ASK_SERVER_FOR_WALL:
+            case this.state.WAITING_FOR_SERVER_WALL_RESPONSE:
+            case this.state.BOT_GET_NEW_WALLS_BOARD:
+            case this.state.WAITING_FOR_SERVER_BOARD_WALL: 
                 return "Bot Playing...";
                 break;
-          case this.state.BOT_GET_NEW_BOARD:
-                return "Bot Playing...";
-                break;
-          case this.state.BOT_ASK_SERVER_FOR_WALL:
-                return "Bot Playing...";
-                break;
-          case this.state.WAITING_FOR_SERVER_WALL_RESPONSE:
-                return "Bot Playing...";
-                break;
-          case this.state.BOT_GET_NEW_WALLS_BOARD:
-                return "Bot Playing...";
-                break;
-          case this.state.WAITING_FOR_SERVER_BOARD_WALL:
-                return "Bot Playing...";
+            case this.state.WINNER:
+                return "Player " + this.player + " is the winner!!";
                 break;
             default:
                 return " "
@@ -221,10 +213,14 @@ class Blockade {
                 this.checkGameMode();
                 break;
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
-                if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
-                    this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
+                if (this.isAWinner) {
+                    this.currentState = this.state.WINNER;
                 } else {
-                    this.currentState = this.state.SELECTING_WALL;
+                    if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
+                        this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
+                    } else {
+                        this.currentState = this.state.SELECTING_WALL;
+                    }
                 }
             default:
         }
@@ -441,8 +437,15 @@ class Blockade {
         var this_t = this;
 
         this.scene.client.getPrologRequest("move_player(" + JSON.stringify(this.board) + "," + direction + "," + player + "," + this.chosenPawn + ")", function(data) {
-            this_t.board = JSON.parse(data.target.response);
+            var info = JSON.parse(data.target.response);
 
+            this_t.board = info[0];
+
+            if (info[1]) {
+                this_t.isAWinner = 1;
+            } else {
+                this_t.isAWinner = 0;
+            }
             this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_BOARD;
         });
     }
@@ -557,7 +560,9 @@ class Blockade {
         if (this.firstTime == -1) {
             this.lastUpdateTime = currTime;
             this.firstTime = 1;
-        } else this.currentTime = (currTime - this.lastUpdateTime) / 1000;
+        } else if (this.currentState != this.state.WINNER) {
+            this.currentTime = (currTime - this.lastUpdateTime) / 1000;
+        }
 
         this.currentTime = Math.round(this.currentTime).toFixed(2);
 
@@ -593,42 +598,41 @@ class Blockade {
         if (this.player == 1) {
             console.log("player1");
             if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 1 && firstWallx <= 7) {
-                    console.log(3);
-                    return 3;}
-           else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 1 && secondWallx <= 7) {
-                    console.log(3);
-                    return 3;  }
-          else if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 11 && firstWallx <= 17 ) {
-                    console.log(3);
-                    return 3;}
-          else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 11 && secondWallx <= 17 ) {
-                    console.log(3);
-                    return 3;}
-          else {
+                console.log(3);
+                return 3;
+            } else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 1 && secondWallx <= 7) {
+                console.log(3);
+                return 3;
+            } else if (firstWallz >= 1 && firstWallz <= 7 && firstWallx >= 11 && firstWallx <= 17) {
+                console.log(3);
+                return 3;
+            } else if (secondWallz >= 1 && secondWallz <= 7 && secondWallx >= 11 && secondWallx <= 17) {
+                console.log(3);
+                return 3;
+            } else {
                 console.log(1);
                 return 1;
-          }
-        }
-        else if (this.player == 2) {
-              console.log("player2");
-              if (firstWallz >= 12 && firstWallz <=15 && firstWallx >= 1 && firstWallx <= 7) {
-                      console.log(3);
-                      return 3;}
-             else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 1 && secondWallx <= 7) {
-                      console.log(3);
-                      return 3;  }
-            else if (firstWallz >= 12 && firstWallz <= 15 && firstWallx >= 11 && firstWallx <= 17 ) {
-                      console.log(3);
-                      return 3;}
-            else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 11 && secondWallx <= 17 ) {
-                      console.log(3);
-                      return 3;}
-            else {
-                  console.log(1);
-                  return 1;
             }
-          }
+        } else if (this.player == 2) {
+            console.log("player2");
+            if (firstWallz >= 12 && firstWallz <= 15 && firstWallx >= 1 && firstWallx <= 7) {
+                console.log(3);
+                return 3;
+            } else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 1 && secondWallx <= 7) {
+                console.log(3);
+                return 3;
+            } else if (firstWallz >= 12 && firstWallz <= 15 && firstWallx >= 11 && firstWallx <= 17) {
+                console.log(3);
+                return 3;
+            } else if (secondWallz >= 12 && secondWallz <= 15 && secondWallx >= 11 && secondWallx <= 17) {
+                console.log(3);
+                return 3;
+            } else {
+                console.log(1);
+                return 1;
+            }
+        }
 
-      return 1;
+        return 1;
     }
 }

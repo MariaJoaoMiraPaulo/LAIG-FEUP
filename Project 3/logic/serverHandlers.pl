@@ -14,13 +14,17 @@ parse_input(initial_board,Board):-
 	emptyBoardBlockade(TempBoard),
 	boardToNumbers(TempBoard,Board).
 
-parse_input(move_player(NumberBoard,Direction,Player,Pawn),NewBoardNumbers):-
+parse_input(move_player(NumberBoard,Direction,Player,Pawn),[NewBoardNumbers,Winner]):-
 	boardToNumbers(TempBoard,NumberBoard),
 	transformToCoordinates(TempBoard,Player,Pawn,Direction,Xi,Yi,Xf,Yf,PawnName),
 	setListElement(TempBoard,Xf,Yf,1,1,PawnName,NewBoard),
 	isAStartHouse(Xi,Yi,OldPawnName),
 	setListElement(NewBoard,Xi,Yi,1,1,OldPawnName,NewBoard2),
-	boardToNumbers(NewBoard2,NewBoardNumbers).
+	boardToNumbers(NewBoard2,NewBoardNumbers),
+	(isAwinner(TempBoard,Player,Xf,Yf) ->
+		Winner = 1;
+		Winner = 0
+	).
 
 parse_input(put_wall(Board,WallOri,FirstX,FirstY,SecondX,SecondY),NewBoard):-
   boardToNumbers(TempBoard,Board),
