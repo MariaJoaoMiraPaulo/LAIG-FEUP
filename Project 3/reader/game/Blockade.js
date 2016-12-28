@@ -358,6 +358,10 @@ class Blockade {
       wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this.firstWallz));
       wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this.secondWallx));
       wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this.secondWallz));
+      if(this.player == 1)
+        this.player1.setScore(this.getScore(this.firstWallx,this.firstWallz,this.secondWallx,this.secondWallz));
+      else if(this.player == 2)
+        this.player2.setScore(this.getScore(this.firstWallx,this.firstWallz,this.secondWallx,this.secondWallz));
       wall.setWallOrientation(orientation);
       this.getBoardWithNewWalls(orientation);
 
@@ -439,4 +443,78 @@ getTime(secs){
     this.seconds = seconds;
 
 }
+
+getScore(firstWallx,firstWallz,secondWallx,secondWallz){
+  //Quanto mais perto da casa de partida mais pontos ganha
+
+  console.log("SCORE");
+
+  var startPos11=[4,1.3,4];
+  var startPos12=[14,1.3,4];
+  var startPos21=[4,1.3,12];
+  var startPos22=[14,1.3,12];
+
+  if(this.player==1){
+    console.log("entrei1");
+    if(firstWallz > startPos11[2]-3 && firstWallz < startPos11[2]+3 ){
+      if(firstWallx < startPos11[0]+3 && firstWallx > startPos11[0]-3){
+        console.log(3);
+        return 3;
+      }
+    }
+    else if(secondWallz > startPos11[2]-3 && secondWallz < startPos11[2]+3){
+      if(secondWallx < startPos11[0]+3 && secondWallx > startPos11[0]-3){
+        console.log(3);
+        return 3;
+      }
+    }
+    else if(firstWallz > startPos12[2]-3 && firstWallz < startPos12[2]+3){
+      if(firstWallx < startPos12[0]+3 && firstWallx > startPos12[0]-3){
+        console.log(3);
+        return 3;
+      }
+    }
+    else if(secondWallz > startPos12[2]-3 && secondWallz < startPos12[2]+3){
+      if(secondWallx < startPos12[0]+3 && secondWallx > startPos12[0]-3){
+        console.log(3);
+        return 3;
+      }
+    }
+    else {
+      console.log(1);
+      return 1;
+    }}
+    else if(this.player==2){
+      console.log("entrei2");
+      if(firstWallz > startPos21[2]-3 && firstWallz < startPos21[2]+3){
+        if(firstWallx < startPos21[0]+3 && firstWallx > startPos21[0]-3){
+          console.log(3);
+          return 3;
+        }
+      }
+      else if(secondWallz > startPos21[2]-3 && secondWallz < startPos21[2]+3){
+        if(secondWallx < startPos21[0]+3 && secondWallx > startPos21[0]-3){
+          console.log(3);
+          return 3;
+        }
+      }
+      else if(firstWallz > startPos22[2]-3 && firstWallz < startPos22[2]+3){
+        if(firstWallx < startPos22[0]+3 && firstWallx > startPos22[0]-3){
+          console.log(3);
+          return 3;
+        }
+      }
+      else if(secondWallz > startPos22[2]-3 && secondWallz < startPos22[2]+3){
+        if(secondWallx < startPos22[0]+3 && secondWallx > startPos22[0]-3){
+          console.log(3);
+          return 3;
+        }
+      }
+      else {
+      console.log(1);
+      return 1;
+      }
+  }
+    console.log("sai");
+  }
 }

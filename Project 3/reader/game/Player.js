@@ -53,7 +53,7 @@ class Player {
     }
 
     setScore(score) {
-        this.score = score;
+        this.score += score;
     }
 
     getPawn1Id() {

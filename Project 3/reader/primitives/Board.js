@@ -45,6 +45,7 @@ function Board(scene, reader, dimX , dimZ) {
   var xTab = this.dimX * this.cubeSize  + (this.dimX-1)*this.floorSize;
   var zTab = this.dimZ * this.cubeSize  + (this.dimZ-1)*this.floorSize;
 
+
   var x = this.convertPositionOnBoard(4);
   var x1 = this.convertPositionOnBoard(14);
 
