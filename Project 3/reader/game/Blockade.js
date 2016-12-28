@@ -191,12 +191,11 @@ class Blockade {
                 this.checkGameMode();
                 break;
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
-              if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT) {
-                this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
-              }
-              else {
-                  this.currentState = this.state.SELECTING_WALL;
-              }
+                if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT) {
+                    this.currentState = this.state.BOT_ASK_SERVER_FOR_WALL;
+                } else {
+                    this.currentState = this.state.SELECTING_WALL;
+                }
             default:
         }
     }
@@ -294,7 +293,7 @@ class Blockade {
                 break;
             case this.state.BOT_GET_NEW_BOARD:
                 this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD;
-                this.getNewBoard(1,1,this.botDirection,this.player);
+                this.getNewBoard(1, 1, this.botDirection, this.player);
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
                 this.updatePawnsPositions();
                 this.getAllPawnPositions();
@@ -423,7 +422,7 @@ class Blockade {
         var this_t = this;
 
         this.scene.client.getPrologRequest("bot_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
-    //     JSON.parse(data.target.response);
+            //     JSON.parse(data.target.response);
             var info = JSON.parse(data.target.response);
             this_t.chosenPawn = info[0];
             this_t.botDirection = info[1];
@@ -432,51 +431,55 @@ class Blockade {
         });
     }
 
-    doesBotWantToPutWalls(){
-      var this_t = this;
+    doesBotWantToPutWalls() {
+        var this_t = this;
 
-      this.scene.client.getPrologRequest("want_walls", function(data) {
-          var info = JSON.parse(data.target.response);
+        this.scene.client.getPrologRequest("want_walls", function(data) {
+            var info = JSON.parse(data.target.response);
 
-          this_t.currentState = this_t.state.BOT_GET_NEW_WALLS_BOARD;
+            this_t.currentState = this_t.state.BOT_GET_NEW_WALLS_BOARD;
 
-      });
+        });
     }
 
-    getBotNewWallsBoard(){
-      var this_t = this;
+    getBotNewWallsBoard() {
+        var this_t = this;
 
-      this.scene.client.getPrologRequest("bot_put_walls(" + JSON.stringify(this.board)+ ")", function(data) {
-          var info = JSON.parse(data.target.response);
+        this.scene.client.getPrologRequest("bot_put_walls(" + JSON.stringify(this.board) + ")", function(data) {
+            console.log(data.target.response);
+            var info = JSON.parse(data.target.response);
 
-          this_t.board = info[0];
-          this_t.firstWallx = info[1]-1;
-          this_t.firstWallz = info[2]-1;
-          this_t.secondWallx = info[3]-1;
-          this_t.secondWallz = info[4]-1;
-          var orientation = info[5];
+            this_t.board = info[0];
+            this_t.firstWallx = info[1] - 1;
+            this_t.firstWallz = info[2] - 1;
+            this_t.secondWallx = info[3] - 1;
+            this_t.secondWallz = info[4] - 1;
+            var orientation = info[5];
 
-          console.log("z: "+this_t.firstWallz);
-          console.log("x: "+this_t.firstWallx);
+            if (orientation != "fail") {
+                if (this_t.player == 1) {
+                    var wall = this_t.player1.getANonUsedWall();
+                } else if (this_t.player == 2) {
+                    var wall = this_t.player2.getANonUsedWall();
+                }
 
-          if(this_t.player == 1){
-            var wall = this_t.player1.getANonUsedWall();
-          }
-          else if(this_t.player == 2){
-            var wall = this_t.player2.getANonUsedWall();
-          }
+                if (wall != false) {
+                    wall.used = true;
 
-          wall.used = true;
+                    wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this_t.firstWallx));
+                    wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this_t.firstWallz));
+                    wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this_t.secondWallx));
+                    wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this_t.secondWallz));
+                    wall.setWallOrientation(orientation);
+                }
+            }
 
-          wall.setWallXCoord(Board.prototype.convertPositionOnBoard(this_t.firstWallx));
-          wall.setWallZCoord(Board.prototype.convertPositionOnBoard(this_t.firstWallz));
-          wall.setSecondWallXCoord(Board.prototype.convertPositionOnBoard(this_t.secondWallx));
-          wall.setSecondWallZCoord(Board.prototype.convertPositionOnBoard(this_t.secondWallz));
-          wall.setWallOrientation(orientation);
+            this_t.changeTurn();
+            this_t.currentState = this_t.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
 
-          //this_t.currentState = this_t.state.BOT_GET_NEW_WALLS_BOARD;
-
-      });
+        }, function() {
+            console.log('Erro!');
+        });
     }
 
     display() {

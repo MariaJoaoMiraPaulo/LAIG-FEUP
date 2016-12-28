@@ -46,9 +46,20 @@ parse_input(want_walls,Response):-
 
 parse_input(bot_put_walls(Board),[NewBoard,FirstX,FirstY,SecondX,SecondY,Orientation]):-
 	boardToNumbers(B,Board),
-	valid_wall_position(B,TempBoard,FirstX,FirstY,SecondX,SecondY,O),
-	orientationToString(O,Orientation),
-	boardToNumbers(TempBoard,NewBoard).
+	(valid_wall_position(B,TempBoard,FirstX,FirstY,SecondX,SecondY,O) ->
+			(
+			orientationToString(O,Orientation),
+			boardToNumbers(TempBoard,NewBoard)
+			);
+			(
+			NewBoard = Board,
+			FirstX = 0,
+			FirstY = 0,
+			SecondX = 0,
+			SecondY = 0,
+			Orientation = '"fail"'
+			)
+	).
 
 valid_wall_position(Board,NewBoard,FirstX,FirstY,SecondX,SecondY,Orientation):-
 	randomWallPosition(19,17,WallX,WallY),
@@ -58,8 +69,8 @@ valid_wall_position(Board,NewBoard,FirstX,FirstY,SecondX,SecondY,Orientation):-
 	validatePositions(Board,NewOrientation,19,17,FirstX,FirstY,SecondX,SecondY),
 	writeWallOnBoard(Board,NewOrientation,FirstX,FirstY,SecondX,SecondY,NewBoard).
 
-valid_wall_position(Board):-
-	valid_wall_position(Board).
+/*valid_wall_position(Board):-
+	valid_wall_position(Board).*/
 
 bot_put_walls(_,_).
 
