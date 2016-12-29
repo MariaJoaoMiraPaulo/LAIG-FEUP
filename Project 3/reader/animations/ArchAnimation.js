@@ -13,54 +13,34 @@ class ArchAnimation extends Animation {
         this.totalDist = this.ANGLE * this.radius;
         this.velocity = this.totalDist/this.animationTime;
 
-        this.v1 = vec3.fromValues(1, 1, 1);
-        this.v2 = vec3.fromValues(2, 2, 2);
-
-        this.direction = vec3.create();
-        vec3.sub(this.direction, this.controlPoints[1], this.controlPoints[0]);
-
         this.zAxis = vec3.fromValues(0,0,1);
 
-        this.travelledDistance = 0;
+        this.atualdist = 0;
+        this.atualAngle = 0;
 
         this.over = false;
     }
 
     updatingVariables() {
-
-        this.atualPointIdArray++;
-        if (this.atualPointIdArray == this.controlPoints.length) {
-            this.atualPointIdArray = 1;
-            this.over = true;
-        }
-
-        vec3.sub(this.direction, this.controlPoints[this.atualPointIdArray], this.controlPoints[this.atualPointIdArray - 1]);
-        this.pointsDistance = vec3.length(this.direction);
+      this.over = true;
+      this.atualdist = 0;
+      this.atualAngle = 0;
 
     }
 
     update(deltaTime) {
-        let distance = deltaTime * this.velocity;
+      this.atualdist += this.velocity * (deltaTime / 1000);
 
-        this.travelledDistance += distance;
-        let r;
+      this.atualAngle = this.atualdist / this.radius;
 
-        if (this.travelledDistance > this.totalDist) {
-            this.updatingVariables();
-        }
-
-        r = this.distanceSinceLastPoint / this.pointsDistance;
-        vec3.scale(this.atualPosition, this.direction, r);
+      if (this.atualdist > this.totalDist) {
+        this.updatingVariables();
+      }
     }
 
     display() {
-      let x = this.controlPoints[this.atualPointIdArray-1][0];
-      let y = this.controlPoints[this.atualPointIdArray-1][1];
-      let z = this.controlPoints[this.atualPointIdArray-1][2];
-      this.scene.translate(x,y,z);
-      this.scene.translate(this.atualPosition[0],this.atualPosition[1],this.atualPosition[2]);
-      this.scene.rotate(this.horizontalAngle, 0, 1, 0);
-      this.scene.rotate(-this.verticalAngle, 1, 0, 0);
+      this.scene.translate(this.centerX, this.centerY, this.centerZ);
+      this.scene.translate(this.radius * Math.cos(this.startAng), 0, -this.radius * Math.sin(this.startAng));
     }
 
     clone(){
