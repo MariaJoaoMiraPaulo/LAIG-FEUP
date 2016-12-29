@@ -99,13 +99,14 @@ class Player {
     }
 
     movePawn(position) {
+        var pawnHeight = 0.3;
 
         this.pawn1.setPawnXCoord(position['x1']);
-        this.pawn1.setPawnYCoord(1.3);
+        this.pawn1.setPawnYCoord(pawnHeight);
         this.pawn1.setPawnZCoord(position['y1']);
 
         this.pawn2.setPawnXCoord(position['x2']);
-        this.pawn2.setPawnYCoord(1.3);
+        this.pawn2.setPawnYCoord(pawnHeight);
         this.pawn2.setPawnZCoord(position['y2']);
     }
 

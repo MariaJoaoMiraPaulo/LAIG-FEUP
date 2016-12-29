@@ -17,15 +17,15 @@ function Wall(scene, reader, player, wallNumber) {
   this.wallOrientation = null;
 
   this.greenMaterial = new CGFappearance(this.scene);
-  this.greenMaterial.setAmbient(0,1,0,1);
-  this.greenMaterial.setDiffuse(0,1,0,1);
-  this.greenMaterial.setSpecular(0,1,0,1);
+  this.greenMaterial.setAmbient(1, 0.2, 0, 0);
+  this.greenMaterial.setDiffuse(1, 0.2, 0, 0);
+  this.greenMaterial.setSpecular(1, 0.2, 0, 0);
   this.greenMaterial.setShininess(0);
 
   this.blueMaterial = new CGFappearance(this.scene);
-  this.blueMaterial.setAmbient(0,0,1.0,1);
-  this.blueMaterial.setDiffuse(0,0,1.0,1);
-  this.blueMaterial.setSpecular(0,0,1.0,1);
+  this.blueMaterial.setAmbient(0,0.2,1, 0);
+  this.blueMaterial.setDiffuse(0,0.2,1, 0);
+  this.blueMaterial.setSpecular(0,0.2,1, 0);
   this.blueMaterial.setShininess(0);
 
   switch (player) {
