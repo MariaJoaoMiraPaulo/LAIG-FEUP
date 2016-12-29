@@ -18,10 +18,10 @@ function Wall(scene, reader, player, wallNumber) {
 
   switch (player) {
     case 1:
-    this.material = this.scene.orangeMaterial;
+    this.material = this.scene.scenario.player1Material;
     break;
     case 2:
-    this.material = this.scene.yellowMaterial;
+    this.material = this.scene.scenario.player2Material;
     break;
     default:
 

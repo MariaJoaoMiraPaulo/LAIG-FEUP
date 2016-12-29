@@ -26,10 +26,9 @@ function Pawn(scene, reader, player, pawnNumber) {
 
     switch (player) {
         case 1:
-            this.material = this.scene.orangeMaterial;
-            break;
+            this.material = this.scene.scenario.player1Material;
         case 2:
-            this.material = this.scene.yellowMaterial;
+            this.material = this.scene.scenario.player2Material;
             break;
         default:
 
