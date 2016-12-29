@@ -9,6 +9,13 @@ function XMLscene() {
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
+XMLscene.gameMode = {
+    PLAYER_VS_PLAYER: 0,
+    PLAYER_VS_BOT: 1,
+    BOT_VS_BOT: 2,
+    MOVIE: 3
+};
+
 /**
  * XMLScene init
  * @param {CGFapplication} application
@@ -39,6 +46,8 @@ XMLscene.prototype.init = function(application) {
     this.game;
     this.client = new Client();
 
+    this.movieArray;
+
 
 };
 
@@ -65,6 +74,26 @@ XMLscene.prototype.onGraphLoaded = function() {
     this.nextPerspective = 0;
     this.interface.setActiveCamera(this.camera);
 };
+
+XMLscene.prototype.startGame = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+};
+
+XMLscene.prototype.setPlayerVsPlayer = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+}
+
+XMLscene.prototype.setPlayerVsBot = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_BOT);
+}
+
+XMLscene.prototype.setBotVsBot = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.BOT_VS_BOT);
+}
+
+XMLscene.prototype.setMovie = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
+}
 
 /**
  * Updates lights
@@ -111,15 +140,19 @@ XMLscene.prototype.display = function() {
 
         this.graph.components[this.graph.rootId].display();
 
-        // this.verifyGameStart();
-        //TODO:BLOCKADE HERE??
         if (typeof this.game == "undefined") {
-            this.game = new Blockade(this, this.graph);
+            this.game = new Blockade(this, this.graph, XMLscene.gameMode.PLAYER_VS_PLAYER);
         }
         this.game.display();
+        // this.luigi.display();
     };
 
-
+    if (typeof this.game != "undefined") {
+        document.getElementById('information').innerText = this.game.getGameStateInstruction();
+        document.getElementById('player').innerText = 'Player ' + (this.game.player);
+        document.getElementById('time').innerText = (this.game.hours) + ' : ' + this.game.minutes + " : " + this.game.seconds;
+        // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
+    }
 
     this.logPicking();
     this.clearPickRegistration();
@@ -178,7 +211,7 @@ XMLscene.prototype.update = function(currTime) {
     }
 
     if (typeof this.game != "undefined") {
-        this.game.update(currTime);
+        this.game.update(currTime,deltaTime);
     }
 }
 

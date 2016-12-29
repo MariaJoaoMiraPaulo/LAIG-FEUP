@@ -12,11 +12,10 @@ class Player {
         this.pawn1 = new Pawn(this.scene, this.reader, this.player, 1);
         this.pawn2 = new Pawn(this.scene, this.reader, this.player, 2);
 
-
         //type 1 -stepOver
         //type 2 - Back
         this.button = new Button(this.scene, this.reader, this.player, 1);
-      //  this.backButton = new Button(this.scene, this.reader, this.player, 2);
+        this.backButton = new Button(this.scene, this.reader, this.player, 2);
 
         this.numberWalls = 7;
         this.walls = new Array(this.numberWalls - 1);
@@ -24,15 +23,26 @@ class Player {
         for (var i = 0; i < this.numberWalls; i++)
             this.walls[i] = new Wall(this.scene, this.reader, this.player, i);
 
+        let angle = 0.4;
+        let near = 0.1;
+        let far = 500;
+        let fromVector;
+        let toVector;
 
         switch (player) {
             case 1:
                 this.startPositionWall1 = [-2, 0.3, 3];
+                fromVector = vec3.fromValues(5.8,37,-30);
+                toVector = vec3.fromValues(7.4,-3,3.5);
                 break;
             case 2:
                 this.startPositionWall1 = [15.5, 0.3, 3];
+                fromVector = vec3.fromValues(7.8, 34, 41);
+                toVector = vec3.fromValues(5.7,-4.2,6.1);
                 break;
         }
+
+        this.playerCamera = new CGFcamera(angle, near, far, fromVector, toVector);
     }
 
     getWallNumber(number) {
@@ -52,7 +62,7 @@ class Player {
     }
 
     setScore(score) {
-        this.score = score;
+        this.score += score;
     }
 
     getPawn1Id() {
@@ -63,7 +73,7 @@ class Player {
         return pawn2;
     }
 
-    displayButton() {
+    displayStepOverButton() {
         if (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL && this.player == this.scene.game.player && this.button.type == 1) {
             this.scene.registerForPick(100, this.button);
             this.button.display();
@@ -71,8 +81,21 @@ class Player {
             this.scene.clearPickRegistration();
             this.button.display();
         }
+        this.scene.clearPickRegistration();
+    }
 
-          this.scene.clearPickRegistration();
+    displayBackButton() {
+
+        if ((this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN_NEXT_POSITION && this.player == this.scene.game.player) ||
+            (this.scene.game.currentState == this.scene.game.state.SELECTING_FIRST_WALL_POSITION && this.player == this.scene.game.player) ||
+            (this.scene.game.currentState == this.scene.game.state.SELECTING_SECOND_WALL_POSITION && this.player == this.scene.game.player)) {
+            this.scene.registerForPick(101, this.backButton);
+            this.backButton.display();
+        } else {
+            this.scene.clearPickRegistration();
+            this.backButton.display();
+        }
+        this.scene.clearPickRegistration();
     }
 
     movePawn(position) {
@@ -159,5 +182,15 @@ class Player {
     update(currTime) {
         this.pawn1.update(currTime);
         this.pawn2.update(currTime);
+    }
+
+    getANonUsedWall() {
+        for (var i = 0; i < this.walls.length; i++) {
+            if (!this.walls[i].used) {
+                return this.walls[i];
+            }
+        }
+
+        return false;
     }
 }

@@ -45,6 +45,7 @@ function Board(scene, reader, dimX , dimZ) {
   var xTab = this.dimX * this.cubeSize  + (this.dimX-1)*this.floorSize;
   var zTab = this.dimZ * this.cubeSize  + (this.dimZ-1)*this.floorSize;
 
+
   var x = this.convertPositionOnBoard(4);
   var x1 = this.convertPositionOnBoard(14);
 
@@ -274,11 +275,10 @@ Board.prototype.possibleMove = function(arrayPos){
 Board.prototype.possibleWall = function(arrayPos){
 
   for(var i=0;i<this.scene.game.currentWalls.length;i++){
-    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){
+    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){ 
       return false;
     }
   }
-
   return true;
 }
 
@@ -443,6 +443,8 @@ Board.prototype.secondWallPossibility = function (pos) {
       else return false;
     }
     else {
+      // if(this.crossWallH())
+      // return false;
       if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX+2],pos))
       return true;
       else if(this.arraysAreIdentical([this.currentWallPositionZ,this.currentWallPositionX-2],pos))
@@ -453,6 +455,27 @@ Board.prototype.secondWallPossibility = function (pos) {
   else return true;
 }
 
+Board.prototype.crossWallH = function(){
+
+  // if(!this.possibleWall([this.currentWallPositionZ-1,this.currentWallPositionX+1])){
+  // }
+  // else return false;
+  // if(!this.possibleWall([this.currentWallPositionZ+1,this.currentWallPositionX+1]))
+  // {
+  //   return true;
+  // }
+  //
+  // if(!this.possibleWall([this.currentWallPositionZ-1,this.currentWallPositionX-1])){
+  //   console.log(1);
+  // }
+  // else return false;
+  // if(!this.possibleWall([this.currentWallPositionZ+1,this.currentWallPositionX-1])){
+  //       console.log(2);
+  //   return true;
+  // }
+  //   console.log(3);
+  // return false;
+}
 
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;
