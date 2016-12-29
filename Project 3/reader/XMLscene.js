@@ -48,6 +48,8 @@ XMLscene.prototype.init = function(application) {
 
     this.movieArray;
 
+    // this.pawn = new Obj(this,"img/chess.obj");
+
 
 };
 
@@ -153,6 +155,12 @@ XMLscene.prototype.display = function() {
         document.getElementById('time').innerText = (this.game.hours) + ' : ' + this.game.minutes + " : " + this.game.seconds;
         // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
     }
+
+    // this.pushMatrix();
+    // this.scale(0.04,0.04,0.04);
+    // this.rotate(-Math.PI/2, 1, 0, 0);
+    // this.pawn.display();
+    // this.popMatrix();
 
     this.logPicking();
     this.clearPickRegistration();

@@ -59,8 +59,7 @@ function Button(scene, reader, player, type) {
   this.material.setShininess(0);
 
 
-  this.Button = new Cylinder(this.scene, 0.6, 0.6, 0.6, 20, 20);
-  this.rect = new Lamp(this.scene, 20, 20);
+  this.Button = new Cube(this.scene,this.reader,null,null);
 
 };
 
@@ -71,19 +70,19 @@ Button.prototype.display = function () {
 
   this.scene.pushMatrix();
   this.material.apply();
-  // this.scene.scale(1,0.3,1);
+   this.scene.scale(1,0.5,1);
   this.scene.translate(this.xPos,this.yPos+0.5,this.zPos);
   this.scene.rotate(Math.PI/2,1,0,0);
   this.Button.display();
   this.scene.popMatrix();
 
-  this.scene.pushMatrix();
-  this.scene.translate(this.xPos,this.yPos+0.6 ,this.zPos);
-    this.scene.rotate(Math.PI/2,1,0,0);
-  // this.scene.scale(0.8,0.01,0.8);
-  this.texture.apply();
-  this.rect.display();
-  this.scene.popMatrix();
+  // this.scene.pushMatrix();
+  // this.scene.translate(this.xPos,this.yPos+0.6 ,this.zPos);
+  //   this.scene.rotate(Math.PI/2,1,0,0);
+  //  this.scene.scale(0.8,0.01,0.8);
+  // this.texture.apply();
+  // this.b.display();
+  // this.scene.popMatrix();
 
 }
 
