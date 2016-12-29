@@ -69,9 +69,6 @@ class Blockade {
             console.log('entrei');
             this.currentState = this.state.INVALID_GAME;
         }
-
-
-
     }
 
     getGameStateInstruction() {
