@@ -31,12 +31,12 @@ class Player {
 
         switch (player) {
             case 1:
-                this.startPositionWall1 = [-2, 0.3, 3];
+                this.startPositionWall1 = [6.5, 0.3, -5.2];
                 fromVector = vec3.fromValues(5.8,37,-30);
                 toVector = vec3.fromValues(7.4,-3,3.5);
                 break;
             case 2:
-                this.startPositionWall1 = [15.5, 0.3, 3];
+                this.startPositionWall1 = [6.5, 0.3, 14.2];
                 fromVector = vec3.fromValues(7.8, 34, 41);
                 toVector = vec3.fromValues(5.7,-4.2,6.1);
                 break;

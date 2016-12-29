@@ -18,33 +18,51 @@ function Button(scene, reader, player, type) {
   this.b2.setShininess(0);
   this.b2.loadTexture("img/b.jpg");
 
+  this.p1 = new CGFappearance(this.scene);
+  this.p1.setAmbient(0,0.2,1,0);
+  this.p1.setDiffuse(0,0.2,1,0);
+  this.p1.setSpecular(0,0.2,1,0);
+  this.p1.setShininess(0);
+
+  this.p2 = new CGFappearance(this.scene);
+  this.p2.setAmbient(1,0.2,0,0);
+  this.p2.setDiffuse(1,0.2,0,0);
+  this.p2.setSpecular(1,0.2,0,0);
+  this.p2.setShininess(0);
+
+
+
   switch (player) {
     case 1:
     if(type == 1){
-      this.xPos=-2;
-      this.zPos=9;
+      this.xPos=1;
+      this.zPos=-3;
       this.yPos=0.1;
       this.texture = this.b;
+      this.texturePlayer = this.p1;
     }
     else{
-      this.xPos=-4;
-      this.zPos=9;
+      this.xPos=12;
+      this.zPos=-3;
       this.yPos=0.1;
       this.texture = this.b2;
+      this.texturePlayer = this.p1;
     }
       break;
     case 2:
     if(type == 1){
-      this.xPos=15.5;
-      this.zPos=9;
+      this.xPos=1;
+      this.zPos=16;
       this.yPos=0.1;
       this.texture = this.b;
+      this.texturePlayer = this.p2;
     }
     else{
-      this.xPos=17.5;
-      this.zPos=9;
+      this.xPos=12;
+      this.zPos=16;
       this.yPos=0.1;
       this.texture = this.b2;
+      this.texturePlayer = this.p2;
     }
 
     break;
@@ -52,14 +70,9 @@ function Button(scene, reader, player, type) {
 
 }
 
-  this.material = new CGFappearance(this.scene);
-  this.material.setAmbient(1.0,1,1,1);
-  this.material.setDiffuse(1.0,1,1,1);
-  this.material.setSpecular(1.0,1,1,1);
-  this.material.setShininess(0);
-
 
   this.Button = new Cube(this.scene,this.reader,null,null);
+  this.ButtonTop= new Cube(this.scene,this.reader,null,null);
 
 };
 
@@ -69,21 +82,20 @@ Button.prototype.constructor = Button;
 Button.prototype.display = function () {
 
   this.scene.pushMatrix();
-  this.material.apply();
-   this.scene.scale(1,0.5,1);
   this.scene.translate(this.xPos,this.yPos+0.5,this.zPos);
-  this.scene.rotate(Math.PI/2,1,0,0);
+  this.scene.rotate(Math.PI,1,0,0);
+  this.scene.scale(1.2,0.7,1.2);
+  this.texturePlayer.apply();
   this.Button.display();
   this.scene.popMatrix();
 
-  // this.scene.pushMatrix();
-  // this.scene.translate(this.xPos,this.yPos+0.6 ,this.zPos);
-  //   this.scene.rotate(Math.PI/2,1,0,0);
-  //  this.scene.scale(0.8,0.01,0.8);
-  // this.texture.apply();
-  // this.b.display();
-  // this.scene.popMatrix();
-
+  this.scene.pushMatrix();
+  this.scene.translate(this.xPos,this.yPos +0.55,this.zPos);
+  this.scene.rotate(Math.PI,1,0,0);
+  this.scene.scale(1,0.2,1);
+  this.texture.apply();
+  this.ButtonTop.display();
+  this.scene.popMatrix();
 }
 
 Button.prototype.setButtonXCoord = function (x) {
