@@ -9,7 +9,7 @@ class Blockade {
 
         this.player1.moveWallsToStartPosition();
         this.player2.moveWallsToStartPosition();
-    
+
         this.board = [];
         this.getInitialBoard();
         this.pawns = [];
@@ -582,9 +582,9 @@ class Blockade {
 
     }
 
-    update(currTime) {
-        this.player1.update(currTime);
-        this.player2.update(currTime);
+    update(currTime,deltaTime) {
+        this.player1.update(deltaTime);
+        this.player2.update(deltaTime);
 
         if (this.firstTime == -1) {
             this.lastUpdateTime = currTime;
@@ -594,6 +594,7 @@ class Blockade {
         }
 
         this.currentTime = Math.round(this.currentTime).toFixed(2);
+
 
         this.getTime(this.currentTime);
     }
