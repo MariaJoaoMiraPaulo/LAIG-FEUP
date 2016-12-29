@@ -47,7 +47,7 @@ XMLscene.prototype.init = function(application) {
     this.movieArray;
     this.client = new Client();
 
-    this.table = new Obj(this,"img/table.obj");
+    // this.table = new Obj(this,"img/Lamp.obj");
 
 
 };
@@ -130,10 +130,10 @@ XMLscene.prototype.display = function() {
 
     this.setDefaultAppearance();
 
-    this.pushMatrix();
-    // this.scale(0.8,0.8,0.8);
-    this.table.display();
-    this.popMatrix();
+    // this.pushMatrix();
+    // // this.scale(0.8,0.8,0.8);
+    // this.table.display();
+    // this.popMatrix();
 
     // ---- END Background, camera and axis setup
 
