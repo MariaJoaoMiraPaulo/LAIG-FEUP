@@ -45,10 +45,15 @@ MyInterface.prototype.init = function(application) {
 				setBotVsBot: this.scene.setBotVsBot.bind(this.scene)
 		};
 
+    let setMovie = {
+        setMovie: this.scene.setMovie.bind(this.scene)
+    };
+
     this.options.add(menu, 'startGame').name('Start Game');
 		this.gameMode.add(playerVsPlayer, 'setPlayerVsPlayer').name('Player vs Player');
 		this.gameMode.add(playerVsBot, 'setPlayerVsBot').name('Player vs Bot');
 		this.gameMode.add(botVsBot, 'setBotVsBot').name('Bot vs Bot');
+    this.gameMode.add(setMovie, 'setMovie').name('Watch Movie');
     // this.options.add(this,'Exit').name('Exit');
     return true;
 };

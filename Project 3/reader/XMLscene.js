@@ -12,7 +12,8 @@ XMLscene.prototype.constructor = XMLscene;
 XMLscene.gameMode = {
     PLAYER_VS_PLAYER: 0,
     PLAYER_VS_BOT: 1,
-    BOT_VS_BOT: 2
+    BOT_VS_BOT: 2,
+    MOVIE: 3
 };
 
 /**
@@ -44,6 +45,8 @@ XMLscene.prototype.init = function(application) {
     this.setPickEnabled(true);
     this.game;
     this.client = new Client();
+
+    this.movieArray;
 
 
 };
@@ -86,6 +89,10 @@ XMLscene.prototype.setPlayerVsBot = function() {
 
 XMLscene.prototype.setBotVsBot = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.BOT_VS_BOT);
+}
+
+XMLscene.prototype.setMovie = function() {
+    this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
 }
 
 /**

@@ -28,14 +28,14 @@ function Pawn(scene, reader, player, pawnNumber) {
     this.orangeMaterial.setDiffuse(1.0, 1, 1, 1);
     this.orangeMaterial.setSpecular(1.0, 1, 1, 1);
     this.orangeMaterial.setShininess(0);
-    // this.orangeMaterial.loadTexture("img/1.jpg");
+    this.orangeMaterial.loadTexture("img/1.jpg");
 
     this.yellowMaterial = new CGFappearance(this.scene);
     this.yellowMaterial.setAmbient(1.0, 1, 1, 1);
     this.yellowMaterial.setDiffuse(1.0, 1, 1, 1);
     this.yellowMaterial.setSpecular(1.0, 1, 1, 1);
     this.yellowMaterial.setShininess(0);
-    // this.yellowMaterial.loadTexture("img/2.jpg");
+    this.yellowMaterial.loadTexture("img/2.jpg");
 
     switch (player) {
         case 1:
@@ -67,7 +67,7 @@ Pawn.prototype.display = function() {
 
     this.scene.pushMatrix();
     this.scene.translate(this.xPos, this.yPos, this.zPos);
-    this.scene.rotate(-Math.PI/2, 1, 0, 0);
+    this.scene.rotate(Math.PI/2, 1, 0, 0);
     // this.scene.scale(0.05,0.05,0.05);
     if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
         this.normalAnimation.display();
