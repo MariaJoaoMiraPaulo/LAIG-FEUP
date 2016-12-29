@@ -44,9 +44,11 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
     this.game;
+    this.scenario = new RoomScenario(this);
     this.client = new Client();
 
     this.movieArray;
+    // this.pawn = new Obj(this,"img/chess.obj");
 
     this.orangeMaterial = new CGFappearance(this);
     this.orangeMaterial.setAmbient(0.3,0.1,0,0);
@@ -62,8 +64,6 @@ XMLscene.prototype.init = function(application) {
 
     this.boardMaterial = new CGFappearance(this);
     this.boardMaterial.loadTexture("img/board.jpg");
-
-    // this.pawn = new Obj(this,"img/chess.obj");
 
 
 };
@@ -110,6 +110,10 @@ XMLscene.prototype.setBotVsBot = function() {
 
 XMLscene.prototype.setMovie = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
+}
+
+XMLscene.prototype.setScenario1 = function() {
+    this.scenario = new RoomScenario(this);
 }
 
 /**
@@ -161,6 +165,7 @@ XMLscene.prototype.display = function() {
             this.game = new Blockade(this, this.graph, XMLscene.gameMode.PLAYER_VS_PLAYER);
         }
         this.game.display();
+        this.scenario.display();
         // this.luigi.display();
     };
 

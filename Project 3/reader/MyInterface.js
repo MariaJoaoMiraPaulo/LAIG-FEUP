@@ -28,6 +28,8 @@ MyInterface.prototype.init = function(application) {
     this.options.open();
     this.gameMode = this.gui.addFolder('Game Mode');
     this.gameMode.close();
+    this.scenarios = this.gui.addFolder('Scenario');
+    this.scenarios.close();
 
     let menu = {
         startGame: this.scene.startGame.bind(this.scene)
@@ -49,11 +51,17 @@ MyInterface.prototype.init = function(application) {
         setMovie: this.scene.setMovie.bind(this.scene)
     };
 
+    let setScenario1 = {
+        setScenario1: this.scene.setScenario1.bind(this.scene)
+    };
+
+
     this.options.add(menu, 'startGame').name('Start Game');
 		this.gameMode.add(playerVsPlayer, 'setPlayerVsPlayer').name('Player vs Player');
 		this.gameMode.add(playerVsBot, 'setPlayerVsBot').name('Player vs Bot');
 		this.gameMode.add(botVsBot, 'setBotVsBot').name('Bot vs Bot');
     this.gameMode.add(setMovie, 'setMovie').name('Watch Movie');
+    this.scenarios.add(setScenario1, 'setScenario1').name('Room Scenario');
     // this.options.add(this,'Exit').name('Exit');
     return true;
 };
