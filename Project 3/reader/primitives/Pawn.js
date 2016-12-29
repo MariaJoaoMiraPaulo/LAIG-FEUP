@@ -23,24 +23,12 @@ function Pawn(scene, reader, player, pawnNumber) {
 
     this.finalAnimation = new LinearAnimation(this.scene, normalAniId, normalAniTime, normalAniControlPoints);
 
-    this.orangeMaterial = new CGFappearance(this.scene);
-    this.orangeMaterial.setAmbient(0,0.2,1, 0);
-    this.orangeMaterial.setDiffuse(0,0.2,1, 0);
-    this.orangeMaterial.setSpecular(0,0.2,1, 0);
-    this.orangeMaterial.setShininess(0);
-
-    this.yellowMaterial = new CGFappearance(this.scene);
-    this.yellowMaterial.setAmbient(1, 0.2, 0, 1);
-    this.yellowMaterial.setDiffuse(1, 0.2, 0, 1);
-    this.yellowMaterial.setSpecular(1, 0.2, 0, 1);
-    this.yellowMaterial.setShininess(0);
-
     switch (player) {
         case 1:
-            this.material = this.orangeMaterial;
+            this.material = this.scene.orangeMaterial;
             break;
         case 2:
-            this.material = this.yellowMaterial;
+            this.material = this.scene.yellowMaterial;
             break;
         default:
 
@@ -66,13 +54,6 @@ Pawn.prototype.display = function() {
     this.scene.pushMatrix();
     this.scene.translate(this.xPos, this.yPos, this.zPos);
     this.scene.rotate(-Math.PI/2, 1, 0, 0);
-    /*if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
-        this.normalAnimation.display();
-    }
-    if (this.scene.game.player == this.player && this.scene.game.chosenPawn == this.pawnNumber &&
-        this.scene.game.currentState == this.scene.game.state.PAWN_ANIMATION) {
-          this.finalAnimation.display();
-        }*/
     this.scene.scale(0.03,0.03,0.03);
     this.material.apply();
     this.pawn.display();

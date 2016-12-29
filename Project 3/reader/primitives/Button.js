@@ -39,14 +39,14 @@ function Button(scene, reader, player, type) {
       this.zPos=-3;
       this.yPos=0.1;
       this.texture = this.b;
-      this.texturePlayer = this.p1;
+      this.texturePlayer = this.scene.orangeMaterial;
     }
     else{
       this.xPos=12;
       this.zPos=-3;
       this.yPos=0.1;
       this.texture = this.b2;
-      this.texturePlayer = this.p1;
+      this.texturePlayer = this.scene.orangeMaterial;
     }
       break;
     case 2:
@@ -55,14 +55,14 @@ function Button(scene, reader, player, type) {
       this.zPos=16;
       this.yPos=0.1;
       this.texture = this.b;
-      this.texturePlayer = this.p2;
+      this.texturePlayer = this.scene.yellowMaterial;
     }
     else{
       this.xPos=12;
       this.zPos=16;
       this.yPos=0.1;
       this.texture = this.b2;
-      this.texturePlayer = this.p2;
+      this.texturePlayer = this.scene.yellowMaterial;
     }
 
     break;
