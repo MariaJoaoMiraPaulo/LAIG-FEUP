@@ -9,8 +9,7 @@ class Blockade {
 
         this.player1.moveWallsToStartPosition();
         this.player2.moveWallsToStartPosition();
-        console.log(this.player1.playerCamera);
-        console.log(this.player2.playerCamera);
+    
         this.board = [];
         this.getInitialBoard();
         this.pawns = [];
