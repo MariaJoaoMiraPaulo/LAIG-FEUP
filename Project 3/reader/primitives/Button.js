@@ -37,18 +37,9 @@ function Button(scene, reader, player, type) {
       this.yPos=0;
       this.texturePlayer = this.scene.yellowMaterial;
     }
-
     break;
     default:
-
 }
-
-
-  // this.Button = new Cube(this.scene,this.reader,null,null);
-
-
-  //this.ButtonTop = new Obj(this.scene,"img/arrow2.obj");
-  // this.ButtonTop= new Cube(this.scene,this.reader,null,null);
 
 };
 
@@ -56,16 +47,6 @@ Button.prototype = Object.create(CGFobject.prototype);
 Button.prototype.constructor = Button;
 
 Button.prototype.display = function () {
-
-  // this.scene.pushMatrix();
-  // this.scene.translate(this.xPos,this.yPos,this.zPos);
-  // if(this.type == 2)
-  //   this.scene.rotate(Math.PI/2,1,0,0);
-  // else this.scene.rotate(Math.PI/2,1,1,0);
-  // this.scene.scale(2,2,0.2);
-  // this.texturePlayer.apply();
-  // //this.Button.display();
-  // this.scene.popMatrix();
 
   this.scene.pushMatrix();
   this.scene.translate(this.xPos,this.yPos,this.zPos+0.7);
@@ -85,13 +66,6 @@ Button.prototype.display = function () {
   this.ButtonTop.display();
   this.scene.popMatrix();
 
-  // this.scene.pushMatrix();
-  // this.scene.translate(this.xPos,this.yPos +0.55,this.zPos);
-  // this.scene.rotate(Math.PI,1,0,0);
-  // this.scene.scale(1,0.2,1);
-  // this.texture.apply();
-  // this.ButtonTop.display();
-  // this.scene.popMatrix();
 }
 
 Button.prototype.setButtonXCoord = function (x) {
