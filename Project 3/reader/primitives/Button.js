@@ -4,64 +4,37 @@ function Button(scene, reader, player, type) {
   this.player = player;
   this.type = type;
 
-  this.b = new CGFappearance(this.scene);
-  this.b.setAmbient(1.0,1,1,1);
-  this.b.setDiffuse(1.0,1,1,1);
-  this.b.setSpecular(1.0,1,1,1);
-  this.b.setShininess(0);
-  this.b.loadTexture("img/b.jpg");
+  //type 1 -stepOver
+  //type 2 - Back
 
-  this.b2 = new CGFappearance(this.scene);
-  this.b2.setAmbient(1.0,1,1,1);
-  this.b2.setDiffuse(1.0,1,1,1);
-  this.b2.setSpecular(1.0,1,1,1);
-  this.b2.setShininess(0);
-  this.b2.loadTexture("img/b.jpg");
-
-  this.p1 = new CGFappearance(this.scene);
-  this.p1.setAmbient(0,0.2,1,0);
-  this.p1.setDiffuse(0,0.2,1,0);
-  this.p1.setSpecular(0,0.2,1,0);
-  this.p1.setShininess(0);
-
-  this.p2 = new CGFappearance(this.scene);
-  this.p2.setAmbient(1,0.2,0,0);
-  this.p2.setDiffuse(1,0.2,0,0);
-  this.p2.setSpecular(1,0.2,0,0);
-  this.p2.setShininess(0);
-
-
+  this.ButtonTop = new Obj(this.scene,"img/arrow1.obj");
 
   switch (player) {
     case 1:
     if(type == 1){
       this.xPos=1;
-      this.zPos=-3;
-      this.yPos=0.1;
-      this.texture = this.b;
+      this.zPos=-5;
+      this.yPos=0;
       this.texturePlayer = this.scene.orangeMaterial;
     }
     else{
       this.xPos=12;
-      this.zPos=-3;
-      this.yPos=0.1;
-      this.texture = this.b2;
+      this.zPos=-5;
+      this.yPos=0;
       this.texturePlayer = this.scene.orangeMaterial;
     }
       break;
     case 2:
     if(type == 1){
-      this.xPos=1;
-      this.zPos=16;
-      this.yPos=0.1;
-      this.texture = this.b;
+      this.xPos=12;
+      this.zPos=15;
+      this.yPos=0;
       this.texturePlayer = this.scene.yellowMaterial;
     }
     else{
-      this.xPos=12;
-      this.zPos=16;
-      this.yPos=0.1;
-      this.texture = this.b2;
+      this.xPos=1;
+      this.zPos=15;
+      this.yPos=0;
       this.texturePlayer = this.scene.yellowMaterial;
     }
 
@@ -71,8 +44,11 @@ function Button(scene, reader, player, type) {
 }
 
 
-  this.Button = new Cube(this.scene,this.reader,null,null);
-  this.ButtonTop= new Cube(this.scene,this.reader,null,null);
+  // this.Button = new Cube(this.scene,this.reader,null,null);
+
+
+  //this.ButtonTop = new Obj(this.scene,"img/arrow2.obj");
+  // this.ButtonTop= new Cube(this.scene,this.reader,null,null);
 
 };
 
@@ -81,21 +57,41 @@ Button.prototype.constructor = Button;
 
 Button.prototype.display = function () {
 
-  this.scene.pushMatrix();
-  this.scene.translate(this.xPos,this.yPos+0.5,this.zPos);
-  this.scene.rotate(Math.PI,1,0,0);
-  this.scene.scale(1.2,0.7,1.2);
-  this.texturePlayer.apply();
-  this.Button.display();
-  this.scene.popMatrix();
+  // this.scene.pushMatrix();
+  // this.scene.translate(this.xPos,this.yPos,this.zPos);
+  // if(this.type == 2)
+  //   this.scene.rotate(Math.PI/2,1,0,0);
+  // else this.scene.rotate(Math.PI/2,1,1,0);
+  // this.scene.scale(2,2,0.2);
+  // this.texturePlayer.apply();
+  // //this.Button.display();
+  // this.scene.popMatrix();
 
   this.scene.pushMatrix();
-  this.scene.translate(this.xPos,this.yPos +0.55,this.zPos);
-  this.scene.rotate(Math.PI,1,0,0);
-  this.scene.scale(1,0.2,1);
-  this.texture.apply();
+  this.scene.translate(this.xPos,this.yPos,this.zPos+0.7);
+  if(this.type == 2 && this.player == 1)
+    this.scene.rotate(Math.PI/2,1,0,0);
+  else if(this.type == 1 && this.player == 1){
+     this.scene.rotate(Math.PI/2,1,0,0);
+     this.scene.rotate(-Math.PI,0,0,1);
+  }
+  else if(this.type == 2 && this.player == 2){
+    this.scene.rotate(Math.PI/2,1,0,0);
+     this.scene.rotate(-Math.PI,0,0,0);
+  }
+  else this.scene.rotate(Math.PI/2,1,0,0);
+
+  this.scene.scale(0.03,0.03,0.05);
   this.ButtonTop.display();
   this.scene.popMatrix();
+
+  // this.scene.pushMatrix();
+  // this.scene.translate(this.xPos,this.yPos +0.55,this.zPos);
+  // this.scene.rotate(Math.PI,1,0,0);
+  // this.scene.scale(1,0.2,1);
+  // this.texture.apply();
+  // this.ButtonTop.display();
+  // this.scene.popMatrix();
 }
 
 Button.prototype.setButtonXCoord = function (x) {

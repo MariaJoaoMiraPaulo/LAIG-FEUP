@@ -60,6 +60,9 @@ XMLscene.prototype.init = function(application) {
     this.yellowMaterial.setSpecular(0.6,0.3,0,0);
     this.yellowMaterial.setShininess(0);
 
+    this.boardMaterial = new CGFappearance(this);
+    this.boardMaterial.loadTexture("img/board.jpg");
+
     // this.pawn = new Obj(this,"img/chess.obj");
 
 
