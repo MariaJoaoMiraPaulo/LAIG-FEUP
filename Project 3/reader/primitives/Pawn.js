@@ -7,8 +7,9 @@ function Pawn(scene, reader, player, pawnNumber) {
     this.yPos = 0;
     this.pawnNumber = pawnNumber;
 
-    let point1 = vec3.fromValues(0, 0, 1);
+    let point1 = vec3.fromValues(0,0,0);
     let point2 = vec3.fromValues(0,0,0.5);
+    let point3 = vec3.fromValues(0,0,0);
     let normalAniTime = 0.7;
     let normalAniControlPoints = [point1, point2];
     let normalAniId = 10;
@@ -66,10 +67,10 @@ Pawn.prototype.display = function() {
     this.scene.pushMatrix();
     this.scene.translate(this.xPos, this.yPos, this.zPos);
     this.scene.rotate(-Math.PI/2, 1, 0, 0);
-    /*if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
+    if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
         this.normalAnimation.display();
     }
-    if (this.scene.game.player == this.player && this.scene.game.chosenPawn == this.pawnNumber &&
+    /*if (this.scene.game.player == this.player && this.scene.game.chosenPawn == this.pawnNumber &&
         this.scene.game.currentState == this.scene.game.state.PAWN_ANIMATION) {
           this.finalAnimation.display();
         }*/
