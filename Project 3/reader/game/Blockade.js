@@ -66,8 +66,9 @@ class Blockade {
         if (this.gameMode != XMLscene.gameMode.MOVIE) {
             this.scene.movieArray = [];
         } else {
-            console.log('entrei');
-            this.currentState = this.state.INVALID_GAME;
+            if(this.scene.movieArray.length == 0){
+                  this.currentState = this.state.INVALID_GAME;
+            }
         }
     }
 
@@ -229,10 +230,10 @@ class Blockade {
 
         if (this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER) {
             if (this.player == 1) {
-                this.scene.camera = this.player1.playerCamera;
+                this.scene.camera = this.player1.initCamera();
                 this.scene.interface.setActiveCamera(this.scene.camera);
             } else if (this.player == 2) {
-                this.scene.camera = this.player2.playerCamera;
+                this.scene.camera = this.player2.initCamera();
                 this.scene.interface.setActiveCamera(this.scene.camera);
             }
         }

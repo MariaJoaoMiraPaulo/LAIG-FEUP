@@ -23,26 +23,30 @@ class Player {
         for (var i = 0; i < this.numberWalls; i++)
             this.walls[i] = new Wall(this.scene, this.reader, this.player, i);
 
-        let angle = 0.4;
-        let near = 0.1;
-        let far = 500;
-        let fromVector;
-        let toVector;
+        this.angle = 0.4;
+        this.near = 0.1;
+        this.far = 500;
+        this.fromVector;
+        this.toVector;
 
         switch (player) {
             case 1:
                 this.startPositionWall1 = [6.5, 0.3, -5.2];
-                fromVector = vec3.fromValues(5.8,37,-30);
-                toVector = vec3.fromValues(7.4,-3,3.5);
+                this.fromVector = vec3.fromValues(5.8,37,-30);
+                this.toVector = vec3.fromValues(7.4,-3,3.5);
                 break;
             case 2:
                 this.startPositionWall1 = [6.5, 0.3, 14.2];
-                fromVector = vec3.fromValues(7.8, 34, 41);
-                toVector = vec3.fromValues(5.7,-4.2,6.1);
+                this.fromVector = vec3.fromValues(7.8, 34, 41);
+                this.toVector = vec3.fromValues(5.7,-4.2,6.1);
                 break;
         }
 
-        this.playerCamera = new CGFcamera(angle, near, far, fromVector, toVector);
+        this.playerCamera = this.initCamera();
+    }
+
+    initCamera(){
+      return new CGFcamera(this.angle, this.near, this.far, this.fromVector, this.toVector);
     }
 
     getWallNumber(number) {
