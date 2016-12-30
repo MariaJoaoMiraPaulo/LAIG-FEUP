@@ -95,6 +95,7 @@
 
     <textures>
         <texture id="board" file="img/board.jpg" length_s="1" length_t="1"/>
+        <texture id="casino" file="img/casino.jpg" length_s="1" length_t="1"/>
         <texture id="base" file="img/base.jpg" length_s="1" length_t="1"/>
         <texture id="table" file="img/table.jpg" length_s="1" length_t="1"/>
         <texture id="chair" file="img/chair.jpg" length_s="1" length_t="1"/>
@@ -297,21 +298,6 @@
                  <primitiveref id="cube" />
             </children>
 
-        </component>
-
-        <component id="table">
-            <transformation>
-                <scale x="25" y="5" z="20"/>
-                <rotate axis="x" angle="90"/>
-                <translate x="0.25" y="0.3" z="0"/>
-            </transformation>
-            <materials>
-                <material id="white"/>
-            </materials>
-            <texture id="table"/>
-            <children>
-                <primitiveref id="rectangle"/>
-            </children>
         </component>
 
         <component id="tableWood">
