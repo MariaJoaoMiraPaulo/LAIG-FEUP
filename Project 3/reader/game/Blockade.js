@@ -83,7 +83,8 @@ class Blockade {
             GET_MOVIE_PLAY_WALL: 22,
             END_MOVIE: 23,
             INVALID_GAME: 24,
-            CAMERA_ANIMATION: 25
+            CAMERA_ANIMATION: 25,
+            CONNECTION_ERROR: 26
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -143,6 +144,9 @@ class Blockade {
             case this.state.INVALID_GAME:
                 return "Invalid Movie, Start a new game";
                 break;
+            case this.state.CONNECTION_ERROR:
+                return "Connection error!!!!";
+                break;
             default:
                 return " "
                 break;
@@ -158,6 +162,8 @@ class Blockade {
             if (this_t.currentState != this_t.state.INVALID_GAME) {
                 this_t.currentState = this_t.state.INITIALIZE_BOARD;
             }
+        },function(data){
+          this_t.currentState = this_t.state.CONNECTION_ERROR;
         });
     }
 
@@ -481,7 +487,7 @@ class Blockade {
                 break;
             case this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION:
                 this.currentState = this.state.WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION;
-                this.getBotPawnAndDirection();
+                this.getBotPawnAndDirection(this.scene.botDifficulty);
                 break;
             case this.state.BOT_GET_NEW_BOARD:
                 this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD;
@@ -632,6 +638,8 @@ class Blockade {
                 }
             }
             this_t.currentState = this_t.state.PAWN_ANIMATION;
+        },function(data){
+          this_t.currentState = this_t.state.CONNECTION_ERROR;
         });
     }
 
@@ -651,20 +659,38 @@ class Blockade {
                 this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_NEW_WALLS;
 
                 this_t.wallPicked = true;
+            },function(data){
+              this_t.currentState = this_t.state.CONNECTION_ERROR;
             });
     }
 
-    getBotPawnAndDirection() {
+    getBotPawnAndDirection(difficulty) {
         var this_t = this;
 
-        this.scene.client.getPrologRequest("bot_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
-            //     JSON.parse(data.target.response);
-            var info = JSON.parse(data.target.response);
-            this_t.chosenPawn = info[0];
-            this_t.currentPawnDirection = info[1];
-            this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
+        if(difficulty == XMLscene.botDifficulty.EASY){
+          this.scene.client.getPrologRequest("bot_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
+              //     JSON.parse(data.target.response);
+              var info = JSON.parse(data.target.response);
+              this_t.chosenPawn = info[0];
+              this_t.currentPawnDirection = info[1];
+              this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
 
-        });
+          },function(data){
+            this_t.currentState = this_t.state.CONNECTION_ERROR;
+          });
+        }
+        else if(difficulty == XMLscene.botDifficulty.HARD){
+          this.scene.client.getPrologRequest("bot_hard_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
+              //     JSON.parse(data.target.response);
+              var info = JSON.parse(data.target.response);
+              this_t.chosenPawn = info[0];
+              this_t.currentPawnDirection = info[1];
+              this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
+
+          },function(data){
+            this_t.currentState = this_t.state.CONNECTION_ERROR;
+          });
+        }
     }
 
     doesBotWantToPutWalls() {
@@ -675,6 +701,8 @@ class Blockade {
 
             //TODO Adicionar o if
             this_t.currentState = this_t.state.BOT_GET_NEW_WALLS_BOARD;
+        },function(data){
+          this_t.currentState = this_t.state.CONNECTION_ERROR;
         });
     }
 
@@ -721,8 +749,8 @@ class Blockade {
                 this_t.currentState = this_t.state.SELECTING_PAWN;
             }
 
-        }, function() {
-            console.log('Erro!');
+        },function(data){
+          this_t.currentState = this_t.state.CONNECTION_ERROR;
         });
     }
 

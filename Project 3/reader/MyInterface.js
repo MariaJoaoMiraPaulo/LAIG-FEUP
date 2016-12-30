@@ -28,6 +28,8 @@ MyInterface.prototype.init = function(application) {
     this.options.open();
     this.gameMode = this.gui.addFolder('Game Mode');
     this.gameMode.close();
+    this.botDifficulty = this.gui.addFolder('Bot difficulty');
+    this.botDifficulty.close();
     this.scenarios = this.gui.addFolder('Scenario');
     this.scenarios.close();
 
@@ -64,6 +66,13 @@ MyInterface.prototype.init = function(application) {
         undo: this.scene.undo.bind(this.scene)
     };
 
+    let setBotToDifficulty = {
+      setBotToDifficulty: this.scene.setBotToDifficulty.bind(this.scene)
+    };
+
+    let setBotToEasy = {
+      setBotToEasy: this.scene.setBotToEasy.bind(this.scene)
+    };
 
     this.gui.add(this.scene, 'Speed', 0.1, 2.0);
     this.options.add(menu, 'startGame').name('Start Game');
@@ -72,6 +81,8 @@ MyInterface.prototype.init = function(application) {
 		this.gameMode.add(playerVsBot, 'setPlayerVsBot').name('Player vs Bot');
 		this.gameMode.add(botVsBot, 'setBotVsBot').name('Bot vs Bot');
     this.gameMode.add(setMovie, 'setMovie').name('Watch Movie');
+    this.botDifficulty.add(setBotToDifficulty, 'setBotToDifficulty').name('Advanced ');
+    this.botDifficulty.add(setBotToEasy, 'setBotToEasy').name('Easy');
     this.scenarios.add(setScenario1, 'setScenario1').name('Casino');
     this.scenarios.add(setScenario2, 'setScenario2').name('Room');
     // this.options.add(this,'Exit').name('Exit');

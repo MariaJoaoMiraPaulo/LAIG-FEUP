@@ -16,6 +16,11 @@ XMLscene.gameMode = {
     MOVIE: 3
 };
 
+XMLscene.botDifficulty = {
+  EASY: 0,
+  HARD: 1
+}
+
 /**
  * XMLScene init
  * @param {CGFapplication} application
@@ -46,6 +51,7 @@ XMLscene.prototype.init = function(application) {
     this.game;
     this.scenario = new Casino(this);
     this.client = new Client();
+    this.botDifficulty = XMLscene.botDifficulty.EASY;
 
     this.movieArray;
 
@@ -139,6 +145,20 @@ XMLscene.prototype.updateLights = function() {
         this.lights[i].update();
     }
 };
+
+/**
+* Updates bot difficulty to hard
+*/
+XMLscene.prototype.setBotToDifficulty = function() {
+  this.botDifficulty = XMLscene.botDifficulty.HARD;
+}
+
+/**
+* Updates bot difficulty to easy
+*/
+XMLscene.prototype.setBotToEasy = function() {
+  this.botDifficulty = XMLscene.botDifficulty.EASY;
+}
 
 /**
  * Displays both the graph and axis and updates lights
@@ -260,25 +280,6 @@ XMLscene.prototype.update = function(currTime) {
     }
 }
 
-// XMLscene.prototype.verifyGameStart = function(){
-//
-//   var count = 0;
-//
-//   for (component in this.graph.components) {
-//       if (this.graph.components[component].id == 'board' ||
-//           this.graph.components[component].id == 'p11' ||
-//           this.graph.components[component].id == 'p12' ||
-//           this.graph.components[component].id == 'p21' ||
-//           this.graph.components[component].id == 'p22')
-//         count++;
-//   }
-//
-//   if(count==5)
-//     console.log("You are ready to play!!");
-//   else this.graph.onXMLError("You are not ready to play :( ! You must have 4 pawns and one board.)");
-//
-// }
-
 XMLscene.prototype.logPicking = function() {
 
     if (this.pickMode == false) {
@@ -286,21 +287,7 @@ XMLscene.prototype.logPicking = function() {
             for (var i = 0; i < this.pickResults.length; i++) {
                 var obj = this.pickResults[i][0];
                 if (obj) {
-                    //console.log(obj);
                     obj.scene.game.pickingHandler(obj);
-                    // console.log("X: " + obj.getPosX());
-                    // console.log("Y: " + obj.getPosY());
-
-                    // if (obj.getPosX() == 0 && obj.getPosY() == 0) {
-                    //     this.client.getPrologRequest('quit', function(data) {
-                    //         console.log('boas');
-                    //     });
-                    // } else {
-                    //     //  client.getPrologRequest("send_initial_board("+JSON.stringify(a)+")", function(data) {
-                    //     this.client.getPrologRequest('initial_board', function(data) {
-                    //         console.log(JSON.parse(data.target.response));
-                    //     });
-                    // }
                 }
             }
             this.pickResults.splice(0, this.pickResults.length);

@@ -111,40 +111,40 @@ randomWallPosition(Xlimit,Ylimit,WallX,WallY):-
 preparingForRandomDirection([L1|LS],1,Pawn,Direction):-  %(player,pawn)
 	input(1,Pawn,PawnName),
 	returnPosition(PawnName,[L1|LS],1,1,X,Y),
-	distanceTo(X,Y,7,21,Distance1),
-	distanceTo(X,Y,15,21,Distance2),
+	distanceTo(X,Y,5,13,Distance1),
+	distanceTo(X,Y,15,13,Distance2),
 	Distance1>=Distance2->
 		(
 			%write('Vou para o 15 21'),nl,
 			input(1,Pawn,PawnName),
 			returnPosition(PawnName,[L1|LS],1,1,X,Y),
-			choosingQuadrant(X,Y,15,21,Quadrant)
+			choosingQuadrant(X,Y,15,13,Quadrant)
 		);
 		(
 			%write('Vou para o 7 21'),nl,
 			input(1,Pawn,PawnName),
 			returnPosition(PawnName,[L1|LS],1,1,X,Y),
-			choosingQuadrant(X,Y,7,21,Quadrant)
+			choosingQuadrant(X,Y,5,13,Quadrant)
 		),
 		randomDirectionNewDifficulty(Quadrant,Direction).
 
 preparingForRandomDirection([L1|LS],2,Pawn,Direction):-  %(player,pawn)
 	input(2,Pawn,PawnName),
 	returnPosition(PawnName,[L1|LS],1,1,X,Y),
-	distanceTo(X,Y,7,7,Distance1),
-	distanceTo(X,Y,15,7,Distance2),
+	distanceTo(X,Y,5,5,Distance1),
+	distanceTo(X,Y,15,5,Distance2),
 	Distance1>=Distance2->
 	(
 		%write('Vou para o 15 7'),nl,
 		input(2,Pawn,PawnName),
 		returnPosition(PawnName,[L1|LS],1,1,X,Y),
-	 	choosingQuadrant(X,Y,15,7,Quadrant)
+	 	choosingQuadrant(X,Y,15,5,Quadrant)
 	);
 	(
 	 %write('Vou para o 7 7'),nl,
 	 input(2,Pawn,PawnName),
 	 returnPosition(PawnName,[L1|LS],1,1,X,Y),
-	choosingQuadrant(X,Y,7,7,Quadrant)
+	choosingQuadrant(X,Y,5,5,Quadrant)
 	),
 	randomDirectionNewDifficulty(Quadrant,Direction),write(Direction),nl.
 

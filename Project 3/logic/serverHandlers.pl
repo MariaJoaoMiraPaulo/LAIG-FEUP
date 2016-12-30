@@ -45,6 +45,11 @@ parse_input(bot_pawn_and_direction(Board,Player),[Pawn,Direction]):-
 	return_direction_and_pawn(B,Player,Pawn,D),
 	direction_to_string(D,Direction).
 
+	parse_input(bot_hard_pawn_and_direction(Board,Player),[Pawn,Direction]):-
+		boardToNumbers(B,Board),
+		return_direction_and_pawn_hard_bot(B,Player,Pawn,D),
+		direction_to_string(D,Direction).
+
 parse_input(want_walls,Response):-
 	random(0,2,Response).
 
@@ -86,6 +91,15 @@ return_direction_and_pawn(Board,Player,Pawn,Direction):-
 
 return_direction_and_pawn(Board,Player,Pawn,Direction):-
 	return_direction_and_pawn(Board,Player,Pawn,Direction).
+
+	return_direction_and_pawn_hard_bot(Board,Player,Pawn,Direction):-
+		randomPawn(Pawn),
+		preparingForRandomDirection(Board,Player,Pawn,Direction),
+		transformToCoordinates(Board,Player,Pawn,Direction,Xi,Yi,Xf,Yf,_PawnName),
+		isAvalidMove(Board,Xi,Yi,Xf,Yf,Direction,19,17).
+
+	return_direction_and_pawn_hard_bot(Board,Player,Pawn,Direction):-
+		return_direction_and_pawn_hard_bot(Board,Player,Pawn,Direction).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
