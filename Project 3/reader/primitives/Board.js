@@ -205,7 +205,6 @@ Board.prototype.display = function () {
 
 Board.prototype.validatePosition = function(arrayPos){
   this.currentPawnOnGamePosition = arrayPos.slice(0);
-  console.log(this.currentPawnOnGamePosition);
 }
 
 Board.prototype.possibleMove = function(arrayPos){
@@ -275,7 +274,7 @@ Board.prototype.possibleMove = function(arrayPos){
 Board.prototype.possibleWall = function(arrayPos){
 
   for(var i=0;i<this.scene.game.currentWalls.length;i++){
-    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){ 
+    if(this.arraysAreIdentical(this.scene.game.currentWalls[i],arrayPos)){
       return false;
     }
   }

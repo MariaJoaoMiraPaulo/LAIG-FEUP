@@ -59,7 +59,8 @@ class Blockade {
             GET_MOVIE_PLAY_PAWN: 21,
             GET_MOVIE_PLAY_WALL: 22,
             END_MOVIE: 23,
-            INVALID_GAME: 24
+            INVALID_GAME: 24,
+            CAMERA_ANIMATION: 25
         };
         this.currentState = this.state.WAITING_FOR_START;
 
@@ -195,11 +196,27 @@ class Blockade {
                 this.getAllPawnPositions();
                 break;
             case this.state.UPDATE_BOARD_WITH_SERVER_NEW_WALLS:
-                this.changeTurn();
+                //this.changeTurn();
                 this.getAllBoardWalls();
+                if(this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER){
+                  this.currentState = this.state.CAMERA_ANIMATION;
+                  this.initCameraAnimation();
+                }
+                else {
+                  this.changeTurn();
+                }
                 break;
 
         }
+    }
+
+    initCameraAnimation(){
+      if(this.player == 1){
+          this.cameraAnimation = new CameraAnimation(this.scene,2,this.player1.playerCamera,this.player2.playerCamera);
+      }
+      else {
+        this.cameraAnimation = new CameraAnimation(this.scene,2,this.player2.playerCamera,this.player1.playerCamera);
+      }
     }
 
     changeTurn() {
@@ -213,7 +230,6 @@ class Blockade {
                 this.currentState = this.state.GET_MOVIE_PLAY_PAWN;
             }
         } else this.currentState = this.state.SELECTING_PAWN;
-
 
 
         if (this.gameMode != XMLscene.gameMode.MOVIE) {
@@ -496,7 +512,13 @@ class Blockade {
             this.currentState = this.state.SELECTING_FIRST_WALL_POSITION;
 
         } else if (obj instanceof Button) {
+          if(this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER){
+            this.currentState = this.state.CAMERA_ANIMATION;
+            this.initCameraAnimation();
+          }
+          else {
             this.changeTurn();
+          }
         }
     }
 
@@ -697,6 +719,8 @@ class Blockade {
     }
 
     update(currTime, deltaTime) {
+
+      if(this.currentState != this.state.CAMERA_ANIMATION){
         this.player1.update(deltaTime);
         this.player2.update(deltaTime);
 
@@ -711,6 +735,13 @@ class Blockade {
 
 
         this.getTime(this.currentTime);
+      }
+      else {
+        this.cameraAnimation.update(deltaTime);
+        if(this.cameraAnimation.over){
+          this.changeTurn();
+        }
+      }
     }
 
     getTime(secs) {
