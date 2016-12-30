@@ -9,6 +9,9 @@ function XMLscene() {
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
+/**
+* Game Modes
+*/
 XMLscene.gameMode = {
     PLAYER_VS_PLAYER: 0,
     PLAYER_VS_BOT: 1,
@@ -16,11 +19,13 @@ XMLscene.gameMode = {
     MOVIE: 3
 };
 
+/**
+* Bot game Mode different types of difficulty
+*/
 XMLscene.botDifficulty = {
   EASY: 0,
   HARD: 1
 }
-
 /**
  * XMLScene init
  * @param {CGFapplication} application
@@ -84,39 +89,63 @@ XMLscene.prototype.onGraphLoaded = function() {
     this.interface.setActiveCamera(this.camera);
 };
 
+/**
+* Starts a game
+*/
 XMLscene.prototype.startGame = function() {
     //this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
   //  this.game.currentState = this.game.state.INITIALIZE_BOARD;
   this.game.getInitialBoard(1);
 };
 
+/**
+* Continues a game
+*/
 XMLscene.prototype.continueGame = function() {
   if(this.game.gameMode == XMLscene.gameMode.MOVIE){
     this.game = this.oldGame;
   }
 }
 
+/**
+* Turns off prolog server
+*/
 XMLscene.prototype.turnOffPrologServer = function() {
   this.game.quitServer();
 }
 
+/**
+* Calls the blockade game player vs player mode
+*/
 XMLscene.prototype.setPlayerVsPlayer = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
 }
 
+/**
+* Calls the blockade game player vs bot mode
+*/
 XMLscene.prototype.setPlayerVsBot = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_BOT);
 }
 
+/**
+* Calls the blockade game bot vs bot mode
+*/
 XMLscene.prototype.setBotVsBot = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.BOT_VS_BOT);
 }
 
+/**
+* Calls the blockade game movie
+*/
 XMLscene.prototype.setMovie = function() {
     this.oldGame = this.game;
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
 }
 
+/**
+* Undos a play
+*/
 XMLscene.prototype.undo = function() {
     if(this.game.player == 1){
       var button = new Button(this, this.reader, 1, 2);
@@ -129,6 +158,9 @@ XMLscene.prototype.undo = function() {
 
 }
 
+/**
+* Sets First Scenario - Casino
+*/
 XMLscene.prototype.setScenario1 = function() {
     this.scenario = new Casino(this);
     this.game.player1.setPawnMaterial();
@@ -138,6 +170,9 @@ XMLscene.prototype.setScenario1 = function() {
     this.game.setStartPositionMaterial();
 }
 
+/**
+* Sets second Scenario - Room
+*/
 XMLscene.prototype.setScenario2 = function() {
     this.scenario = new Room(this);
     this.game.player1.setPawnMaterial();
