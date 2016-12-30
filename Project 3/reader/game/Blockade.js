@@ -99,14 +99,14 @@ class Blockade {
         this.scene.interface.setActiveCamera(this.scene.camera);
     }
 
-    setSpeed(speed) {
-        this.animationsSpeed = speed;
-        this.player1.pawn1.setAnimationsSpeed(this.animationsSpeed);
-        this.player1.pawn2.setAnimationsSpeed(this.animationsSpeed);
-        this.player2.pawn1.setAnimationsSpeed(this.animationsSpeed);
-        this.player2.pawn2.setAnimationsSpeed(this.animationsSpeed);
-        console.log(this.animationsSpeed);
-    }
+    // setSpeed(speed) {
+    //     this.animationsSpeed = speed;
+    //     this.player1.pawn1.setAnimationsSpeed(this.animationsSpeed);
+    //     this.player1.pawn2.setAnimationsSpeed(this.animationsSpeed);
+    //     this.player2.pawn1.setAnimationsSpeed(this.animationsSpeed);
+    //     this.player2.pawn2.setAnimationsSpeed(this.animationsSpeed);
+    //     console.log(this.animationsSpeed);
+    // }
 
     setStartPositionMaterial() {
         this.materialp1 = this.scene.scenario.player1Material;

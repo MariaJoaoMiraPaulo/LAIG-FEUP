@@ -178,7 +178,7 @@ XMLscene.prototype.display = function() {
         }
         this.game.display();
         this.scenario.display();
-        this.game.setSpeed(this.Speed);
+      //  this.game.setSpeed(this.Speed);
         // this.luigi.display();
     };
 
@@ -186,6 +186,10 @@ XMLscene.prototype.display = function() {
         document.getElementById('information').innerText = this.game.getGameStateInstruction();
         document.getElementById('player').innerText = 'Player ' + (this.game.player);
         document.getElementById('time').innerText = (this.game.hours) + ' : ' + this.game.minutes + " : " + this.game.seconds;
+        if(this.player == 1)
+          var p = this.game.player1.score;
+        else var p = this.game.player2.score;
+        document.getElementById('pontuacao').innerText = "  Score:  " + p;
         // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
     }
 

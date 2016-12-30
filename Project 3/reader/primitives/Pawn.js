@@ -132,28 +132,28 @@ Pawn.prototype.setFinalAnimation = function(direction){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(0, -this.xOrZdistance, this.yDistance);
     point3 =vec3.fromValues(0, -2*this.xOrZdistance, 0)
-    finalAniTime = this.animationTime1;
+    finalAniTime = this.animationTime1/ this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3];
   }
   else if(direction == "t1"){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(0, this.xOrZdistance, this.yDistance);
     point3 =vec3.fromValues(0, 2*this.xOrZdistance, 0)
-    finalAniTime = this.animationTime1;
+    finalAniTime = this.animationTime1/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3];
   }
   else if(direction == "r1"){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(this.xOrZdistance, 0, this.yDistance);
     point3 =vec3.fromValues(2*this.xOrZdistance, 0, 0)
-    finalAniTime = this.animationTime1;
+    finalAniTime = this.animationTime1/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3];
   }
   else if(direction == "l1"){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(-this.xOrZdistance, 0, this.yDistance);
     point3 =vec3.fromValues(-2*this.xOrZdistance, 0, 0)
-    finalAniTime = this.animationTime1;
+    finalAniTime = this.animationTime1/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3];
   }
   else if(direction == "b2"){
@@ -162,7 +162,7 @@ Pawn.prototype.setFinalAnimation = function(direction){
     point3 =vec3.fromValues(0, -2*this.xOrZdistance2, 0)
     point4 = vec3.fromValues(0, -3*this.xOrZdistance2, this.yDistance);
     point5 = vec3.fromValues(0, -4*this.xOrZdistance2, 0);
-    finalAniTime = this.animationTime2;
+    finalAniTime = this.animationTime2/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3,point4,point5];
   }
   else if(direction == "t2"){
@@ -171,7 +171,7 @@ Pawn.prototype.setFinalAnimation = function(direction){
     point3 =vec3.fromValues(0, 2*this.xOrZdistance2, 0)
     point4 = vec3.fromValues(0, 3*this.xOrZdistance2, this.yDistance);
     point5 = vec3.fromValues(0, 4*this.xOrZdistance2, 0);
-    finalAniTime = this.animationTime2;
+    finalAniTime = this.animationTime2/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3,point4,point5];
   }
   else if(direction == "r2"){
@@ -180,7 +180,7 @@ Pawn.prototype.setFinalAnimation = function(direction){
     point3 =vec3.fromValues(2*this.xOrZdistance2,0, 0)
     point4 = vec3.fromValues(3*this.xOrZdistance2,0, this.yDistance);
     point5 = vec3.fromValues(4*this.xOrZdistance2,0, 0);
-    finalAniTime = this.animationTime2;
+    finalAniTime = this.animationTime2/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3,point4,point5];
   }
   else if(direction == "l2"){
@@ -189,35 +189,35 @@ Pawn.prototype.setFinalAnimation = function(direction){
     point3 =vec3.fromValues(-2*this.xOrZdistance2,0, 0)
     point4 = vec3.fromValues(-3*this.xOrZdistance2,0, this.yDistance);
     point5 = vec3.fromValues(-4*this.xOrZdistance2,0, 0);
-    finalAniTime = this.animationTime2;
+    finalAniTime = this.animationTime2/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3,point4,point5];
   }
   else if(direction == "dbr"){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(this.xOrZdistance3,-this.xOrZdistance3,this.yDistance);
     point3 = vec3.fromValues(2*this.xOrZdistance3,-2*this.xOrZdistance3,0);
-    finalAniTime = this.animationTime3;
+    finalAniTime = this.animationTime3/this.scene.Speed;
     finalAniControlPoints = [point1, point2, point3];
   }
   else if(direction == "dbl"){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(-this.xOrZdistance3,-this.xOrZdistance3,this.yDistance);
     point3 = vec3.fromValues(-2*this.xOrZdistance3,-2*this.xOrZdistance3,0);
-    finalAniTime = this.animationTime3;
+    finalAniTime = this.animationTime3/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3];
   }
   else if(direction == "dtr"){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(this.xOrZdistance3,this.xOrZdistance3,this.yDistance);
     point3 = vec3.fromValues(2*this.xOrZdistance3,2*this.xOrZdistance3,0);
-    finalAniTime = this.animationTime3;
+    finalAniTime = this.animationTime3/this.scene.Speed;;
     finalAniControlPoints = [point1, point2, point3];
   }
   else if(direction == "dtl"){
     point1 = vec3.fromValues(0, 0, 0);
     point2 = vec3.fromValues(-this.xOrZdistance3,this.xOrZdistance3,this.yDistance);
     point3 = vec3.fromValues(-2*this.xOrZdistance3,2*this.xOrZdistance3,0);
-    finalAniTime = this.animationTime3;
+    finalAniTime = this.animationTime3/this.scene.Speed;
     finalAniControlPoints = [point1, point2, point3];
   }
 
