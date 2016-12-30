@@ -66,8 +66,8 @@ class Blockade {
         if (this.gameMode != XMLscene.gameMode.MOVIE) {
             this.scene.movieArray = [];
         } else {
-            console.log('entrei');
-            this.currentState = this.state.INVALID_GAME;
+            if(this.scene.movieArray.length == 0)
+              this.currentState = this.state.INVALID_GAME;
         }
     }
 
