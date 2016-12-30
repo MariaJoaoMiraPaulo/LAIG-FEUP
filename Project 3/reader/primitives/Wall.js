@@ -83,6 +83,7 @@ Wall.prototype.getWallNumber = function () {
 
 /**
  * Sets Wall X coordinate
+ * @param x x position
  */
 Wall.prototype.setWallXCoord = function (x) {
   this.xPos = x;
@@ -90,6 +91,7 @@ Wall.prototype.setWallXCoord = function (x) {
 
 /**
  * Sets Wall Z coordinate
+ * @param z z position
  */
 Wall.prototype.setWallZCoord = function (z) {
   this.zPos = z;
@@ -97,6 +99,7 @@ Wall.prototype.setWallZCoord = function (z) {
 
 /**
  * Sets Wall Y coordinate
+ * @param y y position
  */
 Wall.prototype.setWallYCoord = function (y) {
   this.yPos = y;
@@ -104,6 +107,7 @@ Wall.prototype.setWallYCoord = function (y) {
 
 /**
  * Sets Second Wall X coordinate
+ * @param x x position
  */
 Wall.prototype.setSecondWallXCoord = function (x) {
   this.secondWallx = x;
@@ -111,6 +115,7 @@ Wall.prototype.setSecondWallXCoord = function (x) {
 
 /**
  * Sets Second Wall Z coordinate
+ * @param z z position
  */
 Wall.prototype.setSecondWallZCoord = function (z) {
   this.secondWallz = z;
@@ -118,6 +123,7 @@ Wall.prototype.setSecondWallZCoord = function (z) {
 
 /**
  * Sets Wall orientation
+ * @param ori wall new orientation
  */
 Wall.prototype.setWallOrientation = function(ori) {
   this.wallOrientation = ori;
@@ -126,7 +132,7 @@ Wall.prototype.setWallOrientation = function(ori) {
 /**
  * Sets Wall material
  */
-Wall.prototype.setMaterial = function(s, t) {
+Wall.prototype.setMaterial = function() {
   if(this.player == 1)
     this.material = this.scene.scenario.player1Material;
   else this.material = this.scene.scenario.player2Material;

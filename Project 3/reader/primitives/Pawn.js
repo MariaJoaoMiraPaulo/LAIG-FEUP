@@ -90,6 +90,7 @@ Pawn.prototype.display = function() {
 
 /**
  * Sets Pawn Animation Speed
+ * @param x Speed
  */
 Pawn.prototype.setAnimationsSpeed = function(x) {
     this.animationTime1 = this.animationTime1First/x;
@@ -99,6 +100,7 @@ Pawn.prototype.setAnimationsSpeed = function(x) {
 
 /**
  * Sets Pawn X coordinate
+ * @param x x position
  */
 Pawn.prototype.setPawnXCoord = function(x) {
     this.xPos = x;
@@ -106,6 +108,7 @@ Pawn.prototype.setPawnXCoord = function(x) {
 
 /**
  * Sets Pawn Z coordinate
+ * @param z z position
  */
 Pawn.prototype.setPawnZCoord = function(z) {
     this.zPos = z;
@@ -113,6 +116,7 @@ Pawn.prototype.setPawnZCoord = function(z) {
 
 /**
  * Sets Pawn Y coordinate
+ * @param y y position
  */
 Pawn.prototype.setPawnYCoord = function(y) {
     this.yPos = y;
@@ -124,7 +128,7 @@ Pawn.prototype.updateTexCoords = function(s, t) {
 /**
  * Sets Pawn Material
  */
-Pawn.prototype.setMaterial = function(s, t) {
+Pawn.prototype.setMaterial = function() {
   if(this.player == 1)
     this.material = this.scene.scenario.player1Material;
   else this.material = this.scene.scenario.player2Material;
@@ -132,6 +136,7 @@ Pawn.prototype.setMaterial = function(s, t) {
 
 /**
  *  Pawn Update Function
+ * @param deltaTime
  */
 Pawn.prototype.update = function(deltaTime) {
     if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
@@ -151,6 +156,7 @@ Pawn.prototype.update = function(deltaTime) {
 
 /**
  *  Sets Pawn Final Animation
+ * @param direction direction of Animation
  */
 Pawn.prototype.setFinalAnimation = function(direction){
 

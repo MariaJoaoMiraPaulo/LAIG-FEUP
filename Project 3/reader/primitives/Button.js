@@ -77,6 +77,7 @@ Button.prototype.display = function () {
 
 /**
  * Sets button X coordinate
+ * @param x x position
  */
 Button.prototype.setButtonXCoord = function (x) {
   this.xPos = x;
@@ -84,6 +85,7 @@ Button.prototype.setButtonXCoord = function (x) {
 
 /**
  * Sets button Z coordinate
+ * @param z z position
  */
 Button.prototype.setButtonZCoord = function (z) {
   this.zPos = z;
@@ -91,6 +93,7 @@ Button.prototype.setButtonZCoord = function (z) {
 
 /**
  * Sets button Y coordinate
+ * @param y y position
  */
 Button.prototype.setButtonYCoord = function (y) {
   this.yPos = y;

@@ -188,6 +188,7 @@ Board.prototype.display = function () {
 
 /**
  * Initializes Pawn Game Position Array
+ * @param arrayPos to be copied
  */
 Board.prototype.validatePosition = function(arrayPos){
   this.currentPawnOnGamePosition = arrayPos.slice(0);
@@ -195,6 +196,7 @@ Board.prototype.validatePosition = function(arrayPos){
 
 /**
  * Check if a move is a valid move
+ * @param arrayPos to Verify
  */
 Board.prototype.possibleMove = function(arrayPos){
 
@@ -262,6 +264,7 @@ Board.prototype.possibleMove = function(arrayPos){
 
 /**
  * Check if the position is a valid position for a wall
+ * @param arrayPos to verify
  */
 Board.prototype.possibleWall = function(arrayPos){
 
@@ -275,6 +278,7 @@ Board.prototype.possibleWall = function(arrayPos){
 
 /**
  * Check if the position is a pawn position
+ * @param arrayPos to verify
  */
 Board.prototype.pawnPosition = function(arrayPos){
 
@@ -289,6 +293,7 @@ Board.prototype.pawnPosition = function(arrayPos){
 
 /**
  * Check if there is a wall between
+ * @param arrayPos to verify
  */
 Board.prototype.hasAwallBetween = function(arrayPos){
 
@@ -303,6 +308,8 @@ Board.prototype.hasAwallBetween = function(arrayPos){
 
 /**
  * Returns pawn direction by x and z
+ * @param x x Position
+ * @param y y Position
  */
 Board.prototype.getPawnDiretion = function (x,z) {
 
@@ -435,6 +442,7 @@ Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz
 
 /**
  * Check what are the second Wall possibilities
+ * @param pos to be tested
  */
 Board.prototype.secondWallPossibility = function (pos) {
 
@@ -483,6 +491,7 @@ Board.prototype.crossWallH = function(){
 
 /**
  * Converte a x and y prolog board position to board positions
+ * @param pos position to be converted
  */
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;
@@ -490,6 +499,8 @@ Board.prototype.convertPositionOnBoard = function (pos) {
 
 /**
  * Check if two arrays are equal
+ * @param arr1 first array
+ * @param arr2 first array
  */
 Board.prototype.arraysAreIdentical = function(arr1, arr2){
   if (arr1.length !== arr2.length) return false;

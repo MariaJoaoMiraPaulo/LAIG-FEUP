@@ -65,6 +65,7 @@ Cube.prototype.display = function () {
 }
 /**
  * Returns cube's x coordinate
+ * @param x x position
  */
 Cube.prototype.getPosX = function () {
   return this.posX;
@@ -72,6 +73,7 @@ Cube.prototype.getPosX = function () {
 
 /**
  * Returns cube's z coordinate
+ * @param z z position
  */
 Cube.prototype.getPosZ = function () {
   return this.posZ;
