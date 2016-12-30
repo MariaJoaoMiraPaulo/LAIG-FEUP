@@ -51,10 +51,10 @@ class Blockade {
 
         this.lastUpdateTime;
         this.firstTime = -1;
-        this.currentTime
-        this.hours;
-        this.minutes;
-        this.seconds;
+        this.currentTime;
+        this.hours=0;
+        this.minutes=0;
+        this.seconds=0;
 
         this.currentWalls = [];
 
@@ -468,6 +468,8 @@ class Blockade {
                 break;
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
+                this.scene.camera = this.initBotCamera();
+                this.scene.interface.setActiveCamera(this.scene.camera);
                 break;
             case this.state.GET_MOVIE_PLAY_PAWN:
                 this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD;
@@ -755,7 +757,15 @@ class Blockade {
         });
     }
 
+    quitServer() {
+        var this_t = this;
 
+        this.scene.client.getPrologRequest("quit", function(data) {
+
+        }, function(data) {
+            this_t.currentState = this_t.state.CONNECTION_ERROR;
+        });
+    }
 
     getBotNewWallsBoard() {
         var this_t = this;
@@ -856,7 +866,7 @@ class Blockade {
             if (this.firstTime == -1) {
                 this.lastUpdateTime = currTime;
                 this.firstTime = 1;
-            } else if (this.currentState != this.state.WINNER) {
+            } else if (this.currentState != this.state.WINNER && this.currentState != this.state.WAITING_FOR_START) {
                 this.currentTime = (currTime - this.lastUpdateTime) / 1000;
             }
 
