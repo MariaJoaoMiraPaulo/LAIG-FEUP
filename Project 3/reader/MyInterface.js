@@ -65,8 +65,8 @@ MyInterface.prototype.init = function(application) {
 		this.gameMode.add(playerVsBot, 'setPlayerVsBot').name('Player vs Bot');
 		this.gameMode.add(botVsBot, 'setBotVsBot').name('Bot vs Bot');
     this.gameMode.add(setMovie, 'setMovie').name('Watch Movie');
-    this.scenarios.add(setScenario1, 'setScenario1').name('Room Scenario');
-    this.scenarios.add(setScenario2, 'setScenario2').name('Room Scenario 2');
+    this.scenarios.add(setScenario1, 'setScenario1').name('Casino');
+    this.scenarios.add(setScenario2, 'setScenario2').name('Room');
     // this.options.add(this,'Exit').name('Exit');
     return true;
 };

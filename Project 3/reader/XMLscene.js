@@ -44,7 +44,7 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
     this.game;
-    this.scenario = new RoomScenario(this);
+    this.scenario = new Casino(this);
     this.client = new Client();
 
     this.movieArray;
@@ -97,7 +97,7 @@ XMLscene.prototype.setMovie = function() {
 }
 
 XMLscene.prototype.setScenario1 = function() {
-    this.scenario = new RoomScenario(this);
+    this.scenario = new Casino(this);
     this.game.player1.setPawnMaterial();
     this.game.player2.setPawnMaterial();
     this.game.player1.setWallsMaterial();
@@ -106,7 +106,7 @@ XMLscene.prototype.setScenario1 = function() {
 }
 
 XMLscene.prototype.setScenario2 = function() {
-    this.scenario = new SecondScenario(this);
+    this.scenario = new Room(this);
     this.game.player1.setPawnMaterial();
     this.game.player2.setPawnMaterial();
     this.game.player1.setWallsMaterial();

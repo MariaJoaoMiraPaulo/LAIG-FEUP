@@ -1,39 +1,32 @@
-class RoomScenario {
+class Room {
     constructor(scene) {
         this.scene = scene;
         this.reader = this.scene.reader;
         this.graph = this.scene.graph;
 
         this.player2Material = new CGFappearance(this.scene);
-        this.player2Material.setAmbient(1,0,0,0.4);
-        this.player2Material.setDiffuse(1,0,0,0.4);
-        this.player2Material.setSpecular(1,0,0,0.4);
+        this.player2Material.setAmbient(0.6,0.3,0,0);
+        this.player2Material.setDiffuse(0.6,0.3,0,0);
+        this.player2Material.setSpecular(0.6,0.3,0,0);
         this.player2Material.setShininess(0);
 
         this.player1Material = new CGFappearance(this.scene);
-        this.player1Material.setAmbient(0,1,0,0);
-        this.player1Material.setDiffuse(0,1,0,0);
-        this.player1Material.setSpecular(0,1,0,0);
+        this.player1Material.setAmbient(0.3,0.1,0,0);
+        this.player1Material.setDiffuse(0.3,0.1,0,0);
+        this.player1Material.setSpecular(0.3,0.1,0,0);
         this.player1Material.setShininess(0);
 
         this.wallpapper = new CGFappearance(this.scene);
         this.wallpapper.setAmbient(1,1,1,0);
         this.wallpapper.setDiffuse(1,1,1,0);
         this.wallpapper.setSpecular(1,1,1,0);
-        this.wallpapper.loadTexture("img/wallpapper3.jpg");
+        this.wallpapper.loadTexture("img/wallpapper2.jpg");
 
         this.floorM = new CGFappearance(this.scene);
         this.floorM.setAmbient(1,1,1,0);
         this.floorM.setDiffuse(1,1,1,0);
         this.floorM.setSpecular(1,1,1,0);
-        this.floorM.loadTexture("img/casinofloor.jpg");
-
-
-        this.casino = new CGFappearance(this.scene);
-        this.casino.setAmbient(1,1,1,0);
-        this.casino.setDiffuse(1,1,1,0);
-        this.casino.setSpecular(1,1,1,0);
-        this.casino.loadTexture("img/casino.jpg");
+        this.floorM.loadTexture("img/table.jpg");
 
 
         this.windowM = new CGFappearance(this.scene);
@@ -49,24 +42,12 @@ class RoomScenario {
         this.wallRigth = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
         this.wallFront = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
 
-        this.tableTop = new Cube(this.scene,null,null);
-
     }
 
     display(){
 
       this.scene.pushMatrix();
-      this.scene.rotate(Math.PI,1,0,0);
-      this.scene.translate(6,-0.1,-5.6);
-      this.scene.scale(26,0.1,26);
-      this.casino.apply();
-      this.tableTop.display();
-      this.scene.popMatrix();
-
-
-
-      this.scene.pushMatrix();
-      this.scene.translate(5,5,45);
+      this.scene.translate(5,5,40);
       this.scene.scale(70,40,40);
       this.wallpapper.apply();
       this.wall.display();
@@ -101,15 +82,6 @@ class RoomScenario {
       this.scene.scale(70,40,40);
       this.wallpapper.apply();
       this.wallLeft.display();
-      this.scene.popMatrix();
-
-      this.scene.pushMatrix();
-      this.scene.rotate(Math.PI/2,0,1,0);
-      this.scene.rotate(Math.PI,0,1,1);
-      this.scene.translate(-10,48,9);
-      this.scene.scale(0.14,0.13,0.13);
-      this.windowM.apply();
-      //this.window.display();
       this.scene.popMatrix();
 
       this.scene.pushMatrix();
