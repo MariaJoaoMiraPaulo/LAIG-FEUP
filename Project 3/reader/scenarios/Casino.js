@@ -28,7 +28,6 @@ class Casino {
         this.floorM.setSpecular(1,1,1,0);
         this.floorM.loadTexture("img/casinofloor.jpg");
 
-
         this.casino = new CGFappearance(this.scene);
         this.casino.setAmbient(1,1,1,0);
         this.casino.setDiffuse(1,1,1,0);

@@ -1,7 +1,28 @@
-Board.distanceBetweenCubes = 1.4;
-Board.distanceBetweenFloor= 1.4;
-Board.currentWalls = [];
+/**
+ * Board
+ */
 
+ /**
+  * Board distance between cubs
+  */
+Board.distanceBetweenCubes = 1.4;
+
+/**
+ * Board distance between small cubes
+ */
+Board.distanceBetweenFloor= 1.4;
+
+/**
+ * Current Walls on Board
+ */
+Board.currentWalls = [];
+ /**
+  * Blockade constructor
+  * @param scene CGFscene where the component will be displayed
+  * @param graph graph of the scene
+  * @param dimX dimension of board
+  * @param dimY dimension of board
+  */
 function Board(scene, reader, dimX , dimZ) {
   CGFobject.call(this, scene);
   this.scene = scene;
@@ -51,8 +72,10 @@ function Board(scene, reader, dimX , dimZ) {
 Board.prototype = Object.create(CGFobject.prototype);
 Board.prototype.constructor = Board;
 
+/**
+ * Initializes Board Elements
+ */
 Board.prototype.createBoard = function () {
-
 
   for(var i = 0; i < this.doubleDimZ-1; i++){
     this.boardElements[i] = new Array(this.doubleDimX-1);
@@ -70,6 +93,9 @@ Board.prototype.createBoard = function () {
   }
 }
 
+/**
+ * Displays Board Elements
+ */
 Board.prototype.display = function () {
 
 
@@ -163,10 +189,16 @@ Board.prototype.display = function () {
 
 }
 
+/**
+ * Initializes Pawn Game Position Array
+ */
 Board.prototype.validatePosition = function(arrayPos){
   this.currentPawnOnGamePosition = arrayPos.slice(0);
 }
 
+/**
+ * Check if a move is a valid move
+ */
 Board.prototype.possibleMove = function(arrayPos){
 
   //array pos z,x
@@ -231,6 +263,9 @@ Board.prototype.possibleMove = function(arrayPos){
   return false;
 }
 
+/**
+ * Check if the position is a valid position for a wall
+ */
 Board.prototype.possibleWall = function(arrayPos){
 
   for(var i=0;i<this.scene.game.currentWalls.length;i++){
@@ -241,6 +276,9 @@ Board.prototype.possibleWall = function(arrayPos){
   return true;
 }
 
+/**
+ * Check if the position is a pawn position
+ */
 Board.prototype.pawnPosition = function(arrayPos){
 
   for(var i=0;i<this.scene.game.pawns.length;i++){
@@ -252,6 +290,9 @@ Board.prototype.pawnPosition = function(arrayPos){
   return false;
 }
 
+/**
+ * Check if there is a wall between
+ */
 Board.prototype.hasAwallBetween = function(arrayPos){
 
   for(var i=0;i<this.scene.game.currentWalls.length;i++){
@@ -263,7 +304,9 @@ Board.prototype.hasAwallBetween = function(arrayPos){
   return false;
 }
 
-
+/**
+ * Returns pawn direction by x and z
+ */
 Board.prototype.getPawnDiretion = function (x,z) {
 
   var arrayPos = [z,x];
@@ -342,6 +385,9 @@ Board.prototype.getPawnDiretion = function (x,z) {
   return false;
 }
 
+/**
+ * Returns wall orientation by firstx, firstz, secondx and secondz
+ */
 Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz,secondWallx) {
 
   var orientation;
@@ -390,7 +436,9 @@ Board.prototype.getWallOrientation = function (firstWallz,firstWallx,secondWallz
 
 }
 
-
+/**
+ * Check what are the second Wall possibilities
+ */
 Board.prototype.secondWallPossibility = function (pos) {
 
   if(this.scene.game.currentState == this.scene.game.state.SELECTING_SECOND_WALL_POSITION){
@@ -436,10 +484,16 @@ Board.prototype.crossWallH = function(){
   // return false;
 }
 
+/**
+ * Converte a x and y prolog board position to board positions
+ */
 Board.prototype.convertPositionOnBoard = function (pos) {
   return pos/2*Board.distanceBetweenCubes+0.5;
 }
 
+/**
+ * Check if two arrays are equal
+ */
 Board.prototype.arraysAreIdentical = function(arr1, arr2){
   if (arr1.length !== arr2.length) return false;
   for (var i = 0, len = arr1.length; i < len; i++){

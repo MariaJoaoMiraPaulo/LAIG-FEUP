@@ -1,5 +1,5 @@
 /**
- * LinearAnimation
+ * ArchAnimation
  * @constructor
  */
 class ArchAnimation extends Animation {
