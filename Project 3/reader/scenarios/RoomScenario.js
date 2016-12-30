@@ -22,8 +22,17 @@ class RoomScenario {
         this.wallpapper.setSpecular(1,1,1,0);
         this.wallpapper.loadTexture("img/wallpapper.jpg");
 
+        this.floorM = new CGFappearance(this.scene);
+        this.floorM.setAmbient(1,1,1,0);
+        this.floorM.setDiffuse(1,1,1,0);
+        this.floorM.setSpecular(1,1,1,0);
+        this.floorM.loadTexture("img/table.jpg");
+
         this.wall = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
         this.blockadeTitle = new Obj(this.scene,"img/blockade.obj");
+        this.wallLeft = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
+        this.floor = new Rectangle(this.scene,0.5,0.5,-0.5,-0.5);
+
     }
 
     display(){
@@ -44,10 +53,21 @@ class RoomScenario {
       this.blockadeTitle.display();
       this.scene.popMatrix();
 
+      this.scene.pushMatrix();
+      this.scene.rotate(Math.PI/2,0,1,0);
+      this.scene.translate(-10,0,40);
+      this.scene.scale(60,40,40);
+      this.wallpapper.apply();
+      this.wallLeft.display();
+      this.scene.popMatrix();
 
-
-
-
+      this.scene.pushMatrix();
+      this.scene.rotate(Math.PI/2,1,0,0);
+      this.scene.translate(5,10,20);
+      this.scene.scale(70,60,70);
+      this.floorM.apply();
+      this.floor.display();
+      this.scene.popMatrix();
     }
 
 
