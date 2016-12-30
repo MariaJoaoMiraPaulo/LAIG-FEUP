@@ -70,6 +70,9 @@ class Blockade {
                   this.currentState = this.state.INVALID_GAME;
             }
         }
+
+        this.scene.camera = this.initDefaultCamera();
+        this.scene.interface.setActiveCamera(this.scene.camera);
     }
 
     getGameStateInstruction() {
@@ -184,7 +187,7 @@ class Blockade {
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
-                this.scene.camera = this.player1.playerCamera;
+                this.scene.camera = this.player1.initCamera();
                 this.scene.interface.setActiveCamera(this.scene.camera);
                 break;
             case this.state.UPDATE_BOARD_WITH_SERVER_BOARD:
@@ -760,5 +763,14 @@ class Blockade {
 
 
         return 1;
+    }
+
+    initDefaultCamera(){
+      let angle = 0.4;
+      let near = 0.1;
+      let far = 500;
+      let fromVector = vec3.fromValues(-23,29.6,-19.7);
+      let toVector = vec3.fromValues(7,-1.2,6);
+      return new CGFcamera(angle, near, far, fromVector,toVector);
     }
 }
