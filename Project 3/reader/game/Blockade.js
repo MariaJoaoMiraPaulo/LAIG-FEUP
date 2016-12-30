@@ -60,10 +60,10 @@ class Blockade {
 
         this.lastUpdateTime;
         this.firstTime = -1;
-        this.currentTime=0;
-        this.hours=0;
-        this.minutes=0;
-        this.seconds=0;
+        this.currentTime = 0;
+        this.hours = 0;
+        this.minutes = 0;
+        this.seconds = 0;
 
         this.currentWalls = [];
 
@@ -385,7 +385,7 @@ class Blockade {
 
         this.player1.movePawn(positionPlayer1);
         this.player2.movePawn(positionPlayer2);
-      }
+    }
 
     /**
      * Updates pawns position from prolog board
@@ -1024,10 +1024,23 @@ class Blockade {
         var divisor_for_seconds = divisor_for_minutes % 60;
         var seconds = Math.ceil(divisor_for_seconds);
 
-        this.hours = hours;
-        this.minutes = minutes;
-        this.seconds = seconds;
+        if (hours < 10) {
+            this.hours = "0" + hours;
+        } else {
+            this.hours = hours;
+        }
 
+        if (minutes < 10) {
+            this.minutes = "0" + minutes;
+        } else {
+            this.minutes = minutes;
+        }
+
+        if (seconds < 10) {
+            this.seconds = "0" + seconds;
+        } else {
+            this.seconds = seconds;
+        }
     }
 
     /**
@@ -1082,8 +1095,8 @@ class Blockade {
         let angle = 0.4;
         let near = 0.1;
         let far = 500;
-        let fromVector = vec3.fromValues(-7.9,20,-100.4);
-        let toVector = vec3.fromValues(7.4, -3, 3.5 );
+        let fromVector = vec3.fromValues(-7.9, 20, -100.4);
+        let toVector = vec3.fromValues(7.4, -3, 3.5);
         return new CGFcamera(angle, near, far, fromVector, toVector);
     }
 
