@@ -34,7 +34,7 @@ class Blockade {
         this.player2.moveWallsToStartPosition();
 
         this.board = [];
-        this.getInitialBoard();
+        this.getInitialBoard(0);
         this.pawns = [];
 
         this.player = 1;
@@ -153,18 +153,30 @@ class Blockade {
         }
     }
 
-    getInitialBoard() {
+    getInitialBoard(canIstart) {
         var this_t = this;
 
-        this.scene.client.getPrologRequest('initial_board', function(data) {
-            this_t.board = JSON.parse(data.target.response);
+        if (canIstart) {
+            this.scene.client.getPrologRequest('initial_board', function(data) {
+                this_t.board = JSON.parse(data.target.response);
 
-            if (this_t.currentState != this_t.state.INVALID_GAME) {
-                this_t.currentState = this_t.state.INITIALIZE_BOARD;
-            }
-        },function(data){
-          this_t.currentState = this_t.state.CONNECTION_ERROR;
-        });
+                if (this_t.currentState != this_t.state.INVALID_GAME) {
+                    this_t.currentState = this_t.state.INITIALIZE_BOARD;
+                }
+            }, function(data) {
+                this_t.currentState = this_t.state.CONNECTION_ERROR;
+            });
+        } else {
+            this.scene.client.getPrologRequest('initial_board', function(data) {
+                this_t.board = JSON.parse(data.target.response);
+
+                if (this_t.currentState != this_t.state.INVALID_GAME) {
+                    this_t.currentState = this_t.state.WAITING_FOR_START;
+                }
+            }, function(data) {
+                this_t.currentState = this_t.state.CONNECTION_ERROR;
+            });
+        }
     }
 
     getAllBoardWalls() {
@@ -221,6 +233,9 @@ class Blockade {
     checkCurrentState() {
 
         switch (this.currentState) {
+            case this.state.WAITING_FOR_START:
+                this.updatePawnsPositions2();
+                break;
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
                 this.scene.camera = this.player1.initCamera();
@@ -290,6 +305,32 @@ class Blockade {
             }
         }
     }
+
+    updatePawnsPositions2() {
+        var positionPlayer1 = {};
+        var positionPlayer2 = {};
+
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[i].length; j++) {
+                if (this.board[i][j] == this.returnPrologBoardAtom("player11")) {
+                    positionPlayer1['x1'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer1['y1'] = Board.prototype.convertPositionOnBoard(i);
+                } else if (this.board[i][j] == this.returnPrologBoardAtom("player12")) {
+                    positionPlayer1['x2'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer1['y2'] = Board.prototype.convertPositionOnBoard(i);
+                } else if (this.board[i][j] == this.returnPrologBoardAtom("player21")) {
+                    positionPlayer2['x1'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer2['y1'] = Board.prototype.convertPositionOnBoard(i);
+                } else if (this.board[i][j] == this.returnPrologBoardAtom("player22")) {
+                    positionPlayer2['x2'] = Board.prototype.convertPositionOnBoard(j);
+                    positionPlayer2['y2'] = Board.prototype.convertPositionOnBoard(i);
+                }
+            }
+        }
+
+        this.player1.movePawn(positionPlayer1);
+        this.player2.movePawn(positionPlayer2);
+      }
 
     updatePawnsPositions() {
         var positionPlayer1 = {};
@@ -422,6 +463,9 @@ class Blockade {
 
     movieHandler() {
         switch (this.currentState) {
+            case this.state.WAITING_FOR_START:
+                this.updatePawnsPositions2();
+                break;
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
                 break;
@@ -482,8 +526,13 @@ class Blockade {
 
     botHandler() {
         switch (this.currentState) {
+            case this.state.WAITING_FOR_START:
+                this.updatePawnsPositions2();
+                break;
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
+                this.scene.camera = this.initBotCamera();
+                this.scene.interface.setActiveCamera(this.scene.camera);
                 break;
             case this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION:
                 this.currentState = this.state.WAITING_FOR_SERVER_BOT_PAWN_AND_DIRECTION;
@@ -638,8 +687,8 @@ class Blockade {
                 }
             }
             this_t.currentState = this_t.state.PAWN_ANIMATION;
-        },function(data){
-          this_t.currentState = this_t.state.CONNECTION_ERROR;
+        }, function(data) {
+            this_t.currentState = this_t.state.CONNECTION_ERROR;
         });
     }
 
@@ -659,37 +708,37 @@ class Blockade {
                 this_t.currentState = this_t.state.UPDATE_BOARD_WITH_SERVER_NEW_WALLS;
 
                 this_t.wallPicked = true;
-            },function(data){
-              this_t.currentState = this_t.state.CONNECTION_ERROR;
+            },
+            function(data) {
+                this_t.currentState = this_t.state.CONNECTION_ERROR;
             });
     }
 
     getBotPawnAndDirection(difficulty) {
         var this_t = this;
 
-        if(difficulty == XMLscene.botDifficulty.EASY){
-          this.scene.client.getPrologRequest("bot_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
-              //     JSON.parse(data.target.response);
-              var info = JSON.parse(data.target.response);
-              this_t.chosenPawn = info[0];
-              this_t.currentPawnDirection = info[1];
-              this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
+        if (difficulty == XMLscene.botDifficulty.EASY) {
+            this.scene.client.getPrologRequest("bot_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
+                //     JSON.parse(data.target.response);
+                var info = JSON.parse(data.target.response);
+                this_t.chosenPawn = info[0];
+                this_t.currentPawnDirection = info[1];
+                this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
 
-          },function(data){
-            this_t.currentState = this_t.state.CONNECTION_ERROR;
-          });
-        }
-        else if(difficulty == XMLscene.botDifficulty.HARD){
-          this.scene.client.getPrologRequest("bot_hard_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
-              //     JSON.parse(data.target.response);
-              var info = JSON.parse(data.target.response);
-              this_t.chosenPawn = info[0];
-              this_t.currentPawnDirection = info[1];
-              this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
+            }, function(data) {
+                this_t.currentState = this_t.state.CONNECTION_ERROR;
+            });
+        } else if (difficulty == XMLscene.botDifficulty.HARD) {
+            this.scene.client.getPrologRequest("bot_hard_pawn_and_direction(" + JSON.stringify(this.board) + "," + this.player + ")", function(data) {
+                //     JSON.parse(data.target.response);
+                var info = JSON.parse(data.target.response);
+                this_t.chosenPawn = info[0];
+                this_t.currentPawnDirection = info[1];
+                this_t.currentState = this_t.state.BOT_GET_NEW_BOARD;
 
-          },function(data){
-            this_t.currentState = this_t.state.CONNECTION_ERROR;
-          });
+            }, function(data) {
+                this_t.currentState = this_t.state.CONNECTION_ERROR;
+            });
         }
     }
 
@@ -701,8 +750,8 @@ class Blockade {
 
             //TODO Adicionar o if
             this_t.currentState = this_t.state.BOT_GET_NEW_WALLS_BOARD;
-        },function(data){
-          this_t.currentState = this_t.state.CONNECTION_ERROR;
+        }, function(data) {
+            this_t.currentState = this_t.state.CONNECTION_ERROR;
         });
     }
 
@@ -749,8 +798,8 @@ class Blockade {
                 this_t.currentState = this_t.state.SELECTING_PAWN;
             }
 
-        },function(data){
-          this_t.currentState = this_t.state.CONNECTION_ERROR;
+        }, function(data) {
+            this_t.currentState = this_t.state.CONNECTION_ERROR;
         });
     }
 
@@ -874,7 +923,17 @@ class Blockade {
         return 1;
     }
 
+
     initDefaultCamera() {
+        let angle = 0.4;
+        let near = 0.1;
+        let far = 500;
+        let fromVector = vec3.fromValues(-7.9,20,-100.4);
+        let toVector = vec3.fromValues(7.4, -3, 3.5 );
+        return new CGFcamera(angle, near, far, fromVector, toVector);
+    }
+
+    initBotCamera() {
         let angle = 0.4;
         let near = 0.1;
         let far = 500;

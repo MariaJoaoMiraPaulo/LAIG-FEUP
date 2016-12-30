@@ -85,7 +85,9 @@ XMLscene.prototype.onGraphLoaded = function() {
 };
 
 XMLscene.prototype.startGame = function() {
-    this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+    //this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
+  //  this.game.currentState = this.game.state.INITIALIZE_BOARD;
+  this.game.getInitialBoard(1);
 };
 
 XMLscene.prototype.setPlayerVsPlayer = function() {
