@@ -91,7 +91,6 @@ XMLscene.prototype.startGame = function() {
 };
 
 XMLscene.prototype.continueGame = function() {
-  console.log('continua meu');
   if(this.game.gameMode == XMLscene.gameMode.MOVIE){
     this.game = this.oldGame;
   }

@@ -51,7 +51,7 @@ class Blockade {
 
         this.lastUpdateTime;
         this.firstTime = -1;
-        this.currentTime;
+        this.currentTime=0;
         this.hours=0;
         this.minutes=0;
         this.seconds=0;
