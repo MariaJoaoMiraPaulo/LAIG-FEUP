@@ -1,3 +1,10 @@
+/**
+ * Pawn constructor
+ * @param scene CGFscene where the component will be displayed
+ * @param reader reader CGFXMLreader
+ * @param player game player
+  * @param pawnNumber pawn number 1 or 2
+ */
 function Pawn(scene, reader, player, pawnNumber) {
     CGFobject.call(this, scene);
     this.scene = scene;
@@ -59,6 +66,9 @@ function Pawn(scene, reader, player, pawnNumber) {
 Pawn.prototype = Object.create(CGFobject.prototype);
 Pawn.prototype.constructor = Pawn;
 
+/**
+ * Displays Pawn
+ */
 Pawn.prototype.display = function() {
 
     this.scene.pushMatrix();
@@ -78,34 +88,51 @@ Pawn.prototype.display = function() {
 
 }
 
-Pawn.prototype.setPawnXCoord = function(x) {
-    this.xPos = x;
-}
-
+/**
+ * Sets Pawn Animation Speed
+ */
 Pawn.prototype.setAnimationsSpeed = function(x) {
     this.animationTime1 = this.animationTime1First/x;
     this.animationTime2 = this.animationTime2First/x;
     this.animationTime3 = this.animationTime3First/x;
 }
 
+/**
+ * Sets Pawn X coordinate
+ */
+Pawn.prototype.setPawnXCoord = function(x) {
+    this.xPos = x;
+}
+
+/**
+ * Sets Pawn Z coordinate
+ */
 Pawn.prototype.setPawnZCoord = function(z) {
     this.zPos = z;
 }
 
+/**
+ * Sets Pawn Y coordinate
+ */
 Pawn.prototype.setPawnYCoord = function(y) {
     this.yPos = y;
 }
 
 Pawn.prototype.updateTexCoords = function(s, t) {
-
 }
 
+/**
+ * Sets Pawn Material
+ */
 Pawn.prototype.setMaterial = function(s, t) {
   if(this.player == 1)
     this.material = this.scene.scenario.player1Material;
   else this.material = this.scene.scenario.player2Material;
 }
 
+/**
+ *  Pawn Update Function
+ */
 Pawn.prototype.update = function(deltaTime) {
     if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
         this.normalAnimation.update(deltaTime);
@@ -122,6 +149,9 @@ Pawn.prototype.update = function(deltaTime) {
 
 }
 
+/**
+ *  Sets Pawn Final Animation
+ */
 Pawn.prototype.setFinalAnimation = function(direction){
 
   let point1,point2,point3,point4,point5;

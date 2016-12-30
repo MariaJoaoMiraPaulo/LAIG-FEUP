@@ -1,6 +1,3 @@
-/**
- * Board
- */
 
  /**
   * Board distance between cubs

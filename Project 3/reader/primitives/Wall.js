@@ -1,3 +1,10 @@
+/**
+ * Wall constructor
+ * @param scene CGFscene where the component will be displayed
+ * @param reader reader CGFXMLreader
+ * @param player game player
+  * @param wallNumber wall number 0 to 6
+ */
 function Wall(scene, reader, player, wallNumber) {
   CGFobject.call(this, scene);
   this.scene = scene;
@@ -35,6 +42,9 @@ function Wall(scene, reader, player, wallNumber) {
 Wall.prototype = Object.create(CGFobject.prototype);
 Wall.prototype.constructor = Wall;
 
+/**
+ * Displays wall
+ */
 Wall.prototype.display = function () {
 
   let ratio;
@@ -64,34 +74,58 @@ Wall.prototype.display = function () {
   this.scene.popMatrix();
 }
 
+/**
+ * Returns wall number
+ */
 Wall.prototype.getWallNumber = function () {
   return this.wallNumber;
 }
 
+/**
+ * Sets Wall X coordinate
+ */
 Wall.prototype.setWallXCoord = function (x) {
   this.xPos = x;
 }
 
+/**
+ * Sets Wall Z coordinate
+ */
 Wall.prototype.setWallZCoord = function (z) {
   this.zPos = z;
 }
 
+/**
+ * Sets Wall Y coordinate
+ */
 Wall.prototype.setWallYCoord = function (y) {
   this.yPos = y;
 }
 
+/**
+ * Sets Second Wall X coordinate
+ */
 Wall.prototype.setSecondWallXCoord = function (x) {
   this.secondWallx = x;
 }
 
+/**
+ * Sets Second Wall Z coordinate
+ */
 Wall.prototype.setSecondWallZCoord = function (z) {
   this.secondWallz = z;
 }
 
+/**
+ * Sets Wall orientation
+ */
 Wall.prototype.setWallOrientation = function(ori) {
   this.wallOrientation = ori;
 }
 
+/**
+ * Sets Wall material
+ */
 Wall.prototype.setMaterial = function(s, t) {
   if(this.player == 1)
     this.material = this.scene.scenario.player1Material;

@@ -1,3 +1,7 @@
+/**
+ * Casino Scenario constructor
+ * @param scene CGFscene where the component will be displayed
+ */
 class Casino {
     constructor(scene) {
         this.scene = scene;
@@ -52,6 +56,9 @@ class Casino {
 
     }
 
+    /**
+     * Displays casino scenario
+     */
     display(){
 
       this.scene.pushMatrix();
@@ -101,15 +108,6 @@ class Casino {
       this.scene.popMatrix();
 
       this.scene.pushMatrix();
-      this.scene.rotate(Math.PI/2,0,1,0);
-      this.scene.rotate(Math.PI,0,1,1);
-      this.scene.translate(-10,48,9);
-      this.scene.scale(0.14,0.13,0.13);
-      this.windowM.apply();
-      //this.window.display();
-      this.scene.popMatrix();
-
-      this.scene.pushMatrix();
       this.scene.rotate(Math.PI/2,1,0,0);
       this.scene.translate(5,10,15);
       this.scene.scale(70,70,80);
@@ -117,8 +115,5 @@ class Casino {
       this.floor.display();
       this.scene.popMatrix();
     }
-
-
-
 
 }

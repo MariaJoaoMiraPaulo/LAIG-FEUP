@@ -1,11 +1,15 @@
+/**
+ * Button constructor
+ * @param scene CGFscene where the component will be displayed
+ * @param reader reader CGFXMLreader
+ * @param player game player
+  * @param type button type, 1 means Step Over and 2 means Back
+ */
 function Button(scene, reader, player, type) {
   CGFobject.call(this, scene);
   this.scene = scene;
   this.player = player;
   this.type = type;
-
-  //type 1 -stepOver
-  //type 2 - Back
 
   this.ButtonTop = new Obj(this.scene,"img/arrow1.obj");
 
@@ -46,6 +50,9 @@ function Button(scene, reader, player, type) {
 Button.prototype = Object.create(CGFobject.prototype);
 Button.prototype.constructor = Button;
 
+/**
+ * Displays Button
+ */
 Button.prototype.display = function () {
 
   this.scene.pushMatrix();
@@ -68,14 +75,23 @@ Button.prototype.display = function () {
 
 }
 
+/**
+ * Sets button X coordinate
+ */
 Button.prototype.setButtonXCoord = function (x) {
   this.xPos = x;
 }
 
+/**
+ * Sets button Z coordinate
+ */
 Button.prototype.setButtonZCoord = function (z) {
   this.zPos = z;
 }
 
+/**
+ * Sets button Y coordinate
+ */
 Button.prototype.setButtonYCoord = function (y) {
   this.yPos = y;
 }

@@ -1,3 +1,9 @@
+/**
+ * StartPos constructor
+ * @param scene CGFscene where the component will be displayed
+ * @param reader reader CGFXMLreader
+ * @param player game player
+ */
 function StartPos(scene, reader, player) {
   CGFobject.call(this, scene);
   this.scene = scene;
@@ -11,6 +17,9 @@ function StartPos(scene, reader, player) {
 StartPos.prototype = Object.create(CGFobject.prototype);
 StartPos.prototype.constructor = StartPos;
 
+/**
+ * Displays startPos
+ */
 StartPos.prototype.display = function () {
 
   this.scene.pushMatrix();

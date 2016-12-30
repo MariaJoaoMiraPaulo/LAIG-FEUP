@@ -1,3 +1,7 @@
+/**
+ * Room Scenario constructor
+ * @param scene CGFscene where the component will be displayed
+ */
 class Room {
     constructor(scene) {
         this.scene = scene;
@@ -45,6 +49,9 @@ class Room {
 
     }
 
+    /**
+     * Displays room scenario
+     */
     display(){
 
       this.scene.pushMatrix();

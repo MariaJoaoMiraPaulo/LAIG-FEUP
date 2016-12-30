@@ -1,3 +1,10 @@
+/**
+ * Cube constructor
+ * @param scene CGFscene where the component will be displayed
+ * @param reader reader CGFXMLreader
+ * @param posZ cube z position
+ * @param posX cube x position
+ */
 function Cube(scene, reader, posZ, posX) {
     CGFobject.call(this, scene);
     this.scene = scene;
@@ -56,11 +63,16 @@ Cube.prototype.display = function () {
 
 
 }
-
+/**
+ * Returns cube's x coordinate
+ */
 Cube.prototype.getPosX = function () {
   return this.posX;
 }
 
+/**
+ * Returns cube's z coordinate
+ */
 Cube.prototype.getPosZ = function () {
   return this.posZ;
 }
