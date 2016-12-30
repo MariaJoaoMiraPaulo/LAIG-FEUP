@@ -5,16 +5,17 @@ class Room {
         this.graph = this.scene.graph;
 
         this.player2Material = new CGFappearance(this.scene);
-        this.player2Material.setAmbient(0.6,0.3,0,0);
-        this.player2Material.setDiffuse(0.6,0.3,0,0);
-        this.player2Material.setSpecular(0.6,0.3,0,0);
+        this.player2Material.setAmbient(0,0.3,1,0);
+        this.player2Material.setDiffuse(0,0.3,1,0);
+        this.player2Material.setSpecular(0,0.3,1,0);
         this.player2Material.setShininess(0);
 
         this.player1Material = new CGFappearance(this.scene);
-        this.player1Material.setAmbient(0.3,0.1,0,0);
-        this.player1Material.setDiffuse(0.3,0.1,0,0);
-        this.player1Material.setSpecular(0.3,0.1,0,0);
+        this.player1Material.setAmbient(0,1,0,0);
+        this.player1Material.setDiffuse(0,1,0,0);
+        this.player1Material.setSpecular(0,1,0,0);
         this.player1Material.setShininess(0);
+
 
         this.wallpapper = new CGFappearance(this.scene);
         this.wallpapper.setAmbient(1,1,1,0);

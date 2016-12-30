@@ -5,15 +5,15 @@ class Casino {
         this.graph = this.scene.graph;
 
         this.player2Material = new CGFappearance(this.scene);
-        this.player2Material.setAmbient(0.3,0.1,0,0);
-        this.player2Material.setDiffuse(0.3,0.1,0,0);
-        this.player2Material.setSpecular(0.3,0.1,0,0);
+        this.player2Material.setAmbient(0.7,0.3,0 ,0);
+        this.player2Material.setDiffuse(0.7,0.3,0,0);
+        this.player2Material.setSpecular(0.7,0.3,0,0);
         this.player2Material.setShininess(0);
 
         this.player1Material = new CGFappearance(this.scene);
-        this.player1Material.setAmbient(0,0.6,0.1,0);
-        this.player1Material.setDiffuse(0,0.6,0.1,0);
-        this.player1Material.setSpecular(0,0.6,0.1,0);
+        this.player1Material.setAmbient(1,0.05,0.02,0);
+        this.player1Material.setDiffuse(1,0.05,0.02,0);
+        this.player1Material.setSpecular(1,0.05,0.02,0);
         this.player1Material.setShininess(0);
 
         this.wallpapper = new CGFappearance(this.scene);
