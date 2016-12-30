@@ -96,6 +96,18 @@ XMLscene.prototype.setMovie = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
 }
 
+XMLscene.prototype.undo = function() {
+    if(this.game.player == 1){
+      var button = new Button(this, this.reader, 1, 2);
+      this.game.pickingHandler(button);
+    }
+    else if(this.game.player == 2){
+      var button = new Button(this, this.reader, 2, 2);
+      this.game.pickingHandler(button);
+    }
+
+}
+
 XMLscene.prototype.setScenario1 = function() {
     this.scenario = new Casino(this);
     this.game.player1.setPawnMaterial();

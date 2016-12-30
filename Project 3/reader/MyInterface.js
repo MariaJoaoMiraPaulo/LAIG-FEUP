@@ -59,8 +59,12 @@ MyInterface.prototype.init = function(application) {
         setScenario2: this.scene.setScenario2.bind(this.scene)
     };
 
+    let undo = {
+        undo: this.scene.undo.bind(this.scene)
+    };
 
     this.options.add(menu, 'startGame').name('Start Game');
+    this.options.add(undo, 'undo').name('Undo');
 		this.gameMode.add(playerVsPlayer, 'setPlayerVsPlayer').name('Player vs Player');
 		this.gameMode.add(playerVsBot, 'setPlayerVsBot').name('Player vs Bot');
 		this.gameMode.add(botVsBot, 'setBotVsBot').name('Bot vs Bot');
