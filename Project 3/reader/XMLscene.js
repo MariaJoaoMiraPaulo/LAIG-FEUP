@@ -198,26 +198,18 @@ XMLscene.prototype.display = function() {
         }
         this.game.display();
         this.scenario.display();
-      //  this.game.setSpeed(this.Speed);
-        // this.luigi.display();
+
     };
 
     if (typeof this.game != "undefined") {
         document.getElementById('information').innerText = this.game.getGameStateInstruction();
         document.getElementById('player').innerText = 'Player ' + (this.game.player);
         document.getElementById('time').innerText = (this.game.hours) + ' : ' + this.game.minutes + " : " + this.game.seconds;
-        if(this.player == 1)
-          var p = this.game.player1.score;
-        else var p = this.game.player2.score;
-        document.getElementById('pontuacao').innerText = "  Score:  " + p;
-        // document.getElementById('time_left').innerText = this.game.getTimeSinceLastPlay() + 's';
+        if(this.game.player == 1)
+          this.pontuation = this.game.player1.getScore();
+        else this.pontuation = this.game.player2.getScore();
+        document.getElementById('pontuacao').innerText = "  Score:  " + this.pontuation;
     }
-
-    // this.pushMatrix();
-    // this.scale(0.04,0.04,0.04);
-    // this.rotate(-Math.PI/2, 1, 0, 0);
-    // this.pawn.display();
-    // this.popMatrix();
 
     this.logPicking();
     this.clearPickRegistration();

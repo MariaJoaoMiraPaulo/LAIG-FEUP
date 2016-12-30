@@ -840,7 +840,6 @@ class Blockade {
     }
 
     getScore(firstWallx, firstWallz, secondWallx, secondWallz) {
-        //Quanto mais perto da casa de partida mais pontos ganha
 
         var startPos11 = [4, 1.3, 4];
         var startPos12 = [14, 1.3, 4];
