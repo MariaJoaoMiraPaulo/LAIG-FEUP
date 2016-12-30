@@ -1,8 +1,15 @@
 /**
- * CameraAnimation
+ * Class CameraAnimation
  * @constructor
  */
 class CameraAnimation {
+    /**
+     * CameraAnimation constructor
+     * @param scene CGFscene where the component will be displayed
+     * @param animationTime animation time
+     * @param startCamera position where the animation begins
+     * @param finalCamera final position of the camara
+     */
     constructor(scene, animationTime,startCamera, finalCamera) {
         this.scene = scene;
         this.animationTime = animationTime;
@@ -47,6 +54,10 @@ class CameraAnimation {
         this.multi = this.finalCamera.position[2]-this.startCamera.position[2];
     }
 
+    /**
+     * Updates the animation state
+     * @param deltaTime time since last update
+     */
     update(deltaTime) {
         this.timePassed += deltaTime;
 
@@ -62,11 +73,21 @@ class CameraAnimation {
         this.scene.interface.setActiveCamera(this.scene.camera);
     }
 
+    /**
+     * Clones the animation
+     * @returns {CameraAnimation}
+     */
     clone(){
       var copy = new CameraAnimation(this.scene,this.animationTime,this.startCamera,this.finalCamera);
       return copy;
     }
 
+    /**
+     * Calculates the angle between two vectors
+     * @param a vector
+     * @param b vector
+     * @returns angle between to vectors
+     */
     calcAngle(a,b){
       var tempA = vec3.fromValues(a[0], a[1], a[2]);
       var tempB = vec3.fromValues(b[0], b[1], b[2]);

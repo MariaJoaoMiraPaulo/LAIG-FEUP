@@ -3,6 +3,13 @@
  * @constructor
  */
 class ArchAnimation extends Animation {
+    /**
+     * ArchAnimation
+     * @param scene CGFscene where the component will be displayed
+     * @param id animation id
+     * @param animationTime time of the animation
+     * @param controlPoints control points of the animation
+     */
     constructor(scene, id, animationTime, controlPoints) {
         super(scene, id, animationTime);
         this.controlPoints = controlPoints;
@@ -30,6 +37,9 @@ class ArchAnimation extends Animation {
         this.over = false;
     }
 
+    /**
+     * Gets the total distante of the animation and velocity
+     */
     getTotalDistanceAndVelocity() {
         this.totalDist = 0;
         var dir = vec3.create();
@@ -42,6 +52,9 @@ class ArchAnimation extends Animation {
         this.velocity = this.totalDist / this.animationTime;
     }
 
+    /**
+     * Updates animation variables
+     */
     updatingVariables() {
 
         this.atualPointIdArray++;
@@ -56,6 +69,10 @@ class ArchAnimation extends Animation {
         this.settingAngles();
     }
 
+    /**
+     * Updates animation variables
+     * @param deltaTime time since last update
+     */
     update(deltaTime) {
         let distance = deltaTime * this.velocity;
 
@@ -71,6 +88,9 @@ class ArchAnimation extends Animation {
         vec3.scale(this.atualPosition, this.direction, r);
     }
 
+    /**
+     * Displays animation state
+     */
     display() {
       let x = this.controlPoints[this.atualPointIdArray-1][0];
       let y = this.controlPoints[this.atualPointIdArray-1][1];
@@ -81,11 +101,18 @@ class ArchAnimation extends Animation {
   //    this.scene.rotate(-this.verticalAngle, 1, 0, 0);
     }
 
+    /**
+     * Clones the animation
+     * @returns {ArchAnimation}
+     */
     clone(){
       var copy = new ArchAnimation(this.scene,this.id,this.animationTime,this.controlPoints);
       return copy;
     }
 
+    /**
+     * Sets up orientation angles
+     */
     settingAngles(){
       this.directionXZ = vec3.fromValues(this.direction[0],this.direction[1],this.direction[2]);
       this.directionXZ[1] = 0;
@@ -119,6 +146,12 @@ class ArchAnimation extends Animation {
       }
     }
 
+    /**
+     * Calculates the angle between two vectors
+     * @param a vector
+     * @param b vector
+     * @returns angle between to vectors
+     */
     calcAngle(a,b){
       var tempA = vec3.fromValues(a[0], a[1], a[2]);
       var tempB = vec3.fromValues(b[0], b[1], b[2]);
