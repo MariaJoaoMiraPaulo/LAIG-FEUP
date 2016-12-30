@@ -44,26 +44,12 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
     this.game;
+    this.scenario = new Casino(this);
     this.client = new Client();
 
     this.movieArray;
 
-    this.orangeMaterial = new CGFappearance(this);
-    this.orangeMaterial.setAmbient(0.3,0.1,0,0);
-    this.orangeMaterial.setDiffuse(0.3,0.1,0,0);
-    this.orangeMaterial.setSpecular(0.3,0.1,0,0);
-    this.orangeMaterial.setShininess(0);
-
-    this.yellowMaterial = new CGFappearance(this);
-    this.yellowMaterial.setAmbient(0.6,0.3,0,0);
-    this.yellowMaterial.setDiffuse(0.6,0.3,0,0);
-    this.yellowMaterial.setSpecular(0.6,0.3,0,0);
-    this.yellowMaterial.setShininess(0);
-
-    this.boardMaterial = new CGFappearance(this);
-    this.boardMaterial.loadTexture("img/board.jpg");
-
-    // this.pawn = new Obj(this,"img/chess.obj");
+    this.Speed = 1;
 
 
 };
@@ -110,6 +96,36 @@ XMLscene.prototype.setBotVsBot = function() {
 
 XMLscene.prototype.setMovie = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
+}
+
+XMLscene.prototype.undo = function() {
+    if(this.game.player == 1){
+      var button = new Button(this, this.reader, 1, 2);
+      this.game.pickingHandler(button);
+    }
+    else if(this.game.player == 2){
+      var button = new Button(this, this.reader, 2, 2);
+      this.game.pickingHandler(button);
+    }
+
+}
+
+XMLscene.prototype.setScenario1 = function() {
+    this.scenario = new Casino(this);
+    this.game.player1.setPawnMaterial();
+    this.game.player2.setPawnMaterial();
+    this.game.player1.setWallsMaterial();
+    this.game.player2.setWallsMaterial();
+    this.game.setStartPositionMaterial();
+}
+
+XMLscene.prototype.setScenario2 = function() {
+    this.scenario = new Room(this);
+    this.game.player1.setPawnMaterial();
+    this.game.player2.setPawnMaterial();
+    this.game.player1.setWallsMaterial();
+    this.game.player2.setWallsMaterial();
+    this.game.setStartPositionMaterial();
 }
 
 /**
@@ -161,6 +177,8 @@ XMLscene.prototype.display = function() {
             this.game = new Blockade(this, this.graph, XMLscene.gameMode.PLAYER_VS_PLAYER);
         }
         this.game.display();
+        this.scenario.display();
+        this.game.setSpeed(this.Speed);
         // this.luigi.display();
     };
 

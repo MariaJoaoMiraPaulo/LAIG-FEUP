@@ -26,10 +26,10 @@ function Pawn(scene, reader, player, pawnNumber) {
 
     switch (player) {
         case 1:
-            this.material = this.scene.orangeMaterial;
+            this.material = this.scene.scenario.player1Material;
             break;
         case 2:
-            this.material = this.scene.yellowMaterial;
+            this.material = this.scene.scenario.player2Material;
             break;
         default:
 
@@ -41,12 +41,15 @@ function Pawn(scene, reader, player, pawnNumber) {
     // CONSTANTS
     this.yDistance = 0.5;
     this.animationTime1 = 0.7;
+    this.animationTime1First = 0.7;
     this.xOrZdistance = 0.8;
 
     this.animationTime2 = 1.4;
+    this.animationTime2First = 1.4;
     this.xOrZdistance2 = 0.7;
 
     this.animationTime3 = 0.7;
+    this.animationTimeFirst = 0.7;
     this.xOrZdistance3 = 0.7;
 
     this.animationId = 11;
@@ -79,6 +82,12 @@ Pawn.prototype.setPawnXCoord = function(x) {
     this.xPos = x;
 }
 
+Pawn.prototype.setAnimationsSpeed = function(x) {
+    this.animationTime1 = this.animationTime1First/x;
+    this.animationTime2 = this.animationTime2First/x;
+    this.animationTime3 = this.animationTime3First/x;
+}
+
 Pawn.prototype.setPawnZCoord = function(z) {
     this.zPos = z;
 }
@@ -89,6 +98,12 @@ Pawn.prototype.setPawnYCoord = function(y) {
 
 Pawn.prototype.updateTexCoords = function(s, t) {
 
+}
+
+Pawn.prototype.setMaterial = function(s, t) {
+  if(this.player == 1)
+    this.material = this.scene.scenario.player1Material;
+  else this.material = this.scene.scenario.player2Material;
 }
 
 Pawn.prototype.update = function(deltaTime) {

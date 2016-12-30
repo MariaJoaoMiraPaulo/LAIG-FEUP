@@ -18,10 +18,10 @@ function Wall(scene, reader, player, wallNumber) {
 
   switch (player) {
     case 1:
-    this.material = this.scene.orangeMaterial;
+    this.material = this.scene.scenario.player1Material;
     break;
     case 2:
-    this.material = this.scene.yellowMaterial;
+    this.material = this.scene.scenario.player2Material;
     break;
     default:
 
@@ -90,6 +90,12 @@ Wall.prototype.setSecondWallZCoord = function (z) {
 
 Wall.prototype.setWallOrientation = function(ori) {
   this.wallOrientation = ori;
+}
+
+Wall.prototype.setMaterial = function(s, t) {
+  if(this.player == 1)
+    this.material = this.scene.scenario.player1Material;
+  else this.material = this.scene.scenario.player2Material;
 }
 
 Wall.prototype.updateTexCoords = function (s, t) {

@@ -7,6 +7,29 @@ class Blockade {
         this.player1 = new Player(1, this.graph, this.scene);
         this.player2 = new Player(2, this.graph, this.scene);
 
+        var x = Board.prototype.convertPositionOnBoard(4);
+        var x1 = Board.prototype.convertPositionOnBoard(14);
+
+        var z = Board.prototype.convertPositionOnBoard(4);
+        var z1 = Board.prototype.convertPositionOnBoard(12);
+
+        var y = 1.3;
+
+        this.startPos11 = [x, y, z];
+        this.startPos12 = [x1, y, z];
+        this.startPos21 = [x, y, z1];
+        this.startPos22 = [x1, y, z1];
+
+        this.animationsSpeed;
+
+        this.StartPos11Circle = new StartPos(this.scene, this.reader, 1);
+        this.StartPos12Circle = new StartPos(this.scene, this.reader, 1);
+        this.StartPos21Circle = new StartPos(this.scene, this.reader, 2);
+        this.StartPos22Circle = new StartPos(this.scene, this.reader, 2);
+
+        this.materialp1 = this.scene.scenario.player1Material;
+        this.materialp2 = this.scene.scenario.player2Material;
+
         this.player1.moveWallsToStartPosition();
         this.player2.moveWallsToStartPosition();
 
@@ -67,14 +90,29 @@ class Blockade {
         if (this.gameMode != XMLscene.gameMode.MOVIE) {
             this.scene.movieArray = [];
         } else {
-            if(this.scene.movieArray.length == 0){
-                  this.currentState = this.state.INVALID_GAME;
+            if (this.scene.movieArray.length == 0) {
+                this.currentState = this.state.INVALID_GAME;
             }
         }
 
         this.scene.camera = this.initDefaultCamera();
         this.scene.interface.setActiveCamera(this.scene.camera);
     }
+
+    setSpeed(speed) {
+        this.animationsSpeed = speed;
+        this.player1.pawn1.setAnimationsSpeed(this.animationsSpeed);
+        this.player1.pawn2.setAnimationsSpeed(this.animationsSpeed);
+        this.player2.pawn1.setAnimationsSpeed(this.animationsSpeed);
+        this.player2.pawn2.setAnimationsSpeed(this.animationsSpeed);
+        console.log(this.animationsSpeed);
+    }
+
+    setStartPositionMaterial() {
+        this.materialp1 = this.scene.scenario.player1Material;
+        this.materialp2 = this.scene.scenario.player2Material;
+    }
+
 
     getGameStateInstruction() {
         switch (this.currentState) {
@@ -198,25 +236,23 @@ class Blockade {
             case this.state.UPDATE_BOARD_WITH_SERVER_NEW_WALLS:
                 //this.changeTurn();
                 this.getAllBoardWalls();
-                if(this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER){
-                  this.currentState = this.state.CAMERA_ANIMATION;
-                  this.initCameraAnimation();
-                }
-                else {
-                  this.changeTurn();
+                if (this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER) {
+                    this.currentState = this.state.CAMERA_ANIMATION;
+                    this.initCameraAnimation();
+                } else {
+                    this.changeTurn();
                 }
                 break;
 
         }
     }
 
-    initCameraAnimation(){
-      if(this.player == 1){
-          this.cameraAnimation = new CameraAnimation(this.scene,2,this.player1.playerCamera,this.player2.playerCamera);
-      }
-      else {
-        this.cameraAnimation = new CameraAnimation(this.scene,2,this.player2.playerCamera,this.player1.playerCamera);
-      }
+    initCameraAnimation() {
+        if (this.player == 1) {
+            this.cameraAnimation = new CameraAnimation(this.scene, 2, this.player1.playerCamera, this.player2.playerCamera);
+        } else {
+            this.cameraAnimation = new CameraAnimation(this.scene, 2, this.player2.playerCamera, this.player1.playerCamera);
+        }
     }
 
     changeTurn() {
@@ -512,13 +548,12 @@ class Blockade {
             this.currentState = this.state.SELECTING_FIRST_WALL_POSITION;
 
         } else if (obj instanceof Button) {
-          if(this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER){
-            this.currentState = this.state.CAMERA_ANIMATION;
-            this.initCameraAnimation();
-          }
-          else {
-            this.changeTurn();
-          }
+            if (this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER) {
+                this.currentState = this.state.CAMERA_ANIMATION;
+                this.initCameraAnimation();
+            } else {
+                this.changeTurn();
+            }
         }
     }
 
@@ -652,6 +687,8 @@ class Blockade {
         });
     }
 
+
+
     getBotNewWallsBoard() {
         var this_t = this;
 
@@ -716,32 +753,55 @@ class Blockade {
         this.player2.displayStepOverButton();
         this.player2.displayBackButton();
 
+        this.scene.pushMatrix();
+        this.scene.translate(this.startPos11[0], 0.35, this.startPos11[2]);
+        this.materialp1.apply();
+        this.StartPos11Circle.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(this.startPos12[0], 0.35, this.startPos12[2]);
+        this.materialp1.apply();
+        this.StartPos12Circle.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(this.startPos21[0], 0.35, this.startPos21[2]);
+        this.materialp2.apply();
+        this.StartPos21Circle.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(this.startPos22[0], 0.35, this.startPos22[2]);
+        this.materialp2.apply();
+        this.StartPos22Circle.display();
+        this.scene.popMatrix();
+
     }
 
     update(currTime, deltaTime) {
 
-      if(this.currentState != this.state.CAMERA_ANIMATION){
-        this.player1.update(deltaTime);
-        this.player2.update(deltaTime);
+        if (this.currentState != this.state.CAMERA_ANIMATION) {
+            this.player1.update(deltaTime);
+            this.player2.update(deltaTime);
 
-        if (this.firstTime == -1) {
-            this.lastUpdateTime = currTime;
-            this.firstTime = 1;
-        } else if (this.currentState != this.state.WINNER) {
-            this.currentTime = (currTime - this.lastUpdateTime) / 1000;
+            if (this.firstTime == -1) {
+                this.lastUpdateTime = currTime;
+                this.firstTime = 1;
+            } else if (this.currentState != this.state.WINNER) {
+                this.currentTime = (currTime - this.lastUpdateTime) / 1000;
+            }
+
+            this.currentTime = Math.round(this.currentTime).toFixed(2);
+
+
+            this.getTime(this.currentTime);
+        } else {
+            this.cameraAnimation.update(deltaTime);
+            if (this.cameraAnimation.over) {
+                this.changeTurn();
+            }
         }
-
-        this.currentTime = Math.round(this.currentTime).toFixed(2);
-
-
-        this.getTime(this.currentTime);
-      }
-      else {
-        this.cameraAnimation.update(deltaTime);
-        if(this.cameraAnimation.over){
-          this.changeTurn();
-        }
-      }
     }
 
     getTime(secs) {
@@ -796,12 +856,12 @@ class Blockade {
         return 1;
     }
 
-    initDefaultCamera(){
-      let angle = 0.4;
-      let near = 0.1;
-      let far = 500;
-      let fromVector = vec3.fromValues(-23,29.6,-19.7);
-      let toVector = vec3.fromValues(7,-1.2,6);
-      return new CGFcamera(angle, near, far, fromVector,toVector);
+    initDefaultCamera() {
+        let angle = 0.4;
+        let near = 0.1;
+        let far = 500;
+        let fromVector = vec3.fromValues(-23, 29.6, -19.7);
+        let toVector = vec3.fromValues(7, -1.2, 6);
+        return new CGFcamera(angle, near, far, fromVector, toVector);
     }
 }
