@@ -91,6 +91,12 @@ Pawn.prototype.updateTexCoords = function(s, t) {
 
 }
 
+Pawn.prototype.setMaterial = function(s, t) {
+  if(this.player == 1)
+    this.material = this.scene.scenario.player1Material;
+  else this.material = this.scene.scenario.player2Material;
+}
+
 Pawn.prototype.update = function(deltaTime) {
     if (this.scene.game.player == this.player && this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN) {
         this.normalAnimation.update(deltaTime);

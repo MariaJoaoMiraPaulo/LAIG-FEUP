@@ -73,6 +73,17 @@ class Player {
         return pawn2;
     }
 
+    setPawnMaterial(){
+      this.pawn1.setMaterial();
+      this.pawn2.setMaterial();
+    }
+
+
+    setWallsMaterial(){
+      for (var i = 0; i < this.numberWalls; i++)
+          this.walls[i].setMaterial();
+    }
+
     displayStepOverButton() {
         if (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL && this.player == this.scene.game.player && this.button.type == 1) {
             this.scene.registerForPick(100, this.button);

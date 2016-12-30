@@ -98,6 +98,18 @@ XMLscene.prototype.setMovie = function() {
 
 XMLscene.prototype.setScenario1 = function() {
     this.scenario = new RoomScenario(this);
+    this.game.player1.setPawnMaterial();
+    this.game.player2.setPawnMaterial();
+    this.game.player1.setWallsMaterial();
+    this.game.player2.setWallsMaterial();
+}
+
+XMLscene.prototype.setScenario2 = function() {
+    this.scenario = new SecondScenario(this);
+    this.game.player1.setPawnMaterial();
+    this.game.player2.setPawnMaterial();
+    this.game.player1.setWallsMaterial();
+    this.game.player2.setWallsMaterial();
 }
 
 /**

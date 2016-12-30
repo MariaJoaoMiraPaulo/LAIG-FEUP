@@ -45,17 +45,17 @@
           <location x="2" y="3" z="3" w="1"/>
           <ambient r="0" g="0" b="0" a="0"/>
           <diffuse r="1" g="1" b="1" a="1"/>
-          <specular r="0" g="0" b="0" a="0"/>
+          <specular r="1" g="1" b="1" a="0"/>
       </omni>
 
       <omni id="Light 1" enabled="1">
           <location x="0" y="3" z="0" w="1.0"/>
           <ambient r="0" g="0" b="0" a="1"/>
           <diffuse r="1" g="1" b="1" a="1"/>
-          <specular r="0" g="0" b="0" a="0"/>
+          <specular r="1" g="1" b="1" a="0"/>
       </omni>
 
-      <omni id="Light 2" enabled="1">
+      <!-- <omni id="Light 2" enabled="1">
           <location x="10.5" y="10" z="10" w="1.0"/>
           <ambient r="0" g="0" b="0" a="1"/>
           <diffuse r="1" g="1" b="1" a="1"/>
@@ -81,15 +81,15 @@
           <location x="-2" y="3" z="3" w="1"/>
           <ambient r="0" g="0" b="0" a="0"/>
           <diffuse r="1" g="1" b="1" a="1"/>
-          <specular r="0" g="0" b="0" a="0"/>
+            <specular r="1" g="1" b="1" a="0"/>
       </omni>
 
       <omni id="Light 6" enabled="1">
           <location x="0" y="7" z="3" w="1"/>
           <ambient r="0" g="0" b="0" a="0"/>
           <diffuse r="1" g="1" b="1" a="1"/>
-          <specular r="0" g="0" b="0" a="0"/>
-      </omni>
+          <specular r="1" g="1" b="1" a="0"/>
+      </omni> -->
 
     </lights>
 
@@ -97,6 +97,7 @@
         <texture id="board" file="img/board.jpg" length_s="1" length_t="1"/>
         <texture id="base" file="img/base.jpg" length_s="1" length_t="1"/>
         <texture id="table" file="img/table.jpg" length_s="1" length_t="1"/>
+        <texture id="chair" file="img/chair.jpg" length_s="1" length_t="1"/>
     </textures>
 
     <materials>
@@ -233,7 +234,8 @@
                   <componentref id="Player1Base" />
                   <componentref id="Player2Base" />
                   <componentref id="tableWood"/>
-                  <componentref id="chair"/>
+                  <componentref id="chair0"/>
+                  <componentref id="chair2"/>
             </children>
 
         </component>
@@ -360,7 +362,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="inherit"/>
+            <texture id="chair"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -377,7 +379,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="inherit"/>
+            <texture id="chair"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -395,7 +397,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="inherit"/>
+            <texture id="chair"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -412,7 +414,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="inherit"/>
+            <texture id="chair"/>
 
             <children>
                 <componentref id="cubo"/>
@@ -541,7 +543,7 @@
             </children>
         </component>
 
-        <component id="chair">
+        <component id="chair0">
             <transformation>
               <translate x="19" y="-7" z="4"/>
                 <scale x="10" y="10" z="10"/>
@@ -553,7 +555,31 @@
                 <material id="white"/>
             </materials>
 
-            <texture id="table"/>
+            <texture id="chair"/>
+
+            <children>
+                <componentref id="chair1"/>
+                <componentref id="Chairleg1"/>
+                <componentref id="Chairleg2"/>
+                <componentref id="Chairleg3"/>
+                <componentref id="Chairleg4"/>
+            </children>
+        </component>
+
+
+        <component id="chair2">
+            <transformation>
+              <translate x="-8" y="-7" z="4"/>
+                <scale x="10" y="10" z="10"/>
+                <rotate axis="y" angle="90"/>
+
+           </transformation>
+
+            <materials>
+                <material id="white"/>
+            </materials>
+
+            <texture id="chair"/>
 
             <children>
                 <componentref id="chair1"/>

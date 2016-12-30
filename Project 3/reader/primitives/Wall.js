@@ -92,6 +92,12 @@ Wall.prototype.setWallOrientation = function(ori) {
   this.wallOrientation = ori;
 }
 
+Wall.prototype.setMaterial = function(s, t) {
+  if(this.player == 1)
+    this.material = this.scene.scenario.player1Material;
+  else this.material = this.scene.scenario.player2Material;
+}
+
 Wall.prototype.updateTexCoords = function (s, t) {
 
 }
