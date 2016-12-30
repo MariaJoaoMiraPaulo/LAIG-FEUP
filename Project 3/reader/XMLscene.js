@@ -102,6 +102,7 @@ XMLscene.prototype.setScenario1 = function() {
     this.game.player2.setPawnMaterial();
     this.game.player1.setWallsMaterial();
     this.game.player2.setWallsMaterial();
+    this.game.setStartPositionMaterial();
 }
 
 XMLscene.prototype.setScenario2 = function() {
@@ -110,6 +111,7 @@ XMLscene.prototype.setScenario2 = function() {
     this.game.player2.setPawnMaterial();
     this.game.player1.setWallsMaterial();
     this.game.player2.setWallsMaterial();
+    this.game.setStartPositionMaterial();
 }
 
 /**
