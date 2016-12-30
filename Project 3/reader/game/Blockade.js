@@ -231,7 +231,7 @@ class Blockade {
             this.player = 2;
         } else this.player = 1;
 
-        if (this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER) {
+        if (this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 1)) {
             if (this.player == 1) {
                 this.scene.camera = this.player1.initCamera();
                 this.scene.interface.setActiveCamera(this.scene.camera);
