@@ -145,7 +145,7 @@ class Blockade {
                 return "Invalid Movie, Start a new game";
                 break;
             case this.state.CONNECTION_ERROR:
-                return "Connection error!!!!";
+                return "Connection error!! Please turn on your prolog server!";
                 break;
             default:
                 return " "
