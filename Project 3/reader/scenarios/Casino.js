@@ -11,9 +11,9 @@ class Casino {
         this.player2Material.setShininess(0);
 
         this.player1Material = new CGFappearance(this.scene);
-        this.player1Material.setAmbient(1,0.05,0.02,0);
-        this.player1Material.setDiffuse(1,0.05,0.02,0);
-        this.player1Material.setSpecular(1,0.05,0.02,0);
+        this.player1Material.setAmbient(1,0.02,0.01,0);
+        this.player1Material.setDiffuse(1,0.02,0.01,0);
+        this.player1Material.setSpecular(1,0.02,0.01,0);
         this.player1Material.setShininess(0);
 
         this.wallpapper = new CGFappearance(this.scene);
