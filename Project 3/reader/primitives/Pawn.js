@@ -41,12 +41,15 @@ function Pawn(scene, reader, player, pawnNumber) {
     // CONSTANTS
     this.yDistance = 0.5;
     this.animationTime1 = 0.7;
+    this.animationTime1First = 0.7;
     this.xOrZdistance = 0.8;
 
     this.animationTime2 = 1.4;
+    this.animationTime2First = 1.4;
     this.xOrZdistance2 = 0.7;
 
     this.animationTime3 = 0.7;
+    this.animationTimeFirst = 0.7;
     this.xOrZdistance3 = 0.7;
 
     this.animationId = 11;
@@ -77,6 +80,12 @@ Pawn.prototype.display = function() {
 
 Pawn.prototype.setPawnXCoord = function(x) {
     this.xPos = x;
+}
+
+Pawn.prototype.setAnimationsSpeed = function(x) {
+    this.animationTime1 = this.animationTime1First/x;
+    this.animationTime2 = this.animationTime2First/x;
+    this.animationTime3 = this.animationTime3First/x;
 }
 
 Pawn.prototype.setPawnZCoord = function(z) {

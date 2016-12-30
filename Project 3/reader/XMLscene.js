@@ -49,6 +49,8 @@ XMLscene.prototype.init = function(application) {
 
     this.movieArray;
 
+    this.Speed = 1;
+
 
 };
 
@@ -176,6 +178,7 @@ XMLscene.prototype.display = function() {
         }
         this.game.display();
         this.scenario.display();
+        this.game.setSpeed(this.Speed);
         // this.luigi.display();
     };
 

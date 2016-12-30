@@ -31,6 +31,7 @@ MyInterface.prototype.init = function(application) {
     this.scenarios = this.gui.addFolder('Scenario');
     this.scenarios.close();
 
+
     let menu = {
         startGame: this.scene.startGame.bind(this.scene)
     };
@@ -63,6 +64,8 @@ MyInterface.prototype.init = function(application) {
         undo: this.scene.undo.bind(this.scene)
     };
 
+
+    this.gui.add(this.scene, 'Speed', 0.1, 2.0);
     this.options.add(menu, 'startGame').name('Start Game');
     this.options.add(undo, 'undo').name('Undo');
 		this.gameMode.add(playerVsPlayer, 'setPlayerVsPlayer').name('Player vs Player');

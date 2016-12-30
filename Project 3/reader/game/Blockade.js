@@ -20,6 +20,8 @@ class Blockade {
         this.startPos21=[x,y,z1];
         this.startPos22=[x1,y,z1];
 
+        this.animationsSpeed;
+
         this.StartPos11Circle = new StartPos(this.scene,this.reader,1);
         this.StartPos12Circle = new StartPos(this.scene,this.reader,1);
         this.StartPos21Circle = new StartPos(this.scene,this.reader,2);
@@ -90,6 +92,15 @@ class Blockade {
             if(this.scene.movieArray.length == 0)
               this.currentState = this.state.INVALID_GAME;
         }
+    }
+
+    setSpeed(speed){
+      this.animationsSpeed = speed;
+      this.player1.pawn1.setAnimationsSpeed(this.animationsSpeed);
+      this.player1.pawn2.setAnimationsSpeed(this.animationsSpeed);
+      this.player2.pawn1.setAnimationsSpeed(this.animationsSpeed);
+      this.player2.pawn2.setAnimationsSpeed(this.animationsSpeed);
+      console.log(this.animationsSpeed);
     }
 
     setStartPositionMaterial() {
