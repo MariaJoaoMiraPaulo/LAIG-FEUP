@@ -99,18 +99,6 @@ class Blockade {
         this.scene.interface.setActiveCamera(this.scene.camera);
     }
 
-    setSpeed(speed) {
-
-      if(this.gameMode == XMLscene.gameMode.PLAYER_VS_PLAYER){
-        this.animationsSpeed = speed;
-        this.player1.pawn1.setAnimationsSpeed(this.animationsSpeed);
-        this.player1.pawn2.setAnimationsSpeed(this.animationsSpeed);
-        this.player2.pawn1.setAnimationsSpeed(this.animationsSpeed);
-        this.player2.pawn2.setAnimationsSpeed(this.animationsSpeed);
-
-      }
-    }
-
     setStartPositionMaterial() {
         this.materialp1 = this.scene.scenario.player1Material;
         this.materialp2 = this.scene.scenario.player2Material;

@@ -5,15 +5,15 @@ class Casino {
         this.graph = this.scene.graph;
 
         this.player2Material = new CGFappearance(this.scene);
-        this.player2Material.setAmbient(1,0,0,0.4);
-        this.player2Material.setDiffuse(1,0,0,0.4);
-        this.player2Material.setSpecular(1,0,0,0.4);
+        this.player2Material.setAmbient(0.3,0.1,0,0);
+        this.player2Material.setDiffuse(0.3,0.1,0,0);
+        this.player2Material.setSpecular(0.3,0.1,0,0);
         this.player2Material.setShininess(0);
 
         this.player1Material = new CGFappearance(this.scene);
-        this.player1Material.setAmbient(0,1,0,0);
-        this.player1Material.setDiffuse(0,1,0,0);
-        this.player1Material.setSpecular(0,1,0,0);
+        this.player1Material.setAmbient(0,0.6,0.1,0);
+        this.player1Material.setDiffuse(0,0.6,0.1,0);
+        this.player1Material.setSpecular(0,0.6,0.1,0);
         this.player1Material.setShininess(0);
 
         this.wallpapper = new CGFappearance(this.scene);
@@ -57,13 +57,11 @@ class Casino {
 
       this.scene.pushMatrix();
       this.scene.rotate(Math.PI,1,0,0);
-      this.scene.translate(6,-0.04,-5.6);
+      this.scene.translate(6,-0.01,-5.6);
       this.scene.scale(26,0.1,26);
       this.casino.apply();
       this.CasinoTop.display();
       this.scene.popMatrix();
-
-
 
       this.scene.pushMatrix();
       this.scene.translate(5,5,45);
