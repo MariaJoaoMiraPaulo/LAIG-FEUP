@@ -1,4 +1,13 @@
+/**
+ * Blockade
+ */
 class Blockade {
+    /**
+     * Blockade constructor
+     * @param scene CGFscene where the component will be displayed
+     * @param graph graph of the scene
+     * @param gameMode mode of the game
+     */
     constructor(scene, graph, gameMode) {
         this.graph = graph;
         this.scene = scene;
@@ -51,10 +60,10 @@ class Blockade {
 
         this.lastUpdateTime;
         this.firstTime = -1;
-        this.currentTime
-        this.hours;
-        this.minutes;
-        this.seconds;
+        this.currentTime=0;
+        this.hours=0;
+        this.minutes=0;
+        this.seconds=0;
 
         this.currentWalls = [];
 
@@ -100,12 +109,18 @@ class Blockade {
         this.scene.interface.setActiveCamera(this.scene.camera);
     }
 
+    /**
+     * Sets the start position material
+     */
     setStartPositionMaterial() {
         this.materialp1 = this.scene.scenario.player1Material;
         this.materialp2 = this.scene.scenario.player2Material;
     }
 
-
+    /**
+     * Gets the game instructions to be displayed on the screen
+     * @returns insctructions to be displayed
+     */
     getGameStateInstruction() {
         switch (this.currentState) {
             case this.state.INITIALIZE_BOARD:
@@ -153,6 +168,10 @@ class Blockade {
         }
     }
 
+    /**
+     * Gets the initial board from prolog
+     * @param canIstart if the user already pressed start game button
+     */
     getInitialBoard(canIstart) {
         var this_t = this;
 
@@ -179,6 +198,10 @@ class Blockade {
         }
     }
 
+    /**
+     * Gets all walls off the board
+     * @returns {boolean}
+     */
     getAllBoardWalls() {
 
         for (let i = 0; i < this.board.length; i++) {
@@ -195,6 +218,10 @@ class Blockade {
         return true;
     }
 
+    /**
+     * Gets all 4 positions that cointains pawns
+     * @returns {boolean}
+     */
     getAllPawnPositions() {
 
         this.pawns = [];
@@ -214,22 +241,41 @@ class Blockade {
         return true;
     }
 
+    /**
+     * Gets current state
+     * @returns current state
+     */
     getCurrentState() {
         return this.currentState;
     }
 
+    /**
+     * Gets player 1
+     * @returns player1
+     */
     getPlayer1() {
         return this.player1;
     }
 
+    /**
+     * Gets player 2
+     * @returns player2}
+     */
     getPlayer2() {
         return this.player2;
     }
 
+    /**
+     * Gets the game board
+     * @returns board
+     */
     getBoard() {
         return this.board;
     }
 
+    /**
+     * Functions used to pulling some states
+     */
     checkCurrentState() {
 
         switch (this.currentState) {
@@ -259,6 +305,9 @@ class Blockade {
         }
     }
 
+    /**
+     * Initializes camera animation
+     */
     initCameraAnimation() {
         if (this.player == 1) {
             this.cameraAnimation = new CameraAnimation(this.scene, 2, this.player1.playerCamera, this.player2.playerCamera);
@@ -267,6 +316,9 @@ class Blockade {
         }
     }
 
+    /**
+     * Changes the turn to the next player
+     */
     changeTurn() {
         if (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 1) {
             this.currentState = this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
@@ -306,6 +358,9 @@ class Blockade {
         }
     }
 
+    /**
+     * Updates pawns position from prolog board
+     */
     updatePawnsPositions2() {
         var positionPlayer1 = {};
         var positionPlayer2 = {};
@@ -332,6 +387,9 @@ class Blockade {
         this.player2.movePawn(positionPlayer2);
       }
 
+    /**
+     * Updates pawns position from prolog board
+     */
     updatePawnsPositions() {
         var positionPlayer1 = {};
         var positionPlayer2 = {};
@@ -377,6 +435,9 @@ class Blockade {
         }
     }
 
+    /**
+     * Verify the game mode to start the game
+     */
     checkGameMode() {
         if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT) {
             this.currentState = this.state.BOT_ASK_SERVER_FOR_PAWN_AND_DIRECTION;
@@ -388,6 +449,11 @@ class Blockade {
         this.player = 1;
     }
 
+    /**
+     * Translates the string board of prolog to the number used in prolog
+     * @param string to be translated
+     * @returns number
+     */
     returnPrologBoardAtom(string) {
         switch (string) {
             case "empty":
@@ -438,6 +504,10 @@ class Blockade {
         }
     }
 
+    /**
+     * Handler to deal with picking and changing game state According
+     * @param obj
+     */
     pickingHandler(obj) {
 
         switch (this.currentState) {
@@ -461,6 +531,9 @@ class Blockade {
         }
     }
 
+    /**
+     * Handler to deal with game mode movie
+     */
     movieHandler() {
         switch (this.currentState) {
             case this.state.WAITING_FOR_START:
@@ -468,6 +541,8 @@ class Blockade {
                 break;
             case this.state.INITIALIZE_BOARD:
                 this.updatePawnsPositions();
+                this.scene.camera = this.initBotCamera();
+                this.scene.interface.setActiveCamera(this.scene.camera);
                 break;
             case this.state.GET_MOVIE_PLAY_PAWN:
                 this.currentState = this.state.WAITING_FOR_SERVER_NEW_BOARD;
@@ -488,6 +563,9 @@ class Blockade {
         }
     }
 
+    /**
+     * Gets pawn of the movie array to be displayed
+     */
     getPawnByMovieArray() {
         this.player = this.scene.movieArray[this.playNumber][0][0];
         this.currentPawnDirection = this.scene.movieArray[this.playNumber][0][1];
@@ -496,6 +574,9 @@ class Blockade {
         this.getNewBoard();
     }
 
+    /**
+     * Gets wall of the movie aray to be displayed
+     */
     getWallByMoviePawn() {
 
         var flag = this.scene.movieArray[this.playNumber][1][0];
@@ -524,6 +605,9 @@ class Blockade {
 
     }
 
+    /**
+     * Handler to deal with bot and changing state according
+     */
     botHandler() {
         switch (this.currentState) {
             case this.state.WAITING_FOR_START:
@@ -557,6 +641,10 @@ class Blockade {
         }
     }
 
+    /**
+     * Function used to deal with the selection of the pawn
+     * @param obj
+     */
     selectingPawn(obj) {
         this.chosenPawn = obj.pawnNumber;
 
@@ -572,6 +660,10 @@ class Blockade {
         }
     }
 
+    /**
+     * Function used to deal with the selection of the next position of the pawn
+     * @param obj
+     */
     selectingPawnNextPosition(obj) {
 
         if (obj instanceof Button) {
@@ -586,6 +678,10 @@ class Blockade {
 
     }
 
+    /**
+     * Function used to deal with the selection of the wall
+     * @param obj
+     */
     selectingWall(obj) {
         if (obj instanceof Wall) {
             obj.used = true;
@@ -603,6 +699,10 @@ class Blockade {
         }
     }
 
+    /**
+     * Function used to deal with the selection of the first position of the wall
+     * @param obj
+     */
     selectingFirstWallPosition(obj) {
 
         if (obj instanceof Button) {
@@ -620,6 +720,10 @@ class Blockade {
 
     }
 
+    /**
+     * Function used to deal with the selection of the second position of the wall
+     * @param obj
+     */
     selectingSecondWallPosition(obj) {
 
         if (obj instanceof Button) {
@@ -658,7 +762,9 @@ class Blockade {
         }
     }
 
-    // TODO retirar o x e y
+    /**
+     * Gets the new board from prolog after pawn gets moved by user
+     */
     getNewBoard() {
         var this_t = this;
 
@@ -692,6 +798,9 @@ class Blockade {
         });
     }
 
+    /**
+     * Gets the new board from prolog after the walls gets positioned by user
+     */
     getBoardWithNewWalls() {
         var this_t = this;
 
@@ -714,6 +823,10 @@ class Blockade {
             });
     }
 
+    /**
+     * Gets from prolog the pawn and direction to be used by bot
+     * @param difficulty bot difficulty
+     */
     getBotPawnAndDirection(difficulty) {
         var this_t = this;
 
@@ -742,6 +855,9 @@ class Blockade {
         }
     }
 
+    /**
+     * Asking to prolog if bot want to put a wall
+     */
     doesBotWantToPutWalls() {
         var this_t = this;
 
@@ -755,8 +871,22 @@ class Blockade {
         });
     }
 
+    /**
+     * Turning off the server
+     */
+    quitServer() {
+        var this_t = this;
 
+        this.scene.client.getPrologRequest("quit", function(data) {
 
+        }, function(data) {
+            this_t.currentState = this_t.state.CONNECTION_ERROR;
+        });
+    }
+
+    /**
+     * Gets new board with bot walls already on the board
+     */
     getBotNewWallsBoard() {
         var this_t = this;
 
@@ -803,6 +933,9 @@ class Blockade {
         });
     }
 
+    /**
+     * Function to display the game state
+     */
     display() {
         if (this.gameMode == XMLscene.gameMode.BOT_VS_BOT || (this.gameMode == XMLscene.gameMode.PLAYER_VS_BOT && this.player == 2)) {
             this.botHandler();
@@ -847,6 +980,11 @@ class Blockade {
 
     }
 
+    /**
+     * Update function
+     * @param currTime time passed since 1970
+     * @param deltaTime time passed since last update
+     */
     update(currTime, deltaTime) {
 
         if (this.currentState != this.state.CAMERA_ANIMATION) {
@@ -856,7 +994,7 @@ class Blockade {
             if (this.firstTime == -1) {
                 this.lastUpdateTime = currTime;
                 this.firstTime = 1;
-            } else if (this.currentState != this.state.WINNER) {
+            } else if (this.currentState != this.state.WINNER && this.currentState != this.state.WAITING_FOR_START) {
                 this.currentTime = (currTime - this.lastUpdateTime) / 1000;
             }
 
@@ -872,6 +1010,10 @@ class Blockade {
         }
     }
 
+    /**
+     * Gets the time to be displayed on the screen
+     * @param secs Seconds passed to be processed in hours/minuts/seconds format
+     */
     getTime(secs) {
         secs = Math.round(secs);
         var hours = Math.floor(secs / (60 * 60));
@@ -888,6 +1030,14 @@ class Blockade {
 
     }
 
+    /**
+     * Gets the atual score
+     * @param firstWallx
+     * @param firstWallz
+     * @param secondWallx
+     * @param secondWallz
+     * @returns {number}
+     */
     getScore(firstWallx, firstWallz, secondWallx, secondWallz) {
 
         var startPos11 = [4, 1.3, 4];
@@ -924,6 +1074,10 @@ class Blockade {
     }
 
 
+    /**
+     * Initializes the default camera of the game
+     * @returns {CGFcamera}
+     */
     initDefaultCamera() {
         let angle = 0.4;
         let near = 0.1;
@@ -933,6 +1087,10 @@ class Blockade {
         return new CGFcamera(angle, near, far, fromVector, toVector);
     }
 
+    /**
+     * Initializes the bot camera
+     * @returns {CGFcamera}
+     */
     initBotCamera() {
         let angle = 0.4;
         let near = 0.1;

@@ -90,6 +90,16 @@ XMLscene.prototype.startGame = function() {
   this.game.getInitialBoard(1);
 };
 
+XMLscene.prototype.continueGame = function() {
+  if(this.game.gameMode == XMLscene.gameMode.MOVIE){
+    this.game = this.oldGame;
+  }
+}
+
+XMLscene.prototype.turnOffPrologServer = function() {
+  this.game.quitServer();
+}
+
 XMLscene.prototype.setPlayerVsPlayer = function() {
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.PLAYER_VS_PLAYER);
 }
@@ -103,6 +113,7 @@ XMLscene.prototype.setBotVsBot = function() {
 }
 
 XMLscene.prototype.setMovie = function() {
+    this.oldGame = this.game;
     this.game = new Blockade(this, this.graph,XMLscene.gameMode.MOVIE);
 }
 

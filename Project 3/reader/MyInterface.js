@@ -28,7 +28,7 @@ MyInterface.prototype.init = function(application) {
     this.options.open();
     this.gameMode = this.gui.addFolder('Game Mode');
     this.gameMode.close();
-    this.botDifficulty = this.gui.addFolder('Bot difficulty');
+    this.botDifficulty = this.gui.addFolder('Bot Difficulty');
     this.botDifficulty.close();
     this.scenarios = this.gui.addFolder('Scenario');
     this.scenarios.close();
@@ -36,6 +36,14 @@ MyInterface.prototype.init = function(application) {
 
     let menu = {
         startGame: this.scene.startGame.bind(this.scene)
+    };
+
+    let continueGame = {
+        continueGame: this.scene.continueGame.bind(this.scene)
+    };
+
+    let turnOffPrologServer = {
+        turnOffPrologServer: this.scene.turnOffPrologServer.bind(this.scene)
     };
 
 		let playerVsPlayer = {
@@ -76,7 +84,9 @@ MyInterface.prototype.init = function(application) {
 
     this.gui.add(this.scene, 'Speed', 0.1, 2.0);
     this.options.add(menu, 'startGame').name('Start Game');
+    this.options.add(continueGame, 'continueGame').name('Continue Game');
     this.options.add(undo, 'undo').name('Undo');
+    this.options.add(turnOffPrologServer, 'turnOffPrologServer').name('Quit Server');
 		this.gameMode.add(playerVsPlayer, 'setPlayerVsPlayer').name('Player vs Player');
 		this.gameMode.add(playerVsBot, 'setPlayerVsBot').name('Player vs Bot');
 		this.gameMode.add(botVsBot, 'setBotVsBot').name('Bot vs Bot');
