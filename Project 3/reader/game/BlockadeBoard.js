@@ -1,5 +1,0 @@
-class BlockadeBoard {
-    constructor() {
-      
-    }
-}

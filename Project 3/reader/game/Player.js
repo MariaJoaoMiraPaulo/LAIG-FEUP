@@ -1,4 +1,13 @@
+/**
+ * Class Player
+ */
 class Player {
+    /**
+     * Player constructor
+     * @param player player 1 or 2
+     * @param graph graph of the scene
+     * @param scene CGFscene where the component will be displayed
+     */
     constructor(player, graph, scene) {
         this.player = player;
         this.scene = scene;
@@ -45,49 +54,91 @@ class Player {
         this.playerCamera = this.initCamera();
     }
 
+    /**
+     * Initialize the player camera
+     * @returns {CGFcamera}
+     */
     initCamera(){
       return new CGFcamera(this.angle, this.near, this.far, this.fromVector, this.toVector);
     }
 
+    /**
+     * Gets the wall with number number
+     * @param number number wall
+     * @returns the wall
+     */
     getWallNumber(number) {
         return this.walls[number];
     }
 
+    /**
+     * Gets the number of walls
+     * @returns {*}
+     */
     getNumbernumberWalls() {
         return this.numberWalls();
     }
 
+    /**
+     * Sets the number of walls
+     * @param numbernumberWalls
+     */
     setNumbernumberWalls(numbernumberWalls) {
         this.numberWalls = numbernumberWalls;
     }
 
+    /**
+     * Gets the score
+     * @returns score of the player
+     */
     getScore() {
         return this.score;
     }
 
+    /**
+     * Sets the score of the player
+     * @param score
+     */
     setScore(score) {
         this.score += score;
     }
 
+    /**
+     * Gets the pawn 1
+     * @returns obj pawn
+     */
     getPawn1Id() {
         return pawn1;
     }
 
+    /**
+     * Gets the pawn 2
+     * @returns obj pawn
+     */
     getPawn2Id() {
         return pawn2;
     }
 
+    /**
+     * Sets the pawn material
+     */
     setPawnMaterial(){
       this.pawn1.setMaterial();
       this.pawn2.setMaterial();
     }
 
 
+    /**
+     * Sets the wall material
+     */
     setWallsMaterial(){
       for (var i = 0; i < this.numberWalls; i++)
           this.walls[i].setMaterial();
     }
 
+    /**
+     * Display step over button
+     */
     displayStepOverButton() {
         if (this.scene.game.currentState == this.scene.game.state.SELECTING_WALL && this.player == this.scene.game.player && this.button.type == 1) {
             this.scene.registerForPick(100, this.button);
@@ -99,6 +150,9 @@ class Player {
         this.scene.clearPickRegistration();
     }
 
+    /**
+     * Display back button
+     */
     displayBackButton() {
 
         if ((this.scene.game.currentState == this.scene.game.state.SELECTING_PAWN_NEXT_POSITION && this.player == this.scene.game.player) ||
@@ -113,6 +167,10 @@ class Player {
         this.scene.clearPickRegistration();
     }
 
+    /**
+     * Function used to move the pawn to the new position
+     * @param position
+     */
     movePawn(position) {
         var pawnHeight = 0.3;
 
@@ -125,6 +183,9 @@ class Player {
         this.pawn2.setPawnZCoord(position['y2']);
     }
 
+    /**
+     * Moves all the player walls to the start position
+     */
     moveWallsToStartPosition() {
         for (var i = 0; i < this.numberWalls; i++) {
             this.walls[i].setWallXCoord(this.startPositionWall1[0]);
@@ -134,6 +195,9 @@ class Player {
 
     }
 
+    /**
+     * Display the player walls
+     */
     displayWalls() {
 
         if (typeof this.scene.game != "undefined") {
@@ -142,7 +206,6 @@ class Player {
             } else this.selectableWall = false;
         }
 
-        //TODO: id???
         for (var i = 0; i < this.numberWalls; i++) {
             if (this.selectableWall && !this.walls[i].used)
                 this.scene.registerForPick(i + 10, this.walls[i]);
@@ -153,6 +216,11 @@ class Player {
 
     }
 
+    /**
+     * Verify if the position of the pawn is valid
+     * @param id number of the pawn
+     * @returns pawn position
+     */
     validPawnPosition(id) {
         var string = "player" + this.player + id;
         var index = this.scene.game.returnPrologBoardAtom(string);
@@ -169,6 +237,9 @@ class Player {
         return [z, x];
     }
 
+    /**
+     * Display user pawns
+     */
     displayPawns() {
 
         if (typeof this.scene.game != "undefined") {
@@ -177,7 +248,6 @@ class Player {
             } else this.selectablePawn = false;
         }
 
-        //TODO: id??
         if (this.selectablePawn) {
             this.scene.registerForPick(12, this.pawn1);
         }
@@ -195,11 +265,19 @@ class Player {
         this.scene.clearPickRegistration();
     }
 
+    /**
+     * Updates user variables
+     * @param currTime
+     */
     update(currTime) {
         this.pawn1.update(currTime);
         this.pawn2.update(currTime);
     }
 
+    /**
+     * Gets a non used wall
+     * @returns a non used wall
+     */
     getANonUsedWall() {
         for (var i = 0; i < this.walls.length; i++) {
             if (!this.walls[i].used) {
