@@ -81,5 +81,4 @@ class Transformation {
       var coords = this.sceneGraph.getCoordinates(elem);
       this.scene.scale(coords[0].x,coords[0].y,coords[0].z);
     }
-
 }

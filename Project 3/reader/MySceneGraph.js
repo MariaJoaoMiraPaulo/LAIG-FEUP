@@ -154,6 +154,15 @@ MySceneGraph.prototype.parsePrimitives = function(primitivesElems) {
             case 'car':
                 this.readingCar(newElement, idPrimitive);
                 break;
+            case 'cube':
+                this.readingCube(newElement, idPrimitive);
+                break;
+            case 'board':
+                this.readingBoard(newElement, idPrimitive);
+                break;
+            case 'pawn':
+                this.readingPawn(newElement, idPrimitive);
+                break;
         }
     }
 };
@@ -438,7 +447,7 @@ MySceneGraph.prototype.parseComponents = function(componentElems) {
     for (let component of componentElems[0].children) {
         let id = this.reader.getString(component, 'id');
 
-        this.components[id] = new Component(this.scene, this.reader, component, this);
+        this.components[id] = new Component(this.scene, this.reader, component, this,id);
 
     }
 
@@ -563,7 +572,8 @@ MySceneGraph.prototype.createCamera = function(newElement) {
     var coordsFrom = this.getCoordinates(newElement.getElementsByTagName('from')[0]);
     var coordsTo = this.getCoordinates(newElement.getElementsByTagName('to')[0]);
 
-    var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x, coordsFrom[0].y, coordsFrom[0].z), vec3.fromValues(coordsTo[0].x, coordsTo[0].y, coordsTo[0].y));
+    var newCamera = new CGFcamera(angleElem, nearElem, farElem, vec3.fromValues(coordsFrom[0].x, coordsFrom[0].y, coordsFrom[0].z), vec3.fromValues(coordsTo[0].x, coordsTo[0].y, coordsTo[0].z));
+
     return newCamera;
 }
 
@@ -759,4 +769,59 @@ MySceneGraph.prototype.readingChessboardColor = function(colorElement) {
 
 MySceneGraph.prototype.readingCar = function(newElement, idPrimitive) {
     this.primitives[idPrimitive] = new Car(this.scene, this.reader);
+}
+
+MySceneGraph.prototype.readingCube = function(newElement, idPrimitive) {
+    this.primitives[idPrimitive] = new Cube(this.scene, this.reader);
+}
+
+MySceneGraph.prototype.readingBoard = function(newElement, idPrimitive) {
+    dimX = this.reader.getInteger(newElement,'dimX');
+    dimZ = this.reader.getInteger(newElement,'dimZ');
+    this.primitives[idPrimitive] = new Board(this.scene, this.reader,dimX,dimZ);
+}
+
+MySceneGraph.prototype.readingPawn = function(newElement, idPrimitive) {
+    player = this.reader.getInteger(newElement,'player');
+    this.primitives[idPrimitive] = new Pawn(this.scene, this.reader,player);
+}
+
+MySceneGraph.prototype.getTransformationMatrix = function(transformations){
+  this.scene.pushMatrix();
+  this.scene.loadIdentity();
+
+  var numberTransformations = transformations.length;
+
+  var i=0;
+  for(i; i<numberTransformations; i++){
+    switch (transformations[i][0]) {
+        case 'translate':
+            var x = transformations[i][1];
+            var y = transformations[i][2];
+            var z = transformations[i][3];
+            this.scene.translate(x,y,z);
+            break;
+        case 'rotate':
+            var angulo = transformations[i][1];
+            var x = transformations[i][2];
+            var y = transformations[i][3];
+            var z = transformations[i][4];
+            this.scene.rotate(angulo,x,y,z);
+            break;
+        case 'scale':
+            var x = transformations[i][1];
+            var y = transformations[i][2];
+            var z = transformations[i][3];
+            this.scene.scale(x,y,z);
+            break;
+        default:
+
+    }
+
+  }
+
+  matrix = this.scene.getMatrix();
+  this.scene.popMatrix();
+
+  return matrix;
 }
